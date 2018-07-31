@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 25
     defaultConfig {
-        applicationId "com.rilixtech.test"
+        applicationId "eu.quelltext.mundraub"
         minSdkVersion 9
         targetSdkVersion 25
         versionCode 1

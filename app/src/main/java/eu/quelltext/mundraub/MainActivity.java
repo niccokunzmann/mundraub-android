@@ -1,7 +1,9 @@
-package com.example.test;
+package eu.quelltext.mundraub;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import eu.quelltext.mundraub.R;
 
 public class MainActivity extends AppCompatActivity {
 

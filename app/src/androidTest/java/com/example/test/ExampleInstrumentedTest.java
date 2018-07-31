@@ -19,6 +19,6 @@ import static org.junit.Assert.*;
     // Context of the app under test.
     Context appContext = InstrumentationRegistry.getTargetContext();
 
-    assertEquals("com.rilixtech.test", appContext.getPackageName());
+    assertEquals("eu.quelltext.mundraub", appContext.getPackageName());
   }
 }
