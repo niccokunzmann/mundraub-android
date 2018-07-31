@@ -1,3 +1,9 @@
 <resources>
-  <string name="app_name">Test</string>
+    <string name="app_name" translatable="false">Mundraub</string>
+    <string name="add_new_plant">Add a new plant</string>
+    <string name="add_new_plant_heading">Please add more information about your plant ...</string>
+    <string name="choose_plant_type">Choose a type of plant!</string>
+    <string name="count">Count</string>
+    <string name="description">Description</string>
+    <string name="position">Position</string>
 </resources>

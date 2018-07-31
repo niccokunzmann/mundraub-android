@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="eu.quelltext.mundraub.MainActivity"
-    >
+    tools:context="eu.quelltext.mundraub.MainActivity">
 
-  <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Hello World!"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintLeft_toLeftOf="parent"
-      app:layout_constraintRight_toRightOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      tools:layout_editor_absoluteX="8dp"
+      tools:layout_editor_absoluteY="8dp">
 
+    <Button
+        android:id="@+id/button_add_new_plant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_new_plant"
+        tools:layout_editor_absoluteX="67dp"
+        tools:layout_editor_absoluteY="53dp" />
+
+    <ListView
+        android:id="@+id/plants"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+  </LinearLayout>
 </android.support.constraint.ConstraintLayout>

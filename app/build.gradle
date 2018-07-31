@@ -27,4 +27,5 @@ dependencies {
     // this is the last support test for api >= 9
     androidTestImplementation 'com.android.support.test:runner:1.0.0'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.0'
+    implementation 'com.android.support:recyclerview-v7:25.4.0'
 }
