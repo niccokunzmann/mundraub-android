@@ -6,4 +6,6 @@
     <string name="count">Count</string>
     <string name="description">Description</string>
     <string name="position">Position</string>
+    <string name="title_plant_list">Plants</string>
+    <string name="title_plant_detail">Plant Detail</string>
 </resources>
