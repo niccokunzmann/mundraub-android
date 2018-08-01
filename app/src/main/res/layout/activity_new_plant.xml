@@ -19,7 +19,7 @@
             tools:text="@string/add_new_plant_heading" />
 
         <Button
-            android:id="@+id/plant_type"
+            android:id="@+id/button_plant_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/choose_plant_type" />

@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/button_choose_plant_type"
+        style="@android:style/Widget.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:width="@android:dimen/app_icon_size"
+        android:height="@android:dimen/app_icon_size"
+        android:text="@android:string/ok" />
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="14sp"
+        android:text=""
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textStyle="bold" />
+</LinearLayout>

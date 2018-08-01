@@ -9,8 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".NewPlantActivity" />
         <activity
             android:name=".PlantListActivity"
@@ -31,6 +30,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eu.quelltext.mundraub.PlantListActivity" />
         </activity>
+        <activity
+            android:name=".ChoosePlantType"
+            android:label="@string/title_activity_choose_plant_type"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
