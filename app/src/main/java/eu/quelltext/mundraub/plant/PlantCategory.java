@@ -1,12 +1,7 @@
 package eu.quelltext.mundraub.plant;
 
-import android.content.Intent;
-import android.util.Log;
-
-import java.io.Console;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import eu.quelltext.mundraub.R;
@@ -131,6 +126,14 @@ public class PlantCategory {
     }
 
     public static PlantCategory fromIntent(android.content.Intent intent) {
-        return idToPlantCategory.get(intent.getStringExtra(INTENT_FIELD));
+        return withId(intent.getStringExtra(INTENT_FIELD));
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public static PlantCategory withId(String id) {
+        return idToPlantCategory.get(id);
     }
 }

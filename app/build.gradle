@@ -30,4 +30,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.0'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.0'
     implementation 'com.android.support:recyclerview-v7:25.4.0'
+    implementation "commons-io:commons-io:+" // from https://stackoverflow.com/a/23810852/1320237
 }

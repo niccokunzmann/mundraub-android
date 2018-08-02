@@ -32,8 +32,6 @@ public class NewPlantActivity extends AppCompatActivity {
     private Button buttonSave;
     private Button buttonCancel;
     private NewPlantActivity me = this;
-    private PlantCategory plantCategory;
-    private Location location;
     private TextView textPosition;
     private TextView textDescription;
     private ImageView plantImage;
@@ -111,6 +109,26 @@ public class NewPlantActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadViewFromPlant();
+    }
+
+    private void loadViewFromPlant() {
+        if (plant.hasCategory()) {
+            buttonPlantType.setText(plant.getCategory().getResourceId());
+        }
+        numberOfPlants.setText(Integer.toString(plant.getCount()));
+        textDescription.setText(plant.getDescription());
+        if (plant.hasPosition()) {
+            textPosition.setText(
+                    Double.toString(plant.getLongitude()) +
+                            " , " +
+                            Double.toString(plant.getLatitude()));
+        }
+    }
+
     private void setLocation() {
         // from https://stackoverflow.com/a/10917500
         LocationManager locationManager = (LocationManager)
@@ -152,11 +170,8 @@ public class NewPlantActivity extends AppCompatActivity {
     }
 
     private void setLocation(Location location) {
-        this.location = location;
-        textPosition.setText(
-                Double.toString(location.getLongitude()) +
-                        " , " +
-                Double.toString(location.getLatitude()));
+        plant.setLocation(location);
+        loadViewFromPlant();
     }
 
     // This method is called when the second activity finishes
@@ -174,8 +189,8 @@ public class NewPlantActivity extends AppCompatActivity {
     }
 
     public void setPlantCategory(PlantCategory plantCategory) {
-        this.plantCategory = plantCategory;
+        this.plant.setCategory(plantCategory);
         Log.d("NewPlantActivity", "Set plant category to " + plantCategory.toString());
-        this.buttonPlantType.setText(plantCategory.getResourceId());
+        loadViewFromPlant();
     }
 }
