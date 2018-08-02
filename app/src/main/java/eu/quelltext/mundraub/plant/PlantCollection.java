@@ -32,4 +32,8 @@ public class PlantCollection {
     public void save(Plant plant) {
         idToPlant.put(plant.getId(), plant);
     }
+
+    public void delete(Plant plant) {
+        idToPlant.remove(plant.getId());
+    }
 }

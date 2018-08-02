@@ -55,6 +55,7 @@ public class Plant {
     }
 
     public void delete() {
+        collection.delete(this);
     }
 
     public void setDescription(String description) {
