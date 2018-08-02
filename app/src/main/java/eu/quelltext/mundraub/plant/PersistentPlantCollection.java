@@ -3,16 +3,16 @@ package eu.quelltext.mundraub.plant;
 import android.os.Environment;
 import android.util.Log;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class PersistentPlantCollection extends PlantCollection {
 
@@ -26,7 +26,6 @@ public class PersistentPlantCollection extends PlantCollection {
         if (!directory.exists()) {
             directory.mkdirs();
         }
-        Log.d("DEBUG", "Plants are saved and loaded from " + directory.toString());
         return directory;
     }
 
@@ -35,6 +34,7 @@ public class PersistentPlantCollection extends PlantCollection {
         if (!directory.exists()) {
             directory.mkdirs();
         }
+        Log.d("DEBUG", "Plant at " + directory.toString());
         return directory;
     }
 
@@ -47,25 +47,36 @@ public class PersistentPlantCollection extends PlantCollection {
         File directory = persistentDirectory();
         // from https://stackoverflow.com/questions/8646984/how-to-list-files-in-an-android-directory#8647397
         File[] files = directory.listFiles();
-        for (File file : files) {
-            File dataFile = new File(file, JSON_FILE);
+        for (File plantDirectory : files) {
+            File file = new File(plantDirectory, JSON_FILE);
             if (!file.isFile()) {
-                Log.d("LOADING PLANTS", "File " + file.toString() + "can not be used to load a plant.");
+                Log.d("LOADING PLANTS", "File " + file.toString() + " can not be used to load a plant.");
                 continue;
             }
 
             try {
-                FileInputStream is = new FileInputStream(file);
-                String jsonTxt = IOUtils.toString(is, "UTF-8");
-                JSONObject json = new JSONObject(jsonTxt);
+                BufferedReader in = new BufferedReader (new InputStreamReader(new FileInputStream(file), "UTF-8"));
+                StringBuilder jsonTxt = new StringBuilder();
+                while (true) {
+                    String s = in.readLine();
+                    if (s == null || s.isEmpty()) {
+                        break;
+                    }
+                    jsonTxt.append(s);
+                }
+                JSONObject json = new JSONObject(jsonTxt.toString());
                 Plant plant = new Plant(this, json);
                 plant.save();
+                Log.d("LOADING PLANTS", "File " + file.toString() + " loaded.");
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
+                Log.d("LOADING PLANTS", "File " + file.toString() + " not found.");
             } catch (JSONException e) {
                 e.printStackTrace();
+                Log.d("LOADING PLANTS", "File " + file.toString() + " is invalid JSON.");
             } catch (IOException e) {
                 e.printStackTrace();
+                Log.d("LOADING PLANTS", "An error occurred while processing " + file.toString() + ".");
             }
 
         }
@@ -99,13 +110,18 @@ public class PersistentPlantCollection extends PlantCollection {
 
     public void delete(Plant plant) {
         super.delete(plant);
-        try {
-            // from https://stackoverflow.com/a/23678498/1320237
-            FileUtils.deleteDirectory(directoryForPlant(plant));
-        } catch (IOException e) {
-            e.printStackTrace();
-            // TODO: add to logs
-            return;
+        deleteDir(directoryForPlant(plant));
+
+    }
+
+    private static void deleteDir(File file) {
+        // from https://stackoverflow.com/a/29175213/1320237
+        File[] contents = file.listFiles();
+        if (contents != null) {
+            for (File f : contents) {
+                deleteDir(f);
+            }
         }
+        file.delete();
     }
 }
