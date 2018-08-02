@@ -22,7 +22,8 @@ public class PlantCollection {
 
     public String newId() {
         // from https://stackoverflow.com/a/6953926
-        return DateFormat.format("yyyy-MM-dd_HH.mm.ss", Calendar.getInstance().getTime()).toString();
+        // from https://stackoverflow.com/a/24423756/1320237
+        return DateFormat.format("yyyy-MM-dd-kk-mm-ss", Calendar.getInstance().getTime()).toString();
     }
 
     public Plant withId(String id) {
