@@ -108,7 +108,8 @@ public class PlantCategory {
         this.resourceId = resourceId;
     }
 
-    public String getTitle() {
+    @Override
+    public String toString() {
         // TODO: return a translatable R.id
         return this.id;
     }

@@ -70,22 +70,22 @@ public class PlantListActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, Plant.ITEMS, mTwoPane));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, Plant.all(), mTwoPane));
     }
 
     public static class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
         private final PlantListActivity mParentActivity;
-        private final List<Plant.DummyItem> mValues;
+        private final List<Plant> mValues;
         private final boolean mTwoPane;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Plant.DummyItem item = (Plant.DummyItem) view.getTag();
+                Plant item = (Plant) view.getTag();
                 if (mTwoPane) {
                     Bundle arguments = new Bundle();
-                    arguments.putString(PlantDetailFragment.ARG_ITEM_ID, item.id);
+                    arguments.putString(PlantDetailFragment.ARG_ITEM_ID, item.getId());
                     PlantDetailFragment fragment = new PlantDetailFragment();
                     fragment.setArguments(arguments);
                     mParentActivity.getSupportFragmentManager().beginTransaction()
@@ -94,7 +94,7 @@ public class PlantListActivity extends AppCompatActivity {
                 } else {
                     Context context = view.getContext();
                     Intent intent = new Intent(context, PlantDetailActivity.class);
-                    intent.putExtra(PlantDetailFragment.ARG_ITEM_ID, item.id);
+                    intent.putExtra(PlantDetailFragment.ARG_ITEM_ID, item.getId());
 
                     context.startActivity(intent);
                 }
@@ -102,7 +102,7 @@ public class PlantListActivity extends AppCompatActivity {
         };
 
         SimpleItemRecyclerViewAdapter(PlantListActivity parent,
-                                      List<Plant.DummyItem> items,
+                                      List<Plant> items,
                                       boolean twoPane) {
             mValues = items;
             mParentActivity = parent;
@@ -118,10 +118,11 @@ public class PlantListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mIdView.setText(mValues.get(position).id);
-            holder.mContentView.setText(mValues.get(position).content);
+            Plant plant = mValues.get(position);
+            holder.mIdView.setText(plant.getId());
+            holder.mContentView.setText(plant.getContent());
 
-            holder.itemView.setTag(mValues.get(position));
+            holder.itemView.setTag(plant);
             holder.itemView.setOnClickListener(mOnClickListener);
         }
 

@@ -27,7 +27,7 @@ public class PlantDetailFragment extends Fragment {
     /**
      * The dummy content this fragment is presenting.
      */
-    private Plant.DummyItem mItem;
+    private Plant mItem;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -44,12 +44,13 @@ public class PlantDetailFragment extends Fragment {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-            mItem = Plant.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+            String id = getArguments().getString(ARG_ITEM_ID);
+            mItem = Plant.withId(id);
 
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.content);
+                appBarLayout.setTitle(mItem.getContent());
             }
         }
     }
@@ -61,7 +62,7 @@ public class PlantDetailFragment extends Fragment {
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.plant_detail)).setText(mItem.details);
+            ((TextView) rootView.findViewById(R.id.plant_detail)).setText(mItem.getDetails());
         }
 
         return rootView;

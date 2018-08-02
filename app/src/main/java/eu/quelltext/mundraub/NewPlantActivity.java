@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -17,9 +16,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.io.File;
-import java.io.IOException;
 
 import eu.quelltext.mundraub.plant.PlantCategory;
 
@@ -129,7 +125,7 @@ public class NewPlantActivity extends AppCompatActivity {
 
     public void setPlantCategory(PlantCategory plantCategory) {
         this.plantCategory = plantCategory;
-        Log.d("NewPlantActivity", "Set plant category to " + plantCategory.getTitle());
+        Log.d("NewPlantActivity", "Set plant category to " + plantCategory.toString());
         this.buttonPlantType.setText(plantCategory.getResourceId());
     }
 }
