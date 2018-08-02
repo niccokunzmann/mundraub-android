@@ -34,6 +34,7 @@ public class PlantListActivity extends AppCompatActivity {
      */
     private boolean mTwoPane;
     private PlantListActivity me = this;
+    View recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +65,11 @@ public class PlantListActivity extends AppCompatActivity {
             mTwoPane = true;
         }
 
-        View recyclerView = findViewById(R.id.plant_list);
+        recyclerView = findViewById(R.id.plant_list);
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
     }

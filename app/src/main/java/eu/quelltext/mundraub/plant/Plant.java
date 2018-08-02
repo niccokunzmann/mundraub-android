@@ -1,12 +1,7 @@
 package eu.quelltext.mundraub.plant;
 
-import android.text.format.DateFormat;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Calendar;
+
 
 /**
  * Helper class for providing sample content for user interfaces created by
@@ -16,29 +11,14 @@ import java.util.Calendar;
  */
 public class Plant {
 
+    private static final PlantCollection plants = new PlantCollection();
+
     public static List<Plant> all() {
-        return new ArrayList<Plant>(idToPlant.values());
-    }
-
-    private static final Map<String, Plant> idToPlant = new HashMap<String, Plant>();
-
-
-    static {
-    }
-
-    private static void addPlant(Plant plant) {
-        idToPlant.put(plant.getId(), plant);
-        plant.save();
-    }
-
-
-    private static String newId() {
-        // from https://stackoverflow.com/a/6953926
-        return DateFormat.format("yyyy-MM-dd_HH.mm.ss", Calendar.getInstance().getTime()).toString();
+        return plants.all();
     }
 
     public static Plant withId(String id) {
-        return idToPlant.get(id);
+        return plants.withId(id);
     }
 
     // instance
@@ -49,15 +29,16 @@ public class Plant {
     private int count;
     private double longitude;
     private double latitude;
-
+    private final PlantCollection collection;
 
     public Plant() {
-        id = newId();
-        addPlant(this);
+        this.id = plants.newId();
+        this.collection = plants;
+        save();
     }
 
-    private void save() {
-
+    public void save() {
+        this.collection.save(this);
     }
 
     public String getId() {
@@ -71,5 +52,18 @@ public class Plant {
 
     public String getDetails() {
         return "Test Details String for Plant " + getId();
+    }
+
+    public void delete() {
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+        save();
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+        save();
     }
 }
