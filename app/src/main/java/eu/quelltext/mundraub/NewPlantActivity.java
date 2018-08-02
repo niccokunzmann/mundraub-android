@@ -44,6 +44,7 @@ public class NewPlantActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_plant);
 
         plant = new Plant();
+        plant.save();
 
         buttonPlantType = (Button) findViewById(R.id.button_plant_type);
         buttonSave = (Button) findViewById(R.id.button_save);

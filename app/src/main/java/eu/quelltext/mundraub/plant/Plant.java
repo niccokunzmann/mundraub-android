@@ -45,7 +45,6 @@ public class Plant {
     public Plant() {
         this.id = plants.newId();
         this.collection = plants;
-        save();
     }
 
     public void save() {
@@ -94,6 +93,15 @@ public class Plant {
         return json;
     }
 
+    public Plant(PlantCollection collection, JSONObject json) throws JSONException {
+        this.collection = collection;
+        id = json.getString(JSON_ID);
+        longitude = json.getDouble(JSON_LONGITUDE);
+        latitude = json.getDouble(JSON_LATITUDE);
+        count = json.getInt(JSON_COUNT);
+        description = json.getString(JSON_DESCRIPTION);
+    }
+
     public PlantCategory getCategory() {
         return category;
     }
@@ -132,4 +140,6 @@ public class Plant {
         this.category = category;
         save();
     }
+
+
 }
