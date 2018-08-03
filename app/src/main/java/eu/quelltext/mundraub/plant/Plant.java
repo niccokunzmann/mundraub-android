@@ -45,13 +45,13 @@ public class Plant {
     // instance
 
     private final String id;
-    private PlantCategory category;
-    private String description;
-    private int count;
-    private double longitude;
-    private double latitude;
+    private PlantCategory category = null;
+    private String description = "";
+    private int count = 1;
+    private double longitude = 0;
+    private double latitude = 0;
     private final PlantCollection collection;
-    private File picture;
+    private File picture = null;
 
     public Plant() {
         this.id = plants.newId();
