@@ -52,7 +52,6 @@ public class NewPlantActivity extends AppCompatActivity {
         plant = new Plant();
         plant.save();
 
-
         buttonPlantType = (Button) findViewById(R.id.button_plant_type);
         buttonSave = (Button) findViewById(R.id.button_save);
         buttonCancel = (Button) findViewById(R.id.button_cancel);

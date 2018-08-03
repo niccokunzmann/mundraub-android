@@ -202,10 +202,13 @@ public class Plant {
         imageView.setImageDrawable(resource);
     }
 
-    public void movePictureTo(File file) {
-        picture.renameTo(file);
-        Log.d("PICTURE", "Moved picture from " + picture.toString() + " to " + file.toString());
-        picture = file;
-        save();
+    public boolean movePictureTo(File file) {
+        if (picture.renameTo(file)) {
+            Log.d("PICTURE", "Moved picture from " + picture.toString() + " to " + file.toString());
+            picture = file;
+            save();
+            return true;
+        }
+        return false;
     }
 }
