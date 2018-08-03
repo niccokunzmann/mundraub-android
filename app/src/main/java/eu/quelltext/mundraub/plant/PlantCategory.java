@@ -1,7 +1,9 @@
 package eu.quelltext.mundraub.plant;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import eu.quelltext.mundraub.R;
@@ -13,17 +15,20 @@ public class PlantCategory {
     private final String id;
     private static final String INTENT_FIELD = "PlantCategory";
 
+    public static final PlantCategory NULL = new NullCategory();
     private static Map<String, PlantCategory> idToPlantCategory = new HashMap<>();
     private static Map<Integer, PlantCategory> fieldToPlantCategory = new HashMap<>();
+    private static List<PlantCategory> sortedCategories = new ArrayList<PlantCategory>();
 
     private static void addCategory(int fieldForAPI, String id, int resourceId) {
         PlantCategory category = new PlantCategory(id, fieldForAPI, resourceId);
         idToPlantCategory.put(id, category);
         fieldToPlantCategory.put(fieldForAPI, category);
+        sortedCategories.add(category);
     }
 
     public static Collection<PlantCategory> all() {
-        return idToPlantCategory.values();
+        return new ArrayList<PlantCategory>(sortedCategories);
     }
 
     static {
@@ -134,6 +139,17 @@ public class PlantCategory {
     }
 
     public static PlantCategory withId(String id) {
+        if (id == null) {
+            return NULL;
+        }
         return idToPlantCategory.get(id);
     }
+
+    public static class NullCategory extends PlantCategory {
+
+        NullCategory() {
+            super(null, -1, R.string.unknown_plant);
+        }
+    }
+
 }
