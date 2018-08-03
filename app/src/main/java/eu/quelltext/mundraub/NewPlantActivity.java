@@ -113,7 +113,10 @@ public class NewPlantActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) { }
             @Override
             public void afterTextChanged(Editable s) {
-                plant.setCount(Integer.parseInt(numberOfPlants.getText().toString()));
+                String text = numberOfPlants.getText().toString();
+                if (!text.isEmpty()) {
+                    plant.setCount(Integer.parseInt(text));
+                }
             }
         });
     }
