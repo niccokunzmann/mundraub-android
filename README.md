@@ -1,5 +1,5 @@
-Maundraub-Android
-=================
+Mundraub-Android
+================
 
 This is the Android app for [Mundraub.org] which allows you to store the found
 plants on the phone and upload them when an Internet connection is available.
