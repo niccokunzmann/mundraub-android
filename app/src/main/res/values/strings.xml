@@ -5,7 +5,7 @@
     <string name="choose_plant_type">Choose a type of plant!</string>
     <string name="count">Count</string>
     <string name="description">Description</string>
-    <string name="position">Position</string>
+    <string name="position">Position:</string>
     <string name="title_plant_list">Plants</string>
     <string name="title_plant_detail">Plant Detail</string>
     <string name="title_activity_choose_plant_type">ChoosePlantType</string>
@@ -45,4 +45,6 @@
     <string name="other_nut">other nut</string>
     <string name="unknown_plant">unknown plant</string>
     <string name="delete">delete</string>
+    <string name="longitude">Longitude:</string>
+    <string name="latitude">Latitude:</string>
 </resources>

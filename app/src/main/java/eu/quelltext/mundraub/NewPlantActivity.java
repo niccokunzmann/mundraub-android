@@ -139,7 +139,7 @@ public class NewPlantActivity extends AppCompatActivity {
                             " , " +
                             Double.toString(plant.getLatitude()));
         }
-        plant.setImage(plantImage);
+        plant.setImageOf(plantImage);
     }
 
     private void setLocation() {

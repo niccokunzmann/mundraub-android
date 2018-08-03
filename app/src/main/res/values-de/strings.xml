@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Mundraub</string>
+    <string name="count">Anzahl</string>
+    <string name="description">Beschreibung</string>
+    <string name="position">Position</string>
+    <string name="title_plant_list">Pflanzen</string>
+    <string name="title_plant_detail">Pflanzenbeschreibung</string>
 </resources>

@@ -67,12 +67,8 @@ public class Plant {
     }
 
 
-    public String getContent() {
-        return "Test Content for Plant " + getId();
-    }
-
-    public String getDetails() {
-        return "Test Details String for Plant " + getId();
+    public String getDetailsTitle() {
+        return getId();
     }
 
     public void delete() {
@@ -188,14 +184,17 @@ public class Plant {
         return MediaStore.Images.Media.getBitmap(context.getContentResolver(), getPictureUri());
     }
 
-    public void setImage(ImageView imageView) {
+    public void setImageOf(ImageView imageView) {
         Context context = imageView.getContext();
         if (hasPicture()) {
             // from https://stackoverflow.com/a/3193445/1320237
             //Bitmap bitmap = BitmapFactory.decodeFile(plant.getPicture().getAbsolutePath());
             try {
-                imageView.setImageBitmap(getBitmap(context));
-                return;
+                Bitmap bitmap = getBitmap(context);
+                if (bitmap != null) {
+                    imageView.setImageBitmap(bitmap);
+                    return;
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
