@@ -1,10 +1,19 @@
 package eu.quelltext.mundraub.plant;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.widget.ImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -23,6 +32,7 @@ public class Plant {
     private static final String JSON_DESCRIPTION = "description";
     private static final String JSON_ID = "id";
     private static final String JSON_CATEGORY = "category";
+    private static final String JSON_PICTURE = "picture";
 
     public static List<Plant> all() {
         return plants.all();
@@ -41,6 +51,7 @@ public class Plant {
     private double longitude;
     private double latitude;
     private final PlantCollection collection;
+    private File picture;
 
     public Plant() {
         this.id = plants.newId();
@@ -90,6 +101,11 @@ public class Plant {
         } else {
             json.put(JSON_CATEGORY, null);
         }
+        if (hasPicture()) {
+            json.put(JSON_PICTURE, picture.toString());
+        }else {
+            json.put(JSON_PICTURE, null);
+        }
         return json;
     }
 
@@ -100,6 +116,10 @@ public class Plant {
         latitude = json.getDouble(JSON_LATITUDE);
         count = json.getInt(JSON_COUNT);
         description = json.getString(JSON_DESCRIPTION);
+        String picturePath = json.getString(JSON_PICTURE);
+        if (picturePath != null) {
+            picture = new File(picturePath);
+        }
     }
 
     public PlantCategory getCategory() {
@@ -141,5 +161,51 @@ public class Plant {
         save();
     }
 
+    public void setPicture(File picture) {
+        this.picture = picture;
+        save();
+    }
 
+    public boolean hasPicture() {
+        return picture != null && picture.isFile();
+    }
+
+    public File getPicture() {
+        return picture;
+    }
+
+    private Uri getPictureUri() {
+        return Uri.fromFile(getPicture()); // NullPointer? Use hasPicture() first!
+    }
+
+    private Bitmap getBitmap(Context context) throws IOException {
+        // from https://stackoverflow.com/a/31930502/1320237
+        return MediaStore.Images.Media.getBitmap(context.getContentResolver(), getPictureUri());
+    }
+
+    public void setImage(ImageView imageView) {
+        Context context = imageView.getContext();
+        if (hasPicture()) {
+            // from https://stackoverflow.com/a/3193445/1320237
+            //Bitmap bitmap = BitmapFactory.decodeFile(plant.getPicture().getAbsolutePath());
+            try {
+                imageView.setImageBitmap(getBitmap(context));
+                return;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        // from https://stackoverflow.com/a/11737758/1320237
+        String uri = "@android:drawable/ic_menu_gallery";
+        int imageResource = context.getResources().getIdentifier(uri, null, context.getPackageName());
+        Drawable resource = context.getResources().getDrawable(imageResource);
+        imageView.setImageDrawable(resource);
+    }
+
+    public void movePictureTo(File file) {
+        picture.renameTo(file);
+        Log.d("PICTURE", "Moved picture from " + picture.toString() + " to " + file.toString());
+        picture = file;
+        save();
+    }
 }

@@ -18,6 +18,7 @@ public class PersistentPlantCollection extends PlantCollection {
 
     private static final String STORAGE_DIRECTORY_NAME = "eu.quelltext.mundraub";
     private static final String JSON_FILE = "plant-json.txt";
+    private static final String PICTURE_FILE = "plant.jpg";
 
     private final File persistentDirectory() {
         // from https://stackoverflow.com/questions/7887078/android-saving-file-to-external-storage#7887114
@@ -85,6 +86,9 @@ public class PersistentPlantCollection extends PlantCollection {
     private File dataFileForPlant(Plant plant) {
         return new File(directoryForPlant(plant), JSON_FILE);
     }
+    private File pictureForPlant(Plant plant) {
+        return new File(directoryForPlant(plant), PICTURE_FILE);
+    }
 
     public void save(Plant plant) {
         // https://stackoverflow.com/a/20117216/1320237
@@ -104,6 +108,10 @@ public class PersistentPlantCollection extends PlantCollection {
         } catch (IOException e) {
             e.printStackTrace();
             return;
+        }
+        File expectedPicutureLocation = pictureForPlant(plant);
+        if (plant.hasPicture() && !plant.getPicture().equals(expectedPicutureLocation)) {
+            plant.movePictureTo(expectedPicutureLocation);
         }
         super.save(plant);
     }

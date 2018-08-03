@@ -4,13 +4,14 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -19,6 +20,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import eu.quelltext.mundraub.plant.Plant;
 import eu.quelltext.mundraub.plant.PlantCategory;
@@ -46,6 +52,7 @@ public class NewPlantActivity extends AppCompatActivity {
         plant = new Plant();
         plant.save();
 
+
         buttonPlantType = (Button) findViewById(R.id.button_plant_type);
         buttonSave = (Button) findViewById(R.id.button_save);
         buttonCancel = (Button) findViewById(R.id.button_cancel);
@@ -67,7 +74,9 @@ public class NewPlantActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // from https://stackoverflow.com/a/14421798
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                // cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+                // crash? https://stackoverflow.com/questions/1910608/android-action-image-capture-intent
+                // from https://stackoverflow.com/a/6485850/1320237
+                //cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, savedPicture.toURI());
                 startActivityForResult(cameraIntent, INTENT_CODE_TAKE_PHOTO);
             }
         });
@@ -128,6 +137,7 @@ public class NewPlantActivity extends AppCompatActivity {
                             " , " +
                             Double.toString(plant.getLatitude()));
         }
+        plant.setImage(plantImage);
     }
 
     private void setLocation() {
@@ -185,7 +195,24 @@ public class NewPlantActivity extends AppCompatActivity {
             this.setPlantCategory(PlantCategory.fromIntent(intent));
         }
         if (requestCode == INTENT_CODE_TAKE_PHOTO && resultCode == RESULT_OK) {
-            Log.d("CameraDemo", "Pic saved");
+
+            Bitmap photo = (Bitmap) intent.getExtras().get("data");
+            //plantImage.setImageBitmap(photo);
+            try {
+                // from https://stackoverflow.com/a/28720264/1320237
+                File savedPicture = File.createTempFile("plant", ".jpg", getExternalCacheDir());
+                Log.d("CameraDemo", "photo " + photo + " to " + savedPicture);
+                FileOutputStream fos = new FileOutputStream(savedPicture);
+                photo.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                fos.flush();
+                fos.close();
+                plant.setPicture(savedPicture);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            loadViewFromPlant();
         }
     }
 
