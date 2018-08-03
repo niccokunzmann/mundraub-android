@@ -43,4 +43,6 @@
     <string name="wild_strawberry">wild strawberry</string>
     <string name="walnut">walnut</string>
     <string name="other_nut">other nut</string>
+    <string name="unknown_plant">unknown plant</string>
+    <string name="delete">delete</string>
 </resources>

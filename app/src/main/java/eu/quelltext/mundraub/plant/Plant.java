@@ -45,7 +45,7 @@ public class Plant {
     // instance
 
     private final String id;
-    private PlantCategory category = null;
+    private PlantCategory category = PlantCategory.NULL;
     private String description = "";
     private int count = 1;
     private double longitude = 0;
@@ -116,6 +116,11 @@ public class Plant {
         latitude = json.getDouble(JSON_LATITUDE);
         count = json.getInt(JSON_COUNT);
         description = json.getString(JSON_DESCRIPTION);
+        if (json.has(JSON_CATEGORY)) {
+            category = PlantCategory.withId(json.getString(JSON_CATEGORY));
+        } else {
+            category = PlantCategory.NULL;
+        }
         String picturePath = json.getString(JSON_PICTURE);
         if (picturePath != null) {
             picture = new File(picturePath);

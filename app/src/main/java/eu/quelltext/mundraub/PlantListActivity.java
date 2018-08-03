@@ -4,19 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import eu.quelltext.mundraub.plant.Plant;
-
 import java.util.List;
+
+import eu.quelltext.mundraub.plant.Plant;
 
 /**
  * An activity representing a list of Plants. This activity
@@ -124,11 +124,8 @@ public class PlantListActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             Plant plant = mValues.get(position);
-            holder.mIdView.setText(plant.getId());
-            holder.mContentView.setText(plant.getContent());
+            holder.fillFromPlant(plant);
 
-            holder.itemView.setTag(plant);
-            holder.itemView.setOnClickListener(mOnClickListener);
         }
 
         @Override
@@ -137,14 +134,22 @@ public class PlantListActivity extends AppCompatActivity {
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
-            final TextView mIdView;
-            final TextView mContentView;
+            private final ImageView plantImage;
+            private final TextView plantCategoryText;
 
             ViewHolder(View view) {
                 super(view);
-                mIdView = (TextView) view.findViewById(R.id.id_text);
-                mContentView = (TextView) view.findViewById(R.id.content);
+                plantImage = (ImageView) view.findViewById(R.id.image_plant);
+                plantCategoryText = (TextView) view.findViewById(R.id.plant_category);
             }
+
+            public void fillFromPlant(Plant plant) {
+                plant.setImage(plantImage);
+                plantCategoryText.setText(plant.getCategory().getResourceId());
+                String textWithCount = Integer.toString(plant.getCount()) + "x " + plantCategoryText.getText().toString();
+                plantCategoryText.setText(textWithCount);
+                itemView.setTag(plant);
+                itemView.setOnClickListener(mOnClickListener);            }
         }
     }
 }
