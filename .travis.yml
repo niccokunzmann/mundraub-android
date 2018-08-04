@@ -26,4 +26,5 @@ android:
 
 script:
   - gradle build
-  - find | grep .apk
+  - "find | grep .apk"
+  
