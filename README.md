@@ -11,7 +11,7 @@ Download
 
 You can download the latest version from GitHub
 - [Download latest release](https://niccokunzmann.github.io/download_latest/mundraub-release-unsigned.apk)
-- [Download latest debug verison](https://niccokunzmann.github.io/download_latest/mundraub-release-unsigned.apk)
+- [Download latest debug version](https://niccokunzmann.github.io/download_latest/mundraub-release-unsigned.apk)
 
 Contribute
 ----------
