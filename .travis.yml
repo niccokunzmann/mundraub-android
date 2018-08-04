@@ -27,8 +27,8 @@ script:
 before_deploy:
 # Set up git user name and tag this commit
 # from https://docs-staging.travis-ci.com/user/deployment/releases/
-- git config --local user.name "YOUR GIT USER NAME"
-- git config --local user.email "YOUR GIT USER EMAIL"
+- git config --local user.name "Travis-CI"
+- git config --local user.email "mundraub-android@travis-ci.org"
 - git tag "$(date +'build-%Y%m%d%H%M%S')-$(git log --format=%h -1)"
 - cp "`.travis/release-apk`" mundraub-release-unsigned.apk
 - cp "`.travis/debug-apk`" mundraub-debug.apk
