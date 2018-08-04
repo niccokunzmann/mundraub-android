@@ -34,7 +34,7 @@ public class PlantDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, NewPlantActivity.class);
-                intent.putExtra(NewPlantActivity.ARG_PLANT_ID, savedInstanceState.getString(ARG_PLANT_ID));
+                intent.putExtra(NewPlantActivity.ARG_PLANT_ID, getIntent().getStringExtra(ARG_PLANT_ID));
                 context.startActivity(intent);
             }
         });
