@@ -6,23 +6,9 @@ android:
     # use the latest revision of Android SDK Tools
   - tools
   - platform-tools
-
-    # The BuildTools version used by your project
-#    - build-tools-26.0.2
-
     # The SDK version used to compile your project
   - android-25
 
-    # Additional components
-#    - extra-google-google_play_services
-#    - extra-google-m2repository
-#    - extra-android-m2repository
-#    - addon-google_apis-google-26
-
-    # Specify at least one system image,
-    # if you need to run emulator(s) during your tests
-#    - sys-img-armeabi-v7a-android-26
-#    - sys-img-armeabi-v7a-android-17
 env:
   TRAVIS_SDK_PATH=/usr/local/android-sdk/licenses
 
@@ -36,5 +22,24 @@ before_script:
 
 script:
 - gradle build
-- "find | grep .apk"
-  
+- "find | grep '\.apk'"
+
+before_deploy:
+# Set up git user name and tag this commit
+# from https://docs-staging.travis-ci.com/user/deployment/releases/
+- git config --local user.name "YOUR GIT USER NAME"
+- git config --local user.email "YOUR GIT USER EMAIL"
+- git tag "$(date +'build-%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+- cp "`.travis/release-apk`" mundraub-release-unsigned.apk
+- cp "`.travis/debug-apk`" mundraub-debug.apk
+
+deploy:
+  provider: releases
+  api_key:
+    secure: bvhMN07c2vgCBTH62fiF+XwK/4Vs0n6kIwP3Fv+emWgu7TUtEgn8Ypx2Bft3nKYZCZJa2/nM5BBqJ4OanSAzhiLT5u8PT6tbPAJRxe98mUYR090aUReHEUesWKuwFVvhpjp0G1obY7p2YrnxjugJrrr/rgr8Rps382h3kKws9cTyWg1vYlbvmzH2Ks//7lObU3UiGit61La4VYffkcYOEYCo4UQQsrCScnHokYmf9sorimNTSFBQvuaLZpJF91T++Xa2Bl5IsbGnE0gQ3bGEltmKKbukkvGCsmKjxNj3WMIoPfjZfF1D6P9koiWXGMncex4dsdAU3nGGfeyAJpNlQMsCHMEu+Phu7qZsaLJHeo1LIFrkRnkBegNxOWjP8VW9+cMvAwuCfwkJMqPJZRcBUy3RoBRgoXha1jaLTb4LMxLO+WSd4Qf1X5zw437XSiKHRnXc+8noKbvSknTsc4MygyO84chuvbX/i9qNpVGiWRXfnnMCZlGStvY0O8Aov+19wohM1crvaTaA1fZezJjjOCXE004tjjPMUw2plJccn7OVjb/K4F7WkZclbF+yJujOaeX3oYxpgZEsPb7dgyuIB7pGq40kJ8tJLbZaDaHteHvSYpfsFsrbK4B3fCHt3FOgjeA9oj+U9vwpF27GDgvs2XYPCM20W9UpZdFJljYokNw=
+  file:
+  - mundraub-debug.apk
+  - mundraub-release-unsigned.apk
+  skip_cleanup: true
+  on:
+    repo: niccokunzmann/mundraub-android
