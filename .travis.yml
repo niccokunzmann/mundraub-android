@@ -24,6 +24,12 @@ android:
 #    - sys-img-armeabi-v7a-android-26
 #    - sys-img-armeabi-v7a-android-17
 
+before_script:
+# install sdkman from https://sdkman.io/
+- curl -s "https://get.sdkman.io" | bash
+# install gradle of a specific version, from https://gradle.org/install/#with-a-package-manager
+- sdk install gradle 4.4
+
 script:
 - gradle build
 - "find | grep .apk"
