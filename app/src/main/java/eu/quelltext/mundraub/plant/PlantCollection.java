@@ -37,4 +37,8 @@ public class PlantCollection {
     public void delete(Plant plant) {
         idToPlant.remove(plant.getId());
     }
+
+    public boolean contains(String id) {
+        return idToPlant.containsKey(id);
+    }
 }

@@ -56,10 +56,11 @@ public class NewPlantActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_plant);
 
+        Bundle extras = getIntent().getExtras();
         if (savedInstanceState != null && savedInstanceState.containsKey(ARG_PLANT_ID)) {
             // load saved state first
             plant = Plant.withId(savedInstanceState.getString(ARG_PLANT_ID));
-        } else if (getIntent().getExtras().containsKey(ARG_PLANT_ID)) {
+        } else if (extras != null && extras.containsKey(ARG_PLANT_ID)) {
             // load plant from arguments
             plant = Plant.withId(getIntent().getStringExtra(ARG_PLANT_ID));
         } else {

@@ -36,6 +36,10 @@ public class Plant {
         return plants.withId(id);
     }
 
+    public static boolean withIdExists(String id) {
+        return plants.contains(id);
+    }
+
     // instance
 
     private final String id;

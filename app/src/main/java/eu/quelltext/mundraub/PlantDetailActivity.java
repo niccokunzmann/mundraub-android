@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import eu.quelltext.mundraub.plant.Plant;
+
 /**
  * An activity representing a single Plant detail screen. This
  * activity is only used on narrow width devices. On tablet-size devices,
@@ -20,6 +22,7 @@ import android.view.View;
 public class PlantDetailActivity extends AppCompatActivity {
 
     public static final String ARG_PLANT_ID = "plant_id";
+    String plantId;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -29,12 +32,13 @@ public class PlantDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        plantId = getIntent().getStringExtra(ARG_PLANT_ID);
         final Context context = this;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, NewPlantActivity.class);
-                intent.putExtra(NewPlantActivity.ARG_PLANT_ID, getIntent().getStringExtra(ARG_PLANT_ID));
+                intent.putExtra(NewPlantActivity.ARG_PLANT_ID, plantId);
                 context.startActivity(intent);
             }
         });
@@ -65,6 +69,13 @@ public class PlantDetailActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.plant_detail_container, fragment)
                     .commit();
+        }
+    }
+
+    protected void onResume() {
+        super.onResume();
+        if (!Plant.withIdExists(plantId)) {
+            finish();
         }
     }
 
