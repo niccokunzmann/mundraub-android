@@ -22,7 +22,7 @@ before_script:
 
 script:
 - gradle build
-- "find | grep '\.apk'"
+- "find | grep '\\.apk'"
 
 before_deploy:
 # Set up git user name and tag this commit
