@@ -29,7 +29,7 @@ before_deploy:
 # from https://docs-staging.travis-ci.com/user/deployment/releases/
 - git config --local user.name "Travis-CI"
 - git config --local user.email "mundraub-android@travis-ci.org"
-- git tag "$(date +'build-%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+- git tag "$(date +'build-%Y-%m-%d-%H-%M-%S')-$(git log --format=%h -1)"
 - cp "`.travis/release-apk`" mundraub-release-unsigned.apk
 - cp "`.travis/debug-apk`" mundraub-debug.apk
 
