@@ -30,6 +30,13 @@ import eu.quelltext.mundraub.plant.Plant;
 import eu.quelltext.mundraub.plant.PlantCategory;
 
 public class NewPlantActivity extends AppCompatActivity {
+    /*
+      - intent.putString(NewPlantActivity.ARG_PLANT_ID, plant_id)
+        will open this view on a specific plant
+        If no value is passed, a new plant is created.
+            ARG_PLANT_ID - the id of the plant
+     */
+    public static final String ARG_PLANT_ID = "plant_id";
 
     private static final int INTENT_CODE_CHOOSE_PLANT = 0;
     private static final int INTENT_CODE_TAKE_PHOTO = 1;
@@ -49,8 +56,13 @@ public class NewPlantActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_plant);
 
-        plant = new Plant();
-        plant.save();
+        if (savedInstanceState != null && savedInstanceState.containsKey(ARG_PLANT_ID)) {
+            plant = Plant.withId(savedInstanceState.getString(ARG_PLANT_ID));
+        } else {
+            plant = new Plant();
+            plant.save();
+            autoFillGPSLocation(); // load GPS location for new plants automatically
+        }
 
         buttonPlantType = (Button) findViewById(R.id.button_plant_type);
         buttonSave = (Button) findViewById(R.id.button_save);
@@ -68,7 +80,6 @@ public class NewPlantActivity extends AppCompatActivity {
                 startActivityForResult(intent, INTENT_CODE_CHOOSE_PLANT);
             }
         });
-        setLocation();
         plantImage.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // from https://stackoverflow.com/a/14421798
@@ -122,6 +133,12 @@ public class NewPlantActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        // from https://stackoverflow.com/a/10833558/1320237
+        outState.putString(ARG_PLANT_ID, plant.getId());
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         loadViewFromPlant();
@@ -142,7 +159,7 @@ public class NewPlantActivity extends AppCompatActivity {
         plant.setImageOf(plantImage);
     }
 
-    private void setLocation() {
+    private void autoFillGPSLocation() {
         // from https://stackoverflow.com/a/10917500
         LocationManager locationManager = (LocationManager)
                 getSystemService(Context.LOCATION_SERVICE);
@@ -157,6 +174,9 @@ public class NewPlantActivity extends AppCompatActivity {
             // TODO: or create alert box:
             //       protected void alertbox in http://rdcworld-android.blogspot.com/2012/01/get-current-location-coordinates-city.html
             Log.d("DEBUG", "Access to GPS position is not granted.");
+            return;
+        }
+        if (locationManager == null) {
             return;
         }
         locationManager.requestLocationUpdates(

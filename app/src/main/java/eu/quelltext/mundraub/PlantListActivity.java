@@ -87,10 +87,10 @@ public class PlantListActivity extends AppCompatActivity {
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Plant item = (Plant) view.getTag();
+                Plant plant = (Plant) view.getTag();
                 if (mTwoPane) {
                     Bundle arguments = new Bundle();
-                    arguments.putString(PlantDetailFragment.ARG_ITEM_ID, item.getId());
+                    arguments.putString(PlantDetailFragment.ARG_PLANT_ID, plant.getId());
                     PlantDetailFragment fragment = new PlantDetailFragment();
                     fragment.setArguments(arguments);
                     mParentActivity.getSupportFragmentManager().beginTransaction()
@@ -99,7 +99,7 @@ public class PlantListActivity extends AppCompatActivity {
                 } else {
                     Context context = view.getContext();
                     Intent intent = new Intent(context, PlantDetailActivity.class);
-                    intent.putExtra(PlantDetailFragment.ARG_ITEM_ID, item.getId());
+                    intent.putExtra(PlantDetailActivity.ARG_PLANT_ID, plant.getId());
 
                     context.startActivity(intent);
                 }
