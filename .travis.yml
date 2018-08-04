@@ -23,12 +23,16 @@ android:
     # if you need to run emulator(s) during your tests
 #    - sys-img-armeabi-v7a-android-26
 #    - sys-img-armeabi-v7a-android-17
+env:
+  TRAVIS_SDK_PATH=/usr/local/android-sdk/licenses
 
 before_script:
 # install sdkman from https://sdkman.io/
 - curl -s "https://get.sdkman.io" | bash && source /home/travis/.sdkman/bin/sdkman-init.sh
 # install gradle of a specific version, from https://gradle.org/install/#with-a-package-manager
 - sdk install gradle 4.4
+# install the licenses
+- mkdir -p "$TRAVIS_SDK_PATH" && cp .travis/licenses.zip "$TRAVIS_SDK_PATH" && ( cd "$TRAVIS_SDK_PATH" && unzip licenses.zip && rm licenses.zip )
 
 script:
 - gradle build
