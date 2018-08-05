@@ -1,7 +1,7 @@
 package eu.quelltext.mundraub.api;
 
 public class DummyAPI extends API {
-    public Boolean login(String username, String password) {
+    public boolean login(String username, String password) {
         try {
             // Simulate network access.
             Thread.sleep(2000);
