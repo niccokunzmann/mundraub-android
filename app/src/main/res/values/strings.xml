@@ -3,7 +3,7 @@
     <string name="add_new_plant">Add a new plant</string>
     <string name="add_new_plant_heading">Please add more information about your plant ...</string>
     <string name="choose_plant_type">Choose a type of plant!</string>
-    <string name="count">Count</string>
+    <string name="count">Count:</string>
     <string name="description">Description</string>
     <string name="position">Position:</string>
     <string name="title_plant_list">Plants</string>
