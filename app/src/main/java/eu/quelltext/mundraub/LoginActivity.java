@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    private API api = API.get();
+    private API api = API.instance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
