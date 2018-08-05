@@ -1,12 +1,15 @@
 package eu.quelltext.mundraub;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -53,13 +56,14 @@ public class PlantDetailFragment extends Fragment {
             if (appBarLayout != null) {
                 appBarLayout.setTitle(plant.getDetailsTitle());
             }
+
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.plant_detail, container, false);
+        final View rootView = inflater.inflate(R.layout.plant_detail, container, false);
 
         // Show the dummy content as text in a TextView.
         if (plant != null) {
@@ -69,8 +73,16 @@ public class PlantDetailFragment extends Fragment {
             ((TextView) rootView.findViewById(R.id.text_description)).setText(plant.getDescription());
             ((TextView) rootView.findViewById(R.id.text_latitude)).setText(Double.toString(plant.getLatitude()));
             ((TextView) rootView.findViewById(R.id.text_longitude)).setText(Double.toString(plant.getLongitude()));
+            final Context context = container.getContext();
+            Button uploadButton = (Button) rootView.findViewById(R.id.button_upload);
+            uploadButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    // intent.putExtra(NewPlantActivity.ARG_PLANT_ID, plantId);
+                    context.startActivity(intent);            }
+            });
         }
-
         return rootView;
     }
 }

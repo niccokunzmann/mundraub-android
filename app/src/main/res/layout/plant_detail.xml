@@ -16,22 +16,21 @@
         android:scaleType="fitCenter"
         android:src="@android:drawable/ic_menu_gallery" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/text_plant_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/text_margin"
+        android:layout_weight="1"
+        android:text="@string/unknown_plant"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/button_upload"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/text_plant_category"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/text_margin"
-            android:layout_weight="1"
-            android:text="@string/unknown_plant"
-            android:textSize="24sp" />
-
-    </LinearLayout>
+        android:text="@string/upload_plant" />
 
     <LinearLayout
         android:layout_width="match_parent"

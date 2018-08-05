@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -66,6 +67,7 @@ public class PlantListActivity extends AppCompatActivity {
         }
 
         recyclerView = findViewById(R.id.plant_list);
+
     }
     @Override
     protected void onResume() {
