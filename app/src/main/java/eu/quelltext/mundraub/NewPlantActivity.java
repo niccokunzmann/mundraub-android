@@ -50,6 +50,7 @@ public class NewPlantActivity extends AppCompatActivity {
     private ImageView plantImage;
     private Plant plant;
     private EditText numberOfPlants;
+    private TextView textTip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +75,8 @@ public class NewPlantActivity extends AppCompatActivity {
         buttonCancel = (Button) findViewById(R.id.button_cancel);
         textPosition = (TextView) findViewById(R.id.text_position);
         textDescription = (TextView) findViewById(R.id.text_description);
+        textTip = (TextView) findViewById(R.id.new_plant_explanation);
+        textTip.setText(R.string.add_new_plant_heading);
         plantImage = (ImageView) findViewById(R.id.image_plant);
         numberOfPlants = (EditText) findViewById(R.id.number_of_plants);
         buttonPlantType.setOnClickListener(new View.OnClickListener() {
@@ -151,7 +154,11 @@ public class NewPlantActivity extends AppCompatActivity {
 
     private void loadViewFromPlant() {
         if (plant.hasCategory()) {
-            buttonPlantType.setText(plant.getCategory().getResourceId());
+            if (plant.getCategory().isUnknown()) {
+                buttonPlantType.setText(R.string.choose_plant_type);
+            } else {
+                buttonPlantType.setText(plant.getCategory().getResourceId());
+            }
         }
         numberOfPlants.setText(Integer.toString(plant.getCount()));
         textDescription.setText(plant.getDescription());

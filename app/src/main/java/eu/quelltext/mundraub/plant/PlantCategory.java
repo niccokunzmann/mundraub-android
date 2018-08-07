@@ -145,10 +145,17 @@ public class PlantCategory {
         return idToPlantCategory.get(id);
     }
 
+    public boolean isUnknown() {
+        return false;
+    }
+
     public static class NullCategory extends PlantCategory {
 
         NullCategory() {
             super(null, -1, R.string.unknown_plant);
+        }
+        public boolean isUnknown() {
+            return true;
         }
     }
 

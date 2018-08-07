@@ -21,7 +21,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/add_new_plant_heading"
+                android:id="@+id/new_plant_explanation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView"
