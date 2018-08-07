@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,15 +85,48 @@ public class PlantDetailFragment extends Fragment {
             ((TextView) rootView.findViewById(R.id.text_description)).setText(plant.getDescription());
             ((TextView) rootView.findViewById(R.id.text_latitude)).setText(Double.toString(plant.getLatitude()));
             ((TextView) rootView.findViewById(R.id.text_longitude)).setText(Double.toString(plant.getLongitude()));
-            Button uploadButton = (Button) rootView.findViewById(R.id.button_upload);
-            uploadButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, LoginActivity.class);
-                    // intent.putExtra(NewPlantActivity.ARG_PLANT_ID, plantId);
-                    context.startActivity(intent);
-                }
-            });
+            updateOnlineActivities();
         }
+    }
+    private void updateOnlineActivities() {
+        updateButton(R.id.button_login, plant.online().mustLogin(), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, LoginActivity.class);
+                context.startActivity(intent);
+            }
+        });
+        updateButton(R.id.button_upload, plant.online().canCreate(), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("TODO", "create plant"); // TODO
+            }
+        });
+        updateButton(R.id.button_edit, plant.online().canUpdate(), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("TODO", "edit plant"); // TODO
+            }
+        });
+        updateButton(R.id.button_view, plant.online().hasURL(), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("TODO", "view plant"); // TODO
+            }
+        });
+        updateButton(R.id.button_delete, plant.online().canDelete(), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("TODO", "delete plant"); // TODO
+            }
+        });
+
+    }
+    private void updateButton(int resourceId, boolean visible, View.OnClickListener onClickListener) {
+        Button button = (Button) rootView.findViewById(resourceId);
+        if (visible) {
+            button.setOnClickListener(onClickListener);
+        }
+        button.setVisibility(visible? View.VISIBLE: View.GONE);
     }
 }

@@ -58,6 +58,10 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="upload_plant">Upload Plant</string>
+    <string name="upload_plant_online">Share this plant online</string>
+    <string name="edit_plant_online">Upload the changes</string>
+    <string name="delete_plant_online">Remove the plant from mundraub.org</string>
+    <string name="view_plant_online">View the plant on mundraub.org</string>
     <string name="plant_list_date_format">dd. MM. yyyy</string>
+    <string name="plant_online_description">Change the plant on munraub.org:</string>
 </resources>

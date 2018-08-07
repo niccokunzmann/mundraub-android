@@ -32,6 +32,7 @@ public class Plant implements Comparable<Plant> {
     private static final String JSON_ID = "id";
     private static final String JSON_CATEGORY = "category";
     private static final String JSON_PICTURE = "picture";
+    private static final String JSON_ONLINE = "online";
 
     public static List<Plant> all() {
         return plants.all();
@@ -55,10 +56,12 @@ public class Plant implements Comparable<Plant> {
     private double latitude = 0;
     private final PlantCollection collection;
     private File picture = null;
+    private final PlantOnlineState.OnlineAction onlineState;
 
     public Plant() {
         this.id = plants.newId();
         this.collection = plants;
+        this.onlineState = PlantOnlineState.getOfflineState(this);
     }
 
     public void save() {
@@ -125,6 +128,11 @@ public class Plant implements Comparable<Plant> {
             if (picturePath != null) {
                 picture = new File(picturePath);
             }
+        }
+        if (json.has(JSON_ONLINE) && !json.isNull(JSON_ONLINE)) {
+            onlineState = PlantOnlineState.fromJSON(this, json.getJSONObject(JSON_ONLINE));
+        } else {
+            onlineState = PlantOnlineState.getOfflineState(this);
         }
     }
 
@@ -232,5 +240,13 @@ public class Plant implements Comparable<Plant> {
 
     public Date getCreationDay() {
         return DateUtils.truncate(createdAt(), Calendar.DAY_OF_MONTH);
+    }
+
+    public boolean hasRequiredFieldsFilled() {
+        return count >= 0 && !category.isUnknown();
+    }
+
+    public PlantOnlineState.OnlineAction online() {
+        return onlineState;
     }
 }

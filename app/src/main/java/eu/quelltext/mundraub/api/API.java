@@ -6,7 +6,7 @@ public abstract class API {
 
     private static final API dummyAPI = new DummyAPI();
     private static final API mundraubAPI = new MundraubAPI();
-    private static final boolean useDummy = false; // for debug purposes use dummy api
+    private static final boolean useDummy = true; // for debug purposes use dummy api
 
     public static final API instance() {
         if (useDummy) {
@@ -17,7 +17,7 @@ public abstract class API {
 
     private boolean isLoggedIn = false;
 
-    public void login(String username, String password, LoginCallback cb) {
+    public void login(String username, String password, Callback cb) {
         UserLoginTask task = new UserLoginTask(username, password, cb);
         task.execute((Void) null);
     }
@@ -32,9 +32,9 @@ public abstract class API {
 
         private final String username;
         private final String password;
-        private final LoginCallback cb;
+        private final Callback cb;
 
-        UserLoginTask(String username, String password, LoginCallback cb) {
+        UserLoginTask(String username, String password, Callback cb) {
             this.username = username;
             this.password = password;
             this.cb = cb;
@@ -61,7 +61,7 @@ public abstract class API {
         }
     }
 
-    public interface LoginCallback {
+    public interface Callback {
         void onSuccess();
         void onFailure();
     }
