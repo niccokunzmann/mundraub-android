@@ -120,9 +120,11 @@ public class Plant implements Comparable<Plant> {
         } else {
             category = PlantCategory.NULL;
         }
-        String picturePath = json.getString(JSON_PICTURE);
-        if (picturePath != null) {
-            picture = new File(picturePath);
+        if (json.has(JSON_PICTURE)) {
+            String picturePath = json.getString(JSON_PICTURE);
+            if (picturePath != null) {
+                picture = new File(picturePath);
+            }
         }
     }
 
@@ -209,10 +211,10 @@ public class Plant implements Comparable<Plant> {
         imageView.setImageDrawable(resource);
     }
 
-    public boolean movePictureTo(File file) {
-        if (picture.renameTo(file)) {
-            Log.d("PICTURE", "Moved picture from " + picture.toString() + " to " + file.toString());
-            picture = file;
+    public boolean movePictureTo(File newLocation) {
+        if (picture.renameTo(newLocation) || (!picture.isFile() && newLocation.isFile())) {
+            Log.d("PICTURE", "Moved picture from " + picture.toString() + " to " + newLocation.toString());
+            picture = newLocation;
             save();
             return true;
         }
