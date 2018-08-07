@@ -31,8 +31,9 @@ public class PlantDetailFragment extends Fragment {
     /**
      * The dummy content this fragment is presenting.
      */
-    private Plant plant;
-    private boolean showDate;
+    private Plant plant = null;
+    private View rootView = null;
+    private Context context = null;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -63,17 +64,26 @@ public class PlantDetailFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.plant_detail, container, false);
+        rootView = inflater.inflate(R.layout.plant_detail, container, false);
+        context = container.getContext();
+        updateViewFromPlant();
+        return rootView;
+    }
 
-        // Show the dummy content as text in a TextView.
-        if (plant != null) {
-            plant.setImageOf((ImageView)rootView.findViewById(R.id.image_plant));
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateViewFromPlant();
+    }
+
+    private void updateViewFromPlant() {
+        if (plant != null && rootView != null && context != null) {
+            plant.setImageOf((ImageView) rootView.findViewById(R.id.image_plant));
             ((TextView) rootView.findViewById(R.id.text_plant_category)).setText(plant.getCategory().getResourceId());
             ((TextView) rootView.findViewById(R.id.text_count)).setText(Integer.toString(plant.getCount()));
             ((TextView) rootView.findViewById(R.id.text_description)).setText(plant.getDescription());
             ((TextView) rootView.findViewById(R.id.text_latitude)).setText(Double.toString(plant.getLatitude()));
             ((TextView) rootView.findViewById(R.id.text_longitude)).setText(Double.toString(plant.getLongitude()));
-            final Context context = container.getContext();
             Button uploadButton = (Button) rootView.findViewById(R.id.button_upload);
             uploadButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -84,6 +94,5 @@ public class PlantDetailFragment extends Fragment {
                 }
             });
         }
-        return rootView;
     }
 }
