@@ -35,7 +35,6 @@ public class PersistentPlantCollection extends PlantCollection {
         if (!directory.exists()) {
             directory.mkdirs();
         }
-        Log.d("DEBUG", "Plant at " + directory.toString());
         return directory;
     }
 
