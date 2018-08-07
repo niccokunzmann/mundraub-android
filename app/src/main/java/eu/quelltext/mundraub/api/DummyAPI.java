@@ -1,13 +1,49 @@
 package eu.quelltext.mundraub.api;
 
+import eu.quelltext.mundraub.R;
+import eu.quelltext.mundraub.plant.Plant;
+
 public class DummyAPI extends API {
-    public boolean login(String username, String password) {
+
+    private int id = 1;
+
+    protected int loginAsync(String username, String password) throws ErrorWithExplanation {
+        simulateNetwork();
+        if (username.equals("test") && password.equals("test")) {
+            return TASK_SUCCEEDED;
+        } else {
+            return R.string.invalid_credentials;
+        }
+    }
+
+    @Override
+    protected int deletePlantAsync(String plantId) throws ErrorWithExplanation {
+        simulateNetwork();
+        return TASK_SUCCEEDED;
+    }
+
+    @Override
+    protected int updatePlantAsync(Plant plant, String plantId) throws ErrorWithExplanation {
+        simulateNetwork();
+        return TASK_SUCCEEDED;
+    }
+
+    @Override
+    protected int addPlantAsync(Plant plant) throws ErrorWithExplanation {
+        simulateNetwork();
+        plant.online().publishedWithId(Integer.toString(id++));
+        return TASK_SUCCEEDED;
+    }
+
+    private int simulateNetwork() throws ErrorWithExplanation {
         try {
             // Simulate network access.
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
-            return false;
+            abortOperation(TASK_CANCELLED);
         }
-        return username.equals("test") && password.equals("test");
+        return TASK_SUCCEEDED;
     }
+
+
 }

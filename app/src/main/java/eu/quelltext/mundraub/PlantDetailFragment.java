@@ -2,10 +2,13 @@ package eu.quelltext.mundraub;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import eu.quelltext.mundraub.api.API;
 import eu.quelltext.mundraub.plant.Plant;
 
 /**
@@ -99,29 +103,72 @@ public class PlantDetailFragment extends Fragment {
         updateButton(R.id.button_upload, plant.online().canCreate(), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("TODO", "create plant"); // TODO
+                plant.online().create(updateOrShowError(R.string.success_plant_uploaded));
             }
         });
         updateButton(R.id.button_edit, plant.online().canUpdate(), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("TODO", "edit plant"); // TODO
+                plant.online().update(updateOrShowError(R.string.success_plant_updated));
             }
         });
         updateButton(R.id.button_view, plant.online().hasURL(), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("TODO", "view plant"); // TODO
+                Log.d("TODO", "view plant"); // TODO open intent
             }
         });
         updateButton(R.id.button_delete, plant.online().canDelete(), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("TODO", "delete plant"); // TODO
+                plant.online().delete(updateOrShowError(R.string.success_plant_deleted));
             }
         });
 
     }
+
+    private API.Callback updateOrShowError(final int successResourceId) {
+        return new API.Callback() {
+            @Override
+            public void onSuccess() {
+                updateOnlineActivities();
+                alertSuccess(successResourceId);
+            }
+
+            @Override
+            public void onFailure(int errorResourceString) {
+                alertError(errorResourceString);
+            }
+        };
+    }
+
+    private void alertError(int errorResourceString) {
+        alert(R.string.error, android.R.drawable.ic_dialog_alert, errorResourceString);
+    }
+
+    private void alertSuccess(int successResourceString) {
+        alert(R.string.success, android.R.drawable.ic_dialog_info, successResourceString);
+    }
+
+    private void alert(int title, int icon, int message) {
+        // from https://stackoverflow.com/a/2115770/1320237
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(context);
+        }
+        builder.setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .setIcon(icon)
+                .show();
+    }
+
+
     private void updateButton(int resourceId, boolean visible, View.OnClickListener onClickListener) {
         Button button = (Button) rootView.findViewById(resourceId);
         if (visible) {

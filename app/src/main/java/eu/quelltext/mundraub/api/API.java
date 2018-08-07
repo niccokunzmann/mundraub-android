@@ -2,11 +2,18 @@ package eu.quelltext.mundraub.api;
 
 import android.os.AsyncTask;
 
+import eu.quelltext.mundraub.R;
+import eu.quelltext.mundraub.plant.Plant;
+
 public abstract class API {
 
     private static final API dummyAPI = new DummyAPI();
     private static final API mundraubAPI = new MundraubAPI();
     private static final boolean useDummy = true; // for debug purposes use dummy api
+    public final int TASK_SUCCEEDED = R.string.task_completed_successfully;
+    public final int TASK_CANCELLED = R.string.task_was_cancelled;
+
+    private boolean isLoggedIn;
 
     public static final API instance() {
         if (useDummy) {
@@ -15,55 +22,113 @@ public abstract class API {
         return mundraubAPI;
     }
 
-    private boolean isLoggedIn = false;
-
-    public void login(String username, String password, Callback cb) {
-        UserLoginTask task = new UserLoginTask(username, password, cb);
-        task.execute((Void) null);
+    public void login(final String username, final String password, Callback cb) {
+        doAsynchronously(cb, new AsyncOperation() {
+            @Override
+            public int operate() throws ErrorWithExplanation {
+                int success = loginAsync(username, password);
+                isLoggedIn = success == TASK_SUCCEEDED;
+                return success;
+            }
+        });
     }
 
-    abstract boolean login(String username, String password);
+    private void doAsynchronously(Callback cb, AsyncOperation op) {
+        Task task = new Task(cb, op);
+        task.execute((Void) null);
+    }
 
     public boolean isLoggedIn() {
         return isLoggedIn;
     }
 
-    private class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    private class Task extends AsyncTask<Void, Void, Integer> {
 
-        private final String username;
-        private final String password;
         private final Callback cb;
+        private final AsyncOperation operation;
 
-        UserLoginTask(String username, String password, Callback cb) {
-            this.username = username;
-            this.password = password;
+        Task(Callback cb, AsyncOperation operation) {
+            this.operation = operation;
             this.cb = cb;
         }
 
         @Override
-        protected Boolean doInBackground(Void... params) {
-            return login(username, password);
+        protected Integer doInBackground(Void... params) {
+            try {
+                return operation.operate();
+            } catch (ErrorWithExplanation e) {
+                return e.explanationResourceId;
+            }
         }
 
         @Override
-        protected void onPostExecute(Boolean success) {
-            isLoggedIn = success;
-            if (isLoggedIn()) {
+        protected void onPostExecute(Integer result) {
+            if (result == TASK_SUCCEEDED) {
                 cb.onSuccess();
             } else {
-                cb.onFailure();
+                cb.onFailure(result);
             }
         }
 
         @Override
         protected void onCancelled() {
-            cb.onFailure();
+            cb.onFailure(TASK_CANCELLED);
         }
     }
 
     public interface Callback {
         void onSuccess();
-        void onFailure();
+        void onFailure(int errorResourceString);
     }
+    private interface AsyncOperation {
+        int operate() throws ErrorWithExplanation;
+    }
+
+    public void addPlant(final Plant plant, Callback callback) {
+        doAsynchronously(callback, new AsyncOperation() {
+            @Override
+            public int operate() throws ErrorWithExplanation {
+                return addPlantAsync(plant);
+            }
+        });
+    }
+
+    public void deletePlant(final String id, Callback callback) {
+        doAsynchronously(callback, new AsyncOperation() {
+            @Override
+            public int operate() throws ErrorWithExplanation {
+                return deletePlantAsync(id);
+            }
+        });
+    }
+
+    public void updatePlant(final Plant plant, final String id, Callback cb) {
+        doAsynchronously(cb, new AsyncOperation() {
+            @Override
+            public int operate() throws ErrorWithExplanation {
+                return updatePlantAsync(plant, id);
+            }
+        });
+    }
+
+    protected class ErrorWithExplanation extends Throwable {
+        private final int explanationResourceId;
+
+        private ErrorWithExplanation(int explanationResourceId) {
+            super();
+            this.explanationResourceId = explanationResourceId;
+        }
+    }
+
+    protected void abortOperation(int resourceId) throws ErrorWithExplanation {
+        throw new ErrorWithExplanation(resourceId);
+    }
+
+    // methods to replace
+
+    protected abstract int addPlantAsync(Plant plant) throws ErrorWithExplanation;
+    protected abstract int loginAsync(String username, String password) throws ErrorWithExplanation;
+    protected abstract int deletePlantAsync(String plantId) throws ErrorWithExplanation;
+    protected abstract int updatePlantAsync(Plant plant, String plantId) throws ErrorWithExplanation;
 
 }

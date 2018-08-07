@@ -113,9 +113,9 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure() {
+                public void onFailure(int errorResourceId) {
                     showProgress(false);
-                    mPasswordView.setError(getString(R.string.error_incorrect_password));
+                    mPasswordView.setError(getString(errorResourceId));
                     mPasswordView.requestFocus();
                 }
             });

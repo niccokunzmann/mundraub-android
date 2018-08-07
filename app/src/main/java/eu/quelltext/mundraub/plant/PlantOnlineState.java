@@ -1,11 +1,14 @@
 package eu.quelltext.mundraub.plant;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.api.API;
 
 public class PlantOnlineState {
@@ -28,6 +31,8 @@ public class PlantOnlineState {
         URL getURL();
         void delete(API.Callback cb);
         JSONObject toJSON() throws JSONException;
+
+        void publishedWithId(String s);
     }
 
     static private class OfflineState implements OnlineAction {
@@ -66,17 +71,17 @@ public class PlantOnlineState {
         }
 
         @Override
-        public void create(API.Callback cb) {
+        public void create(final API.Callback cb) {
             if (!canCreate()) {
-                cb.onFailure();
+                cb.onFailure(R.string.operation_not_permitted);
                 return;
             }
-
+            api.addPlant(plant, cb);
         }
 
         @Override
         public void update(API.Callback cb) {
-            cb.onFailure();
+            cb.onFailure(R.string.operation_not_permitted);
         }
         @Override
         public URL getURL() {
@@ -84,13 +89,18 @@ public class PlantOnlineState {
         }
         @Override
         public void delete(API.Callback cb) {
-            cb.onFailure();
+            cb.onFailure(R.string.operation_not_permitted);
         }
         @Override
         public JSONObject toJSON() throws JSONException {
             JSONObject json = new JSONObject();
             json.put(JSON_CLASS, JSON_CLASS_OFFLINE);
             return json;
+        }
+
+        @Override
+        public void publishedWithId(String id) {
+            this.plant.setOnline(new OnlineState(plant, id));
         }
 
         private static OnlineAction fromJSON(Plant plant, JSONObject json) {
@@ -121,7 +131,7 @@ public class PlantOnlineState {
 
         @Override
         public boolean canUpdate() {
-            return false;
+            return true;
         }
 
         @Override
@@ -131,17 +141,17 @@ public class PlantOnlineState {
 
         @Override
         public boolean canDelete() {
-            return false;
+            return true;
         }
 
         @Override
         public void create(API.Callback cb) {
-
+            cb.onFailure(R.string.operation_not_permitted);
         }
 
         @Override
         public void update(API.Callback cb) {
-
+            api.updatePlant(plant, id, cb);
         }
 
         @Override
@@ -155,7 +165,19 @@ public class PlantOnlineState {
         }
 
         @Override
-        public void delete(API.Callback cb) {
+        public void delete(final API.Callback cb) {
+            api.deletePlant(id, new API.Callback() {
+                @Override
+                public void onSuccess() {
+                    plant.setOnline(new OfflineState(plant));
+                    cb.onSuccess();
+                }
+
+                @Override
+                public void onFailure(int errorResourceString) {
+                    cb.onFailure(errorResourceString);
+                }
+            });
         }
 
         @Override
@@ -164,6 +186,40 @@ public class PlantOnlineState {
             json.put(JSON_CLASS, JSON_CLASS_ONLINE);
             json.put(JSON_ID, id);
             return json;
+        }
+
+        @Override
+        public void publishedWithId(final String newId) {
+            if (newId == id) {
+                return;
+            }
+            delete(new API.Callback() {
+                @Override
+                public void onSuccess() {
+                    plant.setOnline(new OnlineState(plant, newId));
+                }
+
+                @Override
+                public void onFailure(int errorResourceString) {
+                    Log.e("PLANT PUBLISHED TWICE", "The plant " + plant.getId() +
+                            " was published twice under id " +
+                            newId + " and " + id + ". Could not delete " + id +
+                            ". Trying to delete " + newId);
+                    OnlineState s = new OnlineState(plant, newId);
+                    s.delete(new API.Callback() {
+                        @Override
+                        public void onSuccess() {
+                        }
+
+                        @Override
+                        public void onFailure(int errorResourceString) {
+                            Log.e("PLANT PUBLISHED TWICE", "The plant " + plant.getId() +
+                                    " was published twice under id " +
+                                    newId + " and " + id + ". Could not delete either one of them.");
+                        }
+                    });
+                }
+            });
         }
 
         private static OnlineAction fromJSON(Plant plant, JSONObject json) throws JSONException {

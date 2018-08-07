@@ -56,7 +56,7 @@ public class Plant implements Comparable<Plant> {
     private double latitude = 0;
     private final PlantCollection collection;
     private File picture = null;
-    private final PlantOnlineState.OnlineAction onlineState;
+    private PlantOnlineState.OnlineAction onlineState;
 
     public Plant() {
         this.id = plants.newId();
@@ -248,5 +248,9 @@ public class Plant implements Comparable<Plant> {
 
     public PlantOnlineState.OnlineAction online() {
         return onlineState;
+    }
+
+    public void setOnline(PlantOnlineState.OnlineAction online) {
+        onlineState = online;
     }
 }
