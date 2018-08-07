@@ -32,6 +32,7 @@ public class PlantDetailFragment extends Fragment {
      * The dummy content this fragment is presenting.
      */
     private Plant plant;
+    private boolean showDate;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -48,8 +49,7 @@ public class PlantDetailFragment extends Fragment {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-            String id = getArguments().getString(ARG_PLANT_ID);
-            plant = Plant.withId(id);
+            plant = Plant.withId(getArguments().getString(ARG_PLANT_ID));
 
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
@@ -80,7 +80,8 @@ public class PlantDetailFragment extends Fragment {
                 public void onClick(View v) {
                     Intent intent = new Intent(context, LoginActivity.class);
                     // intent.putExtra(NewPlantActivity.ARG_PLANT_ID, plantId);
-                    context.startActivity(intent);            }
+                    context.startActivity(intent);
+                }
             });
         }
         return rootView;

@@ -8,13 +8,16 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import eu.quelltext.mundraub.plant.Plant;
@@ -112,6 +115,7 @@ public class PlantListActivity extends AppCompatActivity {
                                       List<Plant> items,
                                       boolean twoPane) {
             mValues = items;
+            Collections.sort(mValues);
             mParentActivity = parent;
             mTwoPane = twoPane;
         }
@@ -127,6 +131,16 @@ public class PlantListActivity extends AppCompatActivity {
         public void onBindViewHolder(final ViewHolder holder, int position) {
             Plant plant = mValues.get(position);
             holder.fillFromPlant(plant);
+            if (position == 0) {
+                holder.showDate(plant);
+            } else {
+                Plant lastPlant = mValues.get(position - 1);
+                if (plant.getCreationDay().equals(lastPlant.getCreationDay())) {
+                    holder.hideDate();
+                } else {
+                    holder.showDate(plant);
+                }
+            }
 
         }
 
@@ -138,11 +152,17 @@ public class PlantListActivity extends AppCompatActivity {
         class ViewHolder extends RecyclerView.ViewHolder {
             private final ImageView plantImage;
             private final TextView plantCategoryText;
+            private final LinearLayout dateContainer;
+            private final String dateFormat;
+            private final TextView dateText;
 
             ViewHolder(View view) {
                 super(view);
                 plantImage = (ImageView) view.findViewById(R.id.image_plant);
                 plantCategoryText = (TextView) view.findViewById(R.id.plant_category);
+                dateContainer = (LinearLayout) view.findViewById(R.id.new_day);
+                dateFormat = view.getResources().getString(R.string.plant_list_date_format);
+                dateText = (TextView) view.findViewById(R.id.date);
             }
 
             public void fillFromPlant(Plant plant) {
@@ -151,7 +171,20 @@ public class PlantListActivity extends AppCompatActivity {
                 String textWithCount = Integer.toString(plant.getCount()) + "x " + plantCategoryText.getText().toString();
                 plantCategoryText.setText(textWithCount);
                 itemView.setTag(plant);
-                itemView.setOnClickListener(mOnClickListener);            }
+                itemView.setOnClickListener(mOnClickListener);
+            }
+
+            public void showDate(Plant plant) {
+                Date date = plant.getCreationDay();
+                String text = DateFormat.format(dateFormat, date).toString();
+                dateText.setText(text);
+                dateContainer.setVisibility(View.VISIBLE);
+            }
+
+            public void hideDate() {
+                // from https://stackoverflow.com/a/7348547/1320237
+                dateContainer.setVisibility(View.GONE);
+            }
         }
     }
 }

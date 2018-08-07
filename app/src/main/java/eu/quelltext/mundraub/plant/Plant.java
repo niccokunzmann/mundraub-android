@@ -6,18 +6,23 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.ImageView;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
+import java.util.Calendar;
 
 
-public class Plant {
+
+public class Plant implements Comparable<Plant> {
 
     private static final PlantCollection plants = new PersistentPlantCollection();
     private static final String JSON_LONGITUDE = "longitude";
@@ -212,5 +217,18 @@ public class Plant {
             return true;
         }
         return false;
+    }
+
+    public Date createdAt() {
+        return plants.getCreationDate(this);
+    }
+
+    @Override
+    public int compareTo(@NonNull Plant other) {
+        return -createdAt().compareTo(other.createdAt());
+    }
+
+    public Date getCreationDay() {
+        return DateUtils.truncate(createdAt(), Calendar.DAY_OF_MONTH);
     }
 }
