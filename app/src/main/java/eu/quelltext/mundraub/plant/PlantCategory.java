@@ -138,6 +138,10 @@ public class PlantCategory {
         return this.id;
     }
 
+    public String getValueForAPI() {
+        return Integer.toString(fieldForAPI);
+    }
+
     public static PlantCategory withId(String id) {
         if (id == null) {
             return NULL;

@@ -1,6 +1,5 @@
 package eu.quelltext.mundraub.api;
 
-import android.os.Build;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -18,6 +17,7 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.net.UnknownHostException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
@@ -47,7 +47,7 @@ public class MundraubAPI extends API {
     private final int RETURN_CODE_LOGIN_FAILURE = HttpURLConnection.HTTP_OK;
     private List<HttpCookie> cookies = new ArrayList<HttpCookie>();
 
-    public void authenticate(HttpsURLConnection http) {
+    public void authenticate(HttpURLConnection http) {
         // from https://stackoverflow.com/a/3249263
         for (HttpCookie cookie : cookies) {
             http.addRequestProperty("Cookie", cookie.getName() + "=" + cookie.getValue());
@@ -85,7 +85,7 @@ public class MundraubAPI extends API {
     }
 
     private URLConnection openSecureConnection(URL url) throws IOException, KeyManagementException, NoSuchAlgorithmException {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+        if (true) {
             // trust all certificates, see
             // https://github.com/niccokunzmann/mundraub-android/issues/3
             SSLContext sc = SSLContext.getInstance("TLS");
@@ -97,20 +97,24 @@ public class MundraubAPI extends API {
                 }
             });
         }
-        return url.openConnection();
+        HttpURLConnection http = (HttpURLConnection) url.openConnection();
+        http.setInstanceFollowRedirects(false); // from https://stackoverflow.com/a/26046079/1320237
+        return http;
     }
 
     @Override
     protected int loginAsync(String username, String password) {
         try {
             // from https://stackoverflow.com/a/35013372/1320237
-            HttpsURLConnection http = (HttpsURLConnection)openSecureConnection(new URL(URL_LOGIN));
+            URL url = new URL(URL_LOGIN);
+            HttpsURLConnection http = (HttpsURLConnection) openSecureConnection(url);
             http.setRequestMethod("POST");
             http.setDoOutput(true);
             byte[] loginData = getLoginData(username, password);
             http.setFixedLengthStreamingMode(loginData.length);
             http.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
             http.setRequestProperty("Referer", "https://mundraub.org/");
+            http.setRequestProperty("Host", url.getHost());
             http.connect();
             OutputStream os = http.getOutputStream();
             os.write(loginData);
@@ -120,13 +124,22 @@ public class MundraubAPI extends API {
             if (returnCode == RETURN_CODE_LOGIN_FAILURE) {
                 return R.string.invalid_credentials;
             } else if (returnCode != RETURN_CODE_LOGIN_SUCCESS) {
-                Log.e("DEBUG", "Unexpected return code " + returnCode + " when logging in.");
+                Log.e("LOGIN", "Unexpected return code " + returnCode + " when logging in.");
+                try {
+                    String result = getResultString(http);
+                    Log.d("LOGIN", result);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 return R.string.error_unexpected_return_code;
             }
             String location = http.getHeaderField("Location"); // TODO: get user id
             String cookie = http.getHeaderField("Set-Cookie");
             setSessionFromCookie(cookie);
             return TASK_SUCCEEDED;
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+            return R.string.error_unknown_hostname;
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (ProtocolException e) {
@@ -163,12 +176,16 @@ public class MundraubAPI extends API {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (KeyManagementException e) {
+            e.printStackTrace();
         }
         return R.string.error_not_specified;
     }
 
-    private void fillInPlant(Map<String, String> formValues, Plant plant) throws IOException, ErrorWithExplanation {
-        formValues.put("field_plant_category", plant.getCategory().getId());
+    private void fillInPlant(Map<String, String> formValues, Plant plant) throws IOException, ErrorWithExplanation, NoSuchAlgorithmException, KeyManagementException {
+        formValues.put("field_plant_category", plant.getCategory().getValueForAPI());
         formValues.put("field_plant_count_trees", plant.getFormCount());
         formValues.put("field_position[0][value]", "POINT(" + plant.getLongitude() + " " + plant.getLatitude() + ")");
         formValues.put("body[0][value]", plant.getDescription());
@@ -180,24 +197,26 @@ public class MundraubAPI extends API {
         formValues.put("field_plant_image[0][fids]", "");
         formValues.put("field_plant_image[0][display]", "1");
 
+        // fields present but not in html
+        formValues.put("address-search", "");
     }
 
-    private String getPlantAddressFromOpenStreetMap(Plant plant) throws IOException, ErrorWithExplanation {
+    private String getPlantAddressFromOpenStreetMap(Plant plant) throws IOException, ErrorWithExplanation, KeyManagementException, NoSuchAlgorithmException {
         // examples:
         // https://nominatim.openstreetmap.org/reverse?callback=nominatimGeocodeCallback&json_callback=nominatimGeocodeCallback&zoom=18&lon=13.096788167604247&lat=52.38594659593905&format=json&_=1533731469471
         // https://nominatim.openstreetmap.org/reverse?callback=nominatimGeocodeCallback&json_callback=nominatimGeocodeCallback&zoom=18&lon=13.096788167604247&lat=52.38594659593905&format=json&_=1533731469470
         // https://nominatim.openstreetmap.org/reverse?callback=nominatimGeocodeCallback&json_callback=nominatimGeocodeCallback&zoom=18&lon=13.096788167604247&lat=52.38594659593905&format=json&_=1533731469469
         // https://nominatim.openstreetmap.org/reverse?callback=nominatimGeocodeCallback&json_callback=nominatimGeocodeCallback&zoom=18&lon=13.096788167604247&lat=52.38594659593905&format=json&_=1533731469468
         return getURL("https://nominatim.openstreetmap.org/reverse?zoom=18&lon=" +
-                       plant.getLongitude() + "&lat=" + plant.getLatitude() + "&format=json");
+                       plant.getLongitude() + "&lat=" + plant.getLatitude() + "&format=json", false);
     }
 
     private final String PATTERN_FORM_FIELD =
                     "<[^>]*(name|value)=\"([^\">]*)\"[^>]*(value|name)=\"([^\">]*)\"[^>]*>";
 
-    private Map<String,String> getFormValues(String url) throws IOException, ErrorWithExplanation {
+    private Map<String,String> getFormValues(String url) throws IOException, ErrorWithExplanation, KeyManagementException, NoSuchAlgorithmException {
         Map<String,String> result = new HashMap<String, String >();
-        String document = getURL(url);
+        String document = getURL(url, true);
         // from https://stackoverflow.com/a/32788546/1320237
         Matcher fieldTag = Pattern.compile(PATTERN_FORM_FIELD).matcher(document);
         while (fieldTag.find()) {
@@ -230,37 +249,50 @@ public class MundraubAPI extends API {
         }
         return result;
     }
-    private String getURL(String sUrl) throws IOException, ErrorWithExplanation {
-        URL url = new URL(sUrl);
-        HttpsURLConnection http = (HttpsURLConnection) url.openConnection();
+    private String getURL(String url_, boolean authenticate) throws IOException, ErrorWithExplanation, NoSuchAlgorithmException, KeyManagementException {
+        Log.d("getURL", url_);
+        URL url =  new URL(url_);
+        HttpURLConnection http = (HttpURLConnection) openSecureConnection(url);
         http.setRequestMethod("GET");
-        authenticate(http);
+        if (authenticate) {
+            authenticate(http);
+        }
+        http.addRequestProperty("Host", url.getHost());
+        http.addRequestProperty("User-Agent", "Mundraub App (eu.quelltext.mundraub)");
         http.connect();
         try {
             int returnCode = http.getResponseCode();
+            // from https://stackoverflow.com/a/1359700/1320237
+            String result = getResultString(http);
             if (returnCode != HttpURLConnection.HTTP_OK) {
+                Log.d("getURL", result);
+                Log.d("getURL", "Unexpected return code " + returnCode);
                 abortOperation(R.string.error_unexpected_return_code);
             }
-            // from https://stackoverflow.com/a/1359700/1320237
-            InputStream is = http.getInputStream();
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-            StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
-            String line;
-            while ((line = rd.readLine()) != null) {
-                response.append(line);
-                response.append('\r');
-            }
-            rd.close();
-            return response.toString();
+            Log.d("getURL", "Success " + url);
+            return result;
         } finally {
             http.disconnect();
         }
     }
 
-    private int postPlantFormTo(Map<String, String> formValues, Plant plant, String url) throws IOException, ErrorWithExplanation {
+    private String getResultString(HttpURLConnection http) throws IOException {
+        InputStream is = http.getInputStream();
+        BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+        StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
+        String line;
+        while ((line = rd.readLine()) != null) {
+            response.append(line);
+            response.append('\r');
+        }
+        rd.close();
+        return response.toString();
+    }
+
+    private int postPlantFormTo(Map<String, String> formValues, Plant plant, String url) throws IOException, ErrorWithExplanation, KeyManagementException, NoSuchAlgorithmException {
         fillInPlant(formValues, plant);
         // from https://stackoverflow.com/a/35013372
-        HttpsURLConnection http = (HttpsURLConnection) new URL(url).openConnection();
+        HttpURLConnection http = (HttpURLConnection) openSecureConnection(new URL(url));
         http.setRequestMethod("POST");
         authenticate(http);
         String boundary = UUID.randomUUID().toString();
@@ -273,15 +305,16 @@ public class MundraubAPI extends API {
 
         // Enable streaming mode with default settings
         http.setChunkedStreamingMode(0);
-
+        http.setDoOutput(true);
         // Send our fields:
         OutputStream out = http.getOutputStream();
         try {
             for (String key : formValues.keySet()){
-                sendField(out, key, formValues.get(key));
                 out.write(boundaryBytes);
+                sendField(out, key, formValues.get(key));
             }
             // Send our file
+            out.write(boundaryBytes);
             if (plant.hasPicture()) {
                 InputStream file = new FileInputStream(plant.getPicture());
                 try {
@@ -304,9 +337,10 @@ public class MundraubAPI extends API {
         if (returnCode == HttpURLConnection.HTTP_OK) {
             return R.string.error_could_not_post_plant;
         } else if (returnCode != HttpURLConnection.HTTP_SEE_OTHER) {
+            Log.d("postPlant", "Unexpected return code " + returnCode);
             return R.string.error_unexpected_return_code;
         }
-        String location = http.getHeaderField("Location"); // TODO: get user id
+        String location = http.getHeaderField("Location");
         // example location = "https://mundraub.org/map?nid=77627"
         Matcher idMatch = Pattern.compile("nid=([0-9]+)").matcher(location);
         idMatch.find();
@@ -314,6 +348,7 @@ public class MundraubAPI extends API {
         if (plant == null || plantId.isEmpty()) {
             return R.string.error_no_plant_id;
         }
+        Log.d("ONLINE PLANT ID", plantId);
         plant.online().publishedWithId(plantId);
         return TASK_SUCCEEDED;
     }
@@ -335,6 +370,7 @@ public class MundraubAPI extends API {
         String o = "Content-Disposition: form-data; name=\"" + URLEncoder.encode(name,"UTF-8")
                 + "\"; filename=\"" + URLEncoder.encode(fileName,"UTF-8") + "\"" +
                 "\r\nContent-Type: " + (fileName.isEmpty() ? "application/octet-stream" : "image/jpeg") + "\r\n\r\n";
+        Log.d("sendFile", name + "=\"" + fileName + "\"");
         out.write(o.getBytes("UTF-8"));
         byte[] buffer = new byte[2048];
         for (int n = 0; n >= 0; n = in.read(buffer))
@@ -349,5 +385,6 @@ public class MundraubAPI extends API {
         out.write(o.getBytes("UTF-8"));
         out.write(URLEncoder.encode(field,"UTF-8").getBytes("UTF-8"));
         out.write("\r\n".getBytes("UTF-8"));
+        Log.d("sendField", name + "=\"" + field + "\"");
     }
 }
