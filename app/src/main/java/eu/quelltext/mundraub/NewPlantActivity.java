@@ -51,6 +51,7 @@ public class NewPlantActivity extends AppCompatActivity {
     private Plant plant;
     private EditText numberOfPlants;
     private TextView textTip;
+    private Button buttonGPS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +73,7 @@ public class NewPlantActivity extends AppCompatActivity {
 
         buttonPlantType = (Button) findViewById(R.id.button_plant_type);
         buttonSave = (Button) findViewById(R.id.button_save);
+        buttonGPS = (Button) findViewById(R.id.button_gps);
         buttonCancel = (Button) findViewById(R.id.button_cancel);
         textPosition = (TextView) findViewById(R.id.text_position);
         textDescription = (TextView) findViewById(R.id.text_description);
@@ -96,6 +98,11 @@ public class NewPlantActivity extends AppCompatActivity {
                 // from https://stackoverflow.com/a/6485850/1320237
                 //cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, savedPicture.toURI());
                 startActivityForResult(cameraIntent, INTENT_CODE_TAKE_PHOTO);
+            }
+        });
+        buttonGPS.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                autoFillGPSLocation();
             }
         });
         buttonSave.setOnClickListener(new View.OnClickListener() {
@@ -173,7 +180,7 @@ public class NewPlantActivity extends AppCompatActivity {
 
     private void autoFillGPSLocation() {
         // from https://stackoverflow.com/a/10917500
-        LocationManager locationManager = (LocationManager)
+        final LocationManager locationManager = (LocationManager)
                 getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -191,11 +198,17 @@ public class NewPlantActivity extends AppCompatActivity {
         if (locationManager == null) {
             return;
         }
+        final double oldLatitude = plant.getLatitude();
+        final double oldLongitude = plant.getLongitude();
         locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER, 5000, 10, new LocationListener() {
                     @Override
                     public void onLocationChanged(Location location) {
+                        if (plant.getLatitude() != oldLatitude || plant.getLongitude() != oldLongitude) {
+                            return; // Avoid race conditions of several button presses
+                        }
                         me.setLocation(location);
+                        locationManager.removeUpdates(this);
                     }
                     @Override
                     public void onStatusChanged(String provider, int status, Bundle extras) {

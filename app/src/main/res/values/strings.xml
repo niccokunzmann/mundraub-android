@@ -76,4 +76,5 @@
     <string name="success_plant_uploaded">The plant was uploaded to mundraub.org.</string>
     <string name="success_plant_updated">The plant has successfully been updated.</string>
     <string name="success_plant_deleted">The plant was deleted from mundraub.org.</string>
+    <string name="GPS">GPS</string>
 </resources>
