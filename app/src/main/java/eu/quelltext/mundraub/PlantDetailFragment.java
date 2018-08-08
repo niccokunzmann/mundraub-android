@@ -4,12 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,7 +115,11 @@ public class PlantDetailFragment extends Fragment {
         updateButton(R.id.button_view, plant.online().hasURL(), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("TODO", "view plant"); // TODO open intent
+                // from https://stackoverflow.com/a/3004542/1320237
+                String url = plant.online().getURL();
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
             }
         });
         updateButton(R.id.button_delete, plant.online().canDelete(), new View.OnClickListener() {

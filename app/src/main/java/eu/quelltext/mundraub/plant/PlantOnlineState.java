@@ -5,9 +5,6 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.api.API;
 
@@ -28,7 +25,7 @@ public class PlantOnlineState {
 
         void create(API.Callback cb);
         void update(API.Callback cb);
-        URL getURL();
+        String getURL();
         void delete(API.Callback cb);
         JSONObject toJSON() throws JSONException;
 
@@ -84,7 +81,7 @@ public class PlantOnlineState {
             cb.onFailure(R.string.operation_not_permitted);
         }
         @Override
-        public URL getURL() {
+        public String getURL() {
             return null;
         }
         @Override
@@ -155,13 +152,8 @@ public class PlantOnlineState {
         }
 
         @Override
-        public URL getURL() {
-            try {
-                return new URL("https://mundraub.org/map?nid=" + id);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-                return null;
-            }
+        public String getURL() {
+            return "https://mundraub.org/map?nid=" + id;
         }
 
         @Override
