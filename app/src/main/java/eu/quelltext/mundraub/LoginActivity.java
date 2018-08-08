@@ -3,6 +3,7 @@ package eu.quelltext.mundraub;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -59,6 +60,23 @@ public class LoginActivity extends AppCompatActivity {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        loadPassword();
+    }
+
+    private void loadPassword() {
+        SharedPreferences settings = getSharedPreferences("UserInfo", 0);
+        usernameView.setText(settings.getString("Username", "").toString());
+        mPasswordView.setText(settings.getString("Password", "").toString());
+    }
+
+    private void savePassword() {
+        // from https://stackoverflow.com/a/10209902
+        SharedPreferences settings = getSharedPreferences("UserInfo", 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("Username", usernameView.getText().toString());
+        editor.putString("Password", mPasswordView.getText().toString());
+        editor.commit();
     }
 
 
@@ -109,6 +127,7 @@ public class LoginActivity extends AppCompatActivity {
             api.login(username, password, new API.Callback() {
                 @Override
                 public void onSuccess() {
+                    loginSuccessful();
                     finish();
                 }
 
@@ -120,6 +139,11 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private void loginSuccessful() {
+        savePassword();
+        finish();
     }
 
     private boolean isPasswordValid(String password) {
