@@ -78,7 +78,6 @@ public class NewPlantActivity extends AppCompatActivity {
         textPosition = (TextView) findViewById(R.id.text_position);
         textDescription = (TextView) findViewById(R.id.text_description);
         textTip = (TextView) findViewById(R.id.new_plant_explanation);
-        textTip.setText(R.string.add_new_plant_heading);
         plantImage = (ImageView) findViewById(R.id.image_plant);
         numberOfPlants = (EditText) findViewById(R.id.number_of_plants);
         buttonPlantType.setOnClickListener(new View.OnClickListener() {
@@ -176,6 +175,7 @@ public class NewPlantActivity extends AppCompatActivity {
                             Double.toString(plant.getLatitude()));
         }
         plant.setImageOf(plantImage);
+        textTip.setText(plant.hasRequiredFieldsFilled() ? R.string.all_plant_fields_are_filled : R.string.add_new_plant_heading);
     }
 
     private void autoFillGPSLocation() {

@@ -51,7 +51,7 @@ public class Plant implements Comparable<Plant> {
     private final String id;
     private PlantCategory category = PlantCategory.NULL;
     private String description = "";
-    private int count = 1;
+    private int count = 0;
     private double longitude = 0;
     private double latitude = 0;
     private final PlantCollection collection;
@@ -245,7 +245,7 @@ public class Plant implements Comparable<Plant> {
     }
 
     public boolean hasRequiredFieldsFilled() {
-        return count >= 0 && !category.isUnknown();
+        return count >= 0 && !category.isUnknown() && !description.isEmpty();
     }
 
     public PlantOnlineState.OnlineAction online() {
@@ -255,5 +255,22 @@ public class Plant implements Comparable<Plant> {
     public void setOnline(PlantOnlineState.OnlineAction online) {
         onlineState = online;
         save();
+    }
+
+    public String getFormCount() {
+        // from https://mundraub.org/node/add/plant/
+        if (count == 0) {
+            return "_none";
+        } else if (count == 1) {
+            return "0";
+        } else if (2 <= count && count <= 5) {
+            return "1";
+        } else if (6 <= count && count <= 10) {
+            return "2";
+        } else if (10 < count) {
+            return "3";
+        }
+        // negative number
+        return "_none";
     }
 }

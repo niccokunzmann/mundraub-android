@@ -9,7 +9,7 @@ public class DummyAPI extends API {
 
     protected int loginAsync(String username, String password) throws ErrorWithExplanation {
         simulateNetwork();
-        if (username.equals("test") && password.equals("test")) {
+        if (username.equals("test") && password.equals("test") || username.equals("apptest")) {
             return TASK_SUCCEEDED;
         } else {
             return R.string.invalid_credentials;

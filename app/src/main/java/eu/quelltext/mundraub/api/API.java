@@ -9,7 +9,7 @@ public abstract class API {
 
     private static final API dummyAPI = new DummyAPI();
     private static final API mundraubAPI = new MundraubAPI();
-    private static final boolean useDummy = true; // for debug purposes use dummy api
+    private static final boolean useDummy = false; // for debug purposes use dummy api
     public final int TASK_SUCCEEDED = R.string.task_completed_successfully;
     public final int TASK_CANCELLED = R.string.task_was_cancelled;
 
