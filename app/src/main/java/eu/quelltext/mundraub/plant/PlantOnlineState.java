@@ -128,7 +128,7 @@ public class PlantOnlineState {
 
         @Override
         public boolean canUpdate() {
-            return true;
+            return api.isLoggedIn();
         }
 
         @Override
@@ -138,7 +138,7 @@ public class PlantOnlineState {
 
         @Override
         public boolean canDelete() {
-            return true;
+            return api.isLoggedIn();
         }
 
         @Override
@@ -225,7 +225,7 @@ public class PlantOnlineState {
     }
     public static OnlineAction fromJSON(Plant plant, JSONObject json) throws JSONException {
         String state = json.getString(JSON_CLASS);
-        if (state == JSON_CLASS_ONLINE) {
+        if (state != null && state.equals(JSON_CLASS_ONLINE)) {
             return OnlineState.fromJSON(plant, json);
         }
         return OfflineState.fromJSON(plant, json);

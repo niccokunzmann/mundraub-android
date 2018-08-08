@@ -64,7 +64,7 @@
     <string name="delete_plant_online">Remove the plant from mundraub.org</string>
     <string name="view_plant_online">View the plant on mundraub.org</string>
     <string name="plant_list_date_format">dd. MM. yyyy</string>
-    <string name="plant_online_description">Change the plant on munraub.org:</string>
+    <string name="plant_online_description">Change the plant on mundraub.org:</string>
     <string name="task_completed_successfully">The operation ended successfully.</string>
     <string name="task_was_cancelled">The operation was cancelled.</string>
     <string name="operation_not_permitted">The operation is not allowed.</string>

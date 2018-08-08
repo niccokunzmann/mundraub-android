@@ -172,7 +172,6 @@ public class PlantDetailFragment extends Fragment {
                 .show();
     }
 
-
     private void updateButton(int resourceId, boolean visible, View.OnClickListener onClickListener) {
         Button button = (Button) rootView.findViewById(resourceId);
         if (visible) {

@@ -66,6 +66,7 @@ public class Plant implements Comparable<Plant> {
 
     public void save() {
         this.collection.save(this);
+        Log.d("PLANT", "saved " + getId());
     }
 
     public String getId() {
@@ -108,6 +109,7 @@ public class Plant implements Comparable<Plant> {
         }else {
             json.put(JSON_PICTURE, null);
         }
+        json.put(JSON_ONLINE, onlineState.toJSON());
         return json;
     }
 
@@ -252,5 +254,6 @@ public class Plant implements Comparable<Plant> {
 
     public void setOnline(PlantOnlineState.OnlineAction online) {
         onlineState = online;
+        save();
     }
 }
