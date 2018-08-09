@@ -81,4 +81,5 @@
     <string name="all_plant_fields_are_filled">All required field of the plant are filled.</string>
     <string name="error_no_plant_id">The server did not respond with a plant id.</string>
     <string name="error_unknown_hostname">Could not resolve the host name and thus could not connect to the server.</string>
+    <string name="error_could_not_parse_open_street_map_data">Could not get the address from OpenStreetMap.</string>
 </resources>

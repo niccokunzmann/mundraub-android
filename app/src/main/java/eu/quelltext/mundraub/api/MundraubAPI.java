@@ -2,9 +2,11 @@ package eu.quelltext.mundraub.api;
 
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -25,7 +27,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,14 +34,24 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.plant.Plant;
+import okhttp3.Headers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okio.Buffer;
 
 public class MundraubAPI extends API {
 
+    private static final String HEADER_USER_AGENT = "Mundraub App (eu.quelltext.mundraub)";
     private final String URL_LOGIN = "https://mundraub.org/user/login";
     private final String URL_ADD_PLANT_FORM = "https://mundraub.org/node/add/plant/";
     private final int RETURN_CODE_LOGIN_SUCCESS = HttpURLConnection.HTTP_SEE_OTHER;
@@ -50,8 +61,19 @@ public class MundraubAPI extends API {
     public void authenticate(HttpURLConnection http) {
         // from https://stackoverflow.com/a/3249263
         for (HttpCookie cookie : cookies) {
-            http.addRequestProperty("Cookie", cookie.getName() + "=" + cookie.getValue());
-            Log.d("COOKIE", cookie.getName() + "=" + cookie.getValue());
+            String s = cookie.getName() + "=" + cookie.getValue();
+            http.addRequestProperty("Cookie", s);
+            Log.d("COOKIE", s);
+        }
+    }
+
+    public void authenticate(Request.Builder builder) {
+        // from https://stackoverflow.com/a/3249263
+        for (HttpCookie cookie : cookies) {
+            String s = cookie.getName() + "=" + cookie.getValue();
+            builder.header("Cookie", s);
+            //http.addRequestProperty("Cookie", );
+            Log.d("COOKIE", s);
         }
     }
 
@@ -86,20 +108,70 @@ public class MundraubAPI extends API {
 
     private URLConnection openSecureConnection(URL url) throws IOException, KeyManagementException, NoSuchAlgorithmException {
         if (true) {
-            // trust all certificates, see
-            // https://github.com/niccokunzmann/mundraub-android/issues/3
-            SSLContext sc = SSLContext.getInstance("TLS");
-            sc.init(null, new TrustManager[]{new TrustAllX509TrustManager()}, new java.security.SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
-                public boolean verify(String string, SSLSession ssls) {
-                    return true;
-                }
-            });
+            trustAllConnections();
         }
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         http.setInstanceFollowRedirects(false); // from https://stackoverflow.com/a/26046079/1320237
         return http;
+    }
+
+    private void trustAllConnections() throws KeyManagementException, NoSuchAlgorithmException {
+        // trust all certificates, see
+        // https://github.com/niccokunzmann/mundraub-android/issues/3
+        SSLContext sc = SSLContext.getInstance("TLS");
+        sc.init(null, new TrustManager[]{new TrustAllX509TrustManager()}, new java.security.SecureRandom());
+        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+        HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
+            public boolean verify(String string, SSLSession ssls) {
+                return true;
+            }
+        });
+    }
+
+    private static OkHttpClient getUnsafeOkHttpClient() {
+        // from https://stackoverflow.com/a/25992879/1320237
+        try {
+            // Create a trust manager that does not validate certificate chains
+            final TrustManager[] trustAllCerts = new TrustManager[] {
+                    new X509TrustManager() {
+                        @Override
+                        public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) {
+                        }
+
+                        @Override
+                        public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) {
+                        }
+
+                        @Override
+                        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                            return new java.security.cert.X509Certificate[]{};
+                        }
+                    }
+            };
+
+            // Install the all-trusting trust manager
+            final SSLContext sslContext = SSLContext.getInstance("SSL");
+            sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
+            // Create an ssl socket factory with our all-trusting manager
+            final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
+
+            OkHttpClient.Builder builder = new OkHttpClient.Builder();
+            builder.sslSocketFactory(sslSocketFactory, (X509TrustManager)trustAllCerts[0]);
+            builder.hostnameVerifier(new HostnameVerifier() {
+                @Override
+                public boolean verify(String hostname, SSLSession session) {
+                    return true;
+                }
+            });
+
+            OkHttpClient okHttpClient = builder
+                    .followRedirects(false) // from https://stackoverflow.com/a/29268150/1320237
+                    .followSslRedirects(false)
+                    .build();
+            return okHttpClient;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -180,25 +252,34 @@ public class MundraubAPI extends API {
             e.printStackTrace();
         } catch (KeyManagementException e) {
             e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return R.string.error_could_not_parse_open_street_map_data;
         }
         return R.string.error_not_specified;
     }
 
-    private void fillInPlant(Map<String, String> formValues, Plant plant) throws IOException, ErrorWithExplanation, NoSuchAlgorithmException, KeyManagementException {
+    private void fillInPlant(Map<String, String> formValues, Plant plant) throws IOException, ErrorWithExplanation, NoSuchAlgorithmException, KeyManagementException, JSONException {
         formValues.put("field_plant_category", plant.getCategory().getValueForAPI());
         formValues.put("field_plant_count_trees", plant.getFormCount());
         formValues.put("field_position[0][value]", "POINT(" + plant.getLongitude() + " " + plant.getLatitude() + ")");
         formValues.put("body[0][value]", plant.getDescription());
         //formValues.put("field_plant_image[0][_weight]", );
         //formValues.put("field_plant_image[0][display]", );
-        formValues.put("field_plant_address[0][value]", getPlantAddressFromOpenStreetMap(plant));
+        String wholeAddress = getPlantAddressFromOpenStreetMap(plant);
+        formValues.put("field_plant_address[0][value]", wholeAddress);
         // file attributes
         formValues.put("field_plant_image[0][_weight]", "0");
         formValues.put("field_plant_image[0][fids]", "");
         formValues.put("field_plant_image[0][display]", "1");
 
         // fields present but not in html
-        formValues.put("address-search", "");
+        formValues.put("address-search", getDisplayNameFromOSMJSONAddress(wholeAddress));
+    }
+
+    private String getDisplayNameFromOSMJSONAddress(String wholeAddress) throws JSONException {
+        JSONObject json = new JSONObject(wholeAddress);
+        return json.getString("display_name");
     }
 
     private String getPlantAddressFromOpenStreetMap(Plant plant) throws IOException, ErrorWithExplanation, KeyManagementException, NoSuchAlgorithmException {
@@ -258,7 +339,7 @@ public class MundraubAPI extends API {
             authenticate(http);
         }
         http.addRequestProperty("Host", url.getHost());
-        http.addRequestProperty("User-Agent", "Mundraub App (eu.quelltext.mundraub)");
+        http.addRequestProperty("User-Agent", HEADER_USER_AGENT);
         http.connect();
         try {
             int returnCode = http.getResponseCode();
@@ -289,102 +370,75 @@ public class MundraubAPI extends API {
         return response.toString();
     }
 
-    private int postPlantFormTo(Map<String, String> formValues, Plant plant, String url) throws IOException, ErrorWithExplanation, KeyManagementException, NoSuchAlgorithmException {
+    private static final MediaType MEDIA_TYPE_JPG = MediaType.parse("image/jpeg");
+    private static final MediaType MEDIA_TYPE_OCTET = MediaType.parse("application/octet-stream");
+
+    private int postPlantFormTo(Map<String, String> formValues, Plant plant, String url) throws IOException, ErrorWithExplanation, KeyManagementException, NoSuchAlgorithmException, JSONException {
         fillInPlant(formValues, plant);
-        // from https://stackoverflow.com/a/35013372
-        HttpURLConnection http = (HttpURLConnection) openSecureConnection(new URL(url));
-        http.setRequestMethod("POST");
-        authenticate(http);
-        String boundary = UUID.randomUUID().toString();
-        byte[] boundaryBytes =
-                ("--" + boundary + "\r\n").getBytes("UTF-8");
-        byte[] finishBoundaryBytes =
-                ("--" + boundary + "--").getBytes("UTF-8");
-        http.setRequestProperty("Content-Type",
-                "multipart/form-data; charset=UTF-8; boundary=" + boundary);
+        // see https://github.com/square/okhttp/wiki/Recipes#posting-a-multipart-request
+        trustAllConnections();
+        final OkHttpClient client = getUnsafeOkHttpClient();
+        MultipartBody.Builder formBuilder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM);
+        if (plant.hasPicture()) {
+            File picture = plant.getPicture();
+            formBuilder.addFormDataPart("files[field_plant_image_0][]", picture.getName(),
+                    RequestBody.create(MEDIA_TYPE_JPG, picture));
+        } else {
+            formBuilder.addFormDataPart("files[field_plant_image_0][]", "",
+                    RequestBody.create(MEDIA_TYPE_OCTET, "".getBytes()));
+        }
+        for (String key : formValues.keySet()){
+            formBuilder.addFormDataPart(key, formValues.get(key));
+        }
+        RequestBody requestBody = formBuilder.build();
+        Buffer b = new Buffer();
+        formBuilder.build().writeTo(b);
+        b.copyTo(System.out);
 
-        // Enable streaming mode with default settings
-        http.setChunkedStreamingMode(0);
-        http.setDoOutput(true);
-        // Send our fields:
-        OutputStream out = http.getOutputStream();
-        try {
-            for (String key : formValues.keySet()){
-                out.write(boundaryBytes);
-                sendField(out, key, formValues.get(key));
-            }
-            // Send our file
-            out.write(boundaryBytes);
-            if (plant.hasPicture()) {
-                InputStream file = new FileInputStream(plant.getPicture());
-                try {
-                    sendFile(out, "files[field_plant_image_0][]", file, plant.getPicture().getName());
+        Request.Builder builder = new Request.Builder();
+        authenticate(builder);
+        Request request = builder
+                .addHeader("Host", new URL(url).getHost())
+                .addHeader("User-Agent", HEADER_USER_AGENT)
+                .addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+                .addHeader("Accept-Language", "en-US,en;q=0.5")
+                .addHeader("Referer", "https://mundraub.org/map")
+                .url(url)
+                .post(requestBody)
+                .build();
 
-                } finally {
-                    file.close();
-                }
-            } else {
-                // from http://stackoverflow.com/questions/5720524/ddg#5720542
-                InputStream empty = new ByteArrayInputStream( "".getBytes() );
-                sendFile(out, "files[field_plant_image_0][]", empty, "");
+        Response response = client.newCall(request).execute();
+        try{
+            int returnCode = response.code();
+            Headers headers = response.headers();
+            for (String key: headers.names()) {
+                Log.d("RESPONSE HEADER", key + ": " + headers.get(key));
             }
-            // Finish the request
-            out.write(finishBoundaryBytes);
+            Log.d("BODY", response.body().string());
+            if (returnCode == HttpURLConnection.HTTP_OK) {
+                Log.d("postPlant", "Server rejected the data " + returnCode);
+                return R.string.error_could_not_post_plant;
+            } else if (returnCode != HttpURLConnection.HTTP_SEE_OTHER) {
+                Log.d("postPlant", "Unexpected return code " + returnCode);
+                return R.string.error_unexpected_return_code;
+            }
+            plant.online().publishedWithId(getPlantIdFromLocationUrl(response.header("Location")));
+
         } finally {
-            out.close();
+            response.close();
         }
-        int returnCode = http.getResponseCode();
-        if (returnCode == HttpURLConnection.HTTP_OK) {
-            return R.string.error_could_not_post_plant;
-        } else if (returnCode != HttpURLConnection.HTTP_SEE_OTHER) {
-            Log.d("postPlant", "Unexpected return code " + returnCode);
-            return R.string.error_unexpected_return_code;
-        }
-        String location = http.getHeaderField("Location");
-        // example location = "https://mundraub.org/map?nid=77627"
-        Matcher idMatch = Pattern.compile("nid=([0-9]+)").matcher(location);
-        idMatch.find();
-        String plantId = idMatch.group(1);
-        if (plant == null || plantId.isEmpty()) {
-            return R.string.error_no_plant_id;
-        }
-        Log.d("ONLINE PLANT ID", plantId);
-        plant.online().publishedWithId(plantId);
         return TASK_SUCCEEDED;
     }
 
-    /*  -----------------------------77394568618088815351035398667
-        Content-Disposition: form-data; name="files[field_plant_image_0][]"; filename=""
-        Content-Type: application/octet-stream
-        -----------------------------77394568618088815351035398667
-        Content-Disposition: form-data; name="field_plant_image[0][_weight]"
-        0
-        -----------------------------77394568618088815351035398667
-        Content-Disposition: form-data; name="field_plant_image[0][fids]"
-        -----------------------------77394568618088815351035398667
-        Content-Disposition: form-data; name="field_plant_image[0][display]"
-        1
-    */
-    private void sendFile(OutputStream out, String name, InputStream in, String fileName) throws IOException {
-        // from https://stackoverflow.com/a/35013372
-        String o = "Content-Disposition: form-data; name=\"" + URLEncoder.encode(name,"UTF-8")
-                + "\"; filename=\"" + URLEncoder.encode(fileName,"UTF-8") + "\"" +
-                "\r\nContent-Type: " + (fileName.isEmpty() ? "application/octet-stream" : "image/jpeg") + "\r\n\r\n";
-        Log.d("sendFile", name + "=\"" + fileName + "\"");
-        out.write(o.getBytes("UTF-8"));
-        byte[] buffer = new byte[2048];
-        for (int n = 0; n >= 0; n = in.read(buffer))
-            out.write(buffer, 0, n);
-        out.write("\r\n".getBytes("UTF-8"));
+    private String getPlantIdFromLocationUrl(String location) throws ErrorWithExplanation {
+        Matcher idMatch = Pattern.compile("nid=([0-9]+)").matcher(location);
+        idMatch.find();
+        String plantId = idMatch.group(1);
+        if (plantId == null || plantId.isEmpty()) {
+            abortOperation(R.string.error_no_plant_id);
+        }
+        return plantId;
     }
 
-    private void sendField(OutputStream out, String name, String field) throws IOException {
-        // from https://stackoverflow.com/a/35013372
-        String o = "Content-Disposition: form-data; name=\""
-                + URLEncoder.encode(name,"UTF-8") + "\"\r\n\r\n";
-        out.write(o.getBytes("UTF-8"));
-        out.write(URLEncoder.encode(field,"UTF-8").getBytes("UTF-8"));
-        out.write("\r\n".getBytes("UTF-8"));
-        Log.d("sendField", name + "=\"" + field + "\"");
-    }
 }
