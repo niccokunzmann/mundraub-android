@@ -1,6 +1,7 @@
 package eu.quelltext.mundraub;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -52,6 +53,8 @@ public class NewPlantActivity extends AppCompatActivity {
     private EditText numberOfPlants;
     private TextView textTip;
     private Button buttonGPS;
+    private LocationManager locationManager;
+    private LocationListener locationListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,9 +181,55 @@ public class NewPlantActivity extends AppCompatActivity {
         textTip.setText(plant.hasRequiredFieldsFilled() ? R.string.all_plant_fields_are_filled : R.string.add_new_plant_heading);
     }
 
+    @SuppressLint("MissingPermission")
     private void autoFillGPSLocation() {
+        if (!tryCreateLocationManager()) {
+            return;
+        }
+        final double oldLatitude = plant.getLatitude();
+        final double oldLongitude = plant.getLongitude();
+        stopGPSUpdates();
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                if (plant.getLatitude() != oldLatitude || plant.getLongitude() != oldLongitude) {
+                    return; // Avoid race conditions of several button presses
+                }
+                setLocation(location);
+                stopGPSUpdates();
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+                // TODO: Check if this can be used in a meaningful way
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+                // TODO: Check if this can be used in a meaningful way
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+                // TODO: Check if this can be used in a meaningful way
+            }
+        };
+        locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stopGPSUpdates();
+    }
+
+    private boolean tryCreateLocationManager() {
+        if (locationManager != null) {
+            return true;
+        }
         // from https://stackoverflow.com/a/10917500
-        final LocationManager locationManager = (LocationManager)
+        locationManager = (LocationManager)
                 getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -193,39 +242,16 @@ public class NewPlantActivity extends AppCompatActivity {
             // TODO: or create alert box:
             //       protected void alertbox in http://rdcworld-android.blogspot.com/2012/01/get-current-location-coordinates-city.html
             Log.d("DEBUG", "Access to GPS position is not granted.");
-            return;
         }
-        if (locationManager == null) {
-            return;
-        }
-        final double oldLatitude = plant.getLatitude();
-        final double oldLongitude = plant.getLongitude();
-        locationManager.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER, 5000, 10, new LocationListener() {
-                    @Override
-                    public void onLocationChanged(Location location) {
-                        if (plant.getLatitude() != oldLatitude || plant.getLongitude() != oldLongitude) {
-                            return; // Avoid race conditions of several button presses
-                        }
-                        me.setLocation(location);
-                        locationManager.removeUpdates(this);
-                    }
-                    @Override
-                    public void onStatusChanged(String provider, int status, Bundle extras) {
-                        // TODO: Check if this can be used in a meaningful way
-                    }
-
-                    @Override
-                    public void onProviderEnabled(String provider) {
-                        // TODO: Check if this can be used in a meaningful way
-                    }
-
-                    @Override
-                    public void onProviderDisabled(String provider) {
-                        // TODO: Check if this can be used in a meaningful way
-                    }
-                });
+        return false;
     }
+
+    private void stopGPSUpdates() {
+        if (locationManager != null && locationListener != null){
+            locationManager.removeUpdates(locationListener);
+        }
+    }
+
 
     private void setLocation(Location location) {
         plant.setLocation(location);
