@@ -16,15 +16,19 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Calendar;
 
+import eu.quelltext.mundraub.Helper;
+import eu.quelltext.mundraub.map.MapCache;
 
 
 public class Plant implements Comparable<Plant> {
 
     private static final PlantCollection plants = new PersistentPlantCollection();
+    private static final MapCache mapCache = new MapCache();
+
     private static final String JSON_LONGITUDE = "longitude";
     private static final String JSON_LATITUDE = "latitude";
     private static final String JSON_COUNT = "count";
@@ -52,11 +56,10 @@ public class Plant implements Comparable<Plant> {
     private PlantCategory category = PlantCategory.NULL;
     private String description = "";
     private int count = 0;
-    private double longitude = 0;
-    private double latitude = 0;
     private final PlantCollection collection;
     private File picture = null;
     private PlantOnlineState.OnlineAction onlineState;
+    private Position position = Position.NULL;
 
     public Plant() {
         this.id = plants.newId();
@@ -94,8 +97,8 @@ public class Plant implements Comparable<Plant> {
 
     public JSONObject toJSON() throws JSONException {
         JSONObject json = new JSONObject();
-        json.put(JSON_LONGITUDE, longitude);
-        json.put(JSON_LATITUDE, latitude);
+        json.put(JSON_LONGITUDE, position.getLongitude());
+        json.put(JSON_LATITUDE, position.getLatitude());
         json.put(JSON_COUNT, count);
         json.put(JSON_DESCRIPTION, description);
         json.put(JSON_ID, id);
@@ -116,8 +119,7 @@ public class Plant implements Comparable<Plant> {
     public Plant(PlantCollection collection, JSONObject json) throws JSONException {
         this.collection = collection;
         id = json.getString(JSON_ID);
-        longitude = json.getDouble(JSON_LONGITUDE);
-        latitude = json.getDouble(JSON_LATITUDE);
+        setPosition(new Position(json.getDouble(JSON_LONGITUDE), json.getDouble(JSON_LATITUDE)));
         count = json.getInt(JSON_COUNT);
         description = json.getString(JSON_DESCRIPTION);
         if (json.has(JSON_CATEGORY)) {
@@ -151,17 +153,8 @@ public class Plant implements Comparable<Plant> {
     }
 
     public void setLocation(Location location) {
-        longitude = location.getLongitude();
-        latitude = location.getLatitude();
+        setPosition(Position.from(location));
         save();
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public double getLatitude() {
-        return latitude;
     }
 
     public boolean hasCategory() {
@@ -169,7 +162,7 @@ public class Plant implements Comparable<Plant> {
     }
 
     public boolean hasPosition() {
-        return longitude != 0 && latitude != 0;
+        return position.isValid();
     }
 
     public void setCategory(PlantCategory category) {
@@ -190,35 +183,48 @@ public class Plant implements Comparable<Plant> {
         return picture;
     }
 
-    private Uri getPictureUri() {
-        return Uri.fromFile(getPicture()); // NullPointer? Use hasPicture() first!
-    }
-
-    private Bitmap getBitmap(Context context) throws IOException {
-        // from https://stackoverflow.com/a/31930502/1320237
-        return MediaStore.Images.Media.getBitmap(context.getContentResolver(), getPictureUri());
-    }
-
-    public void setImageOf(ImageView imageView) {
+    private boolean setBitmapFromFileOrNull(File file, ImageView imageView) {
+        if (file == null) return false;
+        Uri uri = Uri.fromFile(file);
         Context context = imageView.getContext();
-        if (hasPicture()) {
-            // from https://stackoverflow.com/a/3193445/1320237
-            //Bitmap bitmap = BitmapFactory.decodeFile(plant.getPicture().getAbsolutePath());
-            try {
-                Bitmap bitmap = getBitmap(context);
-                if (bitmap != null) {
-                    imageView.setImageBitmap(bitmap);
-                    return;
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        Bitmap bitmap;
+        try {
+            // from https://stackoverflow.com/a/31930502/1320237
+            bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
+        } catch (IOException e) {
+            return false;
+        }
+        imageView.setImageBitmap(bitmap);
+        return true;
+    }
+
+    public void setPictureToPlant(ImageView imageView) {
+        Context context = imageView.getContext();
+        if (setBitmapFromFileOrNull(getPicture(), imageView)) {
+            return;
         }
         // from https://stackoverflow.com/a/11737758/1320237
         String uri = "@android:drawable/ic_menu_gallery";
         int imageResource = context.getResources().getIdentifier(uri, null, context.getPackageName());
         Drawable resource = context.getResources().getDrawable(imageResource);
         imageView.setImageDrawable(resource);
+    }
+
+    public void setPictureToMap(final ImageView imageView, final MapCache.Callback callback) {
+        mapCache.initilizeOnCacheDirectoryFrom(imageView.getContext());
+        mapCache.mapPreviewOf(this, new MapCache.Callback() {
+            @Override
+            public void onSuccess(File file) {
+                setBitmapFromFileOrNull(file, imageView);
+                callback.onSuccess(file);
+            }
+
+            @Override
+            public void onFailure() {
+                callback.onFailure();
+            }
+        });
+
     }
 
     public boolean movePictureTo(File newLocation) {
@@ -231,7 +237,7 @@ public class Plant implements Comparable<Plant> {
         return false;
     }
 
-    public Date createdAt() {
+    private Date createdAt() {
         return plants.getCreationDate(this);
     }
 
@@ -274,11 +280,102 @@ public class Plant implements Comparable<Plant> {
         return "_none";
     }
 
-    public String getAPILocation() {
-        // POINT(6.968046426773072 50.82075362541587)
-        // from https://stackoverflow.com/a/8820013/1320237
-        return "POINT(" +
-                String.format("%.15f", getLongitude()) + " " +
-                String.format("%.15f", getLatitude()) + ")";
+    public String getPathComponent() {
+        return id;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    private void setPosition(Position position) {
+        this.position = position;
+        if (mapCache != null) {
+            mapCache.mapPreviewOf(this);
+        }
+    }
+
+    public double getLongitude() {
+        return getPosition().getLongitude();
+    }
+    public double getLatitude() {
+        return getPosition().getLongitude();
+    }
+
+    static public class Position {
+        public static final Position NULL = new Position(0, 0);
+        private static final double MAP_IMAGE_BOUNDARY = 0.002;
+        private static final int MAP_IMAGE_SCALE = 200000;
+
+        private final double longitude;
+        private final double latitude;
+
+        protected static Position from(Location location) {
+            return new Position(location.getLongitude(), location.getLatitude());
+        }
+
+        private Position(double longitude, double latitude) {
+            this.longitude = longitude;
+            this.latitude = latitude;
+        }
+
+        public String asId() {
+            return Helper.doubleTo15DigitString(getLongitude()) + "-" + Helper.doubleTo15DigitString(getLatitude());
+        }
+
+        public String forAPI() {
+            // POINT(6.968046426773072 50.82075362541587)
+            return "POINT(" +
+                    Helper.doubleTo15DigitString(getLongitude()) + " " +
+                    Helper.doubleTo15DigitString(getLatitude()) + ")";
+        }
+
+        public double getLongitude() {
+            return longitude;
+        }
+
+        public double getLatitude() {
+            return latitude;
+        }
+
+        public boolean isValid() {
+            return longitude != 0 && latitude != 0;
+        }
+
+        public String getOpenStreetMapExportUrl(String format) {
+            // https://render.openstreetmap.org/cgi-bin/export?bbox=13.07753920555115%2C52.38891775630483%2C13.079620599746706%2C52.389922830851866&layer=mapnik&marker=52.38942029643904%2C13.078579902648926&scale=20000&format=png
+            // https://render.openstreetmap.org/cgi-bin/export
+            //     ?bbox=13.07753920555115%2C
+            //           52.38891775630483%2C
+            //           13.079620599746706%2C
+            //           52.389922830851866
+            //     &layer=mapnik
+            //     &scale=20000&format=png
+            // https://render.openstreetmap.org/cgi-bin/export
+            //     ?bbox=11.393680572509767,47.21521905833701,11.426982879638674,47.233114194635405
+            //     &scale=200000
+            //     &format=png
+            return "https://render.openstreetmap.org/cgi-bin/export" +
+                    "?bbox=" +
+                        Helper.doubleTo15DigitString(getLongitude() - MAP_IMAGE_BOUNDARY) + "," +
+                        Helper.doubleTo15DigitString(getLatitude() - MAP_IMAGE_BOUNDARY) + "," +
+                        Helper.doubleTo15DigitString(getLongitude() + MAP_IMAGE_BOUNDARY) + "," +
+                        Helper.doubleTo15DigitString(getLatitude() + MAP_IMAGE_BOUNDARY) +
+                    "&layer=mapnik&scale=" + MAP_IMAGE_SCALE + "&format=" + format;
+        }
+
+        public String getOpenStreetMapAddressUrl() {
+            // examples:
+            // https://nominatim.openstreetmap.org/reverse?callback=nominatimGeocodeCallback&json_callback=nominatimGeocodeCallback&zoom=18&lon=13.096788167604247&lat=52.38594659593905&format=json&_=1533731469471
+            // https://nominatim.openstreetmap.org/reverse?callback=nominatimGeocodeCallback&json_callback=nominatimGeocodeCallback&zoom=18&lon=13.096788167604247&lat=52.38594659593905&format=json&_=1533731469470
+            // https://nominatim.openstreetmap.org/reverse?callback=nominatimGeocodeCallback&json_callback=nominatimGeocodeCallback&zoom=18&lon=13.096788167604247&lat=52.38594659593905&format=json&_=1533731469469
+            // https://nominatim.openstreetmap.org/reverse?callback=nominatimGeocodeCallback&json_callback=nominatimGeocodeCallback&zoom=18&lon=13.096788167604247&lat=52.38594659593905&format=json&_=1533731469468
+            return "https://nominatim.openstreetmap.org/reverse?zoom=18&lon=" +
+                    getLongitude() + "&lat=" + getLatitude() + "&format=json";
+        }
+
+        public boolean equals(Position other) {
+            return getLongitude() == other.getLongitude() && getLatitude() == other.getLatitude();
+        }
     }
 }

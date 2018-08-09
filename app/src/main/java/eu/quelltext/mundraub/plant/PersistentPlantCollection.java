@@ -14,6 +14,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import eu.quelltext.mundraub.Helper;
+
 public class PersistentPlantCollection extends PlantCollection {
 
     private static final String STORAGE_DIRECTORY_NAME = "eu.quelltext.mundraub";
@@ -85,6 +87,7 @@ public class PersistentPlantCollection extends PlantCollection {
     private File dataFileForPlant(Plant plant) {
         return new File(directoryForPlant(plant), JSON_FILE);
     }
+
     private File pictureForPlant(Plant plant) {
         return new File(directoryForPlant(plant), PICTURE_FILE);
     }
@@ -121,18 +124,7 @@ public class PersistentPlantCollection extends PlantCollection {
 
     public void delete(Plant plant) {
         super.delete(plant);
-        deleteDir(directoryForPlant(plant));
-
+        Helper.deleteDir(directoryForPlant(plant));
     }
 
-    private static void deleteDir(File file) {
-        // from https://stackoverflow.com/a/29175213/1320237
-        File[] contents = file.listFiles();
-        if (contents != null) {
-            for (File f : contents) {
-                deleteDir(f);
-            }
-        }
-        file.delete();
-    }
 }

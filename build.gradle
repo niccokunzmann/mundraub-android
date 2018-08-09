@@ -20,6 +20,10 @@ allprojects {
         google()
         jcenter()
     }
+    tasks.withType(JavaCompile) {
+        // from https://stackoverflow.com/a/47966854/1320237
+        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+    }
 }
 
 task clean(type: Delete) {

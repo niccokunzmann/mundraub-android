@@ -166,7 +166,7 @@ public class PlantListActivity extends AppCompatActivity {
             }
 
             public void fillFromPlant(Plant plant) {
-                plant.setImageOf(plantImage);
+                plant.setPictureToPlant(plantImage);
                 plantCategoryText.setText(plant.getCategory().getResourceId());
                 String textWithCount = Integer.toString(plant.getCount()) + "x " + plantCategoryText.getText().toString();
                 plantCategoryText.setText(textWithCount);

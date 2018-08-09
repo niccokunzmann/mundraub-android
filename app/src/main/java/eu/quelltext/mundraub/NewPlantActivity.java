@@ -177,7 +177,7 @@ public class NewPlantActivity extends AppCompatActivity {
                             " , " +
                             Double.toString(plant.getLatitude()));
         }
-        plant.setImageOf(plantImage);
+        plant.setPictureToPlant(plantImage);
         textTip.setText(plant.hasRequiredFieldsFilled() ? R.string.all_plant_fields_are_filled : R.string.add_new_plant_heading);
     }
 

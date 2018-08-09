@@ -5,11 +5,8 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpCookie;
@@ -38,6 +35,7 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import eu.quelltext.mundraub.Helper;
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.plant.Plant;
 import okhttp3.Headers;
@@ -198,7 +196,7 @@ public class MundraubAPI extends API {
             } else if (returnCode != RETURN_CODE_LOGIN_SUCCESS) {
                 Log.e("LOGIN", "Unexpected return code " + returnCode + " when logging in.");
                 try {
-                    String result = getResultString(http);
+                    String result = Helper.getResultString(http);
                     Log.d("LOGIN", result);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -262,7 +260,7 @@ public class MundraubAPI extends API {
     private void fillInPlant(Map<String, String> formValues, Plant plant) throws IOException, ErrorWithExplanation, NoSuchAlgorithmException, KeyManagementException, JSONException {
         formValues.put("field_plant_category", plant.getCategory().getValueForAPI());
         formValues.put("field_plant_count_trees", plant.getFormCount());
-        formValues.put("field_position[0][value]", plant.getAPILocation());
+        formValues.put("field_position[0][value]", plant.getPosition().forAPI());
         formValues.put("body[0][value]", plant.getDescription());
         //formValues.put("field_plant_image[0][_weight]", );
         //formValues.put("field_plant_image[0][display]", );
@@ -283,13 +281,7 @@ public class MundraubAPI extends API {
     }
 
     private String getPlantAddressFromOpenStreetMap(Plant plant) throws IOException, ErrorWithExplanation, KeyManagementException, NoSuchAlgorithmException {
-        // examples:
-        // https://nominatim.openstreetmap.org/reverse?callback=nominatimGeocodeCallback&json_callback=nominatimGeocodeCallback&zoom=18&lon=13.096788167604247&lat=52.38594659593905&format=json&_=1533731469471
-        // https://nominatim.openstreetmap.org/reverse?callback=nominatimGeocodeCallback&json_callback=nominatimGeocodeCallback&zoom=18&lon=13.096788167604247&lat=52.38594659593905&format=json&_=1533731469470
-        // https://nominatim.openstreetmap.org/reverse?callback=nominatimGeocodeCallback&json_callback=nominatimGeocodeCallback&zoom=18&lon=13.096788167604247&lat=52.38594659593905&format=json&_=1533731469469
-        // https://nominatim.openstreetmap.org/reverse?callback=nominatimGeocodeCallback&json_callback=nominatimGeocodeCallback&zoom=18&lon=13.096788167604247&lat=52.38594659593905&format=json&_=1533731469468
-        return getURL("https://nominatim.openstreetmap.org/reverse?zoom=18&lon=" +
-                       plant.getLongitude() + "&lat=" + plant.getLatitude() + "&format=json", false);
+        return getURL(plant.getPosition().getOpenStreetMapAddressUrl(), false);
     }
 
     private final String PATTERN_FORM_FIELD =
@@ -344,7 +336,7 @@ public class MundraubAPI extends API {
         try {
             int returnCode = http.getResponseCode();
             // from https://stackoverflow.com/a/1359700/1320237
-            String result = getResultString(http);
+            String result = Helper.getResultString(http);
             if (returnCode != HttpURLConnection.HTTP_OK) {
                 Log.d("getURL", result);
                 Log.d("getURL", "Unexpected return code " + returnCode);
@@ -355,19 +347,6 @@ public class MundraubAPI extends API {
         } finally {
             http.disconnect();
         }
-    }
-
-    private String getResultString(HttpURLConnection http) throws IOException {
-        InputStream is = http.getInputStream();
-        BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-        StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
-        String line;
-        while ((line = rd.readLine()) != null) {
-            response.append(line);
-            response.append('\r');
-        }
-        rd.close();
-        return response.toString();
     }
 
     private static final MediaType MEDIA_TYPE_JPG = MediaType.parse("image/jpeg");

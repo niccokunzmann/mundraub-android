@@ -35,7 +35,7 @@ public abstract class API {
 
     private void doAsynchronously(Callback cb, AsyncOperation op) {
         Task task = new Task(cb, op);
-        task.execute((Void) null);
+        task.execute();
     }
 
     public boolean isLoggedIn() {

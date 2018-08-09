@@ -17,7 +17,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
+
 import eu.quelltext.mundraub.api.API;
+import eu.quelltext.mundraub.map.MapCache;
 import eu.quelltext.mundraub.plant.Plant;
 
 /**
@@ -83,15 +86,32 @@ public class PlantDetailFragment extends Fragment {
 
     private void updateViewFromPlant() {
         if (plant != null && rootView != null && context != null) {
-            plant.setImageOf((ImageView) rootView.findViewById(R.id.image_plant));
-            ((TextView) rootView.findViewById(R.id.text_plant_category)).setText(plant.getCategory().getResourceId());
-            ((TextView) rootView.findViewById(R.id.text_count)).setText(Integer.toString(plant.getCount()));
-            ((TextView) rootView.findViewById(R.id.text_description)).setText(plant.getDescription());
-            ((TextView) rootView.findViewById(R.id.text_latitude)).setText(Double.toString(plant.getLatitude()));
-            ((TextView) rootView.findViewById(R.id.text_longitude)).setText(Double.toString(plant.getLongitude()));
+            updateInfosFromPlant();
             updateOnlineActivities();
         }
     }
+
+    private void updateInfosFromPlant() {
+        plant.setPictureToPlant((ImageView) rootView.findViewById(R.id.image_plant));
+        ((TextView) rootView.findViewById(R.id.text_plant_category)).setText(plant.getCategory().getResourceId());
+        ((TextView) rootView.findViewById(R.id.text_count)).setText(Integer.toString(plant.getCount()));
+        ((TextView) rootView.findViewById(R.id.text_description)).setText(plant.getDescription());
+        ((TextView) rootView.findViewById(R.id.text_latitude)).setText(Double.toString(plant.getLatitude()));
+        ((TextView) rootView.findViewById(R.id.text_longitude)).setText(Double.toString(plant.getLongitude()));
+        final ImageView mapView = (ImageView) rootView.findViewById(R.id.image_plant_map);
+        plant.setPictureToMap(mapView, new MapCache.Callback() {
+            @Override
+            public void onSuccess(File file) {
+                mapView.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onFailure() {
+                mapView.setVisibility(View.GONE);
+            }
+        });
+    }
+
     private void updateOnlineActivities() {
         updateButton(R.id.button_login, plant.online().mustLogin(), new View.OnClickListener() {
             @Override
