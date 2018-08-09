@@ -66,7 +66,7 @@ public class PersistentPlantCollection extends PlantCollection {
                 }
                 JSONObject json = new JSONObject(jsonTxt.toString());
                 Plant plant = new Plant(this, json);
-                plant.save();
+                addPlantToCollection(plant);
                 Log.d("LOADING PLANTS", "File " + file.toString() + " loaded.");
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -112,6 +112,10 @@ public class PersistentPlantCollection extends PlantCollection {
         if (plant.hasPicture() && !plant.getPicture().equals(expectedPicutureLocation)) {
             plant.movePictureTo(expectedPicutureLocation);
         }
+        addPlantToCollection(plant);
+    }
+
+    private void addPlantToCollection(Plant plant) {
         super.save(plant);
     }
 
