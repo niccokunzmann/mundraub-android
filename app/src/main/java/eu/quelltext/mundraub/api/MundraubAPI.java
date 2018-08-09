@@ -262,7 +262,7 @@ public class MundraubAPI extends API {
     private void fillInPlant(Map<String, String> formValues, Plant plant) throws IOException, ErrorWithExplanation, NoSuchAlgorithmException, KeyManagementException, JSONException {
         formValues.put("field_plant_category", plant.getCategory().getValueForAPI());
         formValues.put("field_plant_count_trees", plant.getFormCount());
-        formValues.put("field_position[0][value]", "POINT(" + plant.getLongitude() + " " + plant.getLatitude() + ")");
+        formValues.put("field_position[0][value]", plant.getAPILocation());
         formValues.put("body[0][value]", plant.getDescription());
         //formValues.put("field_plant_image[0][_weight]", );
         //formValues.put("field_plant_image[0][display]", );

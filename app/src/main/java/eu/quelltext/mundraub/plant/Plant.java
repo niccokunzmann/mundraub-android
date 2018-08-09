@@ -273,4 +273,12 @@ public class Plant implements Comparable<Plant> {
         // negative number
         return "_none";
     }
+
+    public String getAPILocation() {
+        // POINT(6.968046426773072 50.82075362541587)
+        // from https://stackoverflow.com/a/8820013/1320237
+        return "POINT(" +
+                String.format("%.15f", getLongitude()) + " " +
+                String.format("%.15f", getLatitude()) + ")";
+    }
 }
