@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.File;
@@ -36,6 +37,7 @@ public class PlantDetailFragment extends Fragment {
      * represents.
      */
     public static final String ARG_PLANT_ID = "plant_id";
+    private static final String OSM_COPYRIGHT_RIGHT_URL = "https://www.openstreetmap.org/copyright";
 
     /**
      * The dummy content this fragment is presenting.
@@ -99,20 +101,29 @@ public class PlantDetailFragment extends Fragment {
         ((TextView) rootView.findViewById(R.id.text_description)).setText(plant.getDescription());
         ((TextView) rootView.findViewById(R.id.text_latitude)).setText(Double.toString(plant.getLatitude()));
         ((TextView) rootView.findViewById(R.id.text_longitude)).setText(Double.toString(plant.getLongitude()));
+        // map
         final ImageView mapView = (ImageView) rootView.findViewById(R.id.image_plant_map);
+        final LinearLayout mapElements = (LinearLayout) rootView.findViewById(R.id.plant_map);
         plant.setPictureToMap(mapView, new MapCache.Callback() {
             @Override
             public void onSuccess(File file) {
                 Log.d("updateInfosFromPlant", "got image success.");
-                mapView.setVisibility(View.VISIBLE);
+                mapElements.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onFailure() {
                 Log.d("updateInfosFromPlant", "got image fail.");
-                mapView.setVisibility(View.GONE);
+                mapElements.setVisibility(View.GONE);
             }
         });
+        ((TextView) rootView.findViewById(R.id.text_map_license)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openURLInBrowser(OSM_COPYRIGHT_RIGHT_URL);
+            }
+        });
+
     }
 
     private void updateOnlineActivities() {
@@ -138,11 +149,8 @@ public class PlantDetailFragment extends Fragment {
         updateButton(R.id.button_view, plant.online().hasURL(), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // from https://stackoverflow.com/a/3004542/1320237
-                String url = plant.online().getURL();
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(url));
-                startActivity(intent);
+                openURLInBrowser(plant.online().getURL());
+
             }
         });
         updateButton(R.id.button_delete, plant.online().canDelete(), new View.OnClickListener() {
@@ -152,6 +160,13 @@ public class PlantDetailFragment extends Fragment {
             }
         });
 
+    }
+
+    private void openURLInBrowser(String url) {
+        // from https://stackoverflow.com/a/3004542/1320237
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
     }
 
     private API.Callback updateOrShowError(final int successResourceId) {

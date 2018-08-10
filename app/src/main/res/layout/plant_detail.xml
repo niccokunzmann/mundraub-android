@@ -107,13 +107,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <ImageView
-        android:id="@+id/image_plant_map"
+    <LinearLayout
+        android:id="@+id/plant_map"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:src="@android:drawable/ic_menu_gallery"
-        android:visibility="gone" />
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/image_plant_map"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@android:drawable/ic_menu_gallery"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/text_map_license"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:text="@string/osm_license" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
