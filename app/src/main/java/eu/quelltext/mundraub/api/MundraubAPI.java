@@ -19,7 +19,6 @@ import java.net.URLEncoder;
 import java.net.UnknownHostException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
-import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,7 +48,7 @@ import okio.Buffer;
 
 public class MundraubAPI extends API {
 
-    private static final String HEADER_USER_AGENT = "Mundraub App (eu.quelltext.mundraub)";
+    public static final String HEADER_USER_AGENT = "Mundraub App (eu.quelltext.mundraub)";
     private final String URL_LOGIN = "https://mundraub.org/user/login";
     private final String URL_ADD_PLANT_FORM = "https://mundraub.org/node/add/plant/";
     private final int RETURN_CODE_LOGIN_SUCCESS = HttpURLConnection.HTTP_SEE_OTHER;
@@ -75,20 +74,6 @@ public class MundraubAPI extends API {
         }
     }
 
-    private class TrustAllX509TrustManager implements X509TrustManager {
-        // from https://stackoverflow.com/a/19723687/1320237
-        public void checkClientTrusted(java.security.cert.X509Certificate[] certs,
-                                       String authType) {
-        }
-        public void checkServerTrusted(java.security.cert.X509Certificate[] certs,
-                                       String authType) {
-        }
-        @Override
-        public X509Certificate[] getAcceptedIssuers() {
-            return new X509Certificate[0];
-        }
-    }
-
     private byte[] getLoginData(String username, String password) throws UnsupportedEncodingException {
         // from https://stackoverflow.com/a/35013372/1320237
         String data =
@@ -106,24 +91,11 @@ public class MundraubAPI extends API {
 
     private URLConnection openSecureConnection(URL url) throws IOException, KeyManagementException, NoSuchAlgorithmException {
         if (true) {
-            trustAllConnections();
+            Helper.trustAllConnections();
         }
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         http.setInstanceFollowRedirects(false); // from https://stackoverflow.com/a/26046079/1320237
         return http;
-    }
-
-    private void trustAllConnections() throws KeyManagementException, NoSuchAlgorithmException {
-        // trust all certificates, see
-        // https://github.com/niccokunzmann/mundraub-android/issues/3
-        SSLContext sc = SSLContext.getInstance("TLS");
-        sc.init(null, new TrustManager[]{new TrustAllX509TrustManager()}, new java.security.SecureRandom());
-        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-        HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
-            public boolean verify(String string, SSLSession ssls) {
-                return true;
-            }
-        });
     }
 
     private static OkHttpClient getUnsafeOkHttpClient() {
@@ -355,7 +327,7 @@ public class MundraubAPI extends API {
     private int postPlantFormTo(Map<String, String> formValues, Plant plant, String url) throws IOException, ErrorWithExplanation, KeyManagementException, NoSuchAlgorithmException, JSONException {
         fillInPlant(formValues, plant);
         // see https://github.com/square/okhttp/wiki/Recipes#posting-a-multipart-request
-        trustAllConnections();
+        Helper.trustAllConnections();
         final OkHttpClient client = getUnsafeOkHttpClient();
         MultipartBody.Builder formBuilder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM);

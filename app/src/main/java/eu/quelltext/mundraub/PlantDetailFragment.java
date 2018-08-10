@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,11 +103,13 @@ public class PlantDetailFragment extends Fragment {
         plant.setPictureToMap(mapView, new MapCache.Callback() {
             @Override
             public void onSuccess(File file) {
+                Log.d("updateInfosFromPlant", "got image success.");
                 mapView.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onFailure() {
+                Log.d("updateInfosFromPlant", "got image fail.");
                 mapView.setVisibility(View.GONE);
             }
         });

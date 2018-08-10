@@ -83,6 +83,7 @@ public class Plant implements Comparable<Plant> {
 
     public void delete() {
         collection.delete(this);
+        mapCache.removeMapPreviewOf(this);
     }
 
     public void setDescription(String description) {
@@ -194,6 +195,9 @@ public class Plant implements Comparable<Plant> {
         } catch (IOException e) {
             return false;
         }
+        if (bitmap == null) {
+            return false;
+        }
         imageView.setImageBitmap(bitmap);
         return true;
     }
@@ -212,11 +216,32 @@ public class Plant implements Comparable<Plant> {
 
     public void setPictureToMap(final ImageView imageView, final MapCache.Callback callback) {
         mapCache.initilizeOnCacheDirectoryFrom(imageView.getContext());
+        final Plant plant = this;
         mapCache.mapPreviewOf(this, new MapCache.Callback() {
             @Override
             public void onSuccess(File file) {
-                setBitmapFromFileOrNull(file, imageView);
-                callback.onSuccess(file);
+                if (setBitmapFromFileOrNull(file, imageView)) {
+                    callback.onSuccess(file);
+                } else {
+                    Log.d("setPictureToMap", "Retry with new picture of " + plant.getId());
+                    mapCache.removeMapPreviewOf(plant);
+                    mapCache.mapPreviewOf(plant, new MapCache.Callback() {
+                        @Override
+                        public void onSuccess(File file) {
+                            if (setBitmapFromFileOrNull(file, imageView)) {
+                                callback.onSuccess(file);
+                            } else {
+                                callback.onFailure();
+                                Log.d("setPictureToMap", "Could not set picture " + file.toString());
+                            }
+                        }
+
+                        @Override
+                        public void onFailure() {
+                            callback.onFailure();
+                        }
+                    });
+                }
             }
 
             @Override
@@ -299,7 +324,11 @@ public class Plant implements Comparable<Plant> {
         return getPosition().getLongitude();
     }
     public double getLatitude() {
-        return getPosition().getLongitude();
+        return getPosition().getLatitude();
+    }
+
+    public boolean exists() {
+        return collection.contains(getId());
     }
 
     static public class Position {
@@ -343,25 +372,10 @@ public class Plant implements Comparable<Plant> {
         }
 
         public String getOpenStreetMapExportUrl(String format) {
-            // https://render.openstreetmap.org/cgi-bin/export?bbox=13.07753920555115%2C52.38891775630483%2C13.079620599746706%2C52.389922830851866&layer=mapnik&marker=52.38942029643904%2C13.078579902648926&scale=20000&format=png
-            // https://render.openstreetmap.org/cgi-bin/export
-            //     ?bbox=13.07753920555115%2C
-            //           52.38891775630483%2C
-            //           13.079620599746706%2C
-            //           52.389922830851866
-            //     &layer=mapnik
-            //     &scale=20000&format=png
-            // https://render.openstreetmap.org/cgi-bin/export
-            //     ?bbox=11.393680572509767,47.21521905833701,11.426982879638674,47.233114194635405
-            //     &scale=200000
-            //     &format=png
-            return "https://render.openstreetmap.org/cgi-bin/export" +
-                    "?bbox=" +
-                        Helper.doubleTo15DigitString(getLongitude() - MAP_IMAGE_BOUNDARY) + "," +
-                        Helper.doubleTo15DigitString(getLatitude() - MAP_IMAGE_BOUNDARY) + "," +
-                        Helper.doubleTo15DigitString(getLongitude() + MAP_IMAGE_BOUNDARY) + "," +
-                        Helper.doubleTo15DigitString(getLatitude() + MAP_IMAGE_BOUNDARY) +
-                    "&layer=mapnik&scale=" + MAP_IMAGE_SCALE + "&format=" + format;
+            // http://staticmap.openstreetmap.de/staticmap.php?markers=47.303785900000000,11.521939200000000,lightblue1&center=47.303785900000000,11.521939200000000&zoom=18&size=200x200&maptype=mapnik
+            String lon = Helper.doubleTo15DigitString(getLongitude());
+            String lat = Helper.doubleTo15DigitString(getLatitude());
+            return "http://staticmap.openstreetmap.de/staticmap.php?markers=" + lat + "," + lon + ",lightblue1&center=" + lat + "," + lon + "&zoom=18&size=200x200&maptype=outdoors";
         }
 
         public String getOpenStreetMapAddressUrl() {
@@ -376,6 +390,10 @@ public class Plant implements Comparable<Plant> {
 
         public boolean equals(Position other) {
             return getLongitude() == other.getLongitude() && getLatitude() == other.getLatitude();
+        }
+
+        public String asCallbackId() {
+            return asId();
         }
     }
 }
