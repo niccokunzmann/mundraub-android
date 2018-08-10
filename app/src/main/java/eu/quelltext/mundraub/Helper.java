@@ -47,43 +47,8 @@ public final class Helper {
     }
 
     public static boolean saveUrlToFile(String url_, File file) throws IOException {
-        FileUtils.copyURLToFile(new URL(url_), file);
+        FileUtils.copyURLToFile(new URL(url_), file); // from https://stackoverflow.com/a/7156178
         return true;
-        /*
-        // from https://stackoverflow.com/a/921400/1320237
-        URL website = new URL(url);
-        ReadableByteChannel rbc = Channels.newChannel(website.openStream());
-        FileOutputStream fos = new FileOutputStream(file);
-        long l = fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-        return l != 0;*/
-        /*
-        Log.d("saveUrlToFile", url_);
-        URL url =  new URL(url_);
-        HttpURLConnection http = (HttpURLConnection) url.openConnection();
-        http.setRequestMethod("GET");
-        http.addRequestProperty("Host", url.getHost());
-        http.addRequestProperty("User-Agent", MundraubAPI.HEADER_USER_AGENT);
-        http.connect();
-        try {
-            int returnCode = http.getResponseCode();
-            if (returnCode != HttpURLConnection.HTTP_OK) {
-                Log.d("saveUrlToFile", "Unexpected return code " + returnCode);
-                return false;
-            }
-            FileOutputStream toFile = new FileOutputStream(file, false);
-            BufferedReader fromFile = new BufferedReader(new InputStreamReader(http.getInputStream()));
-            byte[] buffer = new byte[1024];
-            int len;
-            while ((len = fromFile.read(buffer)) != -1) {
-                out.write(buffer, 0, len);
-            }
-            toFile.close();
-            fromFile.close();
-            Log.d("saveUrlToFile", "Success " + url + "\n to " + file.toString());
-            return true;
-        } finally {
-            http.disconnect();
-        }*/
     }
 
     public static String doubleTo15DigitString(double d) {
