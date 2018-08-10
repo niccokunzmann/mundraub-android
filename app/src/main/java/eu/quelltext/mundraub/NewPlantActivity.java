@@ -27,6 +27,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import eu.quelltext.mundraub.map.MapCache;
 import eu.quelltext.mundraub.plant.Plant;
 import eu.quelltext.mundraub.plant.PlantCategory;
 
@@ -55,6 +56,8 @@ public class NewPlantActivity extends AppCompatActivity {
     private Button buttonGPS;
     private LocationManager locationManager;
     private LocationListener locationListener;
+    private Button mapButton;
+    private ImageView mapImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +86,8 @@ public class NewPlantActivity extends AppCompatActivity {
         textTip = (TextView) findViewById(R.id.new_plant_explanation);
         plantImage = (ImageView) findViewById(R.id.image_plant);
         numberOfPlants = (EditText) findViewById(R.id.number_of_plants);
+        mapButton = (Button) findViewById(R.id.button_map);
+        mapImage = (ImageView) findViewById(R.id.image_plant_map);
         buttonPlantType.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,6 +152,15 @@ public class NewPlantActivity extends AppCompatActivity {
                 }
             }
         });
+        View.OnClickListener openMap = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO open map view
+                Log.d("TODO", "open map location");
+            }
+        };
+        mapButton.setOnClickListener(openMap);
+        mapImage.setOnClickListener(openMap);
     }
 
     @Override
@@ -179,6 +193,17 @@ public class NewPlantActivity extends AppCompatActivity {
         }
         plant.setPictureToPlant(plantImage);
         textTip.setText(plant.hasRequiredFieldsFilled() ? R.string.all_plant_fields_are_filled : R.string.add_new_plant_heading);
+        plant.setPictureToMap(mapImage, new MapCache.Callback() {
+            @Override
+            public void onSuccess(File file) {
+                mapImage.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onFailure() {
+                mapImage.setVisibility(View.GONE);
+            }
+        });
     }
 
     @SuppressLint("MissingPermission")
