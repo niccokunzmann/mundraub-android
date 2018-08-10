@@ -141,3 +141,10 @@ body {
     -webkit-text-size-adjust: none;
 }
 
+div.olControlZoom a {
+    line-height: 34px;
+    height: 50px;
+    width: 50px;
+    font-size: 4em;
+}
+

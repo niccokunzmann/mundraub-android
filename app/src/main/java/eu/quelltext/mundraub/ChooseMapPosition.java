@@ -3,6 +3,7 @@ package eu.quelltext.mundraub;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -39,12 +40,26 @@ public class ChooseMapPosition extends AppCompatActivity {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true); // from https://stackoverflow.com/a/8846105/1320237
         // from https://stackoverflow.com/a/32587047/1320237
-        webSettings.setBuiltInZoomControls(true);
+        //webSettings.setBuiltInZoomControls(true);
         //webSettings.setDisplayZoomControls(false);
         // from https://stackoverflow.com/a/6255353/1320237
         //webView.setVerticalScrollBarEnabled(true);
         //webView.setHorizontalScrollBarEnabled(true);
 
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = webView.getUrl();
+                plant.setPositionFromMapUrl(url);
+                finish();
+            }
+        });
         setPositionToPlant();
     }
 
@@ -52,6 +67,7 @@ public class ChooseMapPosition extends AppCompatActivity {
         String url = plant.getPosition().getMapWithMarker();
         Log.d("ChooseMapPosition", "set url to " + url);
         webView.loadUrl(url);
+        webView.reload();
     }
 
     @Override

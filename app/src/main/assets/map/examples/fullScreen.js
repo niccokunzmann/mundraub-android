@@ -45,7 +45,7 @@ if (startLocation.length == 2) {
     lon = parseFloat(startLocation[0]);
     lat = parseFloat(startLocation[1]);
 }
-var zoom = 5;
+var zoom = 18;
 
 // projection from https://wiki.openstreetmap.org/wiki/OpenLayers_Simple_Example#Add_Markers
 var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
@@ -60,7 +60,8 @@ var map = new OpenLayers.Map({
     div: "map",
     layers: [
     // see https://wiki.openstreetmap.org/wiki/OpenLayers_Simple_Example#Extensions
-        new OpenLayers.Layer.OSM(),
+    //    new OpenLayers.Layer.OSM(),
+    new OpenLayers.Layer.OSM("Mapnik", "http://a.tile.openstreetmap.org/${z}/${x}/${y}.png", {numZoomLevels: 19}),
     //    new OpenLayers.Layer.WMS( "OpenLayers WMS", "http://vmap0.tiles.osgeo.org/wms/vmap0?", {layers: 'basic'} ),
     //    new OpenLayers.Layer.OSM("OpenTopoMap", "https://{a|b|c}.tile.opentopomap.org/{z}/{x}/{y}.png", {numZoomLevels: 19}),
         markers
