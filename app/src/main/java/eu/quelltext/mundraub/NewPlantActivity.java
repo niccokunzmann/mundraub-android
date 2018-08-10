@@ -58,6 +58,7 @@ public class NewPlantActivity extends AppCompatActivity {
     private LocationListener locationListener;
     private Button mapButton;
     private ImageView mapImage;
+    private TextView textLicense;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +83,7 @@ public class NewPlantActivity extends AppCompatActivity {
         buttonGPS = (Button) findViewById(R.id.button_gps);
         buttonCancel = (Button) findViewById(R.id.button_cancel);
         textPosition = (TextView) findViewById(R.id.text_position);
+        textLicense = (TextView) findViewById(R.id.text_map_license);
         textDescription = (TextView) findViewById(R.id.text_description);
         textTip = (TextView) findViewById(R.id.new_plant_explanation);
         plantImage = (ImageView) findViewById(R.id.image_plant);
@@ -152,11 +154,13 @@ public class NewPlantActivity extends AppCompatActivity {
                 }
             }
         });
+        final Context context = this;
         View.OnClickListener openMap = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO open map view
-                Log.d("TODO", "open map location");
+                Intent intent = new Intent(context, ChooseMapPosition.class);
+                intent.putExtra(ChooseMapPosition.ARG_PLANT_ID, plant.getId());
+                context.startActivity(intent);
             }
         };
         mapButton.setOnClickListener(openMap);
@@ -197,11 +201,14 @@ public class NewPlantActivity extends AppCompatActivity {
             @Override
             public void onSuccess(File file) {
                 mapImage.setVisibility(View.VISIBLE);
+                textLicense.setVisibility(View.VISIBLE);
+
             }
 
             @Override
             public void onFailure() {
                 mapImage.setVisibility(View.GONE);
+                textLicense.setVisibility(View.GONE);
             }
         });
     }

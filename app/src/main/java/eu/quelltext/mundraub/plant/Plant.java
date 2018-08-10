@@ -395,5 +395,18 @@ public class Plant implements Comparable<Plant> {
         public String asCallbackId() {
             return asId();
         }
+
+        public String getOpenStreetMapWithMarker() {
+            // example:
+            //    https://www.openstreetmap.org/export/embed.html?bbox=13.07753920555115%2C52.38891775630483%2C13.079620599746706%2C52.389922830851866&layer=mapnik&marker=52.38942029643904%2C13.078579902648926
+            return "https://www.openstreetmap.org/export/embed.html?bbox=" +
+                    Helper.doubleTo15DigitString(getLongitude() - MAP_IMAGE_BOUNDARY) + "%2C" +
+                    Helper.doubleTo15DigitString(getLatitude() - MAP_IMAGE_BOUNDARY) + "%2C" +
+                    Helper.doubleTo15DigitString(getLongitude() + MAP_IMAGE_BOUNDARY) + "%2C" +
+                    Helper.doubleTo15DigitString(getLatitude() + MAP_IMAGE_BOUNDARY) +
+                    "&layer=mapnik&marker=" +
+                    Helper.doubleTo15DigitString(getLatitude()) + "%2C" +
+                    Helper.doubleTo15DigitString(getLongitude());
+        }
     }
 }

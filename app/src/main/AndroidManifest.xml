@@ -41,7 +41,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+            android:label="@string/title_activity_login" />
+        <activity android:name=".ChooseMapPosition"></activity>
     </application>
 
 </manifest>
