@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,8 @@ public class PlantListActivity extends AppCompatActivity {
     private PlantListActivity me = this;
     RecyclerView recyclerView;
     private Parcelable recyclerViewState = null;
+    private SimpleItemRecyclerViewAdapter adapter;
+    private boolean doNotUpdateRecyclerViewAgainAfterCreate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,13 +77,21 @@ public class PlantListActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.plant_list);
         recyclerViewState = savedInstanceState != null && savedInstanceState.containsKey(ARG_RECYCLER_VIEW_STATE) ?
                                 savedInstanceState.getParcelable(ARG_RECYCLER_VIEW_STATE) : null;
+        adapter = new SimpleItemRecyclerViewAdapter(this, mTwoPane);
+        adapter.notifyDataSetChanged();
+        recyclerView.setAdapter(adapter);
+        loadRecyclerViewState();
+        doNotUpdateRecyclerViewAgainAfterCreate = true;
 
     }
     @Override
     protected void onResume() {
         super.onResume();
         assert recyclerView != null;
-        setupRecyclerView();
+        if (!doNotUpdateRecyclerViewAgainAfterCreate) {
+            updateRecyclerView();
+        }
+        doNotUpdateRecyclerViewAgainAfterCreate = false;
     }
 
     @Override
@@ -91,8 +102,13 @@ public class PlantListActivity extends AppCompatActivity {
     }
 
 
-    private void setupRecyclerView() {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, Plant.all(), mTwoPane));
+    private void updateRecyclerView() {
+        Log.d("DEBUG", "updateRecyclerView");
+        loadRecyclerViewState();
+        adapter.update();
+    }
+
+    private void loadRecyclerViewState() {
         if (recyclerViewState != null) {
             recyclerView.getLayoutManager().onRestoreInstanceState(recyclerViewState);
         }
@@ -102,7 +118,7 @@ public class PlantListActivity extends AppCompatActivity {
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
         private final PlantListActivity mParentActivity;
-        private final List<Plant> mValues;
+        private List<Plant> plants;
         private final boolean mTwoPane;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
@@ -125,14 +141,25 @@ public class PlantListActivity extends AppCompatActivity {
                 }
             }
         };
+        public void update() {
+            load();
+            Log.d("RECYCLER", "changed start");
+            notifyDataSetChanged();
+            Log.d("RECYCLER", "changed stop");
+        }
+
+        private void load() {
+            Log.d("RECYCLER", "load start");
+            plants = Plant.all();
+            Collections.sort(plants);
+            Log.d("RECYCLER", "load stop");
+        }
 
         SimpleItemRecyclerViewAdapter(PlantListActivity parent,
-                                      List<Plant> items,
                                       boolean twoPane) {
-            mValues = items;
-            Collections.sort(mValues);
             mParentActivity = parent;
             mTwoPane = twoPane;
+            load();
         }
 
         @Override
@@ -144,12 +171,12 @@ public class PlantListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            Plant plant = mValues.get(position);
+            Plant plant = plants.get(position);
             holder.fillFromPlant(plant);
             if (position == 0) {
                 holder.showDate(plant);
             } else {
-                Plant lastPlant = mValues.get(position - 1);
+                Plant lastPlant = plants.get(position - 1);
                 if (plant.getCreationDay().equals(lastPlant.getCreationDay())) {
                     holder.hideDate();
                 } else {
@@ -161,7 +188,7 @@ public class PlantListActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            return mValues.size();
+            return plants.size();
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {

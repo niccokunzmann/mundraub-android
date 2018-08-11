@@ -39,6 +39,8 @@ public class Plant implements Comparable<Plant> {
     private static final String JSON_CATEGORY = "category";
     private static final String JSON_PICTURE = "picture";
     private static final String JSON_ONLINE = "online";
+    private Date creationDate;
+    protected long creationDateMillis;
 
     public static List<Plant> all() {
         return plants.all();
@@ -67,6 +69,37 @@ public class Plant implements Comparable<Plant> {
         this.id = plants.newId();
         this.collection = plants;
         this.onlineState = PlantOnlineState.getOfflineState(this);
+    }
+
+    public Plant(PlantCollection collection, JSONObject json) throws JSONException {
+        this.collection = collection;
+        id = json.getString(JSON_ID);
+        setPosition(new Position(json.getDouble(JSON_LONGITUDE), json.getDouble(JSON_LATITUDE)));
+        count = json.getInt(JSON_COUNT);
+        description = json.getString(JSON_DESCRIPTION);
+        if (json.has(JSON_CATEGORY)) {
+            category = PlantCategory.withId(json.getString(JSON_CATEGORY));
+        } else {
+            category = PlantCategory.NULL;
+        }
+        if (json.has(JSON_PICTURE)) {
+            String picturePath = json.getString(JSON_PICTURE);
+            if (picturePath != null) {
+                picture = new File(picturePath);
+            }
+        }
+        if (json.has(JSON_ONLINE) && !json.isNull(JSON_ONLINE)) {
+            onlineState = PlantOnlineState.fromJSON(this, json.getJSONObject(JSON_ONLINE));
+        } else {
+            onlineState = PlantOnlineState.getOfflineState(this);
+        }
+    }
+
+    private void ensureCreationDate() {
+        if (creationDate == null) {
+            creationDate = plants.getCreationDate(this);
+            creationDateMillis = creationDate.getTime();
+        }
     }
 
     public void save() {
@@ -117,30 +150,6 @@ public class Plant implements Comparable<Plant> {
         }
         json.put(JSON_ONLINE, onlineState.toJSON());
         return json;
-    }
-
-    public Plant(PlantCollection collection, JSONObject json) throws JSONException {
-        this.collection = collection;
-        id = json.getString(JSON_ID);
-        setPosition(new Position(json.getDouble(JSON_LONGITUDE), json.getDouble(JSON_LATITUDE)));
-        count = json.getInt(JSON_COUNT);
-        description = json.getString(JSON_DESCRIPTION);
-        if (json.has(JSON_CATEGORY)) {
-            category = PlantCategory.withId(json.getString(JSON_CATEGORY));
-        } else {
-            category = PlantCategory.NULL;
-        }
-        if (json.has(JSON_PICTURE)) {
-            String picturePath = json.getString(JSON_PICTURE);
-            if (picturePath != null) {
-                picture = new File(picturePath);
-            }
-        }
-        if (json.has(JSON_ONLINE) && !json.isNull(JSON_ONLINE)) {
-            onlineState = PlantOnlineState.fromJSON(this, json.getJSONObject(JSON_ONLINE));
-        } else {
-            onlineState = PlantOnlineState.getOfflineState(this);
-        }
     }
 
     public PlantCategory getCategory() {
@@ -265,12 +274,22 @@ public class Plant implements Comparable<Plant> {
     }
 
     private Date createdAt() {
-        return plants.getCreationDate(this);
+        ensureCreationDate();
+        return creationDate;
     }
 
     @Override
     public int compareTo(@NonNull Plant other) {
-        return -createdAt().compareTo(other.createdAt());
+        long a = createdAtLong();
+        long b = other.createdAtLong();
+        if (a < b) return 1;
+        if (a > b) return -1;
+        return 0;
+    }
+
+    private long createdAtLong() {
+        ensureCreationDate();
+        return creationDateMillis;
     }
 
     public Date getCreationDay() {
