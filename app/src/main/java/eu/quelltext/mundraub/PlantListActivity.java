@@ -3,7 +3,7 @@ package eu.quelltext.mundraub;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -32,13 +32,15 @@ import eu.quelltext.mundraub.plant.Plant;
  */
 public class PlantListActivity extends AppCompatActivity {
 
+    private static final String ARG_RECYCLER_VIEW_STATE = "recycler_view_state";
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
     private boolean mTwoPane;
     private PlantListActivity me = this;
-    View recyclerView;
+    RecyclerView recyclerView;
+    private Parcelable recyclerViewState = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,18 +71,31 @@ public class PlantListActivity extends AppCompatActivity {
             mTwoPane = true;
         }
 
-        recyclerView = findViewById(R.id.plant_list);
+        recyclerView = (RecyclerView) findViewById(R.id.plant_list);
+        recyclerViewState = savedInstanceState != null && savedInstanceState.containsKey(ARG_RECYCLER_VIEW_STATE) ?
+                                savedInstanceState.getParcelable(ARG_RECYCLER_VIEW_STATE) : null;
 
     }
     @Override
     protected void onResume() {
         super.onResume();
         assert recyclerView != null;
-        setupRecyclerView((RecyclerView) recyclerView);
+        setupRecyclerView();
     }
 
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        // restore recyclerView from https://stackoverflow.com/a/45436460
+        recyclerViewState = recyclerView.getLayoutManager().onSaveInstanceState();
+        outState.putParcelable(ARG_RECYCLER_VIEW_STATE, recyclerViewState);
+    }
+
+
+    private void setupRecyclerView() {
         recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, Plant.all(), mTwoPane));
+        if (recyclerViewState != null) {
+            recyclerView.getLayoutManager().onRestoreInstanceState(recyclerViewState);
+        }
     }
 
     public static class SimpleItemRecyclerViewAdapter
