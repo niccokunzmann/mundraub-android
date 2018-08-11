@@ -124,6 +124,7 @@ public class NewPlantActivity extends AppCompatActivity {
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                stopGPSUpdates();
                 plant.delete();
                 finish();
             }
@@ -253,16 +254,9 @@ public class NewPlantActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        stopGPSUpdates();
     }
 
     private boolean tryCreateLocationManager() {
-        if (locationManager != null) {
-            return true;
-        }
-        // from https://stackoverflow.com/a/10917500
-        locationManager = (LocationManager)
-                getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -274,8 +268,15 @@ public class NewPlantActivity extends AppCompatActivity {
             // TODO: or create alert box:
             //       protected void alertbox in http://rdcworld-android.blogspot.com/2012/01/get-current-location-coordinates-city.html
             Log.d("DEBUG", "Access to GPS position is not granted.");
+            return false;
         }
-        return false;
+        if (locationManager != null) {
+            return true;
+        }
+        // from https://stackoverflow.com/a/10917500
+        locationManager = (LocationManager)
+                getSystemService(Context.LOCATION_SERVICE);
+        return true;
     }
 
     private void stopGPSUpdates() {
@@ -286,8 +287,10 @@ public class NewPlantActivity extends AppCompatActivity {
 
 
     private void setLocation(Location location) {
-        plant.setLocation(location);
-        loadViewFromPlant();
+        if (plant.exists()) {
+            plant.setLocation(location);
+            loadViewFromPlant();
+        }
     }
 
     // This method is called when the second activity finishes
