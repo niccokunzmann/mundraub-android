@@ -59,6 +59,7 @@ public class NewPlantActivity extends AppCompatActivity {
     private Button mapButton;
     private ImageView mapImage;
     private TextView textLicense;
+    private Thread shutdownHook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -249,6 +250,12 @@ public class NewPlantActivity extends AppCompatActivity {
         };
         locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
+        shutdownHook = new Thread(new Runnable() {
+            public void run() {
+                stopGPSUpdates();
+            }
+        });
+        Runtime.getRuntime().addShutdownHook(shutdownHook);
     }
 
     @Override
@@ -281,7 +288,9 @@ public class NewPlantActivity extends AppCompatActivity {
 
     private void stopGPSUpdates() {
         if (locationManager != null && locationListener != null){
+            Runtime.getRuntime().removeShutdownHook(shutdownHook);
             locationManager.removeUpdates(locationListener);
+            locationListener = null;
         }
     }
 
