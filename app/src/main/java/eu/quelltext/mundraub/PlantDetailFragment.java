@@ -10,13 +10,11 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.File;
@@ -103,27 +101,33 @@ public class PlantDetailFragment extends Fragment {
         ((TextView) rootView.findViewById(R.id.text_longitude)).setText(Double.toString(plant.getLongitude()));
         // map
         final ImageView mapView = (ImageView) rootView.findViewById(R.id.image_plant_map);
-        final LinearLayout mapElements = (LinearLayout) rootView.findViewById(R.id.plant_map);
+        //final LinearLayout mapElements = (LinearLayout) rootView.findViewById(R.id.plant_map);
+        final TextView mapLicense = (TextView) rootView.findViewById(R.id.text_map_license);
         plant.setPictureToMap(mapView, new MapCache.Callback() {
             @Override
             public void onSuccess(File file) {
-                Log.d("updateInfosFromPlant", "got image success.");
-                mapElements.setVisibility(View.VISIBLE);
+                mapLicense.setVisibility(View.VISIBLE);
             }
-
             @Override
             public void onFailure() {
-                Log.d("updateInfosFromPlant", "got image fail.");
-                mapElements.setVisibility(View.GONE);
+                mapView.setImageResource(android.R.drawable.ic_dialog_map);
+                mapLicense.setVisibility(View.GONE);
             }
         });
-        ((TextView) rootView.findViewById(R.id.text_map_license)).setOnClickListener(new View.OnClickListener() {
+        (rootView.findViewById(R.id.text_map_license)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openURLInBrowser(OSM_COPYRIGHT_RIGHT_URL);
             }
         });
-
+        mapView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ChooseMapPosition.class);
+                intent.putExtra(ChooseMapPosition.ARG_PLANT_ID, plant.getId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     private void updateOnlineActivities() {
