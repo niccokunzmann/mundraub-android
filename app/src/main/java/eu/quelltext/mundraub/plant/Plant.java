@@ -127,8 +127,10 @@ public class Plant implements Comparable<Plant> {
     }
 
     public void setCount(int count) {
-        this.count = count;
-        save();
+        if (count != this.count) {
+            this.count = count;
+            save();
+        }
     }
 
     public JSONObject toJSON() throws JSONException {

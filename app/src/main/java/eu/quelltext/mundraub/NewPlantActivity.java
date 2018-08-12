@@ -60,6 +60,8 @@ public class NewPlantActivity extends AppCompatActivity {
     private ImageView mapImage;
     private TextView textLicense;
     private Thread shutdownHook;
+    private Button buttonPlus;
+    private Button buttonMinus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +83,8 @@ public class NewPlantActivity extends AppCompatActivity {
 
         buttonPlantType = (Button) findViewById(R.id.button_plant_type);
         buttonSave = (Button) findViewById(R.id.button_save);
+        buttonPlus = (Button) findViewById(R.id.button_plus);
+        buttonMinus = (Button) findViewById(R.id.button_minus);
         buttonGPS = (Button) findViewById(R.id.button_gps);
         buttonCancel = (Button) findViewById(R.id.button_cancel);
         textPosition = (TextView) findViewById(R.id.text_position);
@@ -167,6 +171,34 @@ public class NewPlantActivity extends AppCompatActivity {
         };
         mapButton.setOnClickListener(openMap);
         mapImage.setOnClickListener(openMap);
+        buttonPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                plant.setCount(plant.getCount() + 1);
+                updatePlantCount();
+            }
+        });
+        buttonMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int newCount = plant.getCount() - 1;
+                if (newCount >= 0) {
+                    plant.setCount(newCount);
+                    updatePlantCount();
+                }
+            }
+        });
+
+        updatePlantCount();
+    }
+
+    private void updatePlantCount() {
+        numberOfPlants.setText(Integer.toString(plant.getCount()));
+        if (plant.getCount() <= 0) {
+            buttonMinus.setVisibility(View.INVISIBLE);
+        } else {
+            buttonMinus.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -189,7 +221,7 @@ public class NewPlantActivity extends AppCompatActivity {
                 buttonPlantType.setText(plant.getCategory().getResourceId());
             }
         }
-        numberOfPlants.setText(Integer.toString(plant.getCount()));
+        updatePlantCount();
         textDescription.setText(plant.getDescription());
         if (plant.hasPosition()) {
             textPosition.setText(
