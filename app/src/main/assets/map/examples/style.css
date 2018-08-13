@@ -148,3 +148,10 @@ div.olControlZoom a {
     font-size: 4em;
 }
 
+div.olControlAttribution {
+    background: rgba(255,255,255,0.7);
+    padding: 1px;
+    border-radius: 3px;
+    padding-right: 4px;
+    padding-left: 4px;
+}

@@ -41,11 +41,12 @@ var click = new OpenLayers.Control.Click();
 var startLocation = document.location.hash.substr(1, document.location.hash.length).split(",");
 var lat = 21.7679;
 var lon = 78.8718;
+var zoom = 10;
 if (startLocation.length == 2) {
     lon = parseFloat(startLocation[0]);
     lat = parseFloat(startLocation[1]);
+    zoom = 16;
 }
-var zoom = 18;
 
 // projection from https://wiki.openstreetmap.org/wiki/OpenLayers_Simple_Example#Add_Markers
 var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
@@ -56,16 +57,25 @@ var marker = new OpenLayers.Marker(position);
 
 markers.addMarker(marker);
 
+var layer_earth = new OpenLayers.Layer.OSM(
+    "Satellite",
+    "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}/",
+    {numZoomLevels: 17});
+layer_earth.attribution = "Source: Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community"; // from https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/
+var layer_osm = new OpenLayers.Layer.OSM("Mapnik", "http://a.tile.openstreetmap.org/${z}/${x}/${y}.png", {numZoomLevels: 19});
+
 var map = new OpenLayers.Map({
     div: "map",
     layers: [
     // see https://wiki.openstreetmap.org/wiki/OpenLayers_Simple_Example#Extensions
     //    new OpenLayers.Layer.OSM(),
-    new OpenLayers.Layer.OSM("Mapnik", "http://a.tile.openstreetmap.org/${z}/${x}/${y}.png", {numZoomLevels: 19}),
+    layer_earth,
+    layer_osm,
     //    new OpenLayers.Layer.WMS( "OpenLayers WMS", "http://vmap0.tiles.osgeo.org/wms/vmap0?", {layers: 'basic'} ),
     //    new OpenLayers.Layer.OSM("OpenTopoMap", "https://{a|b|c}.tile.opentopomap.org/{z}/{x}/{y}.png", {numZoomLevels: 19}),
         markers
     ],
+    controls: [],
 /*    controls: [
         new OpenLayers.Control.Navigation({
             dragPanOptions: {
@@ -80,9 +90,13 @@ var map = new OpenLayers.Map({
 //        new OpenLayers.Control.ZoomPanel()
     ],*/
 });
+
+attribution = new OpenLayers.Control.Attribution();
 map.addControls([
     // from https://gis.stackexchange.com/a/83195
-    new OpenLayers.Control.ZoomPanel(),
+    new OpenLayers.Control.Zoom(),
+    new OpenLayers.Control.LayerSwitcher(),
+    attribution,
     click
 ]);
 

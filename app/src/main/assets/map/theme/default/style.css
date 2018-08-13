@@ -343,11 +343,17 @@ div.olControlSaveFeaturesItemInactive {
 
 .olControlLayerSwitcher .maximizeDiv,
 .olControlLayerSwitcher .minimizeDiv {
-    width: 18px;
-    height: 18px;
+    width: 4em;
+    height: 4em;
     top: 5px;
     right: 0;
     cursor: pointer;
+}
+
+.olControlLayerSwitcher .maximizeDiv .olAlphaImg,
+.olControlLayerSwitcher .minimizeDiv .olAlphaImg{
+    width: 4em;
+    height: 4em;
 }
 
 .olBingAttribution {
