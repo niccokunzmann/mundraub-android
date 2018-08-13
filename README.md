@@ -39,6 +39,11 @@ Services:
 - [Travis][travis] to build the app and test the code
 - [GitHub] for publising and contributing to the code
 
+Languages:
+
+- Java for the app, Android 2.3 [GINGERBREAD]
+- HTML/CSS/JavaScript for the [map]
+
 [Mundraub.org]: https://mundraub.org
 [OpenLayers]: https://dev.openlayers.org
 [staticmap]: http://staticmap.openstreetmap.de
@@ -48,3 +53,5 @@ Services:
 [openstreetmap]: https://openstreetmap.org
 [GitHub]: https://github.com/niccokunzmann/mundraub-android
 [World Imagery]: https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/
+[GINGERBREAD]: https://developer.android.com/guide/topics/manifest/uses-sdk-element#ApiLevels
+[map]: https://rawgit.com/niccokunzmann/mundraub-android/master/app/src/main/assets/map/examples/fullScreen.html
