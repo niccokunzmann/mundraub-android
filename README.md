@@ -28,7 +28,8 @@ App components:
 
 - [Mundraub][Mundraub.org] for publising the found plants
 - [OpenLayers] for refining te position
-- [openstreetmap] for getting the OSM layer tiles
+- [openstreetmap] for rendering OpenStreetMap
+- [World Imagery] for rendering a satellite map
 - [staticmap] for fetching the map preview
 - [okhttp] for making requests
 - [commons-lang3] for useful functions everywhere
@@ -46,4 +47,4 @@ Services:
 [travis]: https://travis-ci.org/niccokunzmann/mundraub-android
 [openstreetmap]: https://openstreetmap.org
 [GitHub]: https://github.com/niccokunzmann/mundraub-android
-
+[World Imagery]: https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/
