@@ -30,7 +30,7 @@
             android:text="12. Juni 2016" />
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -39,7 +39,8 @@
         <ImageView
             android:id="@+id/image_plant"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:adjustViewBounds="false"
             android:cropToPadding="false"
             android:scaleType="centerCrop"
@@ -47,12 +48,19 @@
 
         <TextView
             android:id="@+id/plant_category"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
+            android:layout_toRightOf="@+id/image_plant"
             android:text="@string/unknown_plant"
-            android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="24sp" />
-    </LinearLayout>
+
+        <ImageView
+            android:id="@+id/image_uploaded"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            app:srcCompat="@drawable/ic_www_icon_white_on_black" />
+    </RelativeLayout>
 
 </LinearLayout>

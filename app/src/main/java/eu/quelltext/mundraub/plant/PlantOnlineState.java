@@ -30,6 +30,8 @@ public class PlantOnlineState {
         JSONObject toJSON() throws JSONException;
 
         void publishedWithId(String s);
+
+        boolean isPublished();
     }
 
     static private class OfflineState implements OnlineAction {
@@ -98,6 +100,11 @@ public class PlantOnlineState {
         @Override
         public void publishedWithId(String id) {
             this.plant.setOnline(new OnlineState(plant, id));
+        }
+
+        @Override
+        public boolean isPublished() {
+            return false;
         }
 
         private static OnlineAction fromJSON(Plant plant, JSONObject json) {
@@ -212,6 +219,11 @@ public class PlantOnlineState {
                     });
                 }
             });
+        }
+
+        @Override
+        public boolean isPublished() {
+            return true;
         }
 
         private static OnlineAction fromJSON(Plant plant, JSONObject json) throws JSONException {

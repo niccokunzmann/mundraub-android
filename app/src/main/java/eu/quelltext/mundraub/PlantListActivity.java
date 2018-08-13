@@ -197,6 +197,7 @@ public class PlantListActivity extends AppCompatActivity {
             private final LinearLayout dateContainer;
             private final String dateFormat;
             private final TextView dateText;
+            private final ImageView imageUploaded;
 
             ViewHolder(View view) {
                 super(view);
@@ -205,6 +206,8 @@ public class PlantListActivity extends AppCompatActivity {
                 dateContainer = (LinearLayout) view.findViewById(R.id.new_day);
                 dateFormat = view.getResources().getString(R.string.plant_list_date_format);
                 dateText = (TextView) view.findViewById(R.id.date);
+                imageUploaded = (ImageView) view.findViewById(R.id.image_uploaded);
+
             }
 
             public void fillFromPlant(Plant plant) {
@@ -214,6 +217,8 @@ public class PlantListActivity extends AppCompatActivity {
                 plantCategoryText.setText(textWithCount);
                 itemView.setTag(plant);
                 itemView.setOnClickListener(mOnClickListener);
+                imageUploaded.setVisibility(
+                        plant.online().isPublished() ? View.VISIBLE : View.GONE);
             }
 
             public void showDate(Plant plant) {
