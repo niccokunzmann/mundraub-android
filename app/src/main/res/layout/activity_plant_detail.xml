@@ -49,6 +49,6 @@
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@+id/plant_detail_container"
         app:layout_anchorGravity="top|end"
-        app:srcCompat="@android:drawable/edit_text" />
+        app:srcCompat="@drawable/ic_pencil" />
 
 </android.support.design.widget.CoordinatorLayout>
