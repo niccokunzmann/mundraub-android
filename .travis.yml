@@ -9,6 +9,15 @@ android:
     # The SDK version used to compile your project
   - android-25
 
+# caching from https://stackoverflow.com/a/38772440
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+
 env:
   TRAVIS_SDK_PATH=/usr/local/android-sdk/licenses
 
