@@ -199,7 +199,78 @@ public class MundraubAPI extends API {
 
     @Override
     protected int deletePlantAsync(String plantId) throws ErrorWithExplanation {
-        return R.string.error_not_implemented;
+        if (plantExistsOnline(plantId)) {
+            try {
+                return deletePlantOnline(plantId);
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (KeyManagementException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return R.string.error_connection;
+            }
+            return R.string.error_not_specified;
+
+        } else {
+            return TASK_SUCCEEDED;
+        }
+    }
+
+    private int deletePlantOnline(String plantId) throws ErrorWithExplanation, NoSuchAlgorithmException, KeyManagementException, IOException {
+        String plantDeleteUrl = "https://mundraub.org/node/" + plantId + "/delete";
+        Map<String, String> formValues;
+        try {
+            formValues = getFormValues(plantDeleteUrl);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return R.string.error_not_specified;
+        } catch (KeyManagementException e) {
+            e.printStackTrace();
+            return R.string.error_not_specified;
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return R.string.error_not_specified;
+        }
+        return postFormTo(formValues, plantDeleteUrl, new FormPostHooks() {
+            @Override
+            public void buildForm(MultipartBody.Builder formBuilder) {
+            }
+
+            @Override
+            public int responseSeeOther(String url) {
+                return TASK_SUCCEEDED;
+            }
+
+            @Override
+            public int responseOK() {
+                return R.string.error_could_not_delete_plant;
+            }
+
+            @Override
+            public int responseUnknown(int returnCode) {
+                return R.string.error_unexpected_return_code;
+            }
+        });
+    }
+
+    private boolean plantExistsOnline(String plantId) throws ErrorWithExplanation {
+        String plantUrl = "https://mundraub.org/node/" + plantId;
+        Request request = new Request.Builder()
+                .url(plantUrl)
+                .build();
+        OkHttpClient client = getUnsafeOkHttpClient();
+        Response response;
+        try {
+            response = client.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+            abortOperation(R.string.error_count_not_check_plant);
+            return false;
+        }
+        boolean result = response.code() == HttpURLConnection.HTTP_OK;
+        Log.d("PLANT EXISTS", plantUrl + " exists == " + result);
+        return result;
     }
 
     @Override
@@ -324,21 +395,12 @@ public class MundraubAPI extends API {
     private static final MediaType MEDIA_TYPE_JPG = MediaType.parse("image/jpeg");
     private static final MediaType MEDIA_TYPE_OCTET = MediaType.parse("application/octet-stream");
 
-    private int postPlantFormTo(Map<String, String> formValues, Plant plant, String url) throws IOException, ErrorWithExplanation, KeyManagementException, NoSuchAlgorithmException, JSONException {
-        fillInPlant(formValues, plant);
-        // see https://github.com/square/okhttp/wiki/Recipes#posting-a-multipart-request
+    private int postFormTo(Map<String, String> formValues, String url, FormPostHooks hooks) throws NoSuchAlgorithmException, KeyManagementException, IOException {
         Helper.trustAllConnections();
         final OkHttpClient client = getUnsafeOkHttpClient();
         MultipartBody.Builder formBuilder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM);
-        if (plant.hasPicture()) {
-            File picture = plant.getPicture();
-            formBuilder.addFormDataPart("files[field_plant_image_0][]", picture.getName(),
-                    RequestBody.create(MEDIA_TYPE_JPG, picture));
-        } else {
-            formBuilder.addFormDataPart("files[field_plant_image_0][]", "",
-                    RequestBody.create(MEDIA_TYPE_OCTET, "".getBytes()));
-        }
+        hooks.buildForm(formBuilder);
         for (String key : formValues.keySet()){
             formBuilder.addFormDataPart(key, formValues.get(key));
         }
@@ -369,17 +431,56 @@ public class MundraubAPI extends API {
             Log.d("BODY", response.body().string());
             if (returnCode == HttpURLConnection.HTTP_OK) {
                 Log.d("postPlant", "Server rejected the data " + returnCode);
-                return R.string.error_could_not_post_plant;
+                return hooks.responseOK();
             } else if (returnCode != HttpURLConnection.HTTP_SEE_OTHER) {
                 Log.d("postPlant", "Unexpected return code " + returnCode);
-                return R.string.error_unexpected_return_code;
+                return hooks.responseUnknown(returnCode);
             }
-            plant.online().publishedWithId(getPlantIdFromLocationUrl(response.header("Location")));
-
+            return hooks.responseSeeOther(response.header("Location"));
         } finally {
             response.close();
         }
-        return TASK_SUCCEEDED;
+    }
+
+    interface FormPostHooks {
+        void buildForm(MultipartBody.Builder formBuilder);
+        int responseSeeOther(String url);
+        int responseOK();
+        int responseUnknown(int returnCode);
+    }
+
+    private int postPlantFormTo(Map<String, String> formValues, final Plant plant, String url) throws IOException, ErrorWithExplanation, KeyManagementException, NoSuchAlgorithmException, JSONException {
+        fillInPlant(formValues, plant);
+        return postFormTo(formValues, url, new FormPostHooks() {
+            @Override
+            public void buildForm(MultipartBody.Builder formBuilder) {
+                if (plant.hasPicture()) {
+                    File picture = plant.getPicture();
+                    formBuilder.addFormDataPart("files[field_plant_image_0][]", picture.getName(),
+                            RequestBody.create(MEDIA_TYPE_JPG, picture));
+                } else {
+                    formBuilder.addFormDataPart("files[field_plant_image_0][]", "",
+                            RequestBody.create(MEDIA_TYPE_OCTET, "".getBytes()));
+                }
+            }
+            @Override
+            public int responseSeeOther(String seeOther) {
+                try {
+                    plant.online().publishedWithId(getPlantIdFromLocationUrl(seeOther));
+                } catch (ErrorWithExplanation errorWithExplanation) {
+                    return errorWithExplanation.getExplanationResourceId();
+                }
+                return TASK_SUCCEEDED;
+            }
+            @Override
+            public int responseOK() {
+                return R.string.error_could_not_post_plant;
+            }
+            @Override
+            public int responseUnknown(int returnCode) {
+                return R.string.error_unexpected_return_code;
+            }
+        });
     }
 
     private String getPlantIdFromLocationUrl(String location) throws ErrorWithExplanation {

@@ -91,4 +91,7 @@
     <string name="yes">yes</string>
     <string name="attention">Attention</string>
     <string name="info_plant_position_is_chosen_from_best_guess">The plant has no recorded position. The marker is where the last plant was placed. Please find the correct position.</string>
+    <string name="error_count_not_check_plant">Could not ask the server if the plant exists.</string>
+    <string name="error_connection">There was an error with the connection to the server.</string>
+    <string name="error_could_not_delete_plant">The plant could not be deleted online. There was some error. Please go online and delete it yourself.</string>
 </resources>

@@ -118,6 +118,10 @@ public abstract class API {
             super();
             this.explanationResourceId = explanationResourceId;
         }
+
+        public int getExplanationResourceId() {
+            return explanationResourceId;
+        }
     }
 
     protected void abortOperation(int resourceId) throws ErrorWithExplanation {
