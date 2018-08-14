@@ -89,4 +89,6 @@
     <string name="reason_reposition_gps_position">The GPS position is probably too far away from reality. Please check on the map if it is ok.</string>
     <string name="no">no</string>
     <string name="yes">yes</string>
+    <string name="attention">Attention</string>
+    <string name="info_plant_position_is_chosen_from_best_guess">The plant has no recorded position. The marker is where the last plant was placed. Please find the correct position.</string>
 </resources>
