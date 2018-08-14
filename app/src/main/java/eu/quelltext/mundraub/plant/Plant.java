@@ -488,17 +488,6 @@ public class Plant implements Comparable<Plant> {
         public String getMapURLWithMarker() {
             // from https://stackoverflow.com/a/5749641/1320237
             return "file:///android_asset/map/examples/fullScreen.html#" + getLongitude() + "," + getLatitude();
-            // example:
-            //    https://www.openstreetmap.org/export/embed.html?bbox=13.07753920555115%2C52.38891775630483%2C13.079620599746706%2C52.389922830851866&layer=mapnik&marker=52.38942029643904%2C13.078579902648926
-            /*
-            return "https://www.openstreetmap.org/export/embed.html?bbox=" +
-                    Helper.doubleTo15DigitString(getLongitude() - MAP_IMAGE_BOUNDARY) + "%2C" +
-                    Helper.doubleTo15DigitString(getLatitude() - MAP_IMAGE_BOUNDARY) + "%2C" +
-                    Helper.doubleTo15DigitString(getLongitude() + MAP_IMAGE_BOUNDARY) + "%2C" +
-                    Helper.doubleTo15DigitString(getLatitude() + MAP_IMAGE_BOUNDARY) +
-                    "&layer=mapnik&marker=" +
-                    Helper.doubleTo15DigitString(getLatitude()) + "%2C" +
-                    Helper.doubleTo15DigitString(getLongitude());*/
         }
 
         public static Position from(JSONObject json) throws JSONException {
