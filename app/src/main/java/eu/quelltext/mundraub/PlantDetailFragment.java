@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
@@ -204,7 +203,7 @@ public class PlantDetailFragment extends Fragment {
                 }
             }
         };
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        AlertDialog.Builder builder = Helper.getAlertBuilder(this.getContext());;
         builder .setMessage(getResources().getString(repositionReason) + "\n" + getResources().getString(ask_open_the_map))
                 .setNegativeButton(R.string.no, dialogClickListener)
                 .setPositiveButton(R.string.yes, dialogClickListener)
@@ -243,12 +242,7 @@ public class PlantDetailFragment extends Fragment {
 
     private void alert(int title, int icon, int message) {
         // from https://stackoverflow.com/a/2115770/1320237
-        AlertDialog.Builder builder;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
-        } else {
-            builder = new AlertDialog.Builder(context);
-        }
+        AlertDialog.Builder builder = Helper.getAlertBuilder(this.getContext());
         builder.setTitle(title)
                 .setMessage(message)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {

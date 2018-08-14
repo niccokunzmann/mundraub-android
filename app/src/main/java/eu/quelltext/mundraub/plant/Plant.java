@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -288,11 +290,7 @@ public class Plant implements Comparable<Plant> {
 
     @Override
     public int compareTo(@NonNull Plant other) {
-        long a = createdAtLong();
-        long b = other.createdAtLong();
-        if (a < b) return 1;
-        if (a > b) return -1;
-        return 0;
+        return Helper.compare(other.createdAtLong(), createdAtLong());
     }
 
     private long createdAtLong() {
@@ -376,6 +374,37 @@ public class Plant implements Comparable<Plant> {
         return getPosition().getRepositionReason();
     }
 
+    public Position getBestPositionForMap() {
+        Position position = getPosition();
+        if (position.isValid()) {
+            return position;
+        }
+        return getPositionOfClosestPlantByTime();
+    }
+
+    private Position getPositionOfClosestPlantByTime() {
+        return getClosestPlantByTimeWithPosition().getPosition();
+    }
+
+    private Plant getClosestPlantByTimeWithPosition() {
+        List<Plant> allPlantsByTimeDifference = all();
+        final long reference = this.createdAtLong();
+        Collections.sort(allPlantsByTimeDifference, new Comparator<Plant>() {
+            @Override
+            public int compare(Plant plant1, Plant plant2) {
+                return Helper.compare(
+                        Math.abs(plant1.createdAtLong() - reference),
+                        Math.abs(plant2.createdAtLong() - reference));
+            }
+        });
+        for (Plant plant : allPlantsByTimeDifference) {
+            if (plant.getPosition().isValid()) {
+                return plant;
+            }
+        }
+        return this;
+    }
+
     static public class Position {
         public static final Position NULL = new Position(0, 0);
         protected static final String JSON_POSITION_TYPE = "type";
@@ -456,7 +485,7 @@ public class Plant implements Comparable<Plant> {
             return new MapPosition(Double.parseDouble(longitude), Double.parseDouble(latitude));
         }
 
-        public String getMapWithMarker() {
+        public String getMapURLWithMarker() {
             // from https://stackoverflow.com/a/5749641/1320237
             return "file:///android_asset/map/examples/fullScreen.html#" + getLongitude() + "," + getLatitude();
             // example:
