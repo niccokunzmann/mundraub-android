@@ -84,4 +84,9 @@
     <string name="error_could_not_parse_open_street_map_data">Could not get the address from OpenStreetMap.</string>
     <string name="osm_license">© OpenStreetMap contributors</string>
     <string name="map">Map</string>
+    <string name="ask_open_the_map">Would you like to open the map and place the plant first?</string>
+    <string name="reason_reposition_unknown_position">The recorded position of the plant might be too far off. Please check it.</string>
+    <string name="reason_reposition_gps_position">The GPS position is probably too far away from reality. Please check on the map if it is ok.</string>
+    <string name="no">no</string>
+    <string name="yes">yes</string>
 </resources>

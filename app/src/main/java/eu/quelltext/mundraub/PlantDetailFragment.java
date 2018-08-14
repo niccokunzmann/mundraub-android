@@ -123,11 +123,15 @@ public class PlantDetailFragment extends Fragment {
         mapView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ChooseMapPosition.class);
-                intent.putExtra(ChooseMapPosition.ARG_PLANT_ID, plant.getId());
-                context.startActivity(intent);
+                chooseMapPosition();
             }
         });
+    }
+
+    private void chooseMapPosition() {
+        Intent intent = new Intent(context, ChooseMapPosition.class);
+        intent.putExtra(ChooseMapPosition.ARG_PLANT_ID, plant.getId());
+        context.startActivity(intent);
     }
 
     private void updateOnlineActivities() {
@@ -141,6 +145,24 @@ public class PlantDetailFragment extends Fragment {
         updateButton(R.id.button_upload, plant.online().canCreate(), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (plant.shouldAskTheUserAboutPlacementBeforeUpload()) {
+                    askYesNo(plant.getRepositionReason(), R.string.ask_open_the_map, new YesNoCallback() {
+                        @Override
+                        public void yes() {
+                            chooseMapPosition();
+                        }
+
+                        @Override
+                        public void no() {
+                            createPlant();
+                        }
+                    });
+                } else {
+                    createPlant();
+                }
+            }
+
+            private void createPlant() {
                 plant.online().create(updateOrShowError(R.string.success_plant_uploaded));
             }
         });
@@ -164,6 +186,29 @@ public class PlantDetailFragment extends Fragment {
             }
         });
 
+    }
+
+    private void askYesNo(int repositionReason, int ask_open_the_map, final YesNoCallback callback) {
+        // from https://stackoverflow.com/a/2478662
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        callback.yes();
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        callback.no();
+                        break;
+                }
+            }
+        };
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder .setMessage(getResources().getString(repositionReason) + "\n" + getResources().getString(ask_open_the_map))
+                .setNegativeButton(R.string.no, dialogClickListener)
+                .setPositiveButton(R.string.yes, dialogClickListener)
+                .show();
     }
 
     private void openURLInBrowser(String url) {
@@ -220,5 +265,10 @@ public class PlantDetailFragment extends Fragment {
             button.setOnClickListener(onClickListener);
         }
         button.setVisibility(visible? View.VISIBLE: View.GONE);
+    }
+
+    interface YesNoCallback {
+        void yes();
+        void no();
     }
 }

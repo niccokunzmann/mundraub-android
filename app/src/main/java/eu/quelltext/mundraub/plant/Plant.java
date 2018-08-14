@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 import eu.quelltext.mundraub.Helper;
+import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.map.MapCache;
 
 
@@ -39,6 +40,7 @@ public class Plant implements Comparable<Plant> {
     private static final String JSON_CATEGORY = "category";
     private static final String JSON_PICTURE = "picture";
     private static final String JSON_ONLINE = "online";
+    private static final String JSON_POSITION = "position";
     private Date creationDate;
     protected long creationDateMillis;
 
@@ -74,7 +76,12 @@ public class Plant implements Comparable<Plant> {
     public Plant(PlantCollection collection, JSONObject json) throws JSONException {
         this.collection = collection;
         id = json.getString(JSON_ID);
-        setPosition(new Position(json.getDouble(JSON_LONGITUDE), json.getDouble(JSON_LATITUDE)));
+        if (json.has(JSON_LONGITUDE) && json.has(JSON_LATITUDE)) {
+            // irrelevant after 14th of August 2018
+            setPosition(new Position(json.getDouble(JSON_LONGITUDE), json.getDouble(JSON_LATITUDE)));
+        } else {
+            setPosition(Position.from(json.getJSONObject(JSON_POSITION)));
+        }
         count = json.getInt(JSON_COUNT);
         description = json.getString(JSON_DESCRIPTION);
         if (json.has(JSON_CATEGORY)) {
@@ -135,8 +142,7 @@ public class Plant implements Comparable<Plant> {
 
     public JSONObject toJSON() throws JSONException {
         JSONObject json = new JSONObject();
-        json.put(JSON_LONGITUDE, position.getLongitude());
-        json.put(JSON_LATITUDE, position.getLatitude());
+        json.put(JSON_POSITION, position.toJSON());
         json.put(JSON_COUNT, count);
         json.put(JSON_DESCRIPTION, description);
         json.put(JSON_ID, id);
@@ -362,8 +368,21 @@ public class Plant implements Comparable<Plant> {
         }
     }
 
+    public boolean shouldAskTheUserAboutPlacementBeforeUpload() {
+        return getPosition().shouldAskTheUserAboutPlacementBeforeUpload();
+    }
+
+    public int getRepositionReason() {
+        return getPosition().getRepositionReason();
+    }
+
     static public class Position {
         public static final Position NULL = new Position(0, 0);
+        protected static final String JSON_POSITION_TYPE = "type";
+        protected static final String JSON_POSITION_TYPE_GPS = "gps";
+        protected static final String JSON_POSITION_TYPE_UNKNOWN = "unknown";
+        protected static final String JSON_POSITION_TYPE_MAP = "map";
+
         private static final double MAP_IMAGE_BOUNDARY = 0.002;
         private static final int MAP_IMAGE_SCALE = 200000;
 
@@ -371,7 +390,7 @@ public class Plant implements Comparable<Plant> {
         private final double latitude;
 
         protected static Position from(Location location) {
-            return new Position(location.getLongitude(), location.getLatitude());
+            return new GPSPosition(location);
         }
 
         private Position(double longitude, double latitude) {
@@ -434,7 +453,7 @@ public class Plant implements Comparable<Plant> {
             String[] parts = ref.split(","); // from http://stackoverflow.com/questions/3481828/ddg#3481842
             String longitude = parts[0]; // 11.523992844180245
             String latitude = parts[1];  // 47.30569859911609
-            return new Position(Double.parseDouble(longitude), Double.parseDouble(latitude));
+            return new MapPosition(Double.parseDouble(longitude), Double.parseDouble(latitude));
         }
 
         public String getMapWithMarker() {
@@ -451,6 +470,92 @@ public class Plant implements Comparable<Plant> {
                     "&layer=mapnik&marker=" +
                     Helper.doubleTo15DigitString(getLatitude()) + "%2C" +
                     Helper.doubleTo15DigitString(getLongitude());*/
+        }
+
+        public static Position from(JSONObject json) throws JSONException {
+            String type = json.getString(JSON_POSITION_TYPE);
+            if (type == JSON_POSITION_TYPE_MAP) {
+                return MapPosition.fromJSON(json);
+            } else if (type == JSON_POSITION_TYPE_GPS) {
+                return GPSPosition.fromJSON(json);
+            }
+            return fromJSON(json);
+        }
+
+        protected static Position fromJSON(JSONObject json) throws JSONException {
+            return new Position(json.getDouble(JSON_LONGITUDE), json.getDouble(JSON_LATITUDE));
+        }
+
+        public JSONObject toJSON() throws JSONException {
+            JSONObject json = new JSONObject();
+            json.put(JSON_POSITION_TYPE, JSON_POSITION_TYPE_UNKNOWN);
+            json.put(JSON_LONGITUDE, getLongitude());
+            json.put(JSON_LATITUDE, getLatitude());
+            return json;
+        }
+
+        public boolean shouldAskTheUserAboutPlacementBeforeUpload() {
+            return true;
+        }
+
+        public int getRepositionReason() {
+            return R.string.reason_reposition_unknown_position;
+        }
+    }
+
+    static private class MapPosition extends Position {
+
+        private MapPosition(double longitude, double latitude) {
+            super(longitude, latitude);
+        }
+        public JSONObject toJSON() throws JSONException {
+            JSONObject json = super.toJSON();
+            json.put(JSON_POSITION_TYPE, JSON_POSITION_TYPE_MAP);
+            return json;
+        }
+
+        protected static Position fromJSON(JSONObject json) throws JSONException {
+            return new MapPosition(json.getDouble(JSON_LONGITUDE), json.getDouble(JSON_LATITUDE));
+        }
+
+        public boolean shouldAskTheUserAboutPlacementBeforeUpload() {
+            return false;
+        }
+
+        public int getRepositionReason() {
+            return R.string.error_not_implemented;
+        }
+    }
+
+    static private class GPSPosition extends Position {
+
+        private static final String JSON_ACCURACY = "accuracy";
+        private final double accuracy; // within X meters at 68% probability, see https://stackoverflow.com/a/13807786
+
+        private GPSPosition(Location location) {
+            super(location.getLongitude(), location.getLatitude());
+            this.accuracy = location.getAccuracy();
+            // this.timeToRecord = location.getTime(); // TODO: add time
+        }
+
+        public GPSPosition(JSONObject json) throws JSONException {
+            super(json.getDouble(JSON_LONGITUDE), json.getDouble(JSON_LATITUDE));
+            accuracy = json.getDouble(JSON_ACCURACY);
+        }
+
+        public JSONObject toJSON() throws JSONException {
+            JSONObject json = super.toJSON();
+            json.put(JSON_POSITION_TYPE, JSON_POSITION_TYPE_GPS);
+            json.put(JSON_ACCURACY, accuracy);
+            return json;
+        }
+
+        protected static Position fromJSON(JSONObject json) throws JSONException {
+            return new GPSPosition(json);
+        }
+
+        public int getRepositionReason() {
+            return R.string.reason_reposition_gps_position;
         }
     }
 }

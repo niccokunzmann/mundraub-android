@@ -258,7 +258,7 @@ public class NewPlantActivity extends AppCompatActivity {
             @Override
             public void onLocationChanged(Location location) {
                 if (plant.getLatitude() != oldLatitude || plant.getLongitude() != oldLongitude) {
-                    return; // Avoid race conditions of several button presses
+                    return; // Avoid race conditions if the location is determined in another way e.g. by the map
                 }
                 setLocation(location);
                 stopGPSUpdates();
