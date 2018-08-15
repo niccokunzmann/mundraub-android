@@ -94,4 +94,6 @@
     <string name="error_count_not_check_plant">Could not ask the server if the plant exists.</string>
     <string name="error_connection">There was an error with the connection to the server.</string>
     <string name="error_could_not_delete_plant">The plant could not be deleted online. There was some error. Please go online and delete it yourself.</string>
+    <string name="delete_plant_information">If you delete the plant online, the plant, all comments and all other information about this plant is lost.</string>
+    <string name="ask_delete_plant">Would you like to remove the plant from Mundraub.org?</string>
 </resources>

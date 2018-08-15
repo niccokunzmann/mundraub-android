@@ -181,7 +181,14 @@ public class PlantDetailFragment extends Fragment {
         updateButton(R.id.button_delete, plant.online().canDelete(), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                plant.online().delete(updateOrShowError(R.string.success_plant_deleted));
+                askYesNo(R.string.delete_plant_information, R.string.ask_delete_plant, new YesNoCallback() {
+                    @Override
+                    public void yes() {
+                        plant.online().delete(updateOrShowError(R.string.success_plant_deleted));
+                    }
+                    @Override
+                    public void no() {}
+                });
             }
         });
 
