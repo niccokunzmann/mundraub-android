@@ -96,6 +96,7 @@ map.addControls([
     // from https://gis.stackexchange.com/a/83195
     new OpenLayers.Control.Zoom(),
     new OpenLayers.Control.LayerSwitcher(),
+    new OpenLayers.Control.Navigation(),
     attribution,
     click
 ]);
