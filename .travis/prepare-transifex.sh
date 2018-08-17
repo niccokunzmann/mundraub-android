@@ -20,7 +20,7 @@ pip install --user --upgrade transifex-client
   echo "[https://www.transifex.com]"
   echo "api_hostname = https://api.transifex.com"
   echo "hostname = https://www.transifex.com"
-  echo "password = TRANSIFEX_PASSWORD"
+  echo "password = $TRANSIFEX_PASSWORD"
   echo "username = api"
 ) > ~/.transifexrc
 echo "Created "
