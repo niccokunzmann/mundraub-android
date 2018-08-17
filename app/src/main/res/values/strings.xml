@@ -1,15 +1,23 @@
 <resources>
+    <!-- Universal -->
     <string name="app_name" translatable="false">Mundraub</string>
-    <string name="add_new_plant">Add a new plant</string>
-    <string name="add_new_plant_heading">Please add more information about your plant ...</string>
+
+    <!-- Edit and add a plant -->
+    <string name="plant_has_unfilled_form_fields">Please add more information about your plant ...</string>
+    <string name="all_plant_fields_are_filled">All required fields of the plant are filled.</string>
     <string name="choose_plant_type">Choose a type of plant!</string>
     <string name="count">Count:</string>
     <string name="description">Description</string>
     <string name="position">Position:</string>
     <string name="title_plant_list">Plants</string>
     <string name="title_plant_detail">Plant Detail</string>
-    <string name="title_activity_choose_plant_type">ChoosePlantType</string>
-    <string name="choose_plant_category">Choose the plant category</string>
+    <string name="title_activity_choose_plant_type" translatable="false">ChoosePlantType</string>
+    <string name="delete">Delete</string>
+    <string name="GPS">GPS</string>
+    <string name="osm_license">© OpenStreetMap contributors</string>
+    <string name="map">Map</string>
+
+    <!-- types of plants -->
     <string name="apple">Apple</string>
     <string name="apricot">Apricot</string>
     <string name="pear">Pear</string>
@@ -44,56 +52,60 @@
     <string name="walnut">Walnut</string>
     <string name="other_nut">Other Nut</string>
     <string name="unknown_plant">Unknown Plant</string>
-    <string name="delete">Delete</string>
-    <string name="longitude">Longitude:</string>
-    <string name="latitude">Latitude:</string>
-    <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
+    <string name="title_activity_login">Sign in</string>
     <string name="prompt_username">Username</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign In (Account Required)</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_username">This username is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
     <string name="invalid_credentials">User does not exist or password if wrong.</string>
     <string name="error_field_required">This field is required</string>
+
+    <!-- view plant details -->
     <string name="upload_plant_online">Share this plant online</string>
     <string name="edit_plant_online">Upload the changes</string>
     <string name="delete_plant_online">Remove the plant from mundraub.org</string>
     <string name="view_plant_online">View the plant on mundraub.org</string>
-    <string name="plant_list_date_format">dd. MM. yyyy</string>
     <string name="plant_online_description">Change the plant on mundraub.org:</string>
+    <string name="error">Error</string>
+    <string name="success">Success!</string>
+    <string name="longitude">Longitude:</string>
+    <string name="latitude">Latitude:</string>
+    <string name="ask_open_the_map">Would you like to open the map and place the plant first?</string>
+    <string name="reason_reposition_unknown_position">The recorded position of the plant might be too far off. Please check it.</string>
+    <string name="reason_reposition_gps_position">The GPS position is probably too far away from reality. Please check on the map if it is ok.</string>
+    <string name="delete_plant_information">If you delete the plant online, the plant, all comments and all other information about this plant is lost.</string>
+    <string name="ask_delete_plant">Would you like to remove the plant from Mundraub.org?</string>
+
+    <!-- list all plants -->
+    <string name="plant_list_date_format">dd. MM. yyyy</string>
+
+    <!-- API errors and results -->
     <string name="task_completed_successfully">The operation ended successfully.</string>
     <string name="task_was_cancelled">The operation was cancelled.</string>
     <string name="operation_not_permitted">The operation is not allowed.</string>
     <string name="error_unexpected_return_code">The server responded with an unexpected return code.</string>
     <string name="error_not_specified">An error has occurred and if the developers put in more time, you would know more about what is going on. Time to start developing the app!</string>
     <string name="error_not_implemented">This operation is not yet implemented.</string>
-    <string name="error">Error</string>
-    <string name="success">Success!</string>
     <string name="success_plant_uploaded">The plant was uploaded to mundraub.org.</string>
     <string name="success_plant_updated">The plant has successfully been updated.</string>
     <string name="success_plant_deleted">The plant was deleted from mundraub.org.</string>
-    <string name="GPS">GPS</string>
     <string name="error_could_not_post_plant">The plant could not be published online because the server rejected the data.</string>
-    <string name="all_plant_fields_are_filled">All required fields of the plant are filled.</string>
     <string name="error_no_plant_id">The server did not respond with a plant id.</string>
     <string name="error_unknown_hostname">Could not resolve the host name and thus could not connect to the server.</string>
     <string name="error_could_not_parse_open_street_map_data">Could not get the address from OpenStreetMap.</string>
-    <string name="osm_license">© OpenStreetMap contributors</string>
-    <string name="map">Map</string>
-    <string name="ask_open_the_map">Would you like to open the map and place the plant first?</string>
-    <string name="reason_reposition_unknown_position">The recorded position of the plant might be too far off. Please check it.</string>
-    <string name="reason_reposition_gps_position">The GPS position is probably too far away from reality. Please check on the map if it is ok.</string>
-    <string name="no">no</string>
-    <string name="yes">yes</string>
-    <string name="attention">Attention</string>
-    <string name="info_plant_position_is_chosen_from_best_guess">The plant has no recorded position. The marker is where the last plant was placed. Please find the correct position.</string>
     <string name="error_count_not_check_plant">Could not ask the server if the plant exists.</string>
     <string name="error_connection">There was an error with the connection to the server.</string>
     <string name="error_could_not_delete_plant">The plant could not be deleted online. There was some error. Please go online and delete it yourself.</string>
-    <string name="delete_plant_information">If you delete the plant online, the plant, all comments and all other information about this plant is lost.</string>
-    <string name="ask_delete_plant">Would you like to remove the plant from Mundraub.org?</string>
+
+    <string name="no">no</string>
+    <string name="yes">yes</string>
+
+    <!-- map -->
+    <string name="attention">Attention</string>
+    <string name="info_plant_position_is_chosen_from_best_guess">The plant has no recorded position. The marker is where the last plant was placed. Please find the correct position.</string>
+
 </resources>

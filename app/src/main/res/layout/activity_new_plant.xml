@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView"
-                tools:text="@string/add_new_plant_heading" />
+                tools:text="@string/plant_has_unfilled_form_fields" />
 
             <Button
                 android:id="@+id/button_plant_type"
