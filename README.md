@@ -21,9 +21,12 @@ Contribute
 ----------
 
 Contributions are welcome.
+
 - We use [Transifex][tx] to translate the app to your language.
 - We use Android Studio to develop the app.
 - Feedback is welcome, please open an [issue][issues].
+
+You can view the [Setup Guide][setup].
 
 Software Material List
 ----------------------
@@ -42,6 +45,7 @@ Services:
 
 - [Travis][travis] to build the app and test the code
 - [GitHub] for publising and contributing to the code
+- [Transifex][tx] for managing translations
 
 Languages:
 
@@ -61,3 +65,5 @@ Languages:
 [map]: https://rawgit.com/niccokunzmann/mundraub-android/master/app/src/main/assets/map/examples/fullScreen.html
 [issues]: https://github.com/niccokunzmann/mundraub-android/issues
 [tx]: https://www.transifex.com/mundraub-android/mundraub-android-app/
+[setup]: docs/setup.md
+
