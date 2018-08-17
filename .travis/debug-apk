@@ -2,5 +2,5 @@
 
 cd "`dirname \"$0\"`"
 
-cd ..
-find | grep "\.apk$" | grep debug
+cd ../app/build
+echo -n ./app/build/ && find | grep "\.apk$" | grep debug
