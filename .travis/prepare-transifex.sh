@@ -14,7 +14,7 @@ if [ -z "$TRANSIFEX_PASSWORD" ]; then
   exit 1
 fi
 
-pip install --user transifex-client
+pip3 install --user transifex-client
 
 (
   echo "[https://www.transifex.com]"
