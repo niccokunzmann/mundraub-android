@@ -21,7 +21,9 @@ Contribute
 ----------
 
 Contributions are welcome.
-We use Android Studio to develop the app.
+- We use [Transifex][tx] to translate the app to your language.
+- We use Android Studio to develop the app.
+- Feedback is welcome, please open an [issue][issues].
 
 Software Material List
 ----------------------
@@ -57,3 +59,5 @@ Languages:
 [World Imagery]: https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/
 [GINGERBREAD]: https://developer.android.com/guide/topics/manifest/uses-sdk-element#ApiLevels
 [map]: https://rawgit.com/niccokunzmann/mundraub-android/master/app/src/main/assets/map/examples/fullScreen.html
+[issues]: https://github.com/niccokunzmann/mundraub-android/issues
+[tx]: https://www.transifex.com/mundraub-android/mundraub-android-app/
