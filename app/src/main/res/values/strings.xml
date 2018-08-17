@@ -79,6 +79,8 @@
     <string name="reason_reposition_gps_position">The GPS position is probably too far away from reality. Please check on the map if it is ok.</string>
     <string name="delete_plant_information">If you delete the plant online, the plant, all comments and all other information about this plant is lost.</string>
     <string name="ask_delete_plant">Would you like to remove the plant from Mundraub.org?</string>
+    <string name="no">no</string>
+    <string name="yes">yes</string>
 
     <!-- list all plants -->
     <string name="plant_list_date_format">dd. MM. yyyy</string>
@@ -100,9 +102,6 @@
     <string name="error_count_not_check_plant">Could not ask the server if the plant exists.</string>
     <string name="error_connection">There was an error with the connection to the server.</string>
     <string name="error_could_not_delete_plant">The plant could not be deleted online. There was some error. Please go online and delete it yourself.</string>
-
-    <string name="no">no</string>
-    <string name="yes">yes</string>
 
     <!-- map -->
     <string name="attention">Attention</string>
