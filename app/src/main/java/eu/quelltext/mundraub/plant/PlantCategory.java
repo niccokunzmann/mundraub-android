@@ -156,7 +156,7 @@ public class PlantCategory {
     public static class NullCategory extends PlantCategory {
 
         NullCategory() {
-            super(null, -1, R.string.unknown_plant);
+            super(null, -1, R.string.unnamed_plant);
         }
         public boolean isUnknown() {
             return true;

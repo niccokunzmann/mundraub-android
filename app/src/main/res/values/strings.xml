@@ -26,15 +26,15 @@
     <string name="mulberry">Mulberry</string>
     <string name="plum">Plum</string>
     <string name="quince">Quince</string>
-    <string name="blackberry">Blackberry</string>
     <string name="other_fruit_trees">Other Fruit Tree</string>
+    <string name="blackberry">Blackberry</string>
     <string name="blueberry">Blueberry</string>
     <string name="raspberry">Raspberry</string>
     <string name="elder">Elder</string>
     <string name="rose_hip">Rose Hip</string>
     <string name="juneberry">Juneberry</string>
     <string name="currant">Currant</string>
-    <string name="cornel_cherry">Cornel cherry</string>
+    <string name="cornel_cherry">Cornel Cherry</string>
     <string name="seaberry">Seaberry</string>
     <string name="haw">Haw</string>
     <string name="sloe">Sloe</string>
@@ -51,9 +51,9 @@
     <string name="wild_strawberry">Wild Strawberry</string>
     <string name="walnut">Walnut</string>
     <string name="other_nut">Other Nut</string>
-    <string name="unknown_plant">Unknown Plant</string>
+    <string name="unnamed_plant">Unknown Plant</string>
 
-    <!-- Strings related to login -->
+    <!-- Login -->
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_username">Username</string>
     <string name="prompt_password">Password</string>
@@ -61,8 +61,8 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_username">This username is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
-    <string name="invalid_credentials">User does not exist or password if wrong.</string>
-    <string name="error_field_required">This field is required</string>
+    <string name="invalid_credentials">User does not exist or password is wrong.</string>
+    <string name="error_field_required">Please fill this field</string>
 
     <!-- view plant details -->
     <string name="upload_plant_online">Share this plant online</string>
@@ -83,10 +83,10 @@
     <string name="yes">yes</string>
 
     <!-- list all plants -->
-    <string name="plant_list_date_format">dd. MM. yyyy</string>
+    <string name="plant_list_date_format">MM/dd/yyyy</string>
 
     <!-- API errors and results -->
-    <string name="task_completed_successfully">The operation ended successfully.</string>
+    <string name="task_completed_successfully" translatable="false">The operation ended successfully.<!-- This string is never shown. --></string>
     <string name="task_was_cancelled">The operation was cancelled.</string>
     <string name="operation_not_permitted">The operation is not allowed.</string>
     <string name="error_unexpected_return_code">The server responded with an unexpected return code.</string>
@@ -96,7 +96,7 @@
     <string name="success_plant_updated">The plant has successfully been updated.</string>
     <string name="success_plant_deleted">The plant was deleted from mundraub.org.</string>
     <string name="error_could_not_post_plant">The plant could not be published online because the server rejected the data.</string>
-    <string name="error_no_plant_id">The server did not respond with a plant id.</string>
+    <string name="error_no_plant_id">The server did not respond with a plant id. Have a look on-line at what happened.</string>
     <string name="error_unknown_hostname">Could not resolve the host name and thus could not connect to the server.</string>
     <string name="error_could_not_parse_open_street_map_data">Could not get the address from OpenStreetMap.</string>
     <string name="error_count_not_check_plant">Could not ask the server if the plant exists.</string>

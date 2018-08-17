@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/text_margin"
         android:layout_weight="1"
-        android:text="@string/unknown_plant"
+        android:text="@string/unnamed_plant"
         android:textSize="24sp" />
 
     <LinearLayout

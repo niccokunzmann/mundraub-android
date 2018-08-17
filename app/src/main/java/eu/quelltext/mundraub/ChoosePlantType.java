@@ -78,7 +78,7 @@ public class ChoosePlantType extends AppCompatActivity {
         }
 
         public void setCategory(final PlantCategory category, final PlantCategoryResult result) {
-            textViewTitle.setText(category.toString());
+            textViewTitle.setText(category.getResourceId());
             choosePlantType.setOnClickListener(new View.OnClickListener()
             {
                 @Override
