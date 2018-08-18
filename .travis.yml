@@ -51,6 +51,7 @@ before_deploy:
 deploy:
   - provider: script
     script: tx push --source
+    skip_cleanup: true
     on:
       branch: master
   - provider: releases
