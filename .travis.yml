@@ -49,7 +49,7 @@ before_deploy:
 - cp "`.travis/debug-apk`" mundraub-debug.apk
 
 deploy:
-  - provider: scripts
+  - provider: script
     script: tx push --source
     on:
       branch: master
