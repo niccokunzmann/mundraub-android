@@ -36,6 +36,8 @@ script:
 - tx pull --all
 - gradle build
 - "find | grep '\\.apk'"
+- .travis/release-apk && [ -f "`.travis/release-apk`" ]
+- .travis/debug-apk && [ -f "`.travis/debug-apk`" ]
 
 before_deploy:
 # Set up git user name and tag this commit
