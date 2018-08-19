@@ -107,4 +107,21 @@
     <string name="attention">Attention</string>
     <string name="info_plant_position_is_chosen_from_best_guess">The plant has no recorded position. The marker is where the last plant was placed. Please find the correct position.</string>
 
+    <!-- menu -->
+    <string name="menu_about">About</string>
+
+    <!-- About -->
+    <string name="about_app">This is the inofficial app for Mundraub.org. The source is open. You are invited to contribute.</string>
+    <string name="about_view_source">View the source code</string>
+    <string name="about_view_source_url" translatable="false">https://github.com/niccokunzmann/mundraub-android</string>
+    <string name="about_four_freedoms">You have the freedom to run, study, redistribute and improve the software.</string>
+    <string name="about_view_four_freedoms">More about our four freedoms</string>
+    <string name="about_view_four_freedoms_url">https://en.wikipedia.org/wiki/Free_software#Definition_and_the_Four_Freedoms</string>
+    <string name="about_issues">If you experience any problem with the app and like to report it, you can open a new issue.</string>
+    <string name="about_view_issues">View issues or open one</string>
+    <string name="about_view_issues_url" translatable="false">https://github.com/niccokunzmann/mundraub-android/issues</string>
+    <string name="about_licenses">This app has a dual licensing model: GPL version 3 for the app and additionally the MIT license for the map.</string>
+    <string name="about_gpl">View GPLv3</string>
+    <string name="about_mit">View MIT</string>
+
 </resources>

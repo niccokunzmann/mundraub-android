@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -233,5 +235,29 @@ public class PlantListActivity extends AppCompatActivity {
                 dateContainer.setVisibility(View.GONE);
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_app, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // from https://www.javatpoint.com/android-option-menu-example
+        switch (item.getItemId()){
+            case R.id.item_about:
+                openAbout();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void openAbout() {
+        Intent intent = new Intent(this, AboutActivity.class);
+        this.startActivity(intent);
     }
 }

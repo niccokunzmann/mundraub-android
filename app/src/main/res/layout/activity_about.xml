@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/text_welcome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_app"
+                tools:layout_editor_absoluteX="153dp"
+                tools:layout_editor_absoluteY="86dp" />
+
+            <Button
+                android:id="@+id/button_view_source"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_view_source"
+                tools:layout_editor_absoluteX="49dp"
+                tools:layout_editor_absoluteY="0dp" />
+
+            <TextView
+                android:id="@+id/text_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_view_source_url"
+                tools:layout_editor_absoluteX="153dp"
+                tools:layout_editor_absoluteY="86dp" />
+
+            <View
+                android:id="@+id/divider4"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/activity_horizontal_margin"
+                android:layout_weight="0"
+                android:background="@android:color/background_light" />
+
+            <TextView
+                android:id="@+id/text_freedoms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_four_freedoms"
+                tools:layout_editor_absoluteX="153dp"
+                tools:layout_editor_absoluteY="86dp" />
+
+            <Button
+                android:id="@+id/button_view_freedoms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_view_four_freedoms"
+                tools:layout_editor_absoluteX="49dp"
+                tools:layout_editor_absoluteY="0dp" />
+
+            <View
+                android:id="@+id/divider5"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/activity_horizontal_margin"
+                android:layout_weight="0"
+                android:background="@android:color/background_light" />
+
+            <TextView
+                android:id="@+id/text_issues"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_issues"
+                tools:layout_editor_absoluteX="153dp"
+                tools:layout_editor_absoluteY="86dp" />
+
+            <Button
+                android:id="@+id/button_view_issues"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_view_issues"
+                tools:layout_editor_absoluteX="49dp"
+                tools:layout_editor_absoluteY="0dp" />
+
+            <View
+                android:id="@+id/divider6"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/activity_horizontal_margin"
+                android:layout_weight="0"
+                android:background="@android:color/background_light" />
+
+            <TextView
+                android:id="@+id/text_licenses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_licenses" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button_gpl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/about_gpl" />
+
+                <Button
+                    android:id="@+id/button_mit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/about_mit" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/text_selected_license"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
