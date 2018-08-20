@@ -10,6 +10,9 @@ plants on the phone and upload them when an Internet connection is available.
 
 The API level is 9 so it runs on old mobile phones.
 
+[![](images/screenshots/link-to-screenshots.png)][screenshots]
+[View the screenshots]
+
 Download
 --------
 
@@ -66,4 +69,5 @@ Languages:
 [issues]: https://github.com/niccokunzmann/mundraub-android/issues
 [tx]: https://www.transifex.com/mundraub-android/mundraub-android-app/
 [setup]: docs/setup.md
+[screenshots]: images/screenshots/#readme
 
