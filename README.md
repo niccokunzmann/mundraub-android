@@ -51,6 +51,7 @@ Services:
 - [Travis][travis] to build the app and test the code
 - [GitHub] for publising and contributing to the code
 - [Transifex][tx] for managing translations
+- [F-Droid][fdroid] for publishing the app
 
 Languages:
 
