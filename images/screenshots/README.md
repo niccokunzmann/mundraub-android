@@ -35,7 +35,7 @@ account.
 ![](share-plant-online-1.png) ![](share-plant-online-2.png)
 
 If you would like to share a plant online, you can do so after login.
-The app may promt you to reposition the plant if GPS is too far off.
+The app may ask you to reposition the plant if GPS is too far off.
 Then, you can open the map.
 
 ## Reposition plants on a map
