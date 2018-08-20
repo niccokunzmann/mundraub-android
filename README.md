@@ -16,6 +16,8 @@ The API level is 9 so it runs on old mobile phones.
 Download
 --------
 
+[<img src="https://f-droid.org/badge/get-it-on.png" height="75">][fdroid]
+
 You can download the latest version from GitHub
 - [Download latest release](https://niccokunzmann.github.io/download_latest/mundraub-release-unsigned.apk)
 - [Download latest debug version](https://niccokunzmann.github.io/download_latest/mundraub-release-unsigned.apk)
@@ -70,4 +72,5 @@ Languages:
 [tx]: https://www.transifex.com/mundraub-android/mundraub-android-app/
 [setup]: docs/setup.md
 [screenshots]: images/screenshots/#readme
+[fdroid]: https://f-droid.org/en/packages/eu.quelltext.mundraub/
 
