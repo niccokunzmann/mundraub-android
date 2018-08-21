@@ -26,10 +26,11 @@ import java.util.List;
 
 import eu.quelltext.mundraub.Helper;
 import eu.quelltext.mundraub.R;
+import eu.quelltext.mundraub.error.ErrorAware;
 import eu.quelltext.mundraub.map.MapCache;
 
 
-public class Plant implements Comparable<Plant> {
+public class Plant extends ErrorAware implements Comparable<Plant> {
 
     private static final PlantCollection plants = new PersistentPlantCollection();
     private static final MapCache mapCache = new MapCache();
@@ -70,12 +71,14 @@ public class Plant implements Comparable<Plant> {
     private Position position = Position.NULL;
 
     public Plant() {
+        super();
         this.id = plants.newId();
         this.collection = plants;
         this.onlineState = PlantOnlineState.getOfflineState(this);
     }
 
     public Plant(PlantCollection collection, JSONObject json) throws JSONException {
+        super();
         this.collection = collection;
         id = json.getString(JSON_ID);
         if (json.has(JSON_LONGITUDE) && json.has(JSON_LATITUDE)) {
@@ -362,7 +365,7 @@ public class Plant implements Comparable<Plant> {
         try {
             setPosition(Position.fromMapWithMarker(url));
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            log.printStackTrace(e);
         }
     }
 

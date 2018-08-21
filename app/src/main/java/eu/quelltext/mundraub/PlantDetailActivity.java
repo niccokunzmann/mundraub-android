@@ -6,11 +6,11 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import eu.quelltext.mundraub.error.ErrorAwareActivity;
 import eu.quelltext.mundraub.plant.Plant;
 
 /**
@@ -19,7 +19,7 @@ import eu.quelltext.mundraub.plant.Plant;
  * item details are presented side-by-side with a list of items
  * in a {@link PlantListActivity}.
  */
-public class PlantDetailActivity extends AppCompatActivity {
+public class PlantDetailActivity extends ErrorAwareActivity {
 
     public static final String ARG_PLANT_ID = "plant_id";
     String plantId;

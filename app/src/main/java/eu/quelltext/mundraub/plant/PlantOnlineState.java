@@ -1,12 +1,11 @@
 package eu.quelltext.mundraub.plant;
 
-import android.util.Log;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.api.API;
+import eu.quelltext.mundraub.error.Logger;
 
 public class PlantOnlineState {
 
@@ -200,7 +199,8 @@ public class PlantOnlineState {
 
                 @Override
                 public void onFailure(int errorResourceString) {
-                    Log.e("PLANT PUBLISHED TWICE", "The plant " + plant.getId() +
+                    final Logger.Log log = Logger.newFor("PlantOnlineState");
+                    log.e("PLANT PUBLISHED TWICE", "The plant " + plant.getId() +
                             " was published twice under id " +
                             newId + " and " + id + ". Could not delete " + id +
                             ". Trying to delete " + newId);
@@ -212,7 +212,7 @@ public class PlantOnlineState {
 
                         @Override
                         public void onFailure(int errorResourceString) {
-                            Log.e("PLANT PUBLISHED TWICE", "The plant " + plant.getId() +
+                            log.e("PLANT PUBLISHED TWICE", "The plant " + plant.getId() +
                                     " was published twice under id " +
                                     newId + " and " + id + ". Could not delete either one of them.");
                         }

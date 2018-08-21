@@ -3,9 +3,10 @@ package eu.quelltext.mundraub.api;
 import android.os.AsyncTask;
 
 import eu.quelltext.mundraub.R;
+import eu.quelltext.mundraub.error.ErrorAware;
 import eu.quelltext.mundraub.plant.Plant;
 
-public abstract class API {
+public abstract class API extends ErrorAware {
 
     private static final API dummyAPI = new DummyAPI();
     private static final API mundraubAPI = new MundraubAPI();
@@ -14,7 +15,7 @@ public abstract class API {
     public final int TASK_CANCELLED = R.string.task_was_cancelled;
 
     private boolean isLoggedIn;
-
+    
     public static final API instance() {
         if (useDummy) {
             return dummyAPI;

@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +21,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import eu.quelltext.mundraub.error.ErrorAwareActivity;
+import eu.quelltext.mundraub.error.Logger;
 import eu.quelltext.mundraub.plant.Plant;
 
 /**
@@ -33,7 +33,7 @@ import eu.quelltext.mundraub.plant.Plant;
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class PlantListActivity extends AppCompatActivity {
+public class PlantListActivity extends ErrorAwareActivity {
 
     private static final String ARG_RECYCLER_VIEW_STATE = "recycler_view_state";
     /**
@@ -105,7 +105,7 @@ public class PlantListActivity extends AppCompatActivity {
 
 
     private void updateRecyclerView() {
-        Log.d("DEBUG", "updateRecyclerView");
+        log.d("DEBUG", "updateRecyclerView");
         loadRecyclerViewState();
         adapter.update();
     }
@@ -122,6 +122,7 @@ public class PlantListActivity extends AppCompatActivity {
         private final PlantListActivity mParentActivity;
         private List<Plant> plants;
         private final boolean mTwoPane;
+        private final Logger.Log log;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -143,22 +144,24 @@ public class PlantListActivity extends AppCompatActivity {
                 }
             }
         };
+
         public void update() {
             load();
-            Log.d("RECYCLER", "changed start");
+            log.d("RECYCLER", "changed start");
             notifyDataSetChanged();
-            Log.d("RECYCLER", "changed stop");
+            log.d("RECYCLER", "changed stop");
         }
 
         private void load() {
-            Log.d("RECYCLER", "load start");
+            log.d("RECYCLER", "load start");
             plants = Plant.all();
             Collections.sort(plants);
-            Log.d("RECYCLER", "load stop");
+            log.d("RECYCLER", "load stop");
         }
 
         SimpleItemRecyclerViewAdapter(PlantListActivity parent,
                                       boolean twoPane) {
+            log = Logger.newFor(this);
             mParentActivity = parent;
             mTwoPane = twoPane;
             load();

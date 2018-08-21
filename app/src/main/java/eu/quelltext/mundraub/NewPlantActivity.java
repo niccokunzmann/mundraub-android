@@ -12,10 +12,8 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,11 +25,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import eu.quelltext.mundraub.error.ErrorAwareActivity;
 import eu.quelltext.mundraub.map.MapCache;
 import eu.quelltext.mundraub.plant.Plant;
 import eu.quelltext.mundraub.plant.PlantCategory;
 
-public class NewPlantActivity extends AppCompatActivity {
+public class NewPlantActivity extends ErrorAwareActivity {
     /*
       - intent.putString(NewPlantActivity.ARG_PLANT_ID, plant_id)
         will open this view on a specific plant
@@ -299,7 +298,7 @@ public class NewPlantActivity extends AppCompatActivity {
             // for ActivityCompat#requestPermissions for more details.
             // TODO: or create alert box:
             //       protected void alertbox in http://rdcworld-android.blogspot.com/2012/01/get-current-location-coordinates-city.html
-            Log.d("DEBUG", "Access to GPS position is not granted.");
+            log.d("DEBUG", "Access to GPS position is not granted.");
             return false;
         }
         if (locationManager != null) {
@@ -341,16 +340,16 @@ public class NewPlantActivity extends AppCompatActivity {
             try {
                 // from https://stackoverflow.com/a/28720264/1320237
                 File savedPicture = File.createTempFile("plant", ".jpg", getExternalCacheDir());
-                Log.d("CameraDemo", "photo " + photo + " to " + savedPicture);
+                log.d("CameraDemo", "photo " + photo + " to " + savedPicture);
                 FileOutputStream fos = new FileOutputStream(savedPicture);
                 photo.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                 fos.flush();
                 fos.close();
                 plant.setPicture(savedPicture);
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                log.printStackTrace(e);
             } catch (IOException e) {
-                e.printStackTrace();
+                log.printStackTrace(e);
             }
             loadViewFromPlant();
         }
@@ -358,7 +357,7 @@ public class NewPlantActivity extends AppCompatActivity {
 
     public void setPlantCategory(PlantCategory plantCategory) {
         this.plant.setCategory(plantCategory);
-        Log.d("NewPlantActivity", "Set plant category to " + plantCategory.toString());
+        log.d("NewPlantActivity", "Set plant category to " + plantCategory.toString());
         loadViewFromPlant();
     }
 }

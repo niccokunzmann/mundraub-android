@@ -3,7 +3,6 @@ package eu.quelltext.mundraub;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,7 +11,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class AboutActivity extends AppCompatActivity {
+import eu.quelltext.mundraub.error.ErrorAwareActivity;
+
+public class AboutActivity extends ErrorAwareActivity {
 
     private Button buttonViewSource;
     private Button buttonViewFreedoms;
@@ -83,13 +84,13 @@ public class AboutActivity extends AppCompatActivity {
             }
             textSelectedLicense.setText(text.toString());
         } catch (IOException e) {
-            e.printStackTrace();
+            log.printStackTrace(e);
         } finally {
             if (reader != null) {
                 try {
                     reader.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    log.printStackTrace(e);
                 }
             }
         }

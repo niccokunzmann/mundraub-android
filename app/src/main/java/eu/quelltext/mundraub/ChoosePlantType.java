@@ -21,9 +21,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import eu.quelltext.mundraub.error.ErrorAwareActivity;
 import eu.quelltext.mundraub.plant.PlantCategory;
 
-public class ChoosePlantType extends AppCompatActivity {
+public class ChoosePlantType extends ErrorAwareActivity {
 
     private RecyclerView plantTypesView;
 
@@ -84,7 +85,7 @@ public class ChoosePlantType extends AppCompatActivity {
                 @Override
                 public void onClick(View v)
                 {
-                    Log.d("onClick", category.toString());
+                    log.d("onClick", category.toString());
                     result.resolve(category);
                 }
             });

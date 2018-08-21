@@ -25,7 +25,9 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-public final class Helper {
+import eu.quelltext.mundraub.error.ErrorAware;
+
+public final class Helper extends ErrorAware {
     public static void deleteDir(File file) {
         // from https://stackoverflow.com/a/29175213/1320237
         File[] contents = file.listFiles();

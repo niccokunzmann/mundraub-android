@@ -1,7 +1,5 @@
 package eu.quelltext.mundraub.api;
 
-import android.util.Log;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -60,7 +58,7 @@ public class MundraubAPI extends API {
         for (HttpCookie cookie : cookies) {
             String s = cookie.getName() + "=" + cookie.getValue();
             http.addRequestProperty("Cookie", s);
-            Log.d("COOKIE", s);
+            log.d("COOKIE", s);
         }
     }
 
@@ -70,7 +68,7 @@ public class MundraubAPI extends API {
             String s = cookie.getName() + "=" + cookie.getValue();
             builder.header("Cookie", s);
             //http.addRequestProperty("Cookie", );
-            Log.d("COOKIE", s);
+            log.d("COOKIE", s);
         }
     }
 
@@ -166,12 +164,12 @@ public class MundraubAPI extends API {
             if (returnCode == RETURN_CODE_LOGIN_FAILURE) {
                 return R.string.invalid_credentials;
             } else if (returnCode != RETURN_CODE_LOGIN_SUCCESS) {
-                Log.e("LOGIN", "Unexpected return code " + returnCode + " when logging in.");
+                log.e("LOGIN", "Unexpected return code " + returnCode + " when logging in.");
                 try {
                     String result = Helper.getResultString(http);
-                    Log.d("LOGIN", result);
+                    log.d("LOGIN", result);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    log.printStackTrace(e);
                 }
                 return R.string.error_unexpected_return_code;
             }
@@ -180,18 +178,18 @@ public class MundraubAPI extends API {
             setSessionFromCookie(cookie);
             return TASK_SUCCEEDED;
         } catch (UnknownHostException e) {
-            e.printStackTrace();
+            log.printStackTrace(e);
             return R.string.error_unknown_hostname;
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            log.printStackTrace(e);
         } catch (ProtocolException e) {
-            e.printStackTrace();
+            log.printStackTrace(e);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.printStackTrace(e);
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            log.printStackTrace(e);
         } catch (KeyManagementException e) {
-            e.printStackTrace();
+            log.printStackTrace(e);
             // TODO: new error message for different exceptions
         }
         return R.string.error_not_specified;
@@ -203,11 +201,11 @@ public class MundraubAPI extends API {
             try {
                 return deletePlantOnline(plantId);
             } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
+                log.printStackTrace(e);
             } catch (KeyManagementException e) {
-                e.printStackTrace();
+                log.printStackTrace(e);
             } catch (IOException e) {
-                e.printStackTrace();
+                log.printStackTrace(e);
                 return R.string.error_connection;
             }
             return R.string.error_not_specified;
@@ -223,13 +221,13 @@ public class MundraubAPI extends API {
         try {
             formValues = getFormValues(plantDeleteUrl);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.printStackTrace(e);
             return R.string.error_not_specified;
         } catch (KeyManagementException e) {
-            e.printStackTrace();
+            log.printStackTrace(e);
             return R.string.error_not_specified;
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            log.printStackTrace(e);
             return R.string.error_not_specified;
         }
         return postFormTo(formValues, plantDeleteUrl, new FormPostHooks() {
@@ -264,12 +262,12 @@ public class MundraubAPI extends API {
         try {
             response = client.newCall(request).execute();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.printStackTrace(e);
             abortOperation(R.string.error_count_not_check_plant);
             return false;
         }
         boolean result = response.code() == HttpURLConnection.HTTP_OK;
-        Log.d("PLANT EXISTS", plantUrl + " exists == " + result);
+        log.d("PLANT EXISTS", plantUrl + " exists == " + result);
         return result;
     }
 
@@ -284,17 +282,17 @@ public class MundraubAPI extends API {
             Map<String, String> formValues = getFormValues(URL_ADD_PLANT_FORM);
             return postPlantFormTo(formValues, plant, URL_ADD_PLANT_FORM);
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            log.printStackTrace(e);
         } catch (ProtocolException e) {
-            e.printStackTrace();
+            log.printStackTrace(e);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.printStackTrace(e);
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            log.printStackTrace(e);
         } catch (KeyManagementException e) {
-            e.printStackTrace();
+            log.printStackTrace(e);
         } catch (JSONException e) {
-            e.printStackTrace();
+            log.printStackTrace(e);
             return R.string.error_could_not_parse_open_street_map_data;
         }
         return R.string.error_not_specified;
@@ -351,22 +349,22 @@ public class MundraubAPI extends API {
                 name = attributeValue2;
                 value = attributeValue1;
             } else {
-                Log.d("getFormValues", "Could not parse " + fieldTag.toString());
+                log.d("getFormValues", "Could not parse " + fieldTag.toString());
                 continue;
             }
             if (result.containsKey(name)) {
-                Log.d("getFormValues",
+                log.d("getFormValues",
                         "Double key " + name + "=\"" + value + "\" ignored. " +
                         "It is assumed to come from a second form field.");
                 continue;
             }
             result.put(name, value); // TODO: unescape html
-            Log.d("getFormValues", "Set " + name + "=\"" + value + "\"");
+            log.d("getFormValues", "Set " + name + "=\"" + value + "\"");
         }
         return result;
     }
     private String getURL(String url_, boolean authenticate) throws IOException, ErrorWithExplanation, NoSuchAlgorithmException, KeyManagementException {
-        Log.d("getURL", url_);
+        log.d("getURL", url_);
         URL url =  new URL(url_);
         HttpURLConnection http = (HttpURLConnection) openSecureConnection(url);
         http.setRequestMethod("GET");
@@ -381,11 +379,11 @@ public class MundraubAPI extends API {
             // from https://stackoverflow.com/a/1359700/1320237
             String result = Helper.getResultString(http);
             if (returnCode != HttpURLConnection.HTTP_OK) {
-                Log.d("getURL", result);
-                Log.d("getURL", "Unexpected return code " + returnCode);
+                log.d("getURL", result);
+                log.d("getURL", "Unexpected return code " + returnCode);
                 abortOperation(R.string.error_unexpected_return_code);
             }
-            Log.d("getURL", "Success " + url);
+            log.d("getURL", "Success " + url);
             return result;
         } finally {
             http.disconnect();
@@ -426,14 +424,14 @@ public class MundraubAPI extends API {
             int returnCode = response.code();
             Headers headers = response.headers();
             for (String key: headers.names()) {
-                Log.d("RESPONSE HEADER", key + ": " + headers.get(key));
+                log.d("RESPONSE HEADER", key + ": " + headers.get(key));
             }
-            Log.d("BODY", response.body().string());
+            log.d("BODY", response.body().string());
             if (returnCode == HttpURLConnection.HTTP_OK) {
-                Log.d("postPlant", "Server rejected the data " + returnCode);
+                log.d("postPlant", "Server rejected the data " + returnCode);
                 return hooks.responseOK();
             } else if (returnCode != HttpURLConnection.HTTP_SEE_OTHER) {
-                Log.d("postPlant", "Unexpected return code " + returnCode);
+                log.d("postPlant", "Unexpected return code " + returnCode);
                 return hooks.responseUnknown(returnCode);
             }
             return hooks.responseSeeOther(response.header("Location"));

@@ -11,12 +11,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PlantCollection {
+import eu.quelltext.mundraub.error.ErrorAware;
+
+public class PlantCollection extends ErrorAware {
 
     private Map<String, Plant> idToPlant;
     private final String ID_FORMAT = "yyyy-MM-dd-kk-mm-ss";
 
     public PlantCollection() {
+        super();
         idToPlant = new HashMap<String, Plant>();
     }
 
@@ -51,7 +54,7 @@ public class PlantCollection {
         try {
             return parser.parse(plant.getId());
         } catch (ParseException e) {
-            e.printStackTrace();
+            log.printStackTrace(e);
             return Calendar.getInstance().getTime();
         }
     }

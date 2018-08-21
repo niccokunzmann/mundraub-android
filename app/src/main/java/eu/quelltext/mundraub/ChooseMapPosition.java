@@ -3,16 +3,16 @@ package eu.quelltext.mundraub;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
 
+import eu.quelltext.mundraub.error.ErrorAwareActivity;
 import eu.quelltext.mundraub.plant.Plant;
 
-public class ChooseMapPosition extends AppCompatActivity {
+public class ChooseMapPosition extends ErrorAwareActivity {
 
     public static final String ARG_PLANT_ID = "plant_id";
     private Plant plant;
@@ -32,7 +32,7 @@ public class ChooseMapPosition extends AppCompatActivity {
             // load plant from arguments
             plant = Plant.withId(getIntent().getStringExtra(ARG_PLANT_ID));
         } else {
-            Log.e("ChooseMapPosition","No plant was specified.");
+            log.e("ChooseMapPosition","No plant was specified.");
             finish();
         }
         saveButton = (Button) findViewById(R.id.button_ok);
@@ -71,7 +71,7 @@ public class ChooseMapPosition extends AppCompatActivity {
             alertAboutPositionGuess();
         }
         String url = position.getMapURLWithMarker();
-        Log.d("ChooseMapPosition", "set url to " + url);
+        log.d("ChooseMapPosition", "set url to " + url);
         webView.loadUrl(url);
         webView.reload();
     }

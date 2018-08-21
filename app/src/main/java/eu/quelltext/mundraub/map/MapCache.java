@@ -3,16 +3,17 @@ package eu.quelltext.mundraub.map;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Environment;
-import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
 import eu.quelltext.mundraub.Helper;
+import eu.quelltext.mundraub.error.ErrorAware;
+import eu.quelltext.mundraub.error.Logger;
 import eu.quelltext.mundraub.plant.Plant;
 
-public class MapCache {
+public class MapCache extends ErrorAware {
 
     private static final String CACHE_DIRECTORY = "plant-map-cache";
     private static final String PLANT_IMAGE_TYPE = "png";
@@ -21,7 +22,7 @@ public class MapCache {
     private HashMap callbacks = new HashMap<String, Callback>();
 
     public MapCache() {
-
+        super();
         allTilesDirectory = null;
     }
 
@@ -66,18 +67,18 @@ public class MapCache {
                 public void onSuccess(File file) {
                     olderCallback.onSuccess(file);
                     callback.onSuccess(file);
-                    Log.d("JOINED CALLBACK", "onSuccess(\"" + file.toString() + "\")");
+                    log.d("JOINED CALLBACK", "onSuccess(\"" + file.toString() + "\")");
                 }
 
                 @Override
                 public void onFailure() {
                     olderCallback.onFailure();
                     callback.onFailure();
-                    Log.d("JOINED CALLBACK", "onFailue()");
+                    log.d("JOINED CALLBACK", "onFailue()");
                 }
             };
             callbacks.put(callbackId, joinedCallback);
-            Log.d("mapPreviewOf", "Callback Existed");
+            log.d("mapPreviewOf", "Callback Existed");
         } else {
             callbacks.put(callbackId, callback);
             final Task task = new Task(plant, position, positionFile, new Callback() {
@@ -102,7 +103,7 @@ public class MapCache {
         Helper.deleteDir(directoryOfPlant(plant));
     }
 
-    private static class Task extends AsyncTask<Void, Void, Boolean> {
+    private static class Task extends AsyncTask<Void, Void, Boolean> implements Logger.Loggable {
 
         private final Plant plant;
         private final Plant.Position position;
@@ -120,14 +121,15 @@ public class MapCache {
         @Override
         protected Boolean doInBackground(Void... params) {
             String url = position.getOpenStreetMapExportUrl(PLANT_IMAGE_TYPE);
-            Log.d("MAP CACHE", "GET " + url);
+            Logger.Log log = Logger.newFor(this);
+            log.d("MAP CACHE", "GET " + url);
             try {
                 return  positionFile.getParentFile().mkdirs() && // from https://stackoverflow.com/a/32402390
                         positionFile.createNewFile() && // from https://stackoverflow.com/a/9620718
                         Helper.saveUrlToFile(url, positionFile) &&
                         plant.getPosition().equals(position);
             } catch (IOException e) {
-                e.printStackTrace();
+                log.printStackTrace(e);
                 return false;
             }
         }
@@ -138,6 +140,11 @@ public class MapCache {
             } else {
                 callback.onFailure();
             }
+        }
+
+        @Override
+        public String getTag() {
+            return "MapCache.Task";
         }
     }
 

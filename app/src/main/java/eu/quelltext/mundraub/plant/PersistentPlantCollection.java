@@ -1,7 +1,6 @@
 package eu.quelltext.mundraub.plant;
 
 import android.os.Environment;
-import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,7 +51,7 @@ public class PersistentPlantCollection extends PlantCollection {
         for (File plantDirectory : files) {
             File file = new File(plantDirectory, JSON_FILE);
             if (!file.isFile()) {
-                Log.d("LOADING PLANTS", "File " + file.toString() + " can not be used to load a plant.");
+                log.d("LOADING PLANTS", "File " + file.toString() + " can not be used to load a plant.");
                 continue;
             }
 
@@ -69,16 +68,16 @@ public class PersistentPlantCollection extends PlantCollection {
                 JSONObject json = new JSONObject(jsonTxt.toString());
                 Plant plant = new Plant(this, json);
                 addPlantToCollection(plant);
-                Log.d("LOADING PLANTS", "File " + file.toString() + " loaded.");
+                log.d("LOADING PLANTS", "File " + file.toString() + " loaded.");
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                Log.d("LOADING PLANTS", "File " + file.toString() + " not found.");
+                log.printStackTrace(e);
+                log.d("LOADING PLANTS", "File " + file.toString() + " not found.");
             } catch (JSONException e) {
-                e.printStackTrace();
-                Log.d("LOADING PLANTS", "File " + file.toString() + " is invalid JSON.");
+                log.printStackTrace(e);
+                log.d("LOADING PLANTS", "File " + file.toString() + " is invalid JSON.");
             } catch (IOException e) {
-                e.printStackTrace();
-                Log.d("LOADING PLANTS", "An error occurred while processing " + file.toString() + ".");
+                log.printStackTrace(e);
+                log.d("LOADING PLANTS", "An error occurred while processing " + file.toString() + ".");
             }
 
         }
@@ -101,14 +100,14 @@ public class PersistentPlantCollection extends PlantCollection {
             out.flush();
             out.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            log.printStackTrace(e);
             // TODO: Show errors in log files
             return;
         } catch (JSONException e) {
-            e.printStackTrace();
+            log.printStackTrace(e);
             return;
         } catch (IOException e) {
-            e.printStackTrace();
+            log.printStackTrace(e);
             return;
         }
         File expectedPicutureLocation = pictureForPlant(plant);
