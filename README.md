@@ -28,7 +28,7 @@ Contribute
 Contributions are welcome.
 
 - We use [Transifex][tx] to translate the app to your language.
-- We use Android Studio to develop the app.
+- We use [Android Studio] to develop the app.
 - Feedback is welcome, please open an [issue][issues].
 
 You can view the [Setup Guide][setup].
@@ -74,4 +74,4 @@ Languages:
 [setup]: docs/setup.md
 [screenshots]: images/screenshots/#readme
 [fdroid]: https://f-droid.org/en/packages/eu.quelltext.mundraub/
-
+[Android Studio]: https://developer.android.com/studio/
