@@ -10,8 +10,7 @@ git config --local user.name "Travis-CI"
 git config --local user.email "mundraub-android@travis-ci.org"
 
 cd ..
-git add app/src/main/res/values*
-git commit -am"updated languages"
+git add app/src/main/res/values* && git commit -m"updated languages" || true
 
 # create the git tag
 version="`./next_version`"
