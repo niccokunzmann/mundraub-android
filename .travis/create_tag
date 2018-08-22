@@ -4,6 +4,17 @@ set -e
 
 cd "`dirname \"$0\"`"
 
+RUN_ONCE=".create_tag_done"
+
+if [ "$CI" == "true" ]; then
+  echo "Running on Travis-CI."
+  if [ -e "$RUN_ONCE" ]; then
+    echo "Travis has already created a tag `./latest_version`. Nothing to do."
+    exit 0
+  fi
+  touch "$RUN_ONCE"
+fi
+
 # Set up git user name and tag this commit
 # from https://docs-staging.travis-ci.com/user/deployment/releases/
 git config --local user.name "Travis-CI"
