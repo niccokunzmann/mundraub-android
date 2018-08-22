@@ -14,7 +14,6 @@ if [ -z "$TRANSIFEX_PASSWORD" ]; then
   exit 1
 fi
 
-apt-get -y install pip-python3
 pip3 install --user --upgrade transifex-client
 
 (

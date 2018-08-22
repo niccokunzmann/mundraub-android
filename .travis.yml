@@ -23,6 +23,13 @@ env:
   - TRAVIS_SDK_PATH=/usr/local/android-sdk/licenses
   - secure: "Na7QEyUACs6m4mubocccHnGAyeAuEZHgnMB3OvB2Mur0kQQ68S7OUWWm16s4meEeVZnMBhUHb1tqamJDeKXTTKkPBVNA4UZhs/eFcftBBrQFAJA6HhKbdqwO+fEHJIaoa8Sa09z8QLmS9BhkB3a+/UvAkLeFsBPf5K3p6p1PKpSK7wNT6RoLN5kOWrlJoKYPexl1oXcu7zTz4/nSpr4M4WdTUoM1rM/4X1KDxeUQ0RDxwY4NP/6g+BVifXHOSKsQNpf0pkPzSIinuKr36n2BhjEQxuaHFTAamJArIcAhjt3xbY7OnCmOaaOe7UqaOPp2mR2HbcWov7GJqiyYuwWx+PCoQ1KhtPBgvFnpOlBmLhqlID+9c1gsQ8antoHApQmnhUKD2Osu+WAYk6P1mV27T6ysgpCGqHUNH20prsxovdnM6Zx2yTRwuD1UzUGl++B0i5LwCVuwqKqZHe0USH80ImPSxS2ztlaIxIEDHrYn5HoKv/vhr8mJtrfwtXXFp2OhEUfSWCF3IwRgJbnT4laoCDyBwKKXbiOc22cAOsMQ1yuLsGVD/4Yt/Gm5UcyOIM1JMCARQ7Q48gEcQR4u928S3g/1OdvfxTkVbFgqEhewNmYOkrF8QSCrMYVx//wJeZMgzBIOwl+dAOkojpaIDgFMLHn0pDF6fkUVIFeCqQtEiHw=" # TRANSIFEX_PASSWORD
 
+addons:
+  apt:
+    # see https://docs.travis-ci.com/user/installing-dependencies/
+    update: true
+    packages:
+    - python3-pip
+
 before_script:
 # install sdkman from https://sdkman.io/
 - curl -s "https://get.sdkman.io" | bash && source /home/travis/.sdkman/bin/sdkman-init.sh
