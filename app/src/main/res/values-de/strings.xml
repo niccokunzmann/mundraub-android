@@ -101,4 +101,19 @@
     <string name="attention">Achtung</string>
     <string name="info_plant_position_is_chosen_from_best_guess">Diese Pflanze hat keine Position gesetzt. Der Marker ist bei der nächsten Pflanze. Bitte finde selbst die richtige Position.</string>
 
+    <!-- menu -->
+    <string name="menu_about">Über</string>
+
+    <!-- About -->
+    <string name="about_app">Das ist die inoffizielle App für Mundraub.org. Der Quelltext is offen. Du bist eingeladen, beizutragen.</string>
+    <string name="about_view_source">Sieh den Quelltext an</string>
+    <string name="about_four_freedoms">Du hast die Freiheit, diese App auszuführen, sie zu studieren, verteilen und verbessern.</string>
+    <string name="about_view_four_freedoms">Mehr über unsere vier Freiheiten</string>
+    <string name="about_view_four_freedoms_url">https://de.wikipedia.org/wiki/Freie_Software#Die_vier_Freiheiten</string>
+    <string name="about_issues">Wenn du ein Problem mit der App feststellst und uns das mitteilen magst, kannst Du eine neue Issue öffnen.</string>
+    <string name="about_view_issues">Issues ansehen oder eine öffnen</string>
+    <string name="about_licenses">Diese App hat ein doppeltes Lizenzmodell: GPL der Version 3 und zusätzlich die MIT Lizenz für die Karte.</string>
+    <string name="about_gpl">GPLv3 ansehen</string>
+    <string name="about_mit">MIT ansehen</string>
+
 </resources>
