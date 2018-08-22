@@ -38,10 +38,15 @@ before_script:
 # install the licenses
 - mkdir -p "$TRAVIS_SDK_PATH" && cp .travis/licenses.zip "$TRAVIS_SDK_PATH" && ( cd "$TRAVIS_SDK_PATH" && unzip licenses.zip && rm licenses.zip )
 - .travis/prepare-transifex.sh
+- git fetch --tags
 
 script:
+# configure the build
+- .travis/set_next_gradle_version
 - tx pull --all --force
+# build
 - gradle build
+# use the build
 - "find | grep '\\.apk'"
 - .travis/release-apk && [ -f "`.travis/release-apk`" ]
 - .travis/debug-apk && [ -f "`.travis/debug-apk`" ]
