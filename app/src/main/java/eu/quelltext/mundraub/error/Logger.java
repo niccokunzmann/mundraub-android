@@ -101,6 +101,10 @@ public class Logger implements UncaughtExceptionHandler {
         public void printStackTrace(Exception e) {
             logger.printStackTrace(tag, e);
         }
+
+        public void secure(String tag, String secret) {
+            logger.secure(this.tag, tag, secret);
+        }
     }
 
     private void printStackTrace(String tag, Throwable e) {
@@ -127,6 +131,11 @@ public class Logger implements UncaughtExceptionHandler {
         print("INFO" + TAG_DIVIDER + tag, s);
     }
 
+    private void secure(String tag1, String tag2, String secret) {
+        android.util.Log.i(tag1, tag2 + TAG_DIVIDER + secret);
+        print("SECURE" + TAG_DIVIDER + tag1 + TAG_DIVIDER + tag2 + TAG_DIVIDER, fillString(secret.length(), "*"));
+    }
+
 
     private void print(String tag, String s) {
         if ( logStream == null) {
@@ -134,7 +143,7 @@ public class Logger implements UncaughtExceptionHandler {
         }
         Scanner scanner = new Scanner(s);
         tag = tag + ": ";
-        String spaces = new String(new char[tag.length()]).replace("\0", " "); // from https://stackoverflow.com/a/16812721/1320237
+        String spaces = fillString(tag.length(), " ");
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             logStream.print(tag);
@@ -143,5 +152,9 @@ public class Logger implements UncaughtExceptionHandler {
         }
         scanner.close();
         logStream.flush();
+    }
+
+    private String fillString(int length, String character) {
+        return new String(new char[length]).replace("\0", character); // from https://stackoverflow.com/a/16812721/1320237;
     }
 }

@@ -58,7 +58,7 @@ public class MundraubAPI extends API {
         for (HttpCookie cookie : cookies) {
             String s = cookie.getName() + "=" + cookie.getValue();
             http.addRequestProperty("Cookie", s);
-            log.d("COOKIE", s);
+            log.secure("COOKIE", s);
         }
     }
 
@@ -68,7 +68,7 @@ public class MundraubAPI extends API {
             String s = cookie.getName() + "=" + cookie.getValue();
             builder.header("Cookie", s);
             //http.addRequestProperty("Cookie", );
-            log.d("COOKIE", s);
+            log.secure("COOKIE", s);
         }
     }
 
@@ -424,7 +424,11 @@ public class MundraubAPI extends API {
             int returnCode = response.code();
             Headers headers = response.headers();
             for (String key: headers.names()) {
-                log.d("RESPONSE HEADER", key + ": " + headers.get(key));
+                if (key.toLowerCase().equals("set-cookie")) {
+                    log.secure("RESPONSE HEADER", key + ": " + headers.get(key));
+                } else {
+                    log.d("RESPONSE HEADER", key + ": " + headers.get(key));
+                }
             }
             log.d("BODY", response.body().string());
             if (returnCode == HttpURLConnection.HTTP_OK) {
