@@ -29,10 +29,9 @@ tx pull --all --force
 )
 
 echo "set the commit hash so the source can be tracked"
-git stash
+git stash || true
 ./set_commit_hash
 git commit -am"$version: set the commit hash"
-git stash pop
 
 echo "create the git tag"
 echo "Version: $version"
