@@ -14,7 +14,7 @@ if [ -z "$TRANSIFEX_PASSWORD" ]; then
   exit 1
 fi
 
-pip install --user --upgrade transifex-client
+pip install --user --upgrade transifex-client urllib3
 
 (
   echo "[https://www.transifex.com]"
