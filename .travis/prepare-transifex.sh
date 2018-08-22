@@ -14,7 +14,7 @@ if [ -z "$TRANSIFEX_PASSWORD" ]; then
   exit 1
 fi
 
-pip install --user --upgrade transifex-client urllib3
+pip3 install --user --upgrade transifex-client
 
 (
   echo "[https://www.transifex.com]"
@@ -24,5 +24,4 @@ pip install --user --upgrade transifex-client urllib3
   echo "username = api"
 ) > ~/.transifexrc
 echo "Created "
-
 
