@@ -40,7 +40,7 @@ before_script:
 - .travis/prepare-transifex.sh
 
 script:
-- tx pull --all
+- tx pull --all --force
 - gradle build
 - "find | grep '\\.apk'"
 - .travis/release-apk && [ -f "`.travis/release-apk`" ]
