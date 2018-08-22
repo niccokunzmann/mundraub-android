@@ -1,0 +1,49 @@
+#!/bin/bash
+
+
+set -e
+
+cd "`dirname \"$0\"`"
+
+echo "Set up git user name and tag this commit"
+# from https://docs-staging.travis-ci.com/user/deployment/releases/
+git config --local user.name "Travis-CI"
+git config --local user.email "mundraub-android@travis-ci.org"
+
+echo "find out the version we want to create"
+git fetch --tags
+version="`./next_version`"
+
+echo "set the gradle version"
+./set_next_gradle_version
+git add ../app/build.gradle
+git commit -m"$version: set gradle version"
+
+echo "update the translations"
+tx pull --all --force
+(
+  cd ..
+  git add app/src/main/res/values*
+  git status
+  git commit -m"$version: update languages" || true
+)
+
+echo "set the commit hash so the source can be tracked"
+git stash
+./set_commit_hash
+git commit -am"$version: set the commit hash"
+git stash pop
+
+echo "create the git tag"
+echo "Version: $version"
+git tag "$version"
+
+echo "Push tag"
+if [ -z "GITHUB_TOKEN" ]; then
+  echo "Skipping the deployment of the token because GITHUB_TOKEN is not set."
+  exit 0
+else
+  git push "https://$GITHUB_TOKEN@github.com/niccokunzmann/mundraub-android.git" "$version" 1> push_output 2> push_output
+  sed -e "s/$GITHUB_TOKEN/GITHUB_TOKEN/g" push_output
+fi
+

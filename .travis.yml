@@ -22,6 +22,7 @@ env:
   global:
   - TRAVIS_SDK_PATH=/usr/local/android-sdk/licenses
   - secure: "Na7QEyUACs6m4mubocccHnGAyeAuEZHgnMB3OvB2Mur0kQQ68S7OUWWm16s4meEeVZnMBhUHb1tqamJDeKXTTKkPBVNA4UZhs/eFcftBBrQFAJA6HhKbdqwO+fEHJIaoa8Sa09z8QLmS9BhkB3a+/UvAkLeFsBPf5K3p6p1PKpSK7wNT6RoLN5kOWrlJoKYPexl1oXcu7zTz4/nSpr4M4WdTUoM1rM/4X1KDxeUQ0RDxwY4NP/6g+BVifXHOSKsQNpf0pkPzSIinuKr36n2BhjEQxuaHFTAamJArIcAhjt3xbY7OnCmOaaOe7UqaOPp2mR2HbcWov7GJqiyYuwWx+PCoQ1KhtPBgvFnpOlBmLhqlID+9c1gsQ8antoHApQmnhUKD2Osu+WAYk6P1mV27T6ysgpCGqHUNH20prsxovdnM6Zx2yTRwuD1UzUGl++B0i5LwCVuwqKqZHe0USH80ImPSxS2ztlaIxIEDHrYn5HoKv/vhr8mJtrfwtXXFp2OhEUfSWCF3IwRgJbnT4laoCDyBwKKXbiOc22cAOsMQ1yuLsGVD/4Yt/Gm5UcyOIM1JMCARQ7Q48gEcQR4u928S3g/1OdvfxTkVbFgqEhewNmYOkrF8QSCrMYVx//wJeZMgzBIOwl+dAOkojpaIDgFMLHn0pDF6fkUVIFeCqQtEiHw=" # TRANSIFEX_PASSWORD
+  - secure: "cHs4XleLfH4MORfiqmbKx43+i/73V3rkiRtnt+aYNkZkDJCfkbAInKz4VQFPN0nTOkggEoWHHM7zxckI2RuITcdZEeHEgvWcrlkedKctXJM2i9IES5fpITLy0ZalXP0Hok9SAmE6tfRXEotkX5PUzIhCBM+NHCi3UIzeVF7b+ZYVd6vCZpTOwYA4gR2BBL8Z4gmp/cneCujas+xp4i0MbuIPIFfTnG1Bp3GYpBLOhCd+A2TS9DToSBxz1x9Ee+mdnfwgJwyGtRFffjU8Tk2h1ilVqzb7xi8u/N6ygzKBw2m1B+LVo7TDvb+MbsbGe0Wilm50yuGHTU+k6g5Ai9h/Y7EbdHNgB2ffoUswOMnnkuws/IBfdOLhGtt5YlaKvQ6eytnJ2nAkpmvmnoVFUTSD3Nzrrl93glunG4G9CycdT8g1LYhy2Pv3Oludkat5HDi/FL0FFjXFt+tND2GSyhYkip5y4utiuCR7jWlEBEfwxyYmpW/8qDxIqeISUkXkDSMrbvIrMpkQ2p9svCZkHrMbjS7Zio9a0iIGl5FxlyyYU1P7eQH9mxf2ZZupPDdgCbrNAurCZl2l7bGAK1ltc3QOXqCe9dDA8IqeZZ4APO0czdNfJpSrkcptnxPOOcNIa4iysVq6KR+vbP/qi8wwg3ZS0gZrLuM326RPVIYWd85ZLHs=" # GITHUB_TOKEN
 
 addons:
   apt:
@@ -38,12 +39,8 @@ before_script:
 # install the licenses
 - mkdir -p "$TRAVIS_SDK_PATH" && cp .travis/licenses.zip "$TRAVIS_SDK_PATH" && ( cd "$TRAVIS_SDK_PATH" && unzip licenses.zip && rm licenses.zip )
 - .travis/prepare-transifex.sh
-- git fetch --tags
 
 script:
-# configure the build
-- .travis/set_next_gradle_version
-- tx pull --all --force
 # build
 - gradle build
 # use the build
@@ -52,16 +49,23 @@ script:
 - .travis/debug-apk && [ -f "`.travis/debug-apk`" ]
 
 before_deploy:
-- .travis/create_tag
 - cp "`.travis/release-apk`" mundraub-release-unsigned.apk
 - cp "`.travis/debug-apk`" mundraub-debug.apk
 
 deploy:
+  # push the latest strings to translate
   - provider: script
     script: tx push --source
     skip_cleanup: true
     on:
       branch: master
+  # push the release tag
+  - provider: script
+    script: .travis/create_release
+    skip_cleanup: true
+    on:
+      branch: master
+  # in the release tag, upload the apks
   - provider: releases
     api_key:
       secure: bvhMN07c2vgCBTH62fiF+XwK/4Vs0n6kIwP3Fv+emWgu7TUtEgn8Ypx2Bft3nKYZCZJa2/nM5BBqJ4OanSAzhiLT5u8PT6tbPAJRxe98mUYR090aUReHEUesWKuwFVvhpjp0G1obY7p2YrnxjugJrrr/rgr8Rps382h3kKws9cTyWg1vYlbvmzH2Ks//7lObU3UiGit61La4VYffkcYOEYCo4UQQsrCScnHokYmf9sorimNTSFBQvuaLZpJF91T++Xa2Bl5IsbGnE0gQ3bGEltmKKbukkvGCsmKjxNj3WMIoPfjZfF1D6P9koiWXGMncex4dsdAU3nGGfeyAJpNlQMsCHMEu+Phu7qZsaLJHeo1LIFrkRnkBegNxOWjP8VW9+cMvAwuCfwkJMqPJZRcBUy3RoBRgoXha1jaLTb4LMxLO+WSd4Qf1X5zw437XSiKHRnXc+8noKbvSknTsc4MygyO84chuvbX/i9qNpVGiWRXfnnMCZlGStvY0O8Aov+19wohM1crvaTaA1fZezJjjOCXE004tjjPMUw2plJccn7OVjb/K4F7WkZclbF+yJujOaeX3oYxpgZEsPb7dgyuIB7pGq40kJ8tJLbZaDaHteHvSYpfsFsrbK4B3fCHt3FOgjeA9oj+U9vwpF27GDgvs2XYPCM20W9UpZdFJljYokNw=
@@ -70,5 +74,6 @@ deploy:
     - mundraub-release-unsigned.apk
     skip_cleanup: true
     on:
+      tags: true
       repo: niccokunzmann/mundraub-android
 
