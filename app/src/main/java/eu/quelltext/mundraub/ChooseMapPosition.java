@@ -3,8 +3,9 @@ package eu.quelltext.mundraub;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
+import android.webkit.ConsoleMessage;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -47,6 +48,15 @@ public class ChooseMapPosition extends ErrorAwareActivity {
         // from https://stackoverflow.com/a/6255353/1320237
         //webView.setVerticalScrollBarEnabled(true);
         //webView.setHorizontalScrollBarEnabled(true);
+        webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
+                // from https://stackoverflow.com/a/30294054/1320237
+                log.d("WebView", consoleMessage.sourceId() + " at line " +
+                        consoleMessage.lineNumber() + ": " + consoleMessage.message());
+                return true;
+            }
+        });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
