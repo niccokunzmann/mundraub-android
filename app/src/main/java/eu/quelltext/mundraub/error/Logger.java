@@ -9,6 +9,8 @@ import java.io.PrintStream;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.Scanner;
 
+import eu.quelltext.mundraub.Settings;
+
 /*
     Copy STDOUT and STDERR to a file
  */
@@ -30,8 +32,13 @@ public class Logger implements UncaughtExceptionHandler {
     public static Logger getInstance() {
         if (logger == null) {
             logger = new Logger();
+            afterCreateHook();
         }
         return logger;
+    }
+
+    private static void afterCreateHook() {
+        Settings.print();
     }
 
     private Logger() {
