@@ -490,7 +490,7 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
 
         public String getMapURLWithMarker() {
             // from https://stackoverflow.com/a/5749641/1320237
-            return "file:///android_asset/map/examples/fullScreen.html#" + getLongitude() + "," + getLatitude();
+            return "file:///android_asset/map/examples/fullScreen.html?" + getLongitude() + "," + getLatitude();
         }
 
         public static Position from(JSONObject json) throws JSONException {

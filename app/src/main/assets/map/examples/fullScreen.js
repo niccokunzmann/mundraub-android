@@ -1,4 +1,11 @@
 
+function printError(error) {
+    console.log(error.name + ": in " + error.fileName + " in line " + error.lineNumber + ": " + error.message + "\n" + error.stack);
+}
+
+console.log("Loading ...");
+try{
+
 OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
     defaultHandlerOptions: {
         'single': true,
@@ -38,7 +45,11 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 
 var click = new OpenLayers.Control.Click();
 
-var startLocation = document.location.hash.substr(1, document.location.hash.length).split(",");
+var settingsString = document.location.search;
+
+console.log("settingString=" + settingsString);
+
+var startLocation = settingsString.substr(1, settingsString.length).split(",");
 var lat = 21.7679;
 var lon = 78.8718;
 var zoom = 10;
@@ -102,4 +113,27 @@ map.addControls([
 ]);
 
 click.activate();
-map.setCenter(position, zoom);
+
+function setPosition() {
+    try {
+        map.setCenter(position, zoom);
+    } catch (error) {
+        printError(error);
+        throw error;
+    }
+}
+
+try {
+    setPosition();
+} catch(error) {
+    // size is sometimes null. https://github.com/openlayers/ol2/issues/669
+    //map.size = {"w": document.body.clientWidth, "h": document.body.clientHeight} // could be a solution
+    setTimeout(setPosition, 100);
+}
+
+
+} catch(error) {
+    printError(error)
+    throw error;
+}
+console.log("Done loading.");
