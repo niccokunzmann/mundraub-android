@@ -5,5 +5,5 @@
 
 cd "`dirname \"$0\"`"
 
-./all_versions | sort | tail -n 1
+./all_versions | tail -n 1
 
