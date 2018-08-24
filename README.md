@@ -11,7 +11,7 @@ plants on the phone and upload them when an Internet connection is available.
 
 The API level is 9 so it runs on old mobile phones.
 
-[![](images/screenshots/link-to-screenshots.png)][screenshots]
+[<img src="docs/images/link-to-screenshots.png" height="120"/>][screenshots]
 [View the screenshots][screenshots]
 
 Download
