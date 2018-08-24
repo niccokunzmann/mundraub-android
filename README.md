@@ -4,7 +4,7 @@ Mundraub-Android
 [![Build Status](https://travis-ci.org/niccokunzmann/mundraub-android.svg?branch=master)][travis]
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/niccokunzmann/mundraub-android.svg)](http://isitmaintained.com/project/niccokunzmann/mundraub-android "Percentage of issues still open")
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/niccokunzmann/mundraub-android.svg)](http://isitmaintained.com/project/niccokunzmann/mundraub-android "Average time to resolve an issue")
-[![Latest Release](https://img.shields.io/github/release/niccokunzmann/mundraub-android.svg)][releases]
+[![Latest Release](https://img.shields.io/github/release/niccokunzmann/mundraub-android.svg?logo=github)][releases]
 
 This is the Android app for [Mundraub.org] which allows you to store the found
 plants on the phone and upload them when an Internet connection is available.
