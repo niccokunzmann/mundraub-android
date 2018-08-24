@@ -24,7 +24,8 @@ git stash || true
 tx pull --all --force
 (
   cd ..
-  git add .
+  git add app/src/main/res/values*
+  git add fastlane
   git status
   git commit -m"$version: update languages" || true
 )
