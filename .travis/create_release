@@ -21,7 +21,7 @@ git commit -m"$version: set gradle version"
 
 echo "update the translations"
 git stash || true
-tx pull --all --force
+tx pull --all --force --no-interactive
 (
   cd ..
   git add app/src/main/res/values*
