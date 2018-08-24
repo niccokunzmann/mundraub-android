@@ -1,0 +1,13 @@
+Finde Pflanzen und teile sie auf Mundraub.org!
+
+Du hast Dein Telefon die ganze Zeit dabei.
+Wenn Du eine essbare Pflanze findest, die du mit anderen teilen möchtest, kannst Du ihre Position, die Art und ein Photo aufnehmen.
+Später, mit Internetzugriff, kannst Du sie auf die Karte für frei essbare Pflanzen hochladen: Mundraub.org.
+
+Zugriffsrechte:
+- KAMERA, um Bilder von Pflanzen zu machen
+- GPS, um die Position automatisch zu ermitteln
+- INTERNET, um die Pflanze hochzuladen und die Karte anzuzeigen
+- SPEICHER, um
+  - save the plants as JSON in an exportable format
+  - save the app log so you can help us when the app crashes
