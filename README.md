@@ -73,7 +73,7 @@ Languages:
 [issues]: https://github.com/niccokunzmann/mundraub-android/issues
 [tx]: https://www.transifex.com/mundraub-android/mundraub-android-app/
 [setup]: docs/setup.md
-[screenshots]: images/screenshots/#readme
+[screenshots]: docs/usage.md#readme
 [fdroid]: https://f-droid.org/en/packages/eu.quelltext.mundraub/
 [Android Studio]: https://developer.android.com/studio/
 [releases]: https://github.com/niccokunzmann/mundraub-android/releases
