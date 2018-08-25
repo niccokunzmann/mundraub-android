@@ -13,7 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import eu.quelltext.mundraub.Helper;
+import eu.quelltext.mundraub.common.Helper;
 
 public class PersistentPlantCollection extends PlantCollection {
 

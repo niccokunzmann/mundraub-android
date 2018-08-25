@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
-import eu.quelltext.mundraub.Helper;
+import eu.quelltext.mundraub.common.Helper;
 import eu.quelltext.mundraub.error.ErrorAware;
 import eu.quelltext.mundraub.error.Logger;
 import eu.quelltext.mundraub.plant.Plant;

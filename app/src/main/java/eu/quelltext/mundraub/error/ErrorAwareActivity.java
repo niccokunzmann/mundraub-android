@@ -11,7 +11,6 @@ public class ErrorAwareActivity extends AppCompatActivity implements Logger.Logg
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         log = Logger.newFor(this);
-
     }
 
     @Override

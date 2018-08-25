@@ -2,13 +2,11 @@ package eu.quelltext.mundraub;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +17,7 @@ import android.widget.TextView;
 import java.io.File;
 
 import eu.quelltext.mundraub.api.API;
+import eu.quelltext.mundraub.common.Dialog;
 import eu.quelltext.mundraub.map.MapCache;
 import eu.quelltext.mundraub.plant.Plant;
 
@@ -145,7 +144,10 @@ public class PlantDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (plant.shouldAskTheUserAboutPlacementBeforeUpload()) {
-                    askYesNo(plant.getRepositionReason(), R.string.ask_open_the_map, new YesNoCallback() {
+                    new Dialog(getContext()).askYesNo(
+                            plant.getRepositionReason(),
+                            R.string.ask_open_the_map,
+                            new Dialog.YesNoCallback() {
                         @Override
                         public void yes() {
                             chooseMapPosition();
@@ -181,7 +183,10 @@ public class PlantDetailFragment extends Fragment {
         updateButton(R.id.button_delete, plant.online().canDelete(), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                askYesNo(R.string.delete_plant_information, R.string.ask_delete_plant, new YesNoCallback() {
+                new Dialog(getContext()).askYesNo(
+                        R.string.delete_plant_information,
+                        R.string.ask_delete_plant,
+                        new Dialog.YesNoCallback() {
                     @Override
                     public void yes() {
                         plant.online().delete(updateOrShowError(R.string.success_plant_deleted));
@@ -192,29 +197,6 @@ public class PlantDetailFragment extends Fragment {
             }
         });
 
-    }
-
-    private void askYesNo(int repositionReason, int ask_open_the_map, final YesNoCallback callback) {
-        // from https://stackoverflow.com/a/2478662
-        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which){
-                    case DialogInterface.BUTTON_POSITIVE:
-                        callback.yes();
-                        break;
-
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        callback.no();
-                        break;
-                }
-            }
-        };
-        AlertDialog.Builder builder = Helper.getAlertBuilder(this.getContext());;
-        builder .setMessage(getResources().getString(repositionReason) + "\n" + getResources().getString(ask_open_the_map))
-                .setNegativeButton(R.string.no, dialogClickListener)
-                .setPositiveButton(R.string.yes, dialogClickListener)
-                .show();
     }
 
     private void openURLInBrowser(String url) {
@@ -229,35 +211,14 @@ public class PlantDetailFragment extends Fragment {
             @Override
             public void onSuccess() {
                 updateOnlineActivities();
-                alertSuccess(successResourceId);
+                new Dialog(getContext()).alertSuccess(successResourceId);
             }
 
             @Override
             public void onFailure(int errorResourceString) {
-                alertError(errorResourceString);
+                new Dialog(getContext()).alertError(errorResourceString);
             }
         };
-    }
-
-    private void alertError(int errorResourceString) {
-        alert(R.string.error, android.R.drawable.ic_dialog_alert, errorResourceString);
-    }
-
-    private void alertSuccess(int successResourceString) {
-        alert(R.string.success, android.R.drawable.ic_dialog_info, successResourceString);
-    }
-
-    private void alert(int title, int icon, int message) {
-        // from https://stackoverflow.com/a/2115770/1320237
-        AlertDialog.Builder builder = Helper.getAlertBuilder(this.getContext());
-        builder.setTitle(title)
-                .setMessage(message)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                })
-                .setIcon(icon)
-                .show();
     }
 
     private void updateButton(int resourceId, boolean visible, View.OnClickListener onClickListener) {
@@ -266,10 +227,5 @@ public class PlantDetailFragment extends Fragment {
             button.setOnClickListener(onClickListener);
         }
         button.setVisibility(visible? View.VISIBLE: View.GONE);
-    }
-
-    interface YesNoCallback {
-        void yes();
-        void no();
     }
 }

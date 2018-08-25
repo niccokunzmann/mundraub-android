@@ -10,6 +10,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
 
+import eu.quelltext.mundraub.common.Helper;
 import eu.quelltext.mundraub.error.ErrorAwareActivity;
 import eu.quelltext.mundraub.plant.Plant;
 

@@ -32,7 +32,7 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import eu.quelltext.mundraub.Helper;
+import eu.quelltext.mundraub.common.Helper;
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.plant.Plant;
 import okhttp3.Headers;

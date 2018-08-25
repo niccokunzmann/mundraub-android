@@ -24,7 +24,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-import eu.quelltext.mundraub.Helper;
+import eu.quelltext.mundraub.common.Helper;
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.error.ErrorAware;
 import eu.quelltext.mundraub.map.MapCache;

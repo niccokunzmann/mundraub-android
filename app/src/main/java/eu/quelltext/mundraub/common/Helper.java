@@ -1,4 +1,4 @@
-package eu.quelltext.mundraub;
+package eu.quelltext.mundraub.common;
 
 import android.content.Context;
 import android.os.Build;
