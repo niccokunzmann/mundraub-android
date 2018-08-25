@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 import eu.quelltext.mundraub.common.Helper;
 
@@ -20,6 +21,8 @@ public class PersistentPlantCollection extends PlantCollection {
     private static final String STORAGE_DIRECTORY_NAME = "eu.quelltext.mundraub";
     private static final String JSON_FILE = "plant-json.txt";
     private static final String PICTURE_FILE = "plant.jpg";
+
+    private boolean allPlantsLoaded = false;
 
     private final File persistentDirectory() {
         // from https://stackoverflow.com/questions/7887078/android-saving-file-to-external-storage#7887114
@@ -43,10 +46,13 @@ public class PersistentPlantCollection extends PlantCollection {
 
     public PersistentPlantCollection() {
         super();
-        loadAllPlants();
+        ensureAllPlantsAreLoaded();
     }
 
-    private void loadAllPlants() {
+    private void ensureAllPlantsAreLoaded() {
+        if (allPlantsLoaded) {
+            return;
+        }
         File directory = persistentDirectory();
         // from https://stackoverflow.com/questions/8646984/how-to-list-files-in-an-android-directory#8647397
         File[] files = directory.listFiles();
@@ -85,8 +91,14 @@ public class PersistentPlantCollection extends PlantCollection {
                 log.printStackTrace(e);
                 log.d("LOADING PLANTS", "An error occurred while processing " + file.toString() + ".");
             }
-
         }
+        allPlantsLoaded = true;
+    }
+
+    @Override
+    public List<Plant> all() {
+        ensureAllPlantsAreLoaded();
+        return super.all();
     }
 
     private File dataFileForPlant(Plant plant) {
