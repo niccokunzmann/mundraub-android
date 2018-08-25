@@ -115,5 +115,4 @@
     <string name="about_licenses">Diese App hat ein doppeltes Lizenzmodell: GPL der Version 3 und zusätzlich die MIT Lizenz für die Karte.</string>
     <string name="about_gpl">GPLv3 ansehen</string>
     <string name="about_mit">MIT ansehen</string>
-
-</resources>
+    </resources>
