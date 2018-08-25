@@ -59,6 +59,7 @@ public class FirstActivity extends ErrorAwareActivity {
             String message = getResources().getString(purposeResourceId) + "\n" +
                     getResources().getString(R.string.permission_error_no_api);
             new Dialog(getActivity()).alertError(message);
+            isRequested = true;
         }
 
         private void askForPermissionDialog() {
