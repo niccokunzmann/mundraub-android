@@ -124,5 +124,6 @@
     <string name="about_gpl">View GPLv3</string>
     <string name="about_mit">View MIT</string>
     <string name="error_app_crashed">The app encountered an unexpected error and crashed. If you like to help fix the problem, please go to F-Droid, open the Issue Tracker and report the crash with the file %s.</string>
+    <string name="ask_error_report_is_needed">Would you like to use the error report?</string>
 
 </resources>

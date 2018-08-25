@@ -106,7 +106,15 @@ public class Logger implements UncaughtExceptionHandler {
             if (hasErrorReport()) {
                 String messageTemplate = context.getResources().getString(R.string.error_app_crashed);
                 String message = String.format(messageTemplate, getErrorReport().getAbsolutePath());
-                new Dialog(context).alertError(message);
+                new Dialog(context).askYesNo(message, R.string.ask_error_report_is_needed, new Dialog.YesNoCallback() {
+                    @Override
+                    public void yes() {
+                    }
+                    @Override
+                    public void no() {
+                        getErrorReport().delete();
+                    }
+                });
             }
         }
     }
@@ -129,6 +137,7 @@ public class Logger implements UncaughtExceptionHandler {
 
         private Log(Logger logger, String tag) {
             this.tag = tag.substring(0, tag.length() < TAG_MAX_LEGTH? tag.length() : TAG_MAX_LEGTH);
+            d("LOG", "INITIALIZED");
         }
 
         public void d(String tag, String s) {

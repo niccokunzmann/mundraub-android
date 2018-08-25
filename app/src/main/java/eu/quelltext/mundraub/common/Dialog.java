@@ -65,7 +65,11 @@ public class Dialog {
         void no();
     }
 
-    public void askYesNo(int repositionReason, int ask_open_the_map, final YesNoCallback callback) {
+    public void askYesNo(int reason, int question, final YesNoCallback callback) {
+        String reasonString = context.getResources().getString(reason);
+        askYesNo(reasonString, question, callback);
+    }
+    public void askYesNo(String reason, int question, final YesNoCallback callback) {
         // from https://stackoverflow.com/a/2478662
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
@@ -82,7 +86,7 @@ public class Dialog {
             }
         };
         AlertDialog.Builder builder = Helper.getAlertBuilder(context);;
-        builder .setMessage(context.getResources().getString(repositionReason) + "\n" + context.getResources().getString(ask_open_the_map))
+        builder .setMessage(reason + "\n" + context.getResources().getString(question))
                 .setNegativeButton(R.string.no, dialogClickListener)
                 .setPositiveButton(R.string.yes, dialogClickListener)
                 .show();
