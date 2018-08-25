@@ -123,5 +123,6 @@
     <string name="about_licenses">This app has a dual licensing model: GPL version 3 for the app and additionally the MIT license for the map.</string>
     <string name="about_gpl">View GPLv3</string>
     <string name="about_mit">View MIT</string>
+    <string name="error_app_crashed">The app encountered an unexpected error and crashed. If you like to help fix the problem, please go to F-Droid, open the Issue Tracker and report the crash with the file %s.</string>
 
 </resources>

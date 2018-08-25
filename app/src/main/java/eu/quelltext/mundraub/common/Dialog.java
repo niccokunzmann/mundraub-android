@@ -14,24 +14,29 @@ public class Dialog {
         this.context = context;
     }
 
-    public void alertError(int errorResourceString) {
-        alert(R.string.error, android.R.drawable.ic_dialog_alert, errorResourceString);
+    public void alertInfo(int messageResourceString) {
+        alert(R.string.attention, android.R.drawable.ic_dialog_info, messageResourceString, ClosedCallback.NULL);
+    }
+    public void alertError(int messageResourceString) {
+        alertError(messageResourceString, ClosedCallback.NULL);
     }
 
-    public void alertSuccess(int successResourceString) {
-        alert(R.string.success, android.R.drawable.ic_dialog_info, successResourceString);
+    public void alertError(String messageResourceString) {
+        alert(R.string.error, android.R.drawable.ic_dialog_alert, messageResourceString, ClosedCallback.NULL);
     }
 
-    public void alert(int title, int icon, int message) {
-        // from https://stackoverflow.com/a/2115770/1320237
-        alert(title, icon, message, new DialogClosedCallback() {
-            @Override
-            public void onClosed() {
-            }
-        });
+    public void alertError(int messageResourceString, ClosedCallback cb) {
+        alert(R.string.error, android.R.drawable.ic_dialog_alert, messageResourceString, cb);
     }
 
-    public void alert(int title, int icon, int message, final DialogClosedCallback cb) {
+    public void alertSuccess(int messageResourceString) {
+        alert(R.string.success, android.R.drawable.ic_dialog_info, messageResourceString, ClosedCallback.NULL);
+    }
+
+    private void alert(int title, int icon, int message, final ClosedCallback cb) {
+        alert(title, icon, context.getResources().getString(message), cb);
+    }
+    private void alert(int title, int icon, String message, final ClosedCallback cb) {
         // from https://stackoverflow.com/a/2115770/1320237
         AlertDialog.Builder builder = Helper.getAlertBuilder(context);
         builder.setTitle(title)
@@ -45,7 +50,13 @@ public class Dialog {
                 .show();
     }
 
-    public interface DialogClosedCallback {
+    public interface ClosedCallback {
+        ClosedCallback NULL = new ClosedCallback() {
+            @Override
+            public void onClosed() {
+
+            }
+        };
         void onClosed();
     }
 

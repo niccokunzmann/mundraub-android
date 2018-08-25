@@ -1,8 +1,6 @@
 package eu.quelltext.mundraub;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.webkit.ConsoleMessage;
 import android.webkit.WebChromeClient;
@@ -10,7 +8,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
 
-import eu.quelltext.mundraub.common.Helper;
+import eu.quelltext.mundraub.common.Dialog;
 import eu.quelltext.mundraub.error.ErrorAwareActivity;
 import eu.quelltext.mundraub.plant.Plant;
 
@@ -88,16 +86,7 @@ public class ChooseMapPosition extends ErrorAwareActivity {
     }
 
     private void alertAboutPositionGuess() {
-        // from https://stackoverflow.com/a/2115770/1320237
-        AlertDialog.Builder builder = Helper.getAlertBuilder(this);
-        builder.setTitle(R.string.attention)
-                .setMessage(R.string.info_plant_position_is_chosen_from_best_guess)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                })
-                .setIcon(android.R.drawable.ic_dialog_info)
-                .show();
+        new Dialog(this).alertInfo(R.string.info_plant_position_is_chosen_from_best_guess);
     }
 
     @Override

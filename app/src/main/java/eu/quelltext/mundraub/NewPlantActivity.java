@@ -124,6 +124,7 @@ public class NewPlantActivity extends ErrorAwareActivity {
                 finish();
             }
         });
+        //buttonCancel = null; // TEST ERROR REPORTER
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

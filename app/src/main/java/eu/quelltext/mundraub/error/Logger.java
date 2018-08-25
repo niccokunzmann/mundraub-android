@@ -1,5 +1,6 @@
 package eu.quelltext.mundraub.error;
 
+import android.content.Context;
 import android.os.Environment;
 
 import java.io.File;
@@ -9,7 +10,9 @@ import java.io.PrintStream;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.Scanner;
 
+import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.Settings;
+import eu.quelltext.mundraub.common.Dialog;
 
 /*
     Copy STDOUT and STDERR to a file
@@ -20,6 +23,8 @@ public class Logger implements UncaughtExceptionHandler {
     private static final String TAG_DIVIDER = ": ";
     private static Logger logger; // initialize as soon as possible;
     private static final String LOG_FILE_NAME = "eu.quelltext.mundraub.log.txt";
+    private static final String ERROR_FILE_NAME = "eu.quelltext.mundraub.error.txt";
+    private static Context context;
     private final UncaughtExceptionHandler defaultExceptionHandler;
     private final PrintStream logStream;
     private final String TAG = "LOGGER" + TAG_DIVIDER;
@@ -55,18 +60,32 @@ public class Logger implements UncaughtExceptionHandler {
         i(TAG, "-------------- App started --------------");
     }
 
-    private File getLogFile() {
+    private final static File getLogFile() {
         // from https://stackoverflow.com/questions/7887078/android-saving-file-to-external-storage#7887114
         String root = Environment.getExternalStorageDirectory().toString();
         return new File(root, LOG_FILE_NAME);
     }
 
     @Override
-    public void uncaughtException(Thread t, Throwable e) {
+    public void uncaughtException(final Thread t, final Throwable e) {
         if (logStream != null) {
             printStackTrace(TAG, e);
+            makeErrorReport();
         }
         defaultExceptionHandler.uncaughtException(t, e);
+
+    }
+
+    private void makeErrorReport() {
+        File report = getErrorReport();
+        if (report.exists()) {
+            report.delete();
+        }
+        getLogFile().renameTo(report);
+    }
+
+    private final static File getErrorReport() {
+        return new File(getLogFile().getParentFile(), ERROR_FILE_NAME);
     }
 
     public static Log newFor(Loggable loggable) {
@@ -79,6 +98,25 @@ public class Logger implements UncaughtExceptionHandler {
 
     public static Log newFor(Object o) {
         return new Log(getInstance(), o.getClass().getName());
+    }
+
+    public static void addContext(Context newContext) {
+        if (!hasContext()) {
+            context = newContext;
+            if (hasErrorReport()) {
+                String messageTemplate = context.getResources().getString(R.string.error_app_crashed);
+                String message = String.format(messageTemplate, getErrorReport().getAbsolutePath());
+                new Dialog(context).alertError(message);
+            }
+        }
+    }
+
+    private static boolean hasErrorReport() {
+        return getErrorReport().exists();
+    }
+
+    private static boolean hasContext() {
+        return context != null;
     }
 
     public interface Loggable {
