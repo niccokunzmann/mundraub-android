@@ -32,8 +32,8 @@ import eu.quelltext.mundraub.map.MapCache;
 
 public class Plant extends ErrorAware implements Comparable<Plant> {
 
-    private static final PlantCollection plants = new PersistentPlantCollection();
-    private static final MapCache mapCache = new MapCache();
+    private static PlantCollection plants = null;
+    private static MapCache mapCache = null;
 
     private static final String JSON_LONGITUDE = "longitude";
     private static final String JSON_LATITUDE = "latitude";
@@ -48,15 +48,15 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
     protected long creationDateMillis;
 
     public static List<Plant> all() {
-        return plants.all();
+        return getPlants().all();
     }
 
     public static Plant withId(String id) {
-        return plants.withId(id);
+        return getPlants().withId(id);
     }
 
     public static boolean withIdExists(String id) {
-        return plants.contains(id);
+        return getPlants().contains(id);
     }
 
     // instance
@@ -72,8 +72,8 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
 
     public Plant() {
         super();
-        this.id = plants.newId();
-        this.collection = plants;
+        this.id = getPlants().newId();
+        this.collection = getPlants();
         this.onlineState = PlantOnlineState.getOfflineState(this);
     }
 
@@ -107,9 +107,23 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
         }
     }
 
+    private static PlantCollection getPlants() {
+        if (plants == null) {
+            plants = new PersistentPlantCollection();
+        }
+        return plants;
+    }
+
+    private static MapCache getMapCache() {
+        if (mapCache == null) {
+            mapCache = new MapCache();
+        }
+        return mapCache;
+    }
+
     private void ensureCreationDate() {
         if (creationDate == null) {
-            creationDate = plants.getCreationDate(this);
+            creationDate = getPlants().getCreationDate(this);
             creationDateMillis = creationDate.getTime();
         }
     }
@@ -130,7 +144,7 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
 
     public void delete() {
         collection.delete(this);
-        mapCache.removeMapPreviewOf(this);
+        getMapCache().removeMapPreviewOf(this);
     }
 
     public void setDescription(String description) {
@@ -239,17 +253,17 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
     }
 
     public void setPictureToMap(final ImageView imageView, final MapCache.Callback callback) {
-        mapCache.initilizeOnCacheDirectoryFrom(imageView.getContext());
+        getMapCache().initilizeOnCacheDirectoryFrom(imageView.getContext());
         final Plant plant = this;
-        mapCache.mapPreviewOf(this, new MapCache.Callback() {
+        getMapCache().mapPreviewOf(this, new MapCache.Callback() {
             @Override
             public void onSuccess(File file) {
                 if (setBitmapFromFileOrNull(file, imageView)) {
                     callback.onSuccess(file);
                 } else {
                     Log.d("setPictureToMap", "Retry with new picture of " + plant.getId());
-                    mapCache.removeMapPreviewOf(plant);
-                    mapCache.mapPreviewOf(plant, new MapCache.Callback() {
+                    getMapCache().removeMapPreviewOf(plant);
+                    getMapCache().mapPreviewOf(plant, new MapCache.Callback() {
                         @Override
                         public void onSuccess(File file) {
                             if (setBitmapFromFileOrNull(file, imageView)) {
@@ -345,8 +359,8 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
 
     private void setPosition(Position position) {
         this.position = position;
-        if (mapCache != null) {
-            mapCache.mapPreviewOf(this);
+        if (getMapCache() != null) {
+            getMapCache().mapPreviewOf(this);
         }
     }
 
