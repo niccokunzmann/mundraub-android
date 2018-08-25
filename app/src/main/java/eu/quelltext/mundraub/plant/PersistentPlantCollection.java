@@ -26,7 +26,9 @@ public class PersistentPlantCollection extends PlantCollection {
         String root = Environment.getExternalStorageDirectory().toString();
         File directory = new File(root, STORAGE_DIRECTORY_NAME);
         if (!directory.exists()) {
-            directory.mkdirs();
+            if (!directory.mkdirs()) {
+                // TODO: We can not acceess this directory. Ask for the permissions. Or not: If there are no permissions, there are no plants?
+            }
         }
         return directory;
     }
@@ -48,6 +50,10 @@ public class PersistentPlantCollection extends PlantCollection {
         File directory = persistentDirectory();
         // from https://stackoverflow.com/questions/8646984/how-to-list-files-in-an-android-directory#8647397
         File[] files = directory.listFiles();
+        if (files == null) {
+            // TODO: We can not acceess this directory. Ask for the permissions. Or not: If there are no permissions, there are no plants?
+            return;
+        }
         for (File plantDirectory : files) {
             File file = new File(plantDirectory, JSON_FILE);
             if (!file.isFile()) {

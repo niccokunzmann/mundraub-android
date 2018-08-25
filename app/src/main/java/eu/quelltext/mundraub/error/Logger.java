@@ -73,7 +73,6 @@ public class Logger implements UncaughtExceptionHandler {
             makeErrorReport();
         }
         defaultExceptionHandler.uncaughtException(t, e);
-
     }
 
     private void makeErrorReport() {
