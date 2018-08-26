@@ -3,6 +3,8 @@ package eu.quelltext.mundraub.error;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import eu.quelltext.mundraub.initialization.Initialization;
+
 public class ErrorAwareActivity extends AppCompatActivity implements Logger.Loggable {
 
     public Logger.Log log;
@@ -10,8 +12,8 @@ public class ErrorAwareActivity extends AppCompatActivity implements Logger.Logg
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Initialization.provideContext(this);
         log = Logger.newFor(this);
-        Logger.addContext(this);
     }
 
     @Override

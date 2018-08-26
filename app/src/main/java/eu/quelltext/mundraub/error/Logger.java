@@ -13,11 +13,12 @@ import java.util.Scanner;
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.common.Dialog;
 import eu.quelltext.mundraub.common.Settings;
+import eu.quelltext.mundraub.initialization.Initialization;
 
 /*
     Copy STDOUT and STDERR to a file
  */
-public class Logger implements UncaughtExceptionHandler {
+public class Logger implements UncaughtExceptionHandler, Initialization.ContextInitialized {
 
     private static final int TAG_MAX_LEGTH = 23; // from https://stackoverflow.com/a/28168739/1320237
     private static final String TAG_DIVIDER = ": ";
@@ -57,6 +58,7 @@ public class Logger implements UncaughtExceptionHandler {
             log1 = null;
         }
         logStream = log1;
+        Initialization.provideContextFor(this);
         i(TAG, "-------------- App started --------------");
     }
 
@@ -99,7 +101,8 @@ public class Logger implements UncaughtExceptionHandler {
         return new Log(getInstance(), o.getClass().getName());
     }
 
-    public static void addContext(Context newContext) {
+    @Override
+    public void setContext(Context newContext) {
         if (!hasContext()) {
             context = newContext;
             if (hasErrorReport()) {

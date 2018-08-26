@@ -11,6 +11,7 @@ import java.util.HashMap;
 import eu.quelltext.mundraub.common.Helper;
 import eu.quelltext.mundraub.error.ErrorAware;
 import eu.quelltext.mundraub.error.Logger;
+import eu.quelltext.mundraub.initialization.Initialization;
 import eu.quelltext.mundraub.plant.Plant;
 
 public class MapCache extends ErrorAware {
@@ -24,6 +25,12 @@ public class MapCache extends ErrorAware {
     public MapCache() {
         super();
         allTilesDirectory = null;
+        Initialization.provideContextFor(new Initialization.ContextInitialized() {
+            @Override
+            public void setContext(Context context) {
+                initilizeOnCacheDirectoryFrom(context);
+            }
+        });
     }
 
     public void initilizeOnCacheDirectoryFrom(Context context) {

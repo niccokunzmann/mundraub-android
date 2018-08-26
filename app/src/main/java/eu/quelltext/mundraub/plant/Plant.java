@@ -253,7 +253,6 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
     }
 
     public void setPictureToMap(final ImageView imageView, final MapCache.Callback callback) {
-        getMapCache().initilizeOnCacheDirectoryFrom(imageView.getContext());
         final Plant plant = this;
         getMapCache().mapPreviewOf(this, new MapCache.Callback() {
             @Override

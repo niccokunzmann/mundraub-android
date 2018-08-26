@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 
@@ -120,6 +121,12 @@ public class FirstActivity extends ErrorAwareActivity {
         allPermissions.add(new Permission(Manifest.permission.CAMERA, R.string.permission_purpose_camera));
         allPermissions.add(new Permission(Manifest.permission.WRITE_EXTERNAL_STORAGE, R.string.permission_purpose_external_storage));
         allPermissions.add(new Permission(Manifest.permission.INTERNET, R.string.permission_purpose_internet));
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Initialization.provideContext(this);
     }
 
     @Override
