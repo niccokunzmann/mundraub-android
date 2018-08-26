@@ -34,6 +34,7 @@ import javax.net.ssl.X509TrustManager;
 
 import eu.quelltext.mundraub.common.Helper;
 import eu.quelltext.mundraub.R;
+import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.plant.Plant;
 import okhttp3.Headers;
 import okhttp3.MediaType;
@@ -88,7 +89,7 @@ public class MundraubAPI extends API {
     }
 
     private URLConnection openSecureConnection(URL url) throws IOException, KeyManagementException, NoSuchAlgorithmException {
-        if (true) {
+        if (Settings.useInsecureConnections()) {
             Helper.trustAllConnections();
         }
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
@@ -99,39 +100,40 @@ public class MundraubAPI extends API {
     private static OkHttpClient getUnsafeOkHttpClient() {
         // from https://stackoverflow.com/a/25992879/1320237
         try {
-            // Create a trust manager that does not validate certificate chains
-            final TrustManager[] trustAllCerts = new TrustManager[] {
-                    new X509TrustManager() {
-                        @Override
-                        public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) {
-                        }
-
-                        @Override
-                        public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) {
-                        }
-
-                        @Override
-                        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                            return new java.security.cert.X509Certificate[]{};
-                        }
-                    }
-            };
-
-            // Install the all-trusting trust manager
-            final SSLContext sslContext = SSLContext.getInstance("SSL");
-            sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
-            // Create an ssl socket factory with our all-trusting manager
-            final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
 
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
-            builder.sslSocketFactory(sslSocketFactory, (X509TrustManager)trustAllCerts[0]);
-            builder.hostnameVerifier(new HostnameVerifier() {
-                @Override
-                public boolean verify(String hostname, SSLSession session) {
-                    return true;
-                }
-            });
+            if (Settings.useInsecureConnections()) {
+                // Create a trust manager that does not validate certificate chains
+                final TrustManager[] trustAllCerts = new TrustManager[] {
+                        new X509TrustManager() {
+                            @Override
+                            public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) {
+                            }
 
+                            @Override
+                            public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) {
+                            }
+
+                            @Override
+                            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                                return new java.security.cert.X509Certificate[]{};
+                            }
+                        }
+                };
+
+                // Install the all-trusting trust manager
+                final SSLContext sslContext = SSLContext.getInstance("SSL");
+                sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
+                // Create an ssl socket factory with our all-trusting manager
+                final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
+                builder.sslSocketFactory(sslSocketFactory, (X509TrustManager) trustAllCerts[0]);
+                builder.hostnameVerifier(new HostnameVerifier() {
+                    @Override
+                    public boolean verify(String hostname, SSLSession session) {
+                        return true;
+                    }
+                });
+            }
             OkHttpClient okHttpClient = builder
                     .followRedirects(false) // from https://stackoverflow.com/a/29268150/1320237
                     .followSslRedirects(false)

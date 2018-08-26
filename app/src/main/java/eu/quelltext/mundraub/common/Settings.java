@@ -83,4 +83,8 @@ public class Settings {
         settingUseDummyAPI = true;
         commit();
     }
+
+    public static boolean useInsecureConnections() {
+        return true;
+    }
 }
