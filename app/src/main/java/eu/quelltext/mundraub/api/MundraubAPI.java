@@ -205,6 +205,9 @@ public class MundraubAPI extends API {
         if (plantExistsOnline(plantId)) {
             try {
                 return deletePlantOnline(plantId);
+            } catch (javax.net.ssl.SSLHandshakeException e) {
+                log.printStackTrace(e);
+                return R.string.error_could_not_validate_host;
             } catch (NoSuchAlgorithmException e) {
                 log.printStackTrace(e);
             } catch (KeyManagementException e) {
@@ -286,6 +289,9 @@ public class MundraubAPI extends API {
         try {
             Map<String, String> formValues = getFormValues(URL_ADD_PLANT_FORM);
             return postPlantFormTo(formValues, plant, URL_ADD_PLANT_FORM);
+        } catch (javax.net.ssl.SSLHandshakeException e) {
+            log.printStackTrace(e);
+            return R.string.error_could_not_validate_host;
         } catch (MalformedURLException e) {
             log.printStackTrace(e);
         } catch (ProtocolException e) {
