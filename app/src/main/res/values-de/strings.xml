@@ -1,4 +1,5 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Edit and add a plant -->
     <string name="plant_has_unfilled_form_fields">Bitte fülle alle Felder für die Pflanze aus ...</string>
     <string name="all_plant_fields_are_filled">Alle benötigten Felder für die Pflanze sind gefüllt.</string>
@@ -77,7 +78,6 @@
     <string name="ask_delete_plant">Möchtest Du die Pflanze von Mundraub.ort enfernen?</string>
     <string name="no">Nein</string>
     <string name="yes">Ja</string>
-
     <!-- list all plants -->
     <string name="plant_list_date_format">dd. MM. yyyy</string>
 
@@ -115,5 +115,18 @@
     <string name="about_licenses">Diese App hat ein doppeltes Lizenzmodell: GPL der Version 3 und zusätzlich die MIT Lizenz für die Karte.</string>
     <string name="about_gpl">GPLv3 ansehen</string>
     <string name="about_mit">MIT ansehen</string>
+
+    <!-- Crash reporting -->
+    <string name="error_app_crashed">Die App hatte einen unerwarteten Fehler und ist abgestürzt. Wenn Du helfen magst, das Problem zu beheben, bitte geh auf die F-Droid-Seite der App, öffne die Fehlerverfolgung und erstelle einen Bericht mit der Datei %s.</string>
+    <string name="ask_error_report_is_needed">Möchtest Du den Fehlerbereicht noch benutzen?</string>
+
+    <!-- Requesting permissions -->
+    <string name="permission_request">Möchtest Du die jetzt die Erlaubnis erteilen, damit die App diese Funktion bereitstellen kann?</string>
+    <string name="permission_error_no_api">Ich konnte den Android-Dialog für die Erlaubnis nicht öffnen, weil das Telefon eine zu alte API-Verison hat. Versuch doch, die Erlaubnis selbst zu erteilen!</string>
+    <string name="permission_purpose_access_fine_location">Die App braucht die Erlaubnis, das Gerät zu orten, um die Position der Pflanzen automatisch zu setzen.</string>
+    <string name="permission_purpose_camera">DI eApp braucht die Erlaubnis, die Kamera-App zu öffnen, um Bilder von den Pflanzen aufnehmen zu können.</string>
+    <string name="permission_purpose_external_storage">Die App braucht die Erlaubnis, auf das Dateisystem zu speichern, damit die aufgenommenen Pflanzen auch noch da sind, wenn die App schließt und wieder öffnet.</string>
+    <string name="permission_purpose_internet">Die App braucht die Erlaubnis, auf das Internet zuzugreifen, um Dir zu erlauben, die Pflanzen auf Mundraub.org zu teilen.</string>
+    <string name="permission_denied_consequences">Die Erlaubnis wurde der App nicht erteilt. Damit ist diese Funktion nicht verfügbar.</string>
 
 </resources>
