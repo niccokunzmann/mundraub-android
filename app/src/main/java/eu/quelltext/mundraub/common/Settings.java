@@ -6,7 +6,7 @@ import eu.quelltext.mundraub.error.Logger;
 public class Settings {
 
     public static final String INVALID_HASH = "0000000000000000000000000000000000000000";
-    public static final String COMMIT_HASH = INVALID_HASH;
+    public static final String COMMIT_HASH = "9aa28ae20c53fade953a746a95418951eafe070c";
 
     public static String getShortHash(){
         return COMMIT_HASH.substring(0, 7);
