@@ -14,6 +14,10 @@ public class PlantOnlineState {
     public static final String JSON_CLASS_ONLINE = "online";
     public static final String JSON_ID = "id";
 
+    private static API api() {
+        return API.instance();
+    }
+
     public interface OnlineAction {
 
         boolean mustLogin();
@@ -113,18 +117,16 @@ public class PlantOnlineState {
 
     static private class OnlineState implements OnlineAction {
         private final Plant plant;
-        private final API api;
         private final String id;
 
         private OnlineState(Plant plant, String id) {
             this.plant = plant;
-            this.api = API.instance();
             this.id = id;
         }
 
         @Override
         public boolean mustLogin() {
-            return !api.isLoggedIn();
+            return !api().isLoggedIn();
         }
 
         @Override
@@ -134,7 +136,7 @@ public class PlantOnlineState {
 
         @Override
         public boolean canUpdate() {
-            return api.isLoggedIn();
+            return api().isLoggedIn();
         }
 
         @Override
@@ -144,7 +146,7 @@ public class PlantOnlineState {
 
         @Override
         public boolean canDelete() {
-            return api.isLoggedIn();
+            return api().isLoggedIn();
         }
 
         @Override
@@ -154,7 +156,7 @@ public class PlantOnlineState {
 
         @Override
         public void update(API.Callback cb) {
-            api.updatePlant(plant, id, cb);
+            api().updatePlant(plant, id, cb);
         }
 
         @Override
@@ -164,7 +166,7 @@ public class PlantOnlineState {
 
         @Override
         public void delete(final API.Callback cb) {
-            api.deletePlant(id, new API.Callback() {
+            api().deletePlant(id, new API.Callback() {
                 @Override
                 public void onSuccess() {
                     plant.setOnline(new OfflineState(plant));

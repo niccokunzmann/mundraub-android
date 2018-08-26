@@ -141,4 +141,6 @@
     <string name="permission_purpose_internet">The app needs permission to access the Internet in order to allow you to upload plants to the Internet.</string>
     <string name="permission_denied_consequences">The permission is not given, so the app cannot do that.</string>
 
+    <!-- settings -->
+    <string name="settings_use_mundraub_api">If this is enabled, use the Mundraub.org API to publish plants. Otherwise, a local dummy API is used which good for testing.</string>
 </resources>
