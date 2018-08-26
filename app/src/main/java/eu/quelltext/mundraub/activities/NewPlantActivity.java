@@ -48,7 +48,7 @@ public class NewPlantActivity extends ErrorAwareActivity {
     private Button buttonCancel;
     private NewPlantActivity me = this;
     private TextView textPosition;
-    private TextView textDescription;
+    private EditText textDescription;
     private ImageView plantImage;
     private Plant plant;
     private EditText numberOfPlants;
@@ -88,7 +88,7 @@ public class NewPlantActivity extends ErrorAwareActivity {
         buttonCancel = (Button) findViewById(R.id.button_cancel);
         textPosition = (TextView) findViewById(R.id.text_position);
         textLicense = (TextView) findViewById(R.id.text_map_license);
-        textDescription = (TextView) findViewById(R.id.text_description);
+        textDescription = (EditText) findViewById(R.id.text_description);
         textTip = (TextView) findViewById(R.id.new_plant_explanation);
         plantImage = (ImageView) findViewById(R.id.image_plant);
         numberOfPlants = (EditText) findViewById(R.id.number_of_plants);
@@ -193,7 +193,7 @@ public class NewPlantActivity extends ErrorAwareActivity {
     }
 
     private void updatePlantCount() {
-        numberOfPlants.setText(Integer.toString(plant.getCount()));
+        setTextAndKeepTheCursorPosition(numberOfPlants, Integer.toString(plant.getCount()));
         if (plant.getCount() <= 0) {
             buttonMinus.setVisibility(View.INVISIBLE);
         } else {
@@ -222,7 +222,7 @@ public class NewPlantActivity extends ErrorAwareActivity {
             }
         }
         updatePlantCount();
-        textDescription.setText(plant.getDescription());
+        setTextAndKeepTheCursorPosition(textDescription, plant.getDescription());
         if (plant.hasPosition()) {
             textPosition.setText(
                     Double.toString(plant.getLongitude()) +
@@ -245,6 +245,15 @@ public class NewPlantActivity extends ErrorAwareActivity {
                 textLicense.setVisibility(View.GONE);
             }
         });
+    }
+
+    private void setTextAndKeepTheCursorPosition(EditText editText, String text) {
+        int selectionStart = editText.getSelectionStart();
+        int selectionEnd = editText.getSelectionEnd();
+        editText.setText(text);
+        editText.setSelection(
+                selectionStart < text.length() ? selectionStart : text.length(),
+                selectionEnd < text.length() ? selectionEnd : text.length());
     }
 
     @SuppressLint("MissingPermission")
