@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 import eu.quelltext.mundraub.R;
-import eu.quelltext.mundraub.error.FirstActivity;
+import eu.quelltext.mundraub.initialization.FirstActivity;
 import eu.quelltext.mundraub.error.Logger;
 import eu.quelltext.mundraub.plant.Plant;
 

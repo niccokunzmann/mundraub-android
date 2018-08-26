@@ -1,4 +1,4 @@
-package eu.quelltext.mundraub.error;
+package eu.quelltext.mundraub.initialization;
 
 import android.Manifest;
 import android.app.Activity;
@@ -12,6 +12,7 @@ import java.util.List;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.common.Dialog;
+import eu.quelltext.mundraub.error.ErrorAwareActivity;
 
 public class FirstActivity extends ErrorAwareActivity {
 
