@@ -39,6 +39,14 @@
                 tools:layout_editor_absoluteX="153dp"
                 tools:layout_editor_absoluteY="86dp" />
 
+            <Button
+                android:id="@+id/button_view_source_version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_view_source_at_version"
+                tools:layout_editor_absoluteX="49dp"
+                tools:layout_editor_absoluteY="0dp" />
+
             <View
                 android:id="@+id/divider4"
                 android:layout_width="match_parent"

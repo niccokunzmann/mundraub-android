@@ -1,5 +1,6 @@
 package eu.quelltext.mundraub.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,7 +12,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import eu.quelltext.mundraub.BuildConfig;
 import eu.quelltext.mundraub.R;
+import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.error.ErrorAwareActivity;
 
 public class AboutActivity extends ErrorAwareActivity {
@@ -22,23 +25,36 @@ public class AboutActivity extends ErrorAwareActivity {
     private Button buttonViewMIT;
     private Button buttonViewGPL;
     private TextView textSelectedLicense;
+    private Button buttonViewVersion;
 
+    @SuppressLint("StringFormatInvalid")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
         buttonViewSource = (Button) findViewById(R.id.button_view_source);
+        buttonViewVersion = (Button) findViewById(R.id.button_view_source_version);
         buttonViewFreedoms = (Button) findViewById(R.id.button_view_freedoms);
         buttonViewIssues = (Button) findViewById(R.id.button_view_issues);
         buttonViewMIT = (Button) findViewById(R.id.button_mit);
         buttonViewGPL = (Button) findViewById(R.id.button_gpl);
         textSelectedLicense = (TextView) findViewById(R.id.text_selected_license);
 
+        String versionText = getResources().getString(R.string.about_view_source_at_version);
+        buttonViewVersion.setText(String.format(versionText, BuildConfig.VERSION_NAME, Settings.getShortHash()));
+
         buttonViewSource.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openWebsite(R.string.about_view_source_url);
+            }
+        });
+        buttonViewVersion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String urlTemplate = getResources().getString(R.string.about_view_source_at_version_url);
+                openWebsite(String.format(urlTemplate, Settings.COMMIT_HASH));
             }
         });
         buttonViewFreedoms.setOnClickListener(new View.OnClickListener() {
@@ -99,6 +115,10 @@ public class AboutActivity extends ErrorAwareActivity {
 
     private void openWebsite(int urlResourceId) {
         String url = getResources().getString(urlResourceId);
+        openWebsite(url);
+    }
+
+    private void openWebsite(String url) {
         // from https://stackoverflow.com/a/3004542/1320237
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(url));

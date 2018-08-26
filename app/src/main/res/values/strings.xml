@@ -1,4 +1,5 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Universal -->
     <string name="app_name" translatable="false">Mundraub</string>
 
@@ -115,6 +116,8 @@
     <string name="about_app">This is the inofficial app for Mundraub.org. The source is open. You are invited to contribute.</string>
     <string name="about_view_source">View the source code</string>
     <string name="about_view_source_url" translatable="false">https://github.com/niccokunzmann/mundraub-android</string>
+    <string name="about_view_source_at_version">View the source code of version <xliff:g id="version" example="1.0">%1$s</xliff:g> at commit <xliff:g id="commit" example="5849748">%2$s</xliff:g>.</string>
+    <string name="about_view_source_at_version_url" translatable="false">https://github.com/niccokunzmann/mundraub-android/commit/%s</string>
     <string name="about_four_freedoms">You have the freedom to run, study, redistribute and improve the software.</string>
     <string name="about_view_four_freedoms">More about our four freedoms</string>
     <string name="about_view_four_freedoms_url">https://en.wikipedia.org/wiki/Free_software#Definition_and_the_Four_Freedoms</string>
