@@ -18,12 +18,12 @@ import android.widget.TextView;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.api.API;
-import eu.quelltext.mundraub.error.ErrorAwareActivity;
+import eu.quelltext.mundraub.error.MundraubBaseActivity;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends ErrorAwareActivity {
+public class LoginActivity extends MundraubBaseActivity {
 
     // UI references.
     private AutoCompleteTextView usernameView;

@@ -9,8 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -22,8 +20,8 @@ import java.util.Date;
 import java.util.List;
 
 import eu.quelltext.mundraub.R;
-import eu.quelltext.mundraub.initialization.FirstActivity;
 import eu.quelltext.mundraub.error.Logger;
+import eu.quelltext.mundraub.initialization.FirstActivity;
 import eu.quelltext.mundraub.plant.Plant;
 
 /**
@@ -240,37 +238,5 @@ public class PlantListActivity extends FirstActivity {
                 dateContainer.setVisibility(View.GONE);
             }
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_app, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // from https://www.javatpoint.com/android-option-menu-example
-        switch (item.getItemId()){
-            case R.id.item_about:
-                openAbout();
-                return true;
-            case R.id.item_settings:
-                openSettings();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    private void openSettings() {
-        Intent intent = new Intent(this, SettingsActivity.class);
-        this.startActivity(intent);
-    }
-
-    private void openAbout() {
-        Intent intent = new Intent(this, AboutActivity.class);
-        this.startActivity(intent);
     }
 }

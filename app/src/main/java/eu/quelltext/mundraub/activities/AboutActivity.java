@@ -15,9 +15,9 @@ import java.io.InputStreamReader;
 import eu.quelltext.mundraub.BuildConfig;
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.common.Settings;
-import eu.quelltext.mundraub.error.ErrorAwareActivity;
+import eu.quelltext.mundraub.error.MundraubBaseActivity;
 
-public class AboutActivity extends ErrorAwareActivity {
+public class AboutActivity extends MundraubBaseActivity {
 
     private Button buttonViewSource;
     private Button buttonViewFreedoms;

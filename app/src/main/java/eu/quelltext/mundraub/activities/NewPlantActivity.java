@@ -26,12 +26,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import eu.quelltext.mundraub.R;
-import eu.quelltext.mundraub.error.ErrorAwareActivity;
+import eu.quelltext.mundraub.error.MundraubBaseActivity;
 import eu.quelltext.mundraub.map.MapCache;
 import eu.quelltext.mundraub.plant.Plant;
 import eu.quelltext.mundraub.plant.PlantCategory;
 
-public class NewPlantActivity extends ErrorAwareActivity {
+public class NewPlantActivity extends MundraubBaseActivity {
     /*
       - intent.putString(NewPlantActivity.ARG_PLANT_ID, plant_id)
         will open this view on a specific plant

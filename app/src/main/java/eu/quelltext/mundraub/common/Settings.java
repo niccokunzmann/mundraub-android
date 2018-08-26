@@ -16,7 +16,8 @@ public class Settings {
     private static Logger.Log log = Logger.newFor("Settings");
     private static SharedPreferences preferences = null;
 
-    private static boolean settingUseDummyAPI = false;
+    private static boolean useMundraubAPI = true;
+    private static boolean useInsecureConnections = false;
 
 
     static {
@@ -38,6 +39,8 @@ public class Settings {
         log.d("BuildConfig.DEBUG", BuildConfig.DEBUG);
         log.d("BuildConfig.VERSION_CODE", Integer.toString(BuildConfig.VERSION_CODE));
         log.d("COMMIT_HASH", COMMIT_HASH);
+        log.d("useInsecureConnections", useInsecureConnections);
+        log.d("useMundraubAPI", useMundraubAPI);
     }
 
 
@@ -54,37 +57,35 @@ public class Settings {
     }
 
     private static void load() {
-        settingUseDummyAPI = preferences.getBoolean("useDummyAPI", settingUseDummyAPI);
+        useMundraubAPI = preferences.getBoolean("useMundraubAPI", useMundraubAPI);
+        useInsecureConnections = preferences.getBoolean("useInsecureConnections", useInsecureConnections);
     }
 
     private static void commit() {
         if (hasPreferences()) {
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean("useDummyAPI", settingUseDummyAPI);
+            editor.putBoolean("useMundraubAPI", useMundraubAPI);
+            editor.putBoolean("useInsecureConnections", useInsecureConnections);
             editor.commit();
         }
+        print();
     }
 
-
-    public static boolean isUsingTheDummyAPI() {
-        return settingUseDummyAPI;
+    public static boolean useMundraubAPI() {
+        return useMundraubAPI;
     }
 
-    public static boolean isUsingTheMundraubAPI() {
-        return !settingUseDummyAPI;
-    }
-
-    public static void useTheMundraubAPI() {
-        settingUseDummyAPI = false;
-        commit();
-    }
-
-    public static void useTheDummyAPI() {
-        settingUseDummyAPI = true;
+    public static void useMundraubAPI(boolean useMundraub) {
+        useMundraubAPI = useMundraub;
         commit();
     }
 
     public static boolean useInsecureConnections() {
-        return true;
+        return useInsecureConnections;
+    }
+
+    public static void useInsecureConnections(boolean insecure) {
+        useInsecureConnections = insecure;
+        commit();
     }
 }

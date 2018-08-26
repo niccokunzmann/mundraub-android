@@ -13,9 +13,9 @@ import java.util.List;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.common.Dialog;
-import eu.quelltext.mundraub.error.ErrorAwareActivity;
+import eu.quelltext.mundraub.error.MundraubBaseActivity;
 
-public class FirstActivity extends ErrorAwareActivity {
+public class FirstActivity extends MundraubBaseActivity {
 
     private final List<Permission> allPermissions = new ArrayList<Permission>();
     private final boolean CAN_ASK_FOR_PERMISSIONS = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;

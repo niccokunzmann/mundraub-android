@@ -143,4 +143,5 @@
 
     <!-- settings -->
     <string name="settings_use_mundraub_api">If this is enabled, use the Mundraub.org API to publish plants. Otherwise, a local dummy API is used which good for testing.</string>
+    <string name="setting_use_secure_connection">If this is enabled, this app connections to Mundraub.org are trusted by the Certificate Authorities. This may cause a problem on older platforms which can not verify the certificate.</string>
 </resources>

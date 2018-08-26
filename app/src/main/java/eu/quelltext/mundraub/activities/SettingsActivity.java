@@ -10,25 +10,32 @@ import eu.quelltext.mundraub.common.Settings;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private ToggleButton toggleAPI;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+    }
 
-        toggleAPI = (ToggleButton) findViewById(R.id.toggle_API);
-
-        toggleAPI.setChecked(Settings.isUsingTheMundraubAPI());
-        toggleAPI.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setToggle(R.id.toggle_API, Settings.useMundraubAPI(), new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    Settings.useTheMundraubAPI();
-                } else {
-                    Settings.useTheDummyAPI();
-                }
+                Settings.useMundraubAPI(isChecked);
             }
         });
+        setToggle(R.id.toggle_secure_connection, !Settings.useInsecureConnections(), new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Settings.useInsecureConnections(!isChecked);
+            }
+        });
+    }
+
+    private void setToggle(int resourceId, boolean usingTheMundraubAPI, CompoundButton.OnCheckedChangeListener onCheckedChangeListener) {
+        ToggleButton toggle = (ToggleButton) findViewById(resourceId);
+        toggle.setChecked(usingTheMundraubAPI);
+        toggle.setOnCheckedChangeListener(onCheckedChangeListener);
     }
 }

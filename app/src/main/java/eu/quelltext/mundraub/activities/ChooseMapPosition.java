@@ -10,10 +10,10 @@ import android.widget.Button;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.common.Dialog;
-import eu.quelltext.mundraub.error.ErrorAwareActivity;
+import eu.quelltext.mundraub.error.MundraubBaseActivity;
 import eu.quelltext.mundraub.plant.Plant;
 
-public class ChooseMapPosition extends ErrorAwareActivity {
+public class ChooseMapPosition extends MundraubBaseActivity {
 
     public static final String ARG_PLANT_ID = "plant_id";
     private Plant plant;

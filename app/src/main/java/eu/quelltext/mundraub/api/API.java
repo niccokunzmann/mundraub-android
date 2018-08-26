@@ -17,10 +17,7 @@ public abstract class API extends ErrorAware {
     private boolean isLoggedIn;
     
     public static final API instance() {
-        if (Settings.isUsingTheDummyAPI()) {
-            return dummyAPI;
-        }
-        return mundraubAPI;
+        return Settings.useMundraubAPI() ? mundraubAPI : dummyAPI;
     }
 
     public void login(final String username, final String password, Callback cb) {
