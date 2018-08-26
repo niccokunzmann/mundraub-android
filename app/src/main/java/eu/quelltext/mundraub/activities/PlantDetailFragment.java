@@ -42,6 +42,7 @@ public class PlantDetailFragment extends Fragment {
     private Plant plant = null;
     private View rootView = null;
     private Context context = null;
+    private boolean doublePane;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -88,6 +89,14 @@ public class PlantDetailFragment extends Fragment {
         if (plant != null && rootView != null && context != null) {
             updateInfosFromPlant();
             updateOnlineActivities();
+            updateButton(R.id.button_edit, doublePane, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, NewPlantActivity.class);
+                    intent.putExtra(NewPlantActivity.ARG_PLANT_ID, plant.getId());
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 
@@ -228,5 +237,18 @@ public class PlantDetailFragment extends Fragment {
             button.setOnClickListener(onClickListener);
         }
         button.setVisibility(visible? View.VISIBLE: View.GONE);
+    }
+
+    /*
+        This fragment is show as the only thing on the screen.
+     */
+    public void isSinglePane() {
+        doublePane = false;
+    }
+    /*
+        This fragment is shown with a left bar to choose plants.
+     */
+    public void isDoublePane() {
+        doublePane = true;
     }
 }

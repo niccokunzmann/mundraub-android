@@ -81,6 +81,7 @@
     <string name="ask_delete_plant">Would you like to remove the plant from Mundraub.org?</string>
     <string name="no">no</string>
     <string name="yes">yes</string>
+    <string name="edit">Edit</string>
 
     <!-- list all plants -->
     <string name="plant_list_date_format">MM/dd/yyyy</string>

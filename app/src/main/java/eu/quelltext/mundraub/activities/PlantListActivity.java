@@ -136,6 +136,7 @@ public class PlantListActivity extends FirstActivity {
                     mParentActivity.getSupportFragmentManager().beginTransaction()
                             .replace(R.id.plant_detail_container, fragment)
                             .commit();
+                    fragment.isDoublePane();
                 } else {
                     Context context = view.getContext();
                     Intent intent = new Intent(context, PlantDetailActivity.class);

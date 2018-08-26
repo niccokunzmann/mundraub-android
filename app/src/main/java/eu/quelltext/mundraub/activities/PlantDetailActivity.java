@@ -70,6 +70,7 @@ public class PlantDetailActivity extends ErrorAwareActivity {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.plant_detail_container, fragment)
                     .commit();
+            fragment.isSinglePane();
         }
     }
 
