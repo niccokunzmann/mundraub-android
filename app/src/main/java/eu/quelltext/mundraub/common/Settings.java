@@ -1,5 +1,6 @@
-package eu.quelltext.mundraub;
+package eu.quelltext.mundraub.common;
 
+import eu.quelltext.mundraub.BuildConfig;
 import eu.quelltext.mundraub.error.Logger;
 
 public class Settings {

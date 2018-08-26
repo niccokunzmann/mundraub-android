@@ -1,4 +1,4 @@
-package eu.quelltext.mundraub;
+package eu.quelltext.mundraub.activities;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +8,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
 
+import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.common.Dialog;
 import eu.quelltext.mundraub.error.ErrorAwareActivity;
 import eu.quelltext.mundraub.plant.Plant;

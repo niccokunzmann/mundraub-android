@@ -1,4 +1,4 @@
-package eu.quelltext.mundraub;
+package eu.quelltext.mundraub.activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.api.API;
 import eu.quelltext.mundraub.error.ErrorAwareActivity;
 

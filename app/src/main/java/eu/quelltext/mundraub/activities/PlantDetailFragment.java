@@ -1,4 +1,4 @@
-package eu.quelltext.mundraub;
+package eu.quelltext.mundraub.activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import java.io.File;
 
+import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.api.API;
 import eu.quelltext.mundraub.common.Dialog;
 import eu.quelltext.mundraub.map.MapCache;

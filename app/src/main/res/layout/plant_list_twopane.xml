@@ -10,7 +10,7 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context=".PlantListActivity">
+    tools:context=".activities.PlantListActivity">
 
     <!--
     This layout is a two-pane layout for the Plants
@@ -33,7 +33,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
-        tools:context="eu.quelltext.mundraub.PlantListActivity"
+        tools:context="eu.quelltext.mundraub.activities.PlantListActivity"
         tools:listitem="@layout/plant_list_content" />
 
     <FrameLayout

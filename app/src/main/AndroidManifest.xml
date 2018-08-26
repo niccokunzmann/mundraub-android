@@ -14,9 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NewPlantActivity" />
+        <activity android:name=".activities.NewPlantActivity" />
         <activity
-            android:name=".PlantListActivity"
+            android:name=".activities.PlantListActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -26,23 +26,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PlantDetailActivity"
+            android:name=".activities.PlantDetailActivity"
             android:label="@string/title_plant_detail"
-            android:parentActivityName=".PlantListActivity"
+            android:parentActivityName=".activities.PlantListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="eu.quelltext.mundraub.PlantListActivity" />
+                android:value="eu.quelltext.mundraub.activities.PlantListActivity" />
         </activity>
         <activity
-            android:name=".ChoosePlantType"
+            android:name=".activities.ChoosePlantType"
             android:label="@string/title_activity_choose_plant_type"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".ChooseMapPosition" />
-        <activity android:name=".AboutActivity"></activity>
+        <activity android:name=".activities.ChooseMapPosition" />
+        <activity android:name=".activities.AboutActivity"></activity>
     </application>
 
 </manifest>

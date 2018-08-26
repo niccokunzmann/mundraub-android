@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ChoosePlantType"
+    tools:context=".activities.ChoosePlantType"
     tools:showIn="@layout/activity_choose_plant_type">
 
     <android.support.v7.widget.RecyclerView

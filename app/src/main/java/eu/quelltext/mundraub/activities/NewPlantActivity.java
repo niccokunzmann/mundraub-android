@@ -1,4 +1,4 @@
-package eu.quelltext.mundraub;
+package eu.quelltext.mundraub.activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -25,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.error.ErrorAwareActivity;
 import eu.quelltext.mundraub.map.MapCache;
 import eu.quelltext.mundraub.plant.Plant;

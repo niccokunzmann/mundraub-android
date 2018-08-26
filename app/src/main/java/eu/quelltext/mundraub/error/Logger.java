@@ -11,7 +11,7 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.Scanner;
 
 import eu.quelltext.mundraub.R;
-import eu.quelltext.mundraub.Settings;
+import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.common.Dialog;
 
 /*

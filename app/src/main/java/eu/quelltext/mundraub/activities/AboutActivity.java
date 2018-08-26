@@ -1,4 +1,4 @@
-package eu.quelltext.mundraub;
+package eu.quelltext.mundraub.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.error.ErrorAwareActivity;
 
 public class AboutActivity extends ErrorAwareActivity {

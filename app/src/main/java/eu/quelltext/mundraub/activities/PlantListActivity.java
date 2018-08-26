@@ -1,4 +1,4 @@
-package eu.quelltext.mundraub;
+package eu.quelltext.mundraub.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.error.FirstActivity;
 import eu.quelltext.mundraub.error.Logger;
 import eu.quelltext.mundraub.plant.Plant;
