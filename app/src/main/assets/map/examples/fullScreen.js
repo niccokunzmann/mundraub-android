@@ -35,13 +35,17 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
         //alert("You clicked near " + lonlat.lat + " N, " +
         //                          + lonlat.lon + " E");
         //alert(position);
-        document.location.hash = "#" + position.lon + "," + position.lat;
+        setPositionInURL(position.lon, position.lat);
         marker.destroy();
         marker = new OpenLayers.Marker(lonlat);
         markers.addMarker(marker);
     }
 
 });
+
+function setPositionInURL(lon, lat) {
+    document.location.hash = "#" + lon + "," + lat;
+}
 
 var click = new OpenLayers.Control.Click();
 
@@ -58,6 +62,7 @@ if (startLocation.length == 2) {
     lat = parseFloat(startLocation[1]);
     zoom = 16;
 }
+setPositionInURL(lon, lat);
 
 // projection from https://wiki.openstreetmap.org/wiki/OpenLayers_Simple_Example#Add_Markers
 var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
