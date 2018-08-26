@@ -2,12 +2,15 @@
 #
 # Make the app aware about the current commit.
 #
+# Arguments:
+#    --dry  do not change the file but print it
+#
 
 set -e
 
 cd "`dirname \"$0\"`"
 
-file="../app/src/main/java/eu/quelltext/mundraub/Settings.java"
+file="../app/src/main/java/eu/quelltext/mundraub/common/Settings.java"
 
 echo "Editing `dirname \"$0\"`/$file"
 
@@ -15,6 +18,12 @@ hash="`git rev-parse --verify HEAD`"
 
 echo "Set COMMIT_HASH=\"$hash\""
 
-sed -ri 's/(COMMIT_HASH\s+=\s+)INVALID_HASH/\1"'"$hash"'"/g' "$file"
+if [ "$1" == "--dry" ]; then
+  arguments=""
+else
+  arguments="-i"
+fi
+
+sed -r $arguments 's/(COMMIT_HASH\s+=\s+)INVALID_HASH/\1"'"$hash"'"/g' "$file"
 
 
