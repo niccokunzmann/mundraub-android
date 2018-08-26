@@ -103,6 +103,7 @@
     <string name="error_count_not_check_plant">Could not ask the server if the plant exists.</string>
     <string name="error_connection">There was an error with the connection to the server.</string>
     <string name="error_could_not_delete_plant">The plant could not be deleted online. There was some error. Please go online and delete it yourself.</string>
+    <string name="error_could_not_validate_host">The identity of the server is not trusted. This is a known problem on older platforms. Currently, you can disable trusted connections in the settings to work around this error. Feel free to contribute a solution.</string>
 
     <!-- map -->
     <string name="attention">Attention</string>

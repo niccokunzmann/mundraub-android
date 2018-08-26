@@ -6,7 +6,9 @@ import android.annotation.TargetApi;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -101,18 +103,18 @@ public class LoginActivity extends MundraubBaseActivity {
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
+            setError(mPasswordView, R.string.error_invalid_password);
             focusView = mPasswordView;
             cancel = true;
         }
 
         // Check for a valid username address.
         if (TextUtils.isEmpty(username)) {
-            usernameView.setError(getString(R.string.error_field_required));
+            setError(usernameView, R.string.error_field_required);
             focusView = usernameView;
             cancel = true;
         } else if (!isUsernameValid(username)) {
-            usernameView.setError(getString(R.string.error_invalid_username));
+            setError(usernameView, R.string.error_invalid_username);
             focusView = usernameView;
             cancel = true;
         }
@@ -135,11 +137,21 @@ public class LoginActivity extends MundraubBaseActivity {
                 @Override
                 public void onFailure(int errorResourceId) {
                     showProgress(false);
-                    mPasswordView.setError(getString(errorResourceId));
+                    setError(mPasswordView, errorResourceId);
                     mPasswordView.requestFocus();
                 }
             });
         }
+    }
+
+    private void setError(EditText editText, int errorResourceId) {
+        // from https://stackoverflow.com/a/7350315/1320237
+        int ecolor = R.color.colorAccent;
+        String estring = getResources().getString(errorResourceId);
+        ForegroundColorSpan fgcspan = new ForegroundColorSpan(getResources().getColor(ecolor));
+        SpannableStringBuilder ssbuilder = new SpannableStringBuilder(estring);
+        ssbuilder.setSpan(fgcspan, 0, estring.length(), 0);
+        editText.setError(ssbuilder);
     }
 
     private void loginSuccessful() {

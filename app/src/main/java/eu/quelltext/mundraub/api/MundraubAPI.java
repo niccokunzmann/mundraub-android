@@ -179,6 +179,9 @@ public class MundraubAPI extends API {
             String cookie = http.getHeaderField("Set-Cookie");
             setSessionFromCookie(cookie);
             return TASK_SUCCEEDED;
+        } catch (javax.net.ssl.SSLHandshakeException e) {
+            log.printStackTrace(e);
+            return R.string.error_could_not_validate_host;
         } catch (UnknownHostException e) {
             log.printStackTrace(e);
             return R.string.error_unknown_hostname;
