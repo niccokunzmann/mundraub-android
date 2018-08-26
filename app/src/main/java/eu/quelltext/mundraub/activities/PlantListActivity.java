@@ -256,9 +256,17 @@ public class PlantListActivity extends FirstActivity {
             case R.id.item_about:
                 openAbout();
                 return true;
+            case R.id.item_settings:
+                openSettings();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void openSettings() {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        this.startActivity(intent);
     }
 
     private void openAbout() {
