@@ -124,8 +124,12 @@
     <string name="about_licenses">This app has a dual licensing model: GPL version 3 for the app and additionally the MIT license for the map.</string>
     <string name="about_gpl">View GPLv3</string>
     <string name="about_mit">View MIT</string>
+
+    <!-- Crash reporting -->
     <string name="error_app_crashed">The app encountered an unexpected error and crashed. If you like to help fix the problem, please go to F-Droid, open the Issue Tracker and report the crash with the file %s.</string>
     <string name="ask_error_report_is_needed">Would you like to use the error report?</string>
+
+    <!-- Requesting permissions -->
     <string name="permission_request">Would you like to give the permission now, so the app can use this functionality?</string>
     <string name="permission_error_no_api">I could not open the permission dialog because the API version of this device is too low. Try granting the permission yourself!</string>
     <string name="permission_purpose_access_fine_location">The app needs permission to access the location of the device in order to fill in the position of the plant automatically.</string>
