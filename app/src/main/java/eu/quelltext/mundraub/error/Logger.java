@@ -11,8 +11,8 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.Scanner;
 
 import eu.quelltext.mundraub.R;
-import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.common.Dialog;
+import eu.quelltext.mundraub.common.Settings;
 
 /*
     Copy STDOUT and STDERR to a file
@@ -141,6 +141,12 @@ public class Logger implements UncaughtExceptionHandler {
 
         public void d(String tag, String s) {
             logger.d(this.tag, tag + TAG_DIVIDER + s);
+        }
+        public void d(String tag, boolean b) {
+            logger.d(this.tag, tag + TAG_DIVIDER + Boolean.toString(b));
+        }
+        public void d(String tag, int i) {
+            logger.d(this.tag, tag + TAG_DIVIDER + Integer.toString(i));
         }
 
         public void e(String tag, String s) {
