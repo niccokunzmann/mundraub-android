@@ -204,6 +204,7 @@ public class NewPlantActivity extends ErrorAwareActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         // from https://stackoverflow.com/a/10833558/1320237
+        super.onSaveInstanceState(outState);
         outState.putString(ARG_PLANT_ID, plant.getId());
     }
 

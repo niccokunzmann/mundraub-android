@@ -19,6 +19,7 @@ import java.io.File;
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.api.API;
 import eu.quelltext.mundraub.common.Dialog;
+import eu.quelltext.mundraub.error.Logger;
 import eu.quelltext.mundraub.map.MapCache;
 import eu.quelltext.mundraub.plant.Plant;
 
@@ -35,6 +36,7 @@ public class PlantDetailFragment extends Fragment {
      */
     public static final String ARG_PLANT_ID = "plant_id";
     private static final String OSM_COPYRIGHT_RIGHT_URL = "https://www.openstreetmap.org/copyright";
+    private static Logger.Log log = Logger.newFor("PlantDetailFragment");
 
     /**
      * The dummy content this fragment is presenting.
@@ -76,7 +78,16 @@ public class PlantDetailFragment extends Fragment {
         rootView = inflater.inflate(R.layout.plant_detail, container, false);
         context = container.getContext();
         updateViewFromPlant();
+        if (savedInstanceState != null) {
+            doublePane = savedInstanceState.getBoolean("doublePane", true);
+        }
         return rootView;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("doublePane", doublePane);
     }
 
     @Override
