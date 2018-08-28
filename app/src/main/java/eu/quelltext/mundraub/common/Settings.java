@@ -11,7 +11,7 @@ import eu.quelltext.mundraub.initialization.Initialization;
 public class Settings {
 
     public static final String INVALID_HASH = "0000000000000000000000000000000000000000";
-    public static final String COMMIT_HASH = INVALID_HASH;
+    public static final String COMMIT_HASH = "873fb12006828a72e88cdcd229406916db738a95";
 
     private static Logger.Log log = Logger.newFor("Settings");
     private static SharedPreferences preferences = null;
