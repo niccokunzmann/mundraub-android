@@ -181,7 +181,7 @@ public class Logger implements UncaughtExceptionHandler, Initialization.Activity
 
     private void d(String tag, String s) {
         android.util.Log.d(tag, s);
-        print("DEGUG" + TAG_DIVIDER + tag, s);
+        print("DEBUG" + TAG_DIVIDER + tag, s);
     }
 
     private void e(String tag, String s) {
