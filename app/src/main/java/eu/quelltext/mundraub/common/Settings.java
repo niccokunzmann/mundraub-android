@@ -7,7 +7,9 @@ import android.os.Environment;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import eu.quelltext.mundraub.BuildConfig;
 import eu.quelltext.mundraub.R;
@@ -27,6 +29,7 @@ public class Settings {
     private static final String PLANT_STORAGE_DIRECTORY_NAME = "eu.quelltext.mundraub";
     public static final String INVALID_HASH = "0000000000000000000000000000000000000000";
     public static final String COMMIT_HASH = INVALID_HASH;
+    private static final String PERMISSION_PREFIX = "askForPermission_";
     public static int COMMIT_SUCCESSFUL = ChangeListener.SETTINGS_CAN_CHANGE;
 
     public static String getShortHash(){
@@ -46,7 +49,8 @@ public class Settings {
     private static boolean useMundraubAPI = true;
     private static boolean useInsecureConnections = false;
     private static boolean useCacheForPlants = true;
-    private static File persistentPathForPlants = new File(Environment.getExternalStorageDirectory(), PLANT_STORAGE_DIRECTORY_NAME);;
+    private static File persistentPathForPlants = new File(Environment.getExternalStorageDirectory(), PLANT_STORAGE_DIRECTORY_NAME);
+    private static Map<String, Boolean> permissionQuestion = new HashMap<String, Boolean>();
 
     static {
         Initialization.provideActivityFor(new Initialization.ActivityInitialized() {
@@ -68,11 +72,15 @@ public class Settings {
         log.d("BuildConfig.DEBUG", BuildConfig.DEBUG);
         log.d("BuildConfig.VERSION_CODE", Integer.toString(BuildConfig.VERSION_CODE));
         log.d("COMMIT_HASH", COMMIT_HASH);
+        log.d("Permissions.CAN_ASK_FOR_PERMISSIONS", Permissions.CAN_ASK_FOR_PERMISSIONS);
         log.d("useInsecureConnections", useInsecureConnections);
         log.d("useMundraubAPI", useMundraubAPI);
         log.d("useCacheForPlants", useCacheForPlants);
         if (!useCacheForPlants) {
             log.d("persistentPathForPlants", persistentPathForPlants.toString());
+        }
+        for (String key : permissionQuestion.keySet()) {
+            log.d(key, permissionQuestion.get(key));
         }
     }
 
@@ -81,6 +89,12 @@ public class Settings {
         useInsecureConnections = preferences.getBoolean("useInsecureConnections", useInsecureConnections);
         useCacheForPlants = preferences.getBoolean("useCacheForPlants", useCacheForPlants);
         persistentPathForPlants = new File(preferences.getString("persistentPathForPlants", persistentPathForPlants.toString()));
+        permissionQuestion.clear();
+        for (String key : preferences.getAll().keySet()) {
+            if (key.startsWith(PERMISSION_PREFIX)) {
+                permissionQuestion.put(key, preferences.getBoolean(key, true));
+            }
+        }
         for (ChangeListener listener : listeners) {
             listener.settingsChanged();
         }
@@ -93,10 +107,14 @@ public class Settings {
             editor.putBoolean("useInsecureConnections", useInsecureConnections);
             editor.putBoolean("useCacheForPlants", useCacheForPlants);
             editor.putString("persistentPathForPlants", persistentPathForPlants.toString());
+            for (String key: permissionQuestion.keySet()) {
+                editor.putBoolean(key, permissionQuestion.get(key));
+            }
             for (ChangeListener listener : listeners) {
                 int result = listener.settingsChanged();
                 if (result != SETTINGS_CAN_CHANGE) {
                     log.d("commit aborted", activity.getResources().getString(result));
+                    load();
                     return result;
                 };
             }
@@ -144,7 +162,7 @@ public class Settings {
         if (!directory.exists()) {
             if (!directory.mkdirs()) {
                 if (!useCacheForPlants && hasActivity()) {
-                    // The directory could not be created and 
+                    // The directory could not be created
                     Permissions.of(activity).WRITE_EXTERNAL_STORAGE.check();
                 }
             }
@@ -160,6 +178,27 @@ public class Settings {
     public static boolean useCacheForPlants() {
         return useCacheForPlants;
     }
+
+    public static boolean canAskForPermissionNamed(String permissionName) {
+        String key = permissionKeyFromName(permissionName);
+        if (permissionQuestion.containsKey(key)) {
+            return permissionQuestion.get(key);
+        }
+        return true;
+    }
+
+
+    public static int canAskForPermissionNamed(String permissionName, boolean canAsk) {
+        String key = permissionKeyFromName(permissionName);
+        permissionQuestion.put(key, canAsk);
+        return commit();
+    }
+
+
+    private static String permissionKeyFromName(String permissionName) {
+        return PERMISSION_PREFIX + permissionName;
+    }
+
 
     public interface ChangeListener {
         int SETTINGS_CAN_CHANGE = R.string.settings_can_change;

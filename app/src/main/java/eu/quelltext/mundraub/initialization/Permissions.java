@@ -12,10 +12,11 @@ import java.util.List;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.common.Dialog;
+import eu.quelltext.mundraub.common.Settings;
 
 public class Permissions {
     private final List<Permission> allPermissions = new ArrayList<Permission>();
-    private final boolean CAN_ASK_FOR_PERMISSIONS = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
+    public static final boolean CAN_ASK_FOR_PERMISSIONS = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
 
     private static SharedPermissionState STATE_ACCESS_FINE_LOCATION = new SharedPermissionState(Manifest.permission.ACCESS_FINE_LOCATION, R.string.permission_purpose_access_fine_location);
     private static SharedPermissionState STATE_CAMERA = new SharedPermissionState(Manifest.permission.CAMERA, R.string.permission_purpose_camera);
@@ -66,7 +67,7 @@ public class Permissions {
             allPermissions.add(this);
         }
 
-        private boolean isGranted() {
+        public boolean isGranted() {
             // from https://stackoverflow.com/a/38366540
             return ContextCompat.checkSelfPermission(activity, state.permissionName) == PackageManager.PERMISSION_GRANTED;
         }
@@ -139,7 +140,22 @@ public class Permissions {
 
         private void onGranted() {
         }
-        
+
+        public boolean canAsk() {
+            return Settings.canAskForPermissionNamed(state.permissionName);
+        }
+
+        public int canAsk(boolean canAsk) {
+            return Settings.canAskForPermissionNamed(state.permissionName, canAsk);
+        }
+
+        /* This should be used by activities other than the Settings to ask for permissions. */
+        public boolean askIfNotGranted() {
+            if (canAsk()) {
+                check();
+            }
+            return isGranted();
+        }
     }
 
     public void checkAllPermissions() {

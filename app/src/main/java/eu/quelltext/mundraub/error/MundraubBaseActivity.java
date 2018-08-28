@@ -15,7 +15,15 @@ import eu.quelltext.mundraub.initialization.Permissions;
 
 public class MundraubBaseActivity extends AppCompatActivity implements Logger.Loggable {
 
-    public Logger.Log log;
+    protected Logger.Log log;
+    private Permissions permissions = null;
+
+    protected Permissions getPermissions() {
+        if (permissions == null) {
+            permissions = Permissions.of(this);
+        }
+        return permissions;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +71,6 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        Permissions.of(this).onRequestPermissionsResult(requestCode, permissions, grantResults);
+        getPermissions().onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

@@ -65,6 +65,7 @@ public class LoginActivity extends MundraubBaseActivity {
         mProgressView = findViewById(R.id.login_progress);
 
         loadPassword();
+        getPermissions().INTERNET.askIfNotGranted();
     }
 
     private void loadPassword() {

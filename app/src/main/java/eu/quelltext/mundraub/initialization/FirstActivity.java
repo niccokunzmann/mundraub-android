@@ -8,7 +8,7 @@ public class FirstActivity extends MundraubBaseActivity {
     protected void onResume() {
         super.onResume();
         // TODO remove and ask when needed.
-        Permissions.of(this).checkAllPermissions();
+        getPermissions().checkAllPermissions();
     }
 
 }

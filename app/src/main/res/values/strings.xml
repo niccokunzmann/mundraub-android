@@ -148,5 +148,22 @@
     <string name="settings_use_cache">If this is enabled, the app uses the cache directory for the plants. You can delete them when you need to. If this is disabled, the app uses the external storage, so you can sync and transfer the plants.</string>
     <string name="settings_can_change" translatable="false">The settings are allowed to change. This is not displayed.</string>
     <string name="error_could_not_move_plants">The plants could not be moved to the desired directory.</string>
+    <string name="settings_connection">Connection Settings</string>
+    <string name="settings_storage">Storage Settings</string>
+    <string name="settings_debug">Debug Settings</string>
+    <string name="settings_permissions">Permission Settings</string>
+    <string name="settings_permission_activate">On/Off</string>
+    <string name="settings_permission_ask">Ask?</string>
+    <string name="settings_permission_name">Permission</string>
+    <string name="settings_permission_camera_title">CAMERA</string>
+    <string name="settings_permission_camera_text">Can the app take pictures of plants?</string>
+    <string name="settings_permission_storage_title">EXTERNAL STORAGE</string>
+    <string name="settings_permission_storage_text">Can the app store plants on the external storage?</string>
+    <string name="settings_permission_location_title">LOCATION</string>
+    <string name="settings_permission_location_text">Can the app fill in the plant position from GPS?</string>
+    <string name="settings_permission_internet_title">INTERNET</string>
+    <string name="settings_permission_internet_text">Can the app connect to Mundraub and Map services?</string>
+    <string name="error_can_edit_permissions_only_externally">App permissions can only be edited externally. Please open the Android settings of the app to change them.</string>
+    <string name="error_can_not_edit_permissions_api_too_old">This version of Androud is too old to revoke permissions of the app. Sorry.</string>
 
 </resources>

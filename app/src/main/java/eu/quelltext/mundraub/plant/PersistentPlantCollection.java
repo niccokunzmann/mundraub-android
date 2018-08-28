@@ -151,6 +151,9 @@ public class PersistentPlantCollection extends PlantCollection implements Settin
     }
 
     private void moveTo(File newDirectory) throws IOException {
+        if (persistentDirectory.equals(newDirectory)) {
+            return;
+        }
         log.d("move plants", "from " + persistentDirectory.toString() + " to " + newDirectory.toString());
         // FileUtils.moveDirectory(persistentDirectory, newDirectory); // can not move to existing directory
         String[] entries = persistentDirectory.list();

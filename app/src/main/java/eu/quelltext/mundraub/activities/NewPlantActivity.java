@@ -106,16 +106,20 @@ public class NewPlantActivity extends MundraubBaseActivity {
         plantImage.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // from https://stackoverflow.com/a/14421798
-                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                // crash? https://stackoverflow.com/questions/1910608/android-action-image-capture-intent
-                // from https://stackoverflow.com/a/6485850/1320237
-                //cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, savedPicture.toURI());
-                startActivityForResult(cameraIntent, INTENT_CODE_TAKE_PHOTO);
+                if (getPermissions().CAMERA.askIfNotGranted()) {
+                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    // crash? https://stackoverflow.com/questions/1910608/android-action-image-capture-intent
+                    // from https://stackoverflow.com/a/6485850/1320237
+                    //cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, savedPicture.toURI());
+                    startActivityForResult(cameraIntent, INTENT_CODE_TAKE_PHOTO);
+                }
             }
         });
         buttonGPS.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                autoFillGPSLocation();
+                if (getPermissions().ACCESS_FINE_LOCATION.askIfNotGranted()) {
+                    autoFillGPSLocation();
+                }
             }
         });
         buttonSave.setOnClickListener(new View.OnClickListener() {
