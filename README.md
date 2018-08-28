@@ -32,6 +32,10 @@ Contributions are welcome.
 - We use [Transifex][tx] to translate the app to your language.
 - We use [Android Studio] to develop the app.
 - Feedback is welcome, please open an [issue][issues].
+  - Crash: You can report a debug log file if you gave EXTERNAL_STORAGE permissions or use logcat to retrieve the log.
+    If you gave permissions, you should be able to find it under `eu.quelltext.mundraub.log.txt`
+    or `eu.quelltext.mundraub.error.txt`.
+    The app (if starting) should point you to the file.
 
 You can view the [Setup Guide][setup].
 
