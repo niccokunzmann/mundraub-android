@@ -1,39 +1,39 @@
 package eu.quelltext.mundraub.initialization;
 
-import android.content.Context;
+import android.app.Activity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Initialization {
 
-    private static final List<ContextInitialized> initializers = new ArrayList<ContextInitialized>();
-    private static Context context = null;
+    private static final List<ActivityInitialized> initializers = new ArrayList<ActivityInitialized>();
+    private static Activity activity = null;
 
-    public interface ContextInitialized {
-        void setContext(Context context);
+    public interface ActivityInitialized {
+        void setActivity(Activity context);
     }
 
-    public static void provideContextFor(ContextInitialized callback) {
-        if (hasContext()) {
-            callback.setContext(context);
+    public static void provideActivityFor(ActivityInitialized callback) {
+        if (hasActivity()) {
+            callback.setActivity(activity);
         } else {
             initializers.add(callback);
         }
     }
 
-    public static void provideContext(Context newContext) {
-        if (!hasContext()) {
-            context = newContext;
-            for (ContextInitialized callback : initializers) {
-                callback.setContext(context);
+    public static void provideActivity(Activity newActivity) {
+        if (!hasActivity()) {
+            activity = newActivity;
+            for (ActivityInitialized callback : initializers) {
+                callback.setActivity(activity);
             }
             initializers.clear();
         }
     }
 
-    public static boolean hasContext() {
-        return context != null;
+    public static boolean hasActivity() {
+        return activity != null;
     }
 
 }

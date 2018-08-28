@@ -1,5 +1,6 @@
 package eu.quelltext.mundraub.map;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -14,23 +15,18 @@ import eu.quelltext.mundraub.error.Logger;
 import eu.quelltext.mundraub.initialization.Initialization;
 import eu.quelltext.mundraub.plant.Plant;
 
-public class MapCache extends ErrorAware {
+public class MapCache extends ErrorAware implements Initialization.ActivityInitialized {
 
     private static final String CACHE_DIRECTORY = "plant-map-cache";
     private static final String PLANT_IMAGE_TYPE = "png";
-    private final boolean DEBUG_USE_CACHE = true;
+    private final boolean DEBUG_USE_CACHE = true; // TODO: refactor into settings
     private File allTilesDirectory;
     private HashMap callbacks = new HashMap<String, Callback>();
 
     public MapCache() {
         super();
         allTilesDirectory = null;
-        Initialization.provideContextFor(new Initialization.ContextInitialized() {
-            @Override
-            public void setContext(Context context) {
-                initilizeOnCacheDirectoryFrom(context);
-            }
-        });
+        Initialization.provideActivityFor(this);
     }
 
     public void initilizeOnCacheDirectoryFrom(Context context) {
@@ -108,6 +104,11 @@ public class MapCache extends ErrorAware {
 
     public void removeMapPreviewOf(Plant plant) {
         Helper.deleteDir(directoryOfPlant(plant));
+    }
+
+    @Override
+    public void setActivity(Activity activity) {
+        initilizeOnCacheDirectoryFrom(activity);
     }
 
     private static class Task extends AsyncTask<Void, Void, Boolean> implements Logger.Loggable {

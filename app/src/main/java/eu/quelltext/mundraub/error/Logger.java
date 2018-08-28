@@ -1,5 +1,6 @@
 package eu.quelltext.mundraub.error;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Environment;
 
@@ -18,7 +19,7 @@ import eu.quelltext.mundraub.initialization.Initialization;
 /*
     Copy STDOUT and STDERR to a file
  */
-public class Logger implements UncaughtExceptionHandler, Initialization.ContextInitialized {
+public class Logger implements UncaughtExceptionHandler, Initialization.ActivityInitialized {
 
     private static final int TAG_MAX_LEGTH = 23; // from https://stackoverflow.com/a/28168739/1320237
     private static final String TAG_DIVIDER = ": ";
@@ -58,7 +59,7 @@ public class Logger implements UncaughtExceptionHandler, Initialization.ContextI
             log1 = null;
         }
         logStream = log1;
-        Initialization.provideContextFor(this);
+        Initialization.provideActivityFor(this);
         i(TAG, "-------------- App started --------------");
     }
 
@@ -102,7 +103,7 @@ public class Logger implements UncaughtExceptionHandler, Initialization.ContextI
     }
 
     @Override
-    public void setContext(Context newContext) {
+    public void setActivity(Activity newContext) {
         if (!hasContext()) {
             context = newContext;
             if (hasErrorReport()) {

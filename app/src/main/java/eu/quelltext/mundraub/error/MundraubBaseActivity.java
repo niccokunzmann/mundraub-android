@@ -2,6 +2,7 @@ package eu.quelltext.mundraub.error;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,6 +11,7 @@ import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.activities.AboutActivity;
 import eu.quelltext.mundraub.activities.SettingsActivity;
 import eu.quelltext.mundraub.initialization.Initialization;
+import eu.quelltext.mundraub.initialization.Permissions;
 
 public class MundraubBaseActivity extends AppCompatActivity implements Logger.Loggable {
 
@@ -18,7 +20,7 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Initialization.provideContext(this);
+        Initialization.provideActivity(this);
         log = Logger.newFor(this);
     }
 
@@ -57,5 +59,10 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
     private void openAbout() {
         Intent intent = new Intent(this, AboutActivity.class);
         this.startActivity(intent);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        Permissions.of(this).onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

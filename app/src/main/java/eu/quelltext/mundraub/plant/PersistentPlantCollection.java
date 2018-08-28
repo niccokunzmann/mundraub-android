@@ -1,7 +1,6 @@
 package eu.quelltext.mundraub.plant;
 
-import android.os.Environment;
-
+import org.apache.commons.io.FileUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,30 +13,21 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
+import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.common.Helper;
+import eu.quelltext.mundraub.common.Settings;
 
-public class PersistentPlantCollection extends PlantCollection {
 
-    private static final String STORAGE_DIRECTORY_NAME = "eu.quelltext.mundraub";
+public class PersistentPlantCollection extends PlantCollection implements Settings.ChangeListener {
+
     private static final String JSON_FILE = "plant-json.txt";
     private static final String PICTURE_FILE = "plant.jpg";
+    private File persistentDirectory = Settings.getPersistentPlantDirectory();
 
     private boolean allPlantsLoaded = false;
 
-    private final File persistentDirectory() {
-        // from https://stackoverflow.com/questions/7887078/android-saving-file-to-external-storage#7887114
-        String root = Environment.getExternalStorageDirectory().toString();
-        File directory = new File(root, STORAGE_DIRECTORY_NAME);
-        if (!directory.exists()) {
-            if (!directory.mkdirs()) {
-                // TODO: We can not acceess this directory. Ask for the permissions. Or not: If there are no permissions, there are no plants?
-            }
-        }
-        return directory;
-    }
-
     private File directoryForPlant(Plant plant) {
-        File directory = new File(persistentDirectory(), plant.getId());
+        File directory = new File(persistentDirectory, plant.getId());
         if (!directory.exists()) {
             directory.mkdirs();
         }
@@ -47,15 +37,15 @@ public class PersistentPlantCollection extends PlantCollection {
     public PersistentPlantCollection() {
         super();
         ensureAllPlantsAreLoaded();
+        Settings.onChange(this);
     }
 
     private void ensureAllPlantsAreLoaded() {
         if (allPlantsLoaded) {
             return;
         }
-        File directory = persistentDirectory();
         // from https://stackoverflow.com/questions/8646984/how-to-list-files-in-an-android-directory#8647397
-        File[] files = directory.listFiles();
+        File[] files = persistentDirectory.listFiles();
         if (files == null) {
             // TODO: We can not acceess this directory. Ask for the permissions. Or not: If there are no permissions, there are no plants?
             return;
@@ -128,14 +118,19 @@ public class PersistentPlantCollection extends PlantCollection {
             log.printStackTrace(e);
             return;
         }
-        File expectedPicutureLocation = pictureForPlant(plant);
-        if (plant.hasPicture() && !plant.getPicture().equals(expectedPicutureLocation)) {
-            plant.movePictureTo(expectedPicutureLocation);
-        }
+        updatePlantPicture(plant);
         addPlantToCollection(plant);
     }
 
+    private void updatePlantPicture(Plant plant) {
+        File expectedPictureLocation = pictureForPlant(plant);
+        if (plant.hasPicture() && !plant.getPicture().equals(expectedPictureLocation)) {
+            plant.movePictureTo(expectedPictureLocation);
+        }
+    }
+
     private void addPlantToCollection(Plant plant) {
+        updatePlantPicture(plant);
         super.save(plant);
     }
 
@@ -144,4 +139,44 @@ public class PersistentPlantCollection extends PlantCollection {
         Helper.deleteDir(directoryForPlant(plant));
     }
 
+    @Override
+    public int settingsChanged() {
+        try {
+            moveTo(Settings.getPersistentPlantDirectory());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return R.string.error_could_not_move_plants;
+        }
+        return SETTINGS_CAN_CHANGE;
+    }
+
+    private void moveTo(File newDirectory) throws IOException {
+        log.d("move plants", "from " + persistentDirectory.toString() + " to " + newDirectory.toString());
+        // FileUtils.moveDirectory(persistentDirectory, newDirectory); // can not move to existing directory
+        String[] entries = persistentDirectory.list();
+        if (entries != null) {
+            // source directory exists
+            for (String entry : entries) {
+                File source = new File(persistentDirectory, entry);
+                File destination = new File(newDirectory, entry);
+                log.d("move entry", source.toString() + " to " + destination.toString());
+                if (destination.exists()) {
+                    if (destination.isFile()) {
+                        destination.delete();
+                    } else {
+                        Helper.deleteDir(destination);
+                    }
+                }
+                if (source.isFile()) {
+                    // untested
+                    source.renameTo(destination);
+                } else {
+                    FileUtils.moveDirectoryToDirectory(source, newDirectory, true);
+                }
+            }
+        }
+        persistentDirectory = newDirectory;
+        allPlantsLoaded = false;
+        ensureAllPlantsAreLoaded();
+    }
 }

@@ -6,6 +6,7 @@ import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
 import eu.quelltext.mundraub.R;
+import eu.quelltext.mundraub.common.Dialog;
 import eu.quelltext.mundraub.common.Settings;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -19,23 +20,43 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setToggle(R.id.toggle_API, Settings.useMundraubAPI(), new CompoundButton.OnCheckedChangeListener() {
+        setToggle(R.id.toggle_API, Settings.useMundraubAPI(),  new Toggled() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Settings.useMundraubAPI(isChecked);
+            public int onToggle(boolean checked) {
+                return Settings.useMundraubAPI(checked);
             }
         });
-        setToggle(R.id.toggle_secure_connection, !Settings.useInsecureConnections(), new CompoundButton.OnCheckedChangeListener() {
+        setToggle(R.id.toggle_secure_connection, !Settings.useInsecureConnections(),  new Toggled() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Settings.useInsecureConnections(!isChecked);
+            public int onToggle(boolean checked) {
+                return Settings.useInsecureConnections(!checked);
+            }
+        });
+        setToggle(R.id.toggle_cache, Settings.useCacheForPlants(), new Toggled() {
+            @Override
+            public int onToggle(boolean checked) {
+                return Settings.useCacheForPlants(checked);
             }
         });
     }
 
-    private void setToggle(int resourceId, boolean usingTheMundraubAPI, CompoundButton.OnCheckedChangeListener onCheckedChangeListener) {
-        ToggleButton toggle = (ToggleButton) findViewById(resourceId);
+    interface Toggled {
+        int onToggle(boolean checked);
+    }
+
+    private void setToggle(final int resourceId, boolean usingTheMundraubAPI, final Toggled onToggle) {
+        final ToggleButton toggle = (ToggleButton) findViewById(resourceId);
         toggle.setChecked(usingTheMundraubAPI);
-        toggle.setOnCheckedChangeListener(onCheckedChangeListener);
+        final SettingsActivity me = this;
+        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                int result = onToggle.onToggle(isChecked);
+                if (result != Settings.COMMIT_SUCCESSFUL) {
+                    toggle.toggle();
+                    new Dialog(me).alertError(resourceId);
+                }
+            }
+        });
     }
 }

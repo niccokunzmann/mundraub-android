@@ -215,7 +215,7 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
     }
 
     public boolean hasPicture() {
-        return picture != null && picture.isFile();
+        return picture != null;
     }
 
     public File getPicture() {

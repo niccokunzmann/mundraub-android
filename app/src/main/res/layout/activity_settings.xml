@@ -16,8 +16,10 @@
             android:orientation="vertical" >
 
             <LinearLayout
+                android:id="@+id/layout_connection"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:layout_weight="4"
                 android:orientation="horizontal">
 
@@ -40,8 +42,36 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layout_storage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_weight="4"
+                android:orientation="horizontal">
+
+                <ToggleButton
+                    android:id="@+id/toggle_cache"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:autoText="true"
+                    android:checked="true"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="256dp" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_use_cache" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_debug_api"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:orientation="horizontal">
 
                 <ToggleButton
