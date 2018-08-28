@@ -30,6 +30,7 @@ Contribute
 Contributions are welcome.
 
 - We use [Transifex][tx] to translate the app to your language.
+  If you like to have your language included, please open an issue and translate yourself :)
 - We use [Android Studio] to develop the app.
 - Feedback is welcome, please open an [issue][issues].
   - Crash: You can report a debug log file if you gave EXTERNAL_STORAGE permissions or use logcat to retrieve the log.
