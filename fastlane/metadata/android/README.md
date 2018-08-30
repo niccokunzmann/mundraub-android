@@ -5,7 +5,7 @@ This is the localized description of the app on [F-Droid].
 - You can help translating this description with [Transifex].
 - The structure is from [GoToZip]
 - There are example pull requests with a successful usage of images
-  - [solitaire] [pr]
+  - [solitaire] + [pr]
 - Read more about this in the [docs]
 
 Do not commit the translations in this repository as people will
