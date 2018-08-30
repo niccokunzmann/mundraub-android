@@ -5,9 +5,10 @@ When you find an edible plant, you like to share with others, you can record loc
 Later, when you have Internet, you can upload it to the map of free plants to eat: Mundraub.org.
 
 Permissions:
-- CAMERA to take a photo of the plant
-- GPS to auto-fill the location
-- INTERNET to upload the plant and display a map
-- STORAGE to
-  - save the plants as JSON in an exportable format
-  - save the app log so you can help us when the app crashes
+* CAMERA to take a photo of the plant
+* GPS to auto-fill the location
+* INTERNET to upload the plant and display a map
+* STORAGE (optional) to
+    * save the plants as JSON in an exportable format
+    * save the app log so you can help us when the app crashes
+
