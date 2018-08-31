@@ -38,7 +38,7 @@ Contributions are welcome.
     or `eu.quelltext.mundraub.error.txt`.
     The app (if starting) should point you to the file.
 
-You can view the [Setup Guide][setup].
+You can view the [Setup Guide][setup] and [Contribution Guidelines].
 
 Software Material List
 ----------------------
@@ -83,3 +83,4 @@ Languages:
 [fdroid]: https://f-droid.org/en/packages/eu.quelltext.mundraub/
 [Android Studio]: https://developer.android.com/studio/
 [releases]: https://github.com/niccokunzmann/mundraub-android/releases
+[Contribution Guidelines]: CONTRIBUTING.md
