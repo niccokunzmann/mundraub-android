@@ -2,6 +2,29 @@
 
 This should prepare you for developing the app.
 
+## Setup App Development
+
+1. **Install Android Studio**  
+   In order to develop the app, I use [Android Studio].
+   You can download and install it.
+2. **Install Git**  
+   While Android Studio installs, you can get the source code.
+   It is on [GitHub]. We use [Git] to develop the app in a distributed way.
+   Please install [Git] or the [GitHub Desktop].
+3. **[Fork]** the repository to your GitHub Account.
+4. **Get the source code**  
+   It should appear automatically in GitHub Desktop.
+   If you use the command line client, you can clone the app like this:
+   ```
+   git clone https://github.com/YOUR_USER_NAME/mundraub-android.git
+   ```
+   Please replace `YOUR_USER_NAME` with your GitHub username.
+5. **Open the source code**  
+   Once Android Studio is installed, you can click on File → Open and navigate to the project.
+6. Now you are **ready to go**. You can change the source code and build the app!
+   Please view the [Contribution Guidelines] if you like to share your improvements or just
+   submit them and we will talk.
+
 ## Translations
 
 You can always translate the app from English to your preferred language online on [Transifex].
@@ -24,3 +47,9 @@ To download the translations, you can follow these steps:
 
 [tx-client]: https://docs.transifex.com/client/installing-the-client
 [Transifex]: https://www.transifex.com/mundraub-android/mundraub-android-app
+[Android Studio]: https://developer.android.com/studio/index.html
+[GitHub]: https://github.com/niccokunzmann/mundraub-android/
+[Git]: https://git-scm.com/
+[GitHub Desktop]: https://desktop.github.com/
+[Fork]: https://github.com/niccokunzmann/mundraub-android/fork
+[Contribution Guidelines]: ../Contributing.md
