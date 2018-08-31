@@ -80,17 +80,44 @@ var layer_earth = new OpenLayers.Layer.OSM(
 layer_earth.attribution = "Source: Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community"; // from https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/
 var layer_osm = new OpenLayers.Layer.OSM("Mapnik", "http://a.tile.openstreetmap.org/${z}/${x}/${y}.png", {numZoomLevels: 19});
 
-var map = new OpenLayers.Map({
-    div: "map",
-    layers: [
+var unsortedMapLayers = [
     // see https://wiki.openstreetmap.org/wiki/OpenLayers_Simple_Example#Extensions
     //    new OpenLayers.Layer.OSM(),
     layer_earth,
     layer_osm,
     //    new OpenLayers.Layer.WMS( "OpenLayers WMS", "http://vmap0.tiles.osgeo.org/wms/vmap0?", {layers: 'basic'} ),
     //    new OpenLayers.Layer.OSM("OpenTopoMap", "https://{a|b|c}.tile.opentopomap.org/{z}/{x}/{y}.png", {numZoomLevels: 19}),
-        markers
-    ],
+    ];
+var layers = [];
+
+var VISIBLE_LAYER = "visibleLayer";
+function showRememberedLayer() {
+    var visibleLayerName = getCookie(VISIBLE_LAYER);
+    console.log("visibleLayerName: " + visibleLayerName);
+    unsortedMapLayers.forEach(function (layer, index) {
+        if (layer.name == visibleLayerName) {
+            layers.unshift(layer);
+        } else {
+            layers.push(layer);
+        }
+    });
+}
+function rememberWhichLayerIsShown() {
+    map.events.register("changelayer", this, function(e){
+        var layer = e.layer;
+        // from https://gis.stackexchange.com/q/110114
+        if (layer.visibility && unsortedMapLayers.includes(layer)) {
+            console.log("Change to layer: " + layer.name);
+            setCookie(VISIBLE_LAYER, layer.name);
+        }
+    });
+}
+showRememberedLayer();
+layers.push(markers);
+
+var map = new OpenLayers.Map({
+    div: "map",
+    layers: layers,
     controls: [],
 /*    controls: [
         new OpenLayers.Control.Navigation({
@@ -119,23 +146,27 @@ map.addControls([
 
 click.activate();
 
-function setPosition() {
+function setPosition(doNotPrint) {
     try {
         map.setCenter(position, zoom);
     } catch (error) {
-        printError(error);
+        if (!doNotPrint) {
+            printError(error);
+        }
         throw error;
     }
 }
 
+
+
 try {
-    setPosition();
+    setPosition(true);
 } catch(error) {
     // size is sometimes null. https://github.com/openlayers/ol2/issues/669
     //map.size = {"w": document.body.clientWidth, "h": document.body.clientHeight} // could be a solution
     setTimeout(setPosition, 100);
 }
-
+rememberWhichLayerIsShown();
 
 } catch(error) {
     printError(error)
