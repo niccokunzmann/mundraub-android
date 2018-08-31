@@ -3,9 +3,11 @@ package eu.quelltext.mundraub.activities;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.ConsoleMessage;
+import android.webkit.CookieSyncManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 
 import eu.quelltext.mundraub.R;
@@ -55,6 +57,12 @@ public class ChooseMapPosition extends MundraubBaseActivity {
                 log.d("WebView", consoleMessage.sourceId() + " at line " +
                         consoleMessage.lineNumber() + ": " + consoleMessage.message());
                 return true;
+            }
+        });
+        webView.setWebViewClient(new WebViewClient() {
+            public void onPageFinished(WebView view, String url) {
+                // TODO: check for API level 21? https://stackoverflow.com/a/47913011
+                CookieSyncManager.getInstance().sync(); // from https://stackoverflow.com/a/8390280
             }
         });
 
