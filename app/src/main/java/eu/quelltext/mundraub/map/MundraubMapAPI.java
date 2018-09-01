@@ -1,36 +1,140 @@
 package eu.quelltext.mundraub.map;
 
-import com.sun.net.httpserver.Headers;
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
-import com.sun.net.httpserver.HttpServer;
+import org.nanohttpd.protocols.http.IHTTPSession;
+import org.nanohttpd.protocols.http.NanoHTTPD;
+import org.nanohttpd.protocols.http.request.Method;
+import org.nanohttpd.protocols.http.response.Response;
+import org.nanohttpd.protocols.http.response.Status;
+import org.nanohttpd.util.IHandler;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.InetSocketAddress;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.util.concurrent.Executors;
 
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
+
 
 /*
     This is a proxy to the Mundraub API for the map.
     It can be extended to cache plants.
  */
-public class MundraubMapAPI implements Runnable {
+public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
 
-    private final HttpServer server;
+    private static MundraubMapAPI instance = null;
     private final static int DEFAULT_PORT = 39768;
 
-    public MundraubMapAPI() throws IOException {
+    public static MundraubProxy getInstance() throws IOException {
+        if (instance == null) {
+            instance = new MundraubMapAPI();
+        }
+        return instance;
+    }
+
+    @Override
+    public void start() throws IOException {
+        super.start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
+    }
+
+    @Override
+    public void stop() {
+        super.stop();
+    }
+
+    protected MundraubMapAPI() {
+        super("localhost", DEFAULT_PORT);
+        addHTTPInterceptor(new PlantHandler());
+    }
+
+
+    public int getPort() {
+        return getListeningPort() > 0 ? getListeningPort() : DEFAULT_PORT;
+    }
+
+
+    public String getUrl() {
+        return "http://" + getHostname() + ":" + getPort() + "/";
+    }
+
+    public static void main(String[] args){
+        try {
+            MundraubMapAPI api = new MundraubMapAPI();
+            System.out.println("MundraubMapAPI started at " + api.getUrl());
+            api.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public Response serve(IHTTPSession session) {
+        String msg = "<html><body><h1>404 Nothing to see here</h1>\n" +
+                "See <a href=\"https://github.com/niccokunzmann/mundraub-android" +
+                "/blob/master/docs/\">the documentation</a>.";
+        return Response.newFixedLengthResponse(Status.NOT_FOUND, NanoHTTPD.MIME_HTML, msg);
+    }
+
+    class PlantHandler implements IHandler<IHTTPSession, Response>  {
+
+        String API_PROTOCOL = "https";
+        String API_HOST = "mundraub.org";
+        String API_PATH = "/cluster/plant";
+
+        @Override
+        public Response handle(IHTTPSession input) {
+            System.out.println("input.getMethod(): " + input.getMethod() + " " + (input.getMethod() == Method.GET));
+            System.out.println("input.getUri(): " + input.getUri() + " " + input.getUri().equals("/plant"));
+            if (input.getMethod() != Method.GET || !input.getUri().equals("/plant")) {
+                return null;
+            }
+            try {
+
+                HttpUrl url = HttpUrl.parse(API_PROTOCOL + "://" + API_HOST + API_PATH + "?" + input.getQueryParameterString());
+                okhttp3.Response response = httpGet(url);
+                byte[] bytes = response.body().bytes();
+                Response result = Response.newFixedLengthResponse(Status.OK, "application/json", bytes);
+                result.addHeader("Access-Control-Allow-Origin", "*"); // allow JavaScript to access the content
+                result.addHeader("Content-Type", "application/json; charset=UTF-8");
+                return result;
+            } catch(Exception e) {
+                handleError(e);
+                return null;
+            }
+        }
+    }
+
+    protected void handleError(Exception e) {
+        e.printStackTrace();
+    }
+
+    protected okhttp3.Response httpGet(HttpUrl url) throws IOException {
+        System.out.println("GET: " + url.toString());
+        Request request = new Request.Builder()
+                .url(url)
+                .addHeader("Accept", "application/json")
+                .method("GET", null)
+                .build();
+        okhttp3.Response response = client().newCall(request).execute();
+        return response;
+    }
+
+    protected OkHttpClient client() {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        return builder
+                .followRedirects(false) // from https://stackoverflow.com/a/29268150/1320237
+                .followSslRedirects(false)
+                .build();
+    }
+
+
+/*    private final HttpServer server;
+    private final static int DEFAULT_PORT = 39768;
+    private static MundraubProxy instance = null;
+
+    private MundraubMapAPI() throws IOException {
         this(DEFAULT_PORT);
     }
 
-    public MundraubMapAPI(int port) throws IOException {
+    private MundraubMapAPI(int port) throws IOException {
         // see https://www.codeproject.com/tips/1040097/create-a-simple-web-server-in-java-http-server
         server = HttpServer.create(new InetSocketAddress(port), 0);
         server.createContext("/plant", new PlantHandler()); // https://mundraub.org/cluster/plant?bbox=13.083043098449709,50.678268138692154,13.151235580444336,50.685827559768505&zoom=15&cat=4,5,6,7,8,9,10,11,12,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37
@@ -38,24 +142,12 @@ public class MundraubMapAPI implements Runnable {
         server.setExecutor(Executors.newFixedThreadPool(5)); // see https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Executors.html
     }
 
-    public int getPort() {
-        return server.getAddress().getPort();
-    }
 
-    public static void main(String[] args){
-        try {
-            int port = Integer.parseInt(args[0]);
-            MundraubMapAPI api = new MundraubMapAPI(port);
-            System.out.println("MundraubMapAPI started at http://localhost:" + api.getPort() + "/");
-            api.run();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void run() {
         server.start();
     }
+
 
     private OkHttpClient client() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
@@ -109,5 +201,5 @@ public class MundraubMapAPI implements Runnable {
                 .build();
         Response response = client().newCall(request).execute();
         return response;
-    }
+    }*/
 }

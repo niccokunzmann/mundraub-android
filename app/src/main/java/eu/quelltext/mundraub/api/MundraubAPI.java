@@ -24,13 +24,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 
 import eu.quelltext.mundraub.common.Helper;
 import eu.quelltext.mundraub.R;
@@ -95,53 +89,6 @@ public class MundraubAPI extends API {
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         http.setInstanceFollowRedirects(false); // from https://stackoverflow.com/a/26046079/1320237
         return http;
-    }
-
-    private static OkHttpClient getUnsafeOkHttpClient() {
-        // from https://stackoverflow.com/a/25992879/1320237
-        try {
-
-            OkHttpClient.Builder builder = new OkHttpClient.Builder();
-            if (Settings.useInsecureConnections()) {
-                // Create a trust manager that does not validate certificate chains
-                final TrustManager[] trustAllCerts = new TrustManager[] {
-                        new X509TrustManager() {
-                            @Override
-                            public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) {
-                            }
-
-                            @Override
-                            public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) {
-                            }
-
-                            @Override
-                            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                                return new java.security.cert.X509Certificate[]{};
-                            }
-                        }
-                };
-
-                // Install the all-trusting trust manager
-                final SSLContext sslContext = SSLContext.getInstance("SSL");
-                sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
-                // Create an ssl socket factory with our all-trusting manager
-                final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
-                builder.sslSocketFactory(sslSocketFactory, (X509TrustManager) trustAllCerts[0]);
-                builder.hostnameVerifier(new HostnameVerifier() {
-                    @Override
-                    public boolean verify(String hostname, SSLSession session) {
-                        return true;
-                    }
-                });
-            }
-            OkHttpClient okHttpClient = builder
-                    .followRedirects(false) // from https://stackoverflow.com/a/29268150/1320237
-                    .followSslRedirects(false)
-                    .build();
-            return okHttpClient;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
@@ -265,7 +212,7 @@ public class MundraubAPI extends API {
         Request request = new Request.Builder()
                 .url(plantUrl)
                 .build();
-        OkHttpClient client = getUnsafeOkHttpClient();
+        OkHttpClient client = Settings.getOkHttpClient();
         Response response;
         try {
             response = client.newCall(request).execute();
@@ -406,7 +353,7 @@ public class MundraubAPI extends API {
 
     private int postFormTo(Map<String, String> formValues, String url, FormPostHooks hooks) throws NoSuchAlgorithmException, KeyManagementException, IOException {
         Helper.trustAllConnections();
-        final OkHttpClient client = getUnsafeOkHttpClient();
+        final OkHttpClient client = Settings.getOkHttpClient();
         MultipartBody.Builder formBuilder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM);
         hooks.buildForm(formBuilder);

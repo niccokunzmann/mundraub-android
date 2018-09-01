@@ -6,16 +6,27 @@ import android.os.Build;
 import android.os.Environment;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import eu.quelltext.mundraub.BuildConfig;
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.error.Logger;
 import eu.quelltext.mundraub.initialization.Initialization;
 import eu.quelltext.mundraub.initialization.Permissions;
+import eu.quelltext.mundraub.map.MundraubMapAPIForApp;
+import eu.quelltext.mundraub.map.MundraubProxy;
+import okhttp3.OkHttpClient;
 
 import static eu.quelltext.mundraub.common.Settings.ChangeListener.SETTINGS_CAN_CHANGE;
 
@@ -199,6 +210,53 @@ public class Settings {
         return PERMISSION_PREFIX + permissionName;
     }
 
+    public static OkHttpClient getOkHttpClient() {
+        // from https://stackoverflow.com/a/25992879/1320237
+        try {
+
+            OkHttpClient.Builder builder = new OkHttpClient.Builder();
+            if (useInsecureConnections()) {
+                // Create a trust manager that does not validate certificate chains
+                final TrustManager[] trustAllCerts = new TrustManager[] {
+                        new X509TrustManager() {
+                            @Override
+                            public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) {
+                            }
+
+                            @Override
+                            public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) {
+                            }
+
+                            @Override
+                            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                                return new java.security.cert.X509Certificate[]{};
+                            }
+                        }
+                };
+
+                // Install the all-trusting trust manager
+                final SSLContext sslContext = SSLContext.getInstance("SSL");
+                sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
+                // Create an ssl socket factory with our all-trusting manager
+                final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
+                builder.sslSocketFactory(sslSocketFactory, (X509TrustManager) trustAllCerts[0]);
+                builder.hostnameVerifier(new HostnameVerifier() {
+                    @Override
+                    public boolean verify(String hostname, SSLSession session) {
+                        return true;
+                    }
+                });
+            }
+            OkHttpClient okHttpClient = builder
+                    .followRedirects(false) // from https://stackoverflow.com/a/29268150/1320237
+                    .followSslRedirects(false)
+                    .build();
+            return okHttpClient;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     public interface ChangeListener {
         int SETTINGS_CAN_CHANGE = R.string.settings_can_change;
@@ -207,5 +265,28 @@ public class Settings {
 
     public static void onChange(ChangeListener listener) {
         listeners.add(listener);
+    }
+
+    public static MundraubProxy getMundraubMapProxy() {
+        try {
+            return MundraubMapAPIForApp.getInstance();
+        } catch (IOException e) {
+            log.printStackTrace(e);
+            log.e("Map proxy:", "could not create the map proxy");
+            return new MundraubProxy() {
+
+                private Logger.Log log = Logger.newFor(this);
+
+                @Override
+                public void start() {
+                    log.d("DUMMY", "start");
+                }
+
+                @Override
+                public void stop() {
+                    log.d("DUMMY", "stop");
+                }
+            };
+        }
     }
 }

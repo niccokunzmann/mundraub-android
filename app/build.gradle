@@ -40,7 +40,4 @@ dependencies {
     // from https://stackoverflow.com/a/31372941/1320237
     implementation files('libs/commons-lang3-3.7.jar')
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'//files('libs/okhttp-3.11.0.jar')
-    // https://mvnrepository.com/artifact/com.sun.net.httpserver/http
-    implementation group: 'com.sun.net.httpserver', name: 'http', version: '20070405'
-
 }

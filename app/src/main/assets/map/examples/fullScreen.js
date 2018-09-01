@@ -171,6 +171,7 @@ function setPosition(doNotPrint) {
         }
         throw error;
     }
+    updatePlants();
 }
 
 

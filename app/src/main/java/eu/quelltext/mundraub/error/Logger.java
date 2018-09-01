@@ -101,7 +101,7 @@ public class Logger implements UncaughtExceptionHandler, Initialization.Activity
     }
 
     public static Log newFor(Object o) {
-        return new Log(getInstance(), o.getClass().getName());
+        return new Log(getInstance(), o.getClass().getSimpleName());
     }
 
     @Override

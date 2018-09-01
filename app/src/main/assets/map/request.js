@@ -52,11 +52,11 @@ function getPlantsInRange(corner1, corner2, zoom, onSuccess) {
 }
 
 function getPlantsOnMap(map, onSuccess) {
-    var ZOOM = 18; // map.zoom
+    var zoom = map.zoom < 13 ? 18 : map.zoom; // show plants for many zoom levels
     getPlantsInRange(
             getPositionFromPixel({x:0, y:0}),
             getPositionFromPixel({x:map.size.w, y:map.size.h}),
-            ZOOM,
+            zoom,
             onSuccess)
 }
 
@@ -70,8 +70,13 @@ function updatePlants() {
         if (newPlants) {
             newPlants.features.forEach(function(plant) {
                 var position = lonLatToMarkerPosition({lon:plant.pos[1], lat:plant.pos[0]});
+                var icon = getMarkerIconOfPlant(plant);
                 var marker = new OpenLayers.Marker(position);
+                if (icon) {
+                    marker.setUrl(icon.url.src);
+                }
                 plants.addMarker(marker);
+                marker.display(true);
             });
         }
     });

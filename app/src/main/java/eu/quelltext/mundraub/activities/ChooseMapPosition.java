@@ -10,9 +10,13 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 
+import java.io.IOException;
+
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.common.Dialog;
+import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.error.MundraubBaseActivity;
+import eu.quelltext.mundraub.map.MundraubProxy;
 import eu.quelltext.mundraub.plant.Plant;
 
 public class ChooseMapPosition extends MundraubBaseActivity {
@@ -22,6 +26,7 @@ public class ChooseMapPosition extends MundraubBaseActivity {
     private Button cancelButton;
     private Button saveButton;
     private WebView webView;
+    private MundraubProxy apiProxy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +85,7 @@ public class ChooseMapPosition extends MundraubBaseActivity {
                 finish();
             }
         });
+        apiProxy = Settings.getMundraubMapProxy();
         setPositionToPlant();
     }
 
@@ -102,5 +108,23 @@ public class ChooseMapPosition extends MundraubBaseActivity {
     protected void onSaveInstanceState(Bundle outState) {
         // from https://stackoverflow.com/a/10833558/1320237
         outState.putString(ARG_PLANT_ID, plant.getId());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        try {
+            log.d("start", "proxy1");
+            apiProxy.start();
+            log.d("start", "proxy2");
+        } catch (IOException e) {
+            log.printStackTrace(e);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        apiProxy.stop();
     }
 }
