@@ -54,6 +54,8 @@ public class Logger implements UncaughtExceptionHandler, Initialization.Activity
         PrintStream log1;
         try {
             log1 = new PrintStream(new FileOutputStream(getLogFile(), false));
+            System.setOut(log1);
+            System.setErr(log1);
         } catch (FileNotFoundException e) {
             this.printStackTrace(TAG, e);
             log1 = null;

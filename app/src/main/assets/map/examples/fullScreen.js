@@ -30,18 +30,28 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
     }, 
 
     trigger: function(e) {
-        var lonlat = map.getLonLatFromPixel(e.xy);
-        var position       = new OpenLayers.LonLat(lonlat.lon, lonlat.lat).transform( toProjection, fromProjection);
+        var position = getPositionFromPixel(e.xy);
         //alert("You clicked near " + lonlat.lat + " N, " +
         //                          + lonlat.lon + " E");
         //alert(position);
         setPositionInURL(position.lon, position.lat);
-        marker.destroy();
-        marker = new OpenLayers.Marker(lonlat);
+        try {
+            marker.destroy();
+        } catch (e) {
+            printError(e);
+        }
+        marker = new OpenLayers.Marker(position.lonlat);
         markers.addMarker(marker);
     }
-
 });
+
+function getPositionFromPixel(xy) {
+    var lonlat = map.getLonLatFromPixel(xy);
+    var position = new OpenLayers.LonLat(lonlat.lon, lonlat.lat).transform( toProjection, fromProjection);
+    position.lonlat = lonlat;
+    position.xy = xy;
+    return position;
+}
 
 function setPositionInURL(lon, lat) {
     document.location.hash = "#" + lon + "," + lat;
@@ -64,11 +74,16 @@ if (startLocation.length == 2) {
 }
 setPositionInURL(lon, lat);
 
+function lonLatToMarkerPosition(lonLat) {
+    return new OpenLayers.LonLat(lonLat.lon, lonLat.lat).transform( fromProjection, toProjection);
+}
+
 // projection from https://wiki.openstreetmap.org/wiki/OpenLayers_Simple_Example#Add_Markers
 var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
 var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
-var position       = new OpenLayers.LonLat(lon, lat).transform( fromProjection, toProjection);
+var position       = lonLatToMarkerPosition({lon:lon, lat:lat});
 var markers = new OpenLayers.Layer.Markers( "Markers" );
+var plants = new OpenLayers.Layer.Markers( "Plants" );
 var marker = new OpenLayers.Marker(position);
 
 markers.addMarker(marker);
@@ -114,6 +129,7 @@ function rememberWhichLayerIsShown() {
 }
 showRememberedLayer();
 layers.push(markers);
+layers.push(plants);
 
 var map = new OpenLayers.Map({
     div: "map",
@@ -167,6 +183,11 @@ try {
     setTimeout(setPosition, 100);
 }
 rememberWhichLayerIsShown();
+
+map.events.register("moveend", map, function(e){
+    // see https://gis.stackexchange.com/a/26619
+    updatePlants();
+});
 
 } catch(error) {
     printError(error)
