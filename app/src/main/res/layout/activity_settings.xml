@@ -115,23 +115,27 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/settings_permission_activate" />
 
                     <TextView
                         android:id="@+id/textView15"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/text_margin"
                         android:layout_marginRight="@dimen/text_margin"
+                        android:layout_weight="1"
                         android:text="@string/settings_permission_name" />
 
                     <TextView
-                        android:id="@+id/textView14"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/textView6"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/text_margin"
+                        android:layout_marginRight="@dimen/text_margin"
                         android:text="@string/settings_permission_ask" />
+
                 </TableRow>
 
                 <TableRow
