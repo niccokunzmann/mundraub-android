@@ -45,6 +45,24 @@ To download the translations, you can follow these steps:
    tx pull --all
    ```
 
+## Map
+
+The [map] is an HTML/CSS/JavaScript website which is displayed 
+in the app as an [Android WebView].
+This map can be worked on locally and in the app.
+To display the map, you need a web browser like Firefox.
+
+### Proxy
+
+Mundraub.org does not allow JavaScript access to the map
+directly because it does not set the `Access-Control-Allow-Origin`
+header.
+Thus, we need a proxy for this map.
+The proxy can be run with the [command `scripts/runHTTPProxy.sh`][script-proxy]
+You need `java` and `javac` for this.
+
+Please the the [API] to know what the proxy provides.
+
 [tx-client]: https://docs.transifex.com/client/installing-the-client
 [Transifex]: https://www.transifex.com/mundraub-android/mundraub-android-app
 [Android Studio]: https://developer.android.com/studio/index.html
@@ -53,3 +71,8 @@ To download the translations, you can follow these steps:
 [GitHub Desktop]: https://desktop.github.com/
 [Fork]: https://github.com/niccokunzmann/mundraub-android/fork
 [Contribution Guidelines]: ../Contributing.md
+[script-proxy]: ../scripts
+[map]: ../app/src/main/assets/map/
+[Android WebView]: https://developer.android.com/reference/android/webkit/WebView
+[API]: api.md
+
