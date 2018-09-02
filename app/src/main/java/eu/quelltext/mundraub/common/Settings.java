@@ -58,7 +58,10 @@ public class Settings {
 
     /* persistent variables for the settings
      * If you like to add new settings, please see useMundraubAPI
-     * as an example for where these are used. */
+     * as an example for where these are used.
+     * Here is an example commit ce993038e703548156f31c46b1fb30d38c9d2bc9:
+     * https://github.com/niccokunzmann/mundraub-android/commit/ce993038e703548156f31c46b1fb30d38c9d2bc9
+     */
     private static boolean useMundraubAPI = true;
     private static boolean useInsecureConnections = false;
     private static boolean useCacheForPlants = true;
