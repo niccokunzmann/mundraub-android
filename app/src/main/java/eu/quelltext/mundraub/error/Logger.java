@@ -75,7 +75,9 @@ public class Logger implements UncaughtExceptionHandler, Initialization.Activity
     public void uncaughtException(final Thread t, final Throwable e) {
         if (logStream != null) {
             printStackTrace(TAG, e);
-            makeErrorReport();
+            if (Settings.class == null || Settings.useErrorReport()) {
+                makeErrorReport();
+            }
         }
         defaultExceptionHandler.uncaughtException(t, e);
     }
@@ -108,19 +110,23 @@ public class Logger implements UncaughtExceptionHandler, Initialization.Activity
     public void setActivity(Activity newContext) {
         if (!hasContext()) {
             context = newContext;
-            if (hasErrorReport()) {
-                String messageTemplate = context.getResources().getString(R.string.error_app_crashed);
-                String message = String.format(messageTemplate, getErrorReport().getAbsolutePath());
-                new Dialog(context).askYesNo(message, R.string.ask_error_report_is_needed, new Dialog.YesNoCallback() {
-                    @Override
-                    public void yes() {
-                    }
-                    @Override
-                    public void no() {
-                        getErrorReport().delete();
-                    }
-                });
-            }
+            checkErrorReport();
+        }
+    }
+
+    private void checkErrorReport() {
+        if (hasErrorReport()) {
+            String messageTemplate = context.getResources().getString(R.string.error_app_crashed);
+            String message = String.format(messageTemplate, getErrorReport().getAbsolutePath());
+            new Dialog(context).askYesNo(message, R.string.ask_error_report_is_needed, new Dialog.YesNoCallback() {
+                @Override
+                public void yes() {
+                }
+                @Override
+                public void no() {
+                    getErrorReport().delete();
+                }
+            });
         }
     }
 

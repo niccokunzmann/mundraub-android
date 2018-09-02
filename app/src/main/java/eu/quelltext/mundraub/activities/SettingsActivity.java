@@ -24,7 +24,7 @@ public class SettingsActivity extends MundraubBaseActivity {
         update();
     }
     private void update() {
-        setToggle(R.id.toggle_API,  new Toggled() {
+        synchronizeBooleanSetting(R.id.toggle_API,  new Toggled() {
             @Override
             public int onToggle(boolean checked) {
                 if (checked) {
@@ -38,7 +38,7 @@ public class SettingsActivity extends MundraubBaseActivity {
                 return Settings.useMundraubAPI();
             }
         });
-        setToggle(R.id.toggle_secure_connection, new Toggled() {
+        synchronizeBooleanSetting(R.id.toggle_secure_connection, new Toggled() {
             @Override
             public int onToggle(boolean checked) {
                 return Settings.useInsecureConnections(!checked);
@@ -49,7 +49,7 @@ public class SettingsActivity extends MundraubBaseActivity {
                 return !Settings.useInsecureConnections();
             }
         });
-        setToggle(R.id.toggle_cache, new Toggled() {
+        synchronizeBooleanSetting(R.id.toggle_cache, new Toggled() {
             @Override
             public int onToggle(boolean checked) {
                 if (!checked) {
@@ -63,10 +63,25 @@ public class SettingsActivity extends MundraubBaseActivity {
                 return Settings.useCacheForPlants();
             }
         });
-        updatePermissions(R.id.toggle_camera, R.id.toggle_camera_ask, getPermissions().CAMERA);
-        updatePermissions(R.id.toggle_location, R.id.toggle_location_ask, getPermissions().ACCESS_FINE_LOCATION);
-        updatePermissions(R.id.toggle_internet, R.id.toggle_internet_ask, getPermissions().INTERNET);
-        updatePermissions(R.id.toggle_storage, R.id.toggle_storage_ask, getPermissions().WRITE_EXTERNAL_STORAGE);
+        synchronizeBooleanSetting(R.id.toggle_error_report, new Toggled() {
+            @Override
+            public int onToggle(boolean checked) {
+                if (checked) {
+                    getPermissions().WRITE_EXTERNAL_STORAGE.askIfNotGranted();
+                }
+                log.d("synchronizeBooleanSetting", "toggle_error_report");
+                return Settings.useErrorReport(checked);
+            }
+
+            @Override
+            public boolean isChecked() {
+                return Settings.useErrorReport();
+            }
+        });
+        synchronizePermissionSetting(R.id.toggle_camera, R.id.toggle_camera_ask, getPermissions().CAMERA);
+        synchronizePermissionSetting(R.id.toggle_location, R.id.toggle_location_ask, getPermissions().ACCESS_FINE_LOCATION);
+        synchronizePermissionSetting(R.id.toggle_internet, R.id.toggle_internet_ask, getPermissions().INTERNET);
+        synchronizePermissionSetting(R.id.toggle_storage, R.id.toggle_storage_ask, getPermissions().WRITE_EXTERNAL_STORAGE);
     }
 
     interface Toggled {
@@ -74,7 +89,7 @@ public class SettingsActivity extends MundraubBaseActivity {
         boolean isChecked();
     }
 
-    private void setToggle(final int resourceId, final Toggled onToggle) {
+    private void synchronizeBooleanSetting(final int resourceId, final Toggled onToggle) {
         final ToggleButton toggle = (ToggleButton) findViewById(resourceId);
         toggle.setChecked(onToggle.isChecked());
         final SettingsActivity me = this;
@@ -90,7 +105,7 @@ public class SettingsActivity extends MundraubBaseActivity {
         });
     }
 
-    void updatePermissions(int onOffId, int askId, final Permissions.Permission permission) {
+    void synchronizePermissionSetting(int onOffId, int askId, final Permissions.Permission permission) {
         final ToggleButton onOff = (ToggleButton) findViewById(onOffId);
         final ToggleButton ask = (ToggleButton) findViewById(askId);
         onOff.setChecked(permission.isGranted());

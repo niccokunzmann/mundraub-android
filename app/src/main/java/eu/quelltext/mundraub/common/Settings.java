@@ -56,12 +56,15 @@ public class Settings {
     private static List<ChangeListener> listeners = new ArrayList<ChangeListener>();
     private static Activity activity = null;
 
-    /* persistent variables for the settings */
+    /* persistent variables for the settings
+     * If you like to add new settings, please see useMundraubAPI
+     * as an example for where these are used. */
     private static boolean useMundraubAPI = true;
     private static boolean useInsecureConnections = false;
     private static boolean useCacheForPlants = true;
     private static File persistentPathForPlants = new File(Environment.getExternalStorageDirectory(), PLANT_STORAGE_DIRECTORY_NAME);
     private static Map<String, Boolean> permissionQuestion = new HashMap<String, Boolean>();
+    private static boolean useErrorReport = true;
 
     static {
         Initialization.provideActivityFor(new Initialization.ActivityInitialized() {
@@ -87,6 +90,7 @@ public class Settings {
         log.d("useInsecureConnections", useInsecureConnections);
         log.d("useMundraubAPI", useMundraubAPI);
         log.d("useCacheForPlants", useCacheForPlants);
+        log.d("useErrorReport", useErrorReport);
         if (!useCacheForPlants) {
             log.d("persistentPathForPlants", persistentPathForPlants.toString());
         }
@@ -100,12 +104,15 @@ public class Settings {
         useInsecureConnections = preferences.getBoolean("useInsecureConnections", useInsecureConnections);
         useCacheForPlants = preferences.getBoolean("useCacheForPlants", useCacheForPlants);
         persistentPathForPlants = new File(preferences.getString("persistentPathForPlants", persistentPathForPlants.toString()));
+        useErrorReport = preferences.getBoolean("useErrorReport", useErrorReport);
+        // load the permission questions
         permissionQuestion.clear();
         for (String key : preferences.getAll().keySet()) {
             if (key.startsWith(PERMISSION_PREFIX)) {
                 permissionQuestion.put(key, preferences.getBoolean(key, true));
             }
         }
+        // notify listeners about load
         for (ChangeListener listener : listeners) {
             listener.settingsChanged();
         }
@@ -118,6 +125,7 @@ public class Settings {
             editor.putBoolean("useInsecureConnections", useInsecureConnections);
             editor.putBoolean("useCacheForPlants", useCacheForPlants);
             editor.putString("persistentPathForPlants", persistentPathForPlants.toString());
+            editor.putBoolean("useErrorReport", useErrorReport);
             for (String key: permissionQuestion.keySet()) {
                 editor.putBoolean(key, permissionQuestion.get(key));
             }
@@ -185,6 +193,16 @@ public class Settings {
         useCacheForPlants = isChecked;
         return commit();
     }
+
+    public static boolean useErrorReport() {
+        return useErrorReport;
+    }
+
+    public static int useErrorReport(boolean isChecked) {
+        useErrorReport = isChecked;
+        return commit();
+    }
+
 
     public static boolean useCacheForPlants() {
         return useCacheForPlants;
