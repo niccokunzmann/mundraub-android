@@ -166,5 +166,7 @@
     <string name="error_can_edit_permissions_only_externally">App permissions can only be edited externally. Please open the Android settings of the app to change them.</string>
     <string name="error_can_not_edit_permissions_api_too_old">This version of Androud is too old to revoke permissions of the app. Sorry.</string>
     <string name="settings_ask_for_error_report">When the app starts after it crashed: If this is enabled, you will be asked if you want to use the error report.</string>
+    <string name="title_activity_show_plants">ShowPlantsActivity</string>
+    <string name="menu_map">Map</string>
 
 </resources>

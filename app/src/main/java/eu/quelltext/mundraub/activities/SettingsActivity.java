@@ -7,7 +7,6 @@ import android.widget.ToggleButton;
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.common.Dialog;
 import eu.quelltext.mundraub.common.Settings;
-import eu.quelltext.mundraub.error.MundraubBaseActivity;
 import eu.quelltext.mundraub.initialization.Permissions;
 
 public class SettingsActivity extends MundraubBaseActivity {

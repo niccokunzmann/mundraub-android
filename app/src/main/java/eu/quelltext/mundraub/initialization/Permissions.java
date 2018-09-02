@@ -60,7 +60,8 @@ public class Permissions {
 
     public class Permission {
 
-        private final SharedPermissionState state; // there shall be no other field
+        private final SharedPermissionState state; // there shall be no other field for global state
+        private List<PermissionChange> listeners = new ArrayList<PermissionChange>();
 
         private Permission(SharedPermissionState state) {
             this.state = state;
@@ -136,9 +137,19 @@ public class Permissions {
             String message = activity.getResources().getString(state.purposeResourceId) + "\n" +
                     activity.getResources().getString(R.string.permission_denied_consequences);
             new Dialog(activity).alertError(message);
+            for (PermissionChange listener : listeners) {
+                listener.onDenied(this);
+            }
         }
 
         private void onGranted() {
+            for (PermissionChange listener : listeners) {
+                listener.onGranted(this);
+            }
+        }
+
+        public void onChange(PermissionChange listener) {
+            listeners.add(listener);
         }
 
         public boolean canAsk() {
@@ -156,6 +167,11 @@ public class Permissions {
             }
             return isGranted();
         }
+    }
+
+    public interface PermissionChange {
+        void onGranted(Permission permission);
+        void onDenied(Permission permission);
     }
 
     public void checkAllPermissions() {

@@ -1,32 +1,19 @@
-package eu.quelltext.mundraub.activities;
+package eu.quelltext.mundraub.activities.map;
 
 import android.os.Bundle;
 import android.view.View;
-import android.webkit.ConsoleMessage;
-import android.webkit.CookieSyncManager;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
-
-import java.io.IOException;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.common.Dialog;
-import eu.quelltext.mundraub.common.Settings;
-import eu.quelltext.mundraub.error.MundraubBaseActivity;
-import eu.quelltext.mundraub.map.MundraubProxy;
 import eu.quelltext.mundraub.plant.Plant;
 
-public class ChooseMapPosition extends MundraubBaseActivity {
+public class ChooseMapPosition extends MapBaseActivity {
 
     public static final String ARG_PLANT_ID = "plant_id";
     private Plant plant;
     private Button cancelButton;
     private Button saveButton;
-    private WebView webView;
-    private MundraubProxy apiProxy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,32 +32,6 @@ public class ChooseMapPosition extends MundraubBaseActivity {
         }
         saveButton = (Button) findViewById(R.id.button_ok);
         cancelButton = (Button) findViewById(R.id.button_cancel);
-        webView = (WebView) findViewById(R.id.map_view);
-
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true); // from https://stackoverflow.com/a/8846105/1320237
-        // from https://stackoverflow.com/a/32587047/1320237
-        //webSettings.setBuiltInZoomControls(true);
-        //webSettings.setDisplayZoomControls(false);
-        // from https://stackoverflow.com/a/6255353/1320237
-        //webView.setVerticalScrollBarEnabled(true);
-        //webView.setHorizontalScrollBarEnabled(true);
-        webView.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-                // from https://stackoverflow.com/a/30294054/1320237
-                log.d("WebView", consoleMessage.sourceId() + " at line " +
-                        consoleMessage.lineNumber() + ": " + consoleMessage.message());
-                return true;
-            }
-        });
-        webView.setWebViewClient(new WebViewClient() {
-            public void onPageFinished(WebView view, String url) {
-                // TODO: check for API level 21? https://stackoverflow.com/a/47913011
-                CookieSyncManager.getInstance().sync(); // from https://stackoverflow.com/a/8390280
-            }
-        });
-
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +46,7 @@ public class ChooseMapPosition extends MundraubBaseActivity {
                 finish();
             }
         });
-        apiProxy = Settings.getMundraubMapProxy();
+        initializeWebView(R.id.map_view);
         setPositionToPlant();
     }
 
@@ -110,21 +71,4 @@ public class ChooseMapPosition extends MundraubBaseActivity {
         outState.putString(ARG_PLANT_ID, plant.getId());
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        try {
-            log.d("start", "proxy1");
-            apiProxy.start();
-            log.d("start", "proxy2");
-        } catch (IOException e) {
-            log.printStackTrace(e);
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        apiProxy.stop();
-    }
 }

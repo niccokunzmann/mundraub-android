@@ -59,7 +59,7 @@ public class PlantListActivity extends FirstActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // form https://developer.android.com/training/basics/firstapp/starting-activity#java
+                // from https://developer.android.com/training/basics/firstapp/starting-activity#java
                 Intent intent = new Intent(me, NewPlantActivity.class);
                 startActivity(intent);
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

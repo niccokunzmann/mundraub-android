@@ -1,4 +1,4 @@
-package eu.quelltext.mundraub.error;
+package eu.quelltext.mundraub.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,8 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import eu.quelltext.mundraub.R;
-import eu.quelltext.mundraub.activities.AboutActivity;
-import eu.quelltext.mundraub.activities.SettingsActivity;
+import eu.quelltext.mundraub.activities.map.ShowPlantsActivity;
+import eu.quelltext.mundraub.error.Logger;
 import eu.quelltext.mundraub.initialization.Initialization;
 import eu.quelltext.mundraub.initialization.Permissions;
 
@@ -51,6 +51,9 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
             case R.id.item_about:
                 openAbout();
                 return true;
+            case R.id.item_map:
+                openMap();
+                return true;
             case R.id.item_settings:
                 openSettings();
                 return true;
@@ -66,6 +69,11 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
 
     private void openAbout() {
         Intent intent = new Intent(this, AboutActivity.class);
+        this.startActivity(intent);
+    }
+
+    private void openMap() {
+        Intent intent = new Intent(this, ShowPlantsActivity.class);
         this.startActivity(intent);
     }
 

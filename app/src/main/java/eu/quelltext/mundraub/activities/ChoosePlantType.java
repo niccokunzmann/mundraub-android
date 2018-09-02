@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eu.quelltext.mundraub.R;
-import eu.quelltext.mundraub.error.MundraubBaseActivity;
 import eu.quelltext.mundraub.plant.PlantCategory;
 
 public class ChoosePlantType extends MundraubBaseActivity {

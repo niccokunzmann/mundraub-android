@@ -26,7 +26,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import eu.quelltext.mundraub.R;
-import eu.quelltext.mundraub.error.MundraubBaseActivity;
+import eu.quelltext.mundraub.activities.map.ChooseMapPosition;
 import eu.quelltext.mundraub.map.MapCache;
 import eu.quelltext.mundraub.plant.Plant;
 import eu.quelltext.mundraub.plant.PlantCategory;

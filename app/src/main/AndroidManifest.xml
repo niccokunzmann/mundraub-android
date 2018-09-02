@@ -41,9 +41,13 @@
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".activities.ChooseMapPosition" />
+        <activity android:name=".activities.map.ChooseMapPosition" />
         <activity android:name=".activities.AboutActivity" />
-        <activity android:name=".activities.SettingsActivity"></activity>
+        <activity android:name=".activities.SettingsActivity" />
+        <activity
+            android:name=".activities.map.ShowPlantsActivity"
+            android:label="@string/title_activity_show_plants"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

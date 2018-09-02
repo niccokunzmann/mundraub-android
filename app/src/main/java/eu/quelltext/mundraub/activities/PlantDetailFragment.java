@@ -17,6 +17,7 @@ import android.widget.TextView;
 import java.io.File;
 
 import eu.quelltext.mundraub.R;
+import eu.quelltext.mundraub.activities.map.ChooseMapPosition;
 import eu.quelltext.mundraub.api.API;
 import eu.quelltext.mundraub.common.Dialog;
 import eu.quelltext.mundraub.error.Logger;
