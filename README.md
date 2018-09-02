@@ -52,6 +52,7 @@ App components:
 - [staticmap] for fetching the map preview
 - [okhttp] for making requests
 - [commons-lang3] for useful functions everywhere
+- [nanohttpd] for providing an API to the map
 
 Services:
 
@@ -84,3 +85,4 @@ Languages:
 [Android Studio]: https://developer.android.com/studio/
 [releases]: https://github.com/niccokunzmann/mundraub-android/releases
 [Contribution Guidelines]: CONTRIBUTING.md
+[nanohttpd]: http://nanohttpd.org/
