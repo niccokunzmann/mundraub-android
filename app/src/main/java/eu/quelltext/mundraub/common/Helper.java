@@ -1,8 +1,12 @@
 package eu.quelltext.mundraub.common;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
+import android.widget.ImageView;
 
 import org.apache.commons.io.FileUtils;
 
@@ -70,6 +74,24 @@ public final class Helper extends ErrorAware {
         } else {
             return new AlertDialog.Builder(context);
         }
+    }
+
+    public static boolean setBitmapFromFileOrNull(File file, ImageView imageView) {
+        if (file == null || !file.exists()) return false;
+        Uri uri = Uri.fromFile(file);
+        Context context = imageView.getContext();
+        Bitmap bitmap;
+        try {
+            // from https://stackoverflow.com/a/31930502/1320237
+            bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
+        } catch (IOException e) {
+            return false;
+        }
+        if (bitmap == null) {
+            return false;
+        }
+        imageView.setImageBitmap(bitmap);
+        return true;
     }
 
     private static class TrustAllX509TrustManager implements X509TrustManager {

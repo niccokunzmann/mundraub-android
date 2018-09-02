@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -68,14 +69,16 @@ public class ChoosePlantType extends MundraubBaseActivity {
 
     class PlantCategoryViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView textViewTitle;
-        private Button choosePlantType;
+        private final ImageView markerImage;
+        private final TextView textViewTitle;
+        private final Button choosePlantType;
 
         public PlantCategoryViewHolder(View itemView) {
             super(itemView);
 
-            textViewTitle = (TextView)itemView.findViewById(R.id.textViewTitle);
+            textViewTitle = (TextView)itemView.findViewById(R.id.text_plant_category);
             choosePlantType = (Button) itemView.findViewById(R.id.button_choose_plant_type);
+            markerImage = (ImageView) itemView.findViewById(R.id.image_plant_marker);
         }
 
         public void setCategory(final PlantCategory category, final PlantCategoryResult result) {
@@ -89,6 +92,7 @@ public class ChoosePlantType extends MundraubBaseActivity {
                     result.resolve(category);
                 }
             });
+            category.setMarkerImageOrHide(markerImage);
         }
     }
 

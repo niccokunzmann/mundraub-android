@@ -1,5 +1,13 @@
 package eu.quelltext.mundraub.plant;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.view.View;
+import android.widget.ImageView;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -7,8 +15,9 @@ import java.util.List;
 import java.util.Map;
 
 import eu.quelltext.mundraub.R;
+import eu.quelltext.mundraub.error.ErrorAware;
 
-public class PlantCategory {
+public class PlantCategory extends ErrorAware {
 
     private final int resourceId;
     private final int fieldForAPI;
@@ -19,6 +28,8 @@ public class PlantCategory {
     private static Map<String, PlantCategory> idToPlantCategory = new HashMap<>();
     private static Map<Integer, PlantCategory> fieldToPlantCategory = new HashMap<>();
     private static List<PlantCategory> sortedCategories = new ArrayList<PlantCategory>();
+    private Drawable markerDrawable = null;
+    private boolean triedGettingMarkerDrawable = false;
 
     private static void addCategory(int fieldForAPI, String id, int resourceId) {
         PlantCategory category = new PlantCategory(id, fieldForAPI, resourceId);
@@ -120,6 +131,40 @@ public class PlantCategory {
 
     public int getResourceId() {
         return resourceId;
+    }
+
+    public void setMarkerImageOrHide(ImageView imageView) {
+        // set image to ImageView
+        Drawable drawable = getMarkerDrawable(imageView.getContext());
+        if (drawable != null) {
+            imageView.setImageDrawable(drawable);
+            imageView.setVisibility(View.VISIBLE);
+        } else {
+            imageView.setVisibility(View.GONE);
+        }
+    }
+
+    private Drawable getMarkerDrawable(Context context) {
+        if (triedGettingMarkerDrawable) {
+            return markerDrawable;
+        }
+        triedGettingMarkerDrawable = true;
+        try {
+            // load image from asstes from https://stackoverflow.com/a/11734850
+            // get input stream
+            InputStream ims = context.getAssets().open("map/img/markers/" + id + ".png");
+            // load image as Drawable
+            Drawable drawable = Drawable.createFromStream(ims, null);
+            ims.close();
+            markerDrawable = drawable;
+        } catch (IOException e) {
+            log.e("getMarkerDrawable", "No marker for " + this.id);
+        }
+        return markerDrawable;
+    }
+
+    private File markerImageFilePath() {
+        return new File("/android_asset/map/img/markers/", id + ".png");
     }
 
     public static class Intent extends android.content.Intent {

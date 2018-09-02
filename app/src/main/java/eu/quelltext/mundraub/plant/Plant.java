@@ -1,11 +1,8 @@
 package eu.quelltext.mundraub.plant;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.ImageView;
@@ -15,7 +12,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
@@ -222,27 +218,9 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
         return picture;
     }
 
-    private boolean setBitmapFromFileOrNull(File file, ImageView imageView) {
-        if (file == null) return false;
-        Uri uri = Uri.fromFile(file);
-        Context context = imageView.getContext();
-        Bitmap bitmap;
-        try {
-            // from https://stackoverflow.com/a/31930502/1320237
-            bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
-        } catch (IOException e) {
-            return false;
-        }
-        if (bitmap == null) {
-            return false;
-        }
-        imageView.setImageBitmap(bitmap);
-        return true;
-    }
-
     public void setPictureToPlant(ImageView imageView) {
         Context context = imageView.getContext();
-        if (setBitmapFromFileOrNull(getPicture(), imageView)) {
+        if (Helper.setBitmapFromFileOrNull(getPicture(), imageView)) {
             return;
         }
         // from https://stackoverflow.com/a/11737758/1320237
@@ -257,7 +235,7 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
         getMapCache().mapPreviewOf(this, new MapCache.Callback() {
             @Override
             public void onSuccess(File file) {
-                if (setBitmapFromFileOrNull(file, imageView)) {
+                if (Helper.setBitmapFromFileOrNull(file, imageView)) {
                     callback.onSuccess(file);
                 } else {
                     Log.d("setPictureToMap", "Retry with new picture of " + plant.getId());
@@ -265,7 +243,7 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
                     getMapCache().mapPreviewOf(plant, new MapCache.Callback() {
                         @Override
                         public void onSuccess(File file) {
-                            if (setBitmapFromFileOrNull(file, imageView)) {
+                            if (Helper.setBitmapFromFileOrNull(file, imageView)) {
                                 callback.onSuccess(file);
                             } else {
                                 callback.onFailure();
