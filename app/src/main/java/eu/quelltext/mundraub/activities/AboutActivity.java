@@ -123,4 +123,9 @@ public class AboutActivity extends MundraubBaseActivity {
         intent.setData(Uri.parse(url));
         startActivity(intent);
     }
+
+    @Override
+    protected void openAbout() {
+        // do nothing
+    }
 }

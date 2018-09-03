@@ -62,17 +62,17 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
         }
     }
 
-    private void openSettings() {
+    protected void openSettings() {
         Intent intent = new Intent(this, SettingsActivity.class);
         this.startActivity(intent);
     }
 
-    private void openAbout() {
+    protected void openAbout() {
         Intent intent = new Intent(this, AboutActivity.class);
         this.startActivity(intent);
     }
 
-    private void openMap() {
+    protected void openMap() {
         Intent intent = new Intent(this, ShowPlantsActivity.class);
         this.startActivity(intent);
     }

@@ -24,11 +24,11 @@ public class MapBaseActivity extends MundraubBaseActivity {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true); // from https://stackoverflow.com/a/8846105/1320237
         // from https://stackoverflow.com/a/32587047/1320237
-        //webSettings.setBuiltInZoomControls(true);
+        webSettings.setBuiltInZoomControls(false);
         //webSettings.setDisplayZoomControls(false);
         // from https://stackoverflow.com/a/6255353/1320237
-        //webView.setVerticalScrollBarEnabled(true);
-        //webView.setHorizontalScrollBarEnabled(true);
+        webView.setVerticalScrollBarEnabled(false);
+        webView.setHorizontalScrollBarEnabled(false);
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
@@ -64,5 +64,10 @@ public class MapBaseActivity extends MundraubBaseActivity {
     protected void onPause() {
         super.onPause();
         apiProxy.stop();
+    }
+
+    @Override
+    protected void openMap() {
+        webView.reload();
     }
 }

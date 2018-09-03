@@ -137,4 +137,9 @@ public class SettingsActivity extends MundraubBaseActivity {
             }
         });
     }
+
+    @Override
+    protected void openSettings() {
+        // do nothing
+    }
 }
