@@ -6,7 +6,7 @@ function printError(error) {
 console.log("Loading ...");
 try{
 
-OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
+/*ol.Control.Click = ol.Class(ol.Control, {
     defaultHandlerOptions: {
         'single': true,
         'double': false,
@@ -16,13 +16,13 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
     },
 
     initialize: function(options) {
-        this.handlerOptions = OpenLayers.Util.extend(
+        this.handlerOptions = ol.Util.extend(
             {}, this.defaultHandlerOptions
         );
-        OpenLayers.Control.prototype.initialize.apply(
+        ol.Control.prototype.initialize.apply(
             this, arguments
         ); 
-        this.handler = new OpenLayers.Handler.Click(
+        this.handler = new ol.Handler.Click(
             this, {
                 'click': this.trigger
             }, this.handlerOptions
@@ -40,14 +40,14 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
         } catch (e) {
             printError(e);
         }
-        marker = new OpenLayers.Marker(position.lonlat);
+        marker = new ol.Marker(position.lonlat);
         markers.addMarker(marker);
     }
-});
+});*/
 
 function getPositionFromPixel(xy) {
     var lonlat = map.getLonLatFromPixel(xy);
-    var position = new OpenLayers.LonLat(lonlat.lon, lonlat.lat).transform( toProjection, fromProjection);
+    var position = new ol.LonLat(lonlat.lon, lonlat.lat).transform( toProjection, fromProjection);
     position.lonlat = lonlat;
     position.xy = xy;
     return position;
@@ -57,7 +57,7 @@ function setPositionInURL(lon, lat) {
     document.location.hash = "#" + lon + "," + lat;
 }
 
-var click = new OpenLayers.Control.Click();
+//var click = new ol.Control.Click();
 
 var settingsString = document.location.search;
 
@@ -75,35 +75,38 @@ if (startLocation.length == 2) {
 setPositionInURL(lon, lat);
 
 function lonLatToMarkerPosition(lonLat) {
-    return new OpenLayers.LonLat(lonLat.lon, lonLat.lat).transform( fromProjection, toProjection);
+    // http://openlayers.org/en/latest/apidoc/module-ol_proj.html
+    return new ol.proj.transform([lonLat.lon, lonLat.lat], fromProjection, toProjection);
 }
 
-// projection from https://wiki.openstreetmap.org/wiki/OpenLayers_Simple_Example#Add_Markers
-var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
-var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
+// projection from https://wiki.openstreetmap.org/wiki/ol_Simple_Example#Add_Markers
+var fromProjection = new ol.proj.Projection("EPSG:4326");   // Transform from WGS 1984
+var toProjection   = new ol.proj.Projection("EPSG:900913"); // to Spherical Mercator Projection
 var position       = lonLatToMarkerPosition({lon:lon, lat:lat});
-var markers = new OpenLayers.Layer.Markers( "Markers" );
-var plants = new OpenLayers.Layer.Markers( "Plants" );
-var marker = new OpenLayers.Marker(position);
+//var markers = new ol.Layer.Markers( "Markers" );
+//var plants = new ol.Layer.Markers( "Plants" );
+//var marker = new ol.Marker(position);
 
-markers.addMarker(marker);
+//markers.addMarker(marker);
 
-var layer_earth = new OpenLayers.Layer.OSM(
+var layer_earth = new ol.source.OSM(
     "Satellite",
     "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}/",
     {numZoomLevels: 17});
 layer_earth.attribution = "Source: Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community"; // from https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/
-var layer_osm = new OpenLayers.Layer.OSM("Mapnik", "http://a.tile.openstreetmap.org/${z}/${x}/${y}.png", {numZoomLevels: 19});
+var layer_osm = new ol.layer.Tile({
+    source: new ol.source.OSM("Mapnik", "http://a.tile.openstreetmap.org/${z}/${x}/${y}.png", {numZoomLevels: 19})
+});
 
 var unsortedMapLayers = [
-    // see https://wiki.openstreetmap.org/wiki/OpenLayers_Simple_Example#Extensions
-    //    new OpenLayers.Layer.OSM(),
+    // see https://wiki.openstreetmap.org/wiki/ol_Simple_Example#Extensions
+    //    new ol.Layer.OSM(),
     layer_earth,
     layer_osm,
-    //    new OpenLayers.Layer.WMS( "OpenLayers WMS", "http://vmap0.tiles.osgeo.org/wms/vmap0?", {layers: 'basic'} ),
-    //    new OpenLayers.Layer.OSM("OpenTopoMap", "https://{a|b|c}.tile.opentopomap.org/{z}/{x}/{y}.png", {numZoomLevels: 19}),
+    //    new ol.Layer.WMS( "ol WMS", "http://vmap0.tiles.osgeo.org/wms/vmap0?", {layers: 'basic'} ),
+    //    new ol.Layer.OSM("OpenTopoMap", "https://{a|b|c}.tile.opentopomap.org/{z}/{x}/{y}.png", {numZoomLevels: 19}),
     ];
-var layers = [];
+var layers = [layer_osm];
 
 var VISIBLE_LAYER = "visibleLayer";
 function showRememberedLayer() {
@@ -127,41 +130,49 @@ function rememberWhichLayerIsShown() {
         }
     });
 }
-showRememberedLayer();
-layers.push(markers);
-layers.push(plants);
+//showRememberedLayer();
+//layers.push(markers);
+//layers.push(plants);
 
-var map = new OpenLayers.Map({
+var attribution = new ol.control.Attribution();
+
+var map = new ol.Map({
     div: "map",
     layers: layers,
-    controls: [],
+    controls: ol.control.defaults().extend([
+        new ol.control.LayerSwitcher(),
+        attribution,
+    ]),
 /*    controls: [
-        new OpenLayers.Control.Navigation({
+        new ol.Control.Navigation({
             dragPanOptions: {
                 enableKinetic: true
             }
         }),
         click,
-//        new OpenLayers.Control.Attribution(),
+//        new ol.Control.Attribution(),
         // from https://gis.stackexchange.com/a/83195
-  //      new OpenLayers.Control.Navigation(),
-  //      new OpenLayers.Control.PanPanel(),
-//        new OpenLayers.Control.ZoomPanel()
+  //      new ol.Control.Navigation(),
+  //      new ol.Control.PanPanel(),
+//        new ol.Control.ZoomPanel()
     ],*/
+    view: new ol.View({
+        center: position,
+        zoom: zoom
+      }),
 });
 
-attribution = new OpenLayers.Control.Attribution();
-map.addControls([
+//map.addControls([
     // from https://gis.stackexchange.com/a/83195
-    new OpenLayers.Control.Zoom(),
-    new OpenLayers.Control.LayerSwitcher(),
-    new OpenLayers.Control.Navigation(),
-    attribution,
-    click
-]);
+//    new ol.control.Zoom(),
+//    new ol.control.LayerSwitcher(),
+//    new ol.control.Navigation(),
+//    attribution,
+//    click
+//]);
 
-click.activate();
-
+//click.activate();
+/*
 function setPosition(doNotPrint) {
     try {
         map.setCenter(position, zoom);
@@ -179,16 +190,16 @@ function setPosition(doNotPrint) {
 try {
     setPosition(true);
 } catch(error) {
-    // size is sometimes null. https://github.com/openlayers/ol2/issues/669
+    // size is sometimes null. https://github.com/ol/ol2/issues/669
     //map.size = {"w": document.body.clientWidth, "h": document.body.clientHeight} // could be a solution
     setTimeout(setPosition, 100);
 }
-rememberWhichLayerIsShown();
+rememberWhichLayerIsShown();*/
 
-map.events.register("moveend", map, function(e){
+//map.events.register("moveend", map, function(e){
     // see https://gis.stackexchange.com/a/26619
-    updatePlants();
-});
+//    updatePlants();
+//});
 
 } catch(error) {
     printError(error)
