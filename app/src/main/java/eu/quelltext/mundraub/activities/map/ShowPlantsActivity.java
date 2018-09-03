@@ -28,7 +28,6 @@ public class ShowPlantsActivity extends MapBaseActivity {
             }
         });
         initializeWebView(R.id.web_view);
-        setMapToBestPosition();
 
         if (!getPermissions().ACCESS_FINE_LOCATION.askIfNotGranted()) {
             getPermissions().ACCESS_FINE_LOCATION.onChange(new Permissions.PermissionChange() {
@@ -43,6 +42,7 @@ public class ShowPlantsActivity extends MapBaseActivity {
                 }
             });
         }
+        setMapToBestPosition();
     }
 
     private void setMapToBestPosition() {
