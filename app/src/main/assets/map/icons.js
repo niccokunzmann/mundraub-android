@@ -10,13 +10,13 @@ function getMarkerIconOfPlant(plant) {
     }
 }
 
-function iconFromName(name) {
+function iconFromName(name, type) {
     var icon = new OpenLayers.Icon({
             anchor: [0.5, 1],
             anchorXUnits: 'fraction',
             anchorYUnits: 'fraction',
             opacity: 0.5,
-            src: BASE_ICON_PATH + "/" + name + ".png"
+            src: BASE_ICON_PATH + "/" + name + "." + type,
         });
     return icon;
 }
@@ -73,11 +73,11 @@ for (var i = 0; i < 100; i++) {
     var name = categoryToName[category];
     if (name) {
         catetories.push(name);
-        var icon = iconFromName(name);
+        var icon = iconFromName(name, "png");
         categoryToIcon[category] = icon;
     }
 }
-var iconForAGroupOfPlants = iconFromName("group");
+var iconForAGroupOfPlants = iconFromName("group", "svg");
 
 
 function iconForCategory(category) {
