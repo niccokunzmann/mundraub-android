@@ -152,7 +152,7 @@ public class PlantCategory extends ErrorAware {
         try {
             // load image from asstes from https://stackoverflow.com/a/11734850
             // get input stream
-            InputStream ims = context.getAssets().open("map/img/markers/" + id + ".png");
+            InputStream ims = context.getAssets().open("map/img/markers/" + id.replaceAll(" ", "-") + ".png");
             // load image as Drawable
             Drawable drawable = Drawable.createFromStream(ims, null);
             ims.close();

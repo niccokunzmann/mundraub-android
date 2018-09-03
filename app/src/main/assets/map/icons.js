@@ -16,7 +16,7 @@ function iconFromName(name, type) {
             anchorXUnits: 'fraction',
             anchorYUnits: 'fraction',
             opacity: 0.5,
-            src: BASE_ICON_PATH + "/" + name + "." + (type || "png"),
+            src: BASE_ICON_PATH + "/" + name.replace(" ", "-") + "." + (type || "png"),
         });
     return icon;
 }
@@ -63,7 +63,7 @@ var categoryToName = {
     "17": "other nut"
 };
 
-var catetories = [];
+var categories = [];
 
 var BASE_ICON_PATH = "../img/markers";
 
@@ -72,7 +72,7 @@ for (var i = 0; i < 100; i++) {
     var category = "" + i;
     var name = categoryToName[category];
     if (name) {
-        catetories.push(name);
+        categories.push(name);
         var icon = iconFromName(name);
         categoryToIcon[category] = icon;
     }
