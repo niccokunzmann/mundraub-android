@@ -24,7 +24,7 @@ function iconFromName(name, type) {
 function setIconDescriptionOfMarker(marker, text) {
     var div = marker.icon.imageDiv.appendChild(document.createElement("div"));
     div.innerText = text;
-    div.class = "marker-description";
+    div.className = "marker-description";
 }
 
 var categoryToName = {

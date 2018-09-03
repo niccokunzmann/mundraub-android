@@ -159,13 +159,18 @@ div.olControlAttribution {
 .marker-description {
     /* center a div horizontally https://stackoverflow.com/a/18200048 */
     position: absolute;
-    top: 0px;
+    /*top: 0px;*/
     text-align: center;
-    width: 50%;
+    /*width: 50%;*/
     height: 50%;
-    margin: auto;
+    /*margin: auto;*/
+    margin-top: auto;
+    margin-bottom: auto;
     top: 0;
     left: 0;
     bottom: 0.3em;
     right: 0;
+    /*border: black;
+    border-width: 1px;
+    border-style: solid;*/
 }
