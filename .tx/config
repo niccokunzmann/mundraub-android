@@ -25,7 +25,7 @@ type = TXT
 [mundraub-android-app.map-translations-js]
 file_filter = app/src/main/assets/map/translations/<lang>.js
 minimum_perc = 50
-source_file = app/src/main/assets/map/translations/en-US.js
+source_file = app/src/main/assets/map/translations/en.js
 source_lang = en
 type = REQUIREJS
 
