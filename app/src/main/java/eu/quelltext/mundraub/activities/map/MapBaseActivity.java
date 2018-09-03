@@ -45,6 +45,7 @@ public class MapBaseActivity extends MundraubBaseActivity {
             }
         });
         apiProxy = Settings.getMundraubMapProxy();
+        getPermissions().INTERNET.askIfNotGranted();
     }
 
     @Override
