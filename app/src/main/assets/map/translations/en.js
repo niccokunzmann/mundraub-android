@@ -1,4 +1,5 @@
 define({
     "Location": "Location",
-    "Plants": "Plants"
+    "Plants": "Plants",
+    "Satellite": "Satellite"
 });

@@ -117,7 +117,7 @@ function onload() {
         markers.addMarker(marker);
 
         var layer_earth = new OpenLayers.Layer.OSM(
-            "Satellite",
+            translate("Satellite"),
             "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}/",
             {numZoomLevels: 17});
         layer_earth.attribution = "Source: Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community"; // from https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/
