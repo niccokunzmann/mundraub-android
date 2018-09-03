@@ -148,7 +148,7 @@ public class Logger implements UncaughtExceptionHandler, Initialization.Activity
 
         private Log(Logger logger, String tag) {
             this.tag = tag.substring(0, tag.length() < TAG_MAX_LEGTH? tag.length() : TAG_MAX_LEGTH);
-            d("LOG", "INITIALIZED");
+            //d("LOG", "INITIALIZED");
         }
 
         public void d(String tag, String s) {
