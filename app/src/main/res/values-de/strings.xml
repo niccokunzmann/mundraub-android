@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Edit and add a plant -->
     <string name="plant_has_unfilled_form_fields">Bitte fülle alle Felder für die Pflanze aus ...</string>
     <string name="all_plant_fields_are_filled">Alle benötigten Felder für die Pflanze sind gefüllt.</string>
@@ -77,6 +77,7 @@
     <string name="ask_delete_plant">Möchtest Du die Pflanze von Mundraub.ort enfernen?</string>
     <string name="no">Nein</string>
     <string name="yes">Ja</string>
+    <string name="edit">Ändern</string>
 
     <!-- list all plants -->
     <string name="plant_list_date_format">dd. MM. yyyy</string>
@@ -96,17 +97,21 @@
     <string name="error_count_not_check_plant">Ich konnte den Server nicht fragen, ob die Pflanze existiert.</string>
     <string name="error_connection">Es gab einen Fehler bei der Verbindung zum Server.</string>
     <string name="error_could_not_delete_plant">Die Pflanze konnte online nicht gelöscht werden. Es gab irgendeinen Fehler. Schau bitte selbst online nach.</string>
+    <string name="error_could_not_validate_host">Der Identität des Servers wird nicht vertraut. Das ist ein bekanntes Problem älterer Android-Pattformen. Momentan kannst Du vertraute Verbindungen in den Einstellungen ausschalten, um den Fehler zu umgehen. Du darfst gerne eine Lösung beisteuern.</string>
 
-    <!-- map -->
+    <!-- map to choose plant position -->
     <string name="attention">Achtung</string>
     <string name="info_plant_position_is_chosen_from_best_guess">Diese Pflanze hat keine Position gesetzt. Der Marker ist bei der nächsten Pflanze. Bitte finde selbst die richtige Position.</string>
 
     <!-- menu -->
     <string name="menu_about">Über</string>
+    <string name="menu_settings">Einstellungen</string>
+    <string name="menu_map">Karte</string>
 
     <!-- About -->
     <string name="about_app">Das ist die inoffizielle App für Mundraub.org. Der Quelltext is offen. Du bist eingeladen, beizutragen.</string>
     <string name="about_view_source">Sieh den Quelltext an</string>
+    <string name="about_view_source_at_version">Schau den Quelltext zur Version <xliff:g example="1.0" id="version">%1$s</xliff:g>  und dem Commit <xliff:g example="5849748" id="commit">%2$s</xliff:g> an.</string>
     <string name="about_four_freedoms">Du hast die Freiheit, diese App auszuführen, sie zu studieren, verteilen und verbessern.</string>
     <string name="about_view_four_freedoms">Mehr über unsere vier Freiheiten</string>
     <string name="about_view_four_freedoms_url">https://de.wikipedia.org/wiki/Freie_Software#Die_vier_Freiheiten</string>
@@ -116,4 +121,41 @@
     <string name="about_gpl">GPLv3 ansehen</string>
     <string name="about_mit">MIT ansehen</string>
 
-</resources>
+    <!-- Crash reporting -->
+    <string name="error_app_crashed">Die App hatte einen unerwarteten Fehler und ist abgestürzt. Wenn Du helfen magst, das Problem zu beheben, bitte geh auf die F-Droid-Seite der App, öffne die Fehlerverfolgung und erstelle einen Bericht mit der Datei %s.</string>
+    <string name="ask_error_report_is_needed">Möchtest Du den Fehlerbereicht noch benutzen?</string>
+
+    <!-- Requesting permissions -->
+    <string name="permission_request">Möchtest Du die jetzt die Erlaubnis erteilen, damit die App diese Funktion bereitstellen kann?</string>
+    <string name="permission_error_no_api">Ich konnte den Android-Dialog für die Erlaubnis nicht öffnen, weil das Telefon eine zu alte API-Verison hat. Versuch doch, die Erlaubnis selbst zu erteilen!</string>
+    <string name="permission_purpose_access_fine_location">Die App braucht die Erlaubnis, das Gerät zu orten, um die Position der Pflanzen automatisch zu setzen.</string>
+    <string name="permission_purpose_camera">DI eApp braucht die Erlaubnis, die Kamera-App zu öffnen, um Bilder von den Pflanzen aufnehmen zu können.</string>
+    <string name="permission_purpose_external_storage">Die App braucht die Erlaubnis, auf das Dateisystem zu speichern, damit die aufgenommenen Pflanzen auch noch da sind, wenn die App schließt und wieder öffnet.</string>
+    <string name="permission_purpose_internet">Die App braucht die Erlaubnis, auf das Internet zuzugreifen, um Dir zu erlauben, die Pflanzen auf Mundraub.org zu teilen.</string>
+    <string name="permission_denied_consequences">Die Erlaubnis wurde der App nicht erteilt. Damit ist diese Funktion nicht verfügbar.</string>
+
+    <!-- settings -->
+    <string name="settings_use_mundraub_api">Wenn das eingeschaltet ist, benutzt die App Mundraub.org, um die Pflanzen zu publizieren. Wenn ausgeschaltet, wird die Test-API genutzt, die lokal läuft und gut zum Testen verwendet werden kann.</string>
+    <string name="setting_use_secure_connection">Wenn das eingeschaltet ist, wird den Verbindungen zu Mundraub.org von den Zertifikatautoritäten vertraut. Das kann ein Problem auf älteren Android-Versionen darstellen, die den neuen Zertifikaten nicht vertrauen.</string>
+    <string name="settings_use_cache">Wenn das eingeschaltet ist, verwendet die App das Cacheverzeichnis für die Pflanzen. Du kannst sie löschen, wenn nötig. Wenn das aus ist, nutzt die App den externen Speicher, sodass Du die Pflanzen synchronisieren und kopieren kannst.</string>
+    <string name="error_could_not_move_plants">Die Pflanzendaten konnten nicht in das gewünschte Verzeichnis verschoben werden.</string>
+    <string name="settings_connection">Einstellungen für die Verbindung</string>
+    <string name="settings_storage">Einstellungen für das Speichern</string>
+    <string name="settings_debug">Einstellungen zum Entwickeln</string>
+    <string name="settings_permissions">Einstellungen für Zugriffsrechte</string>
+    <string name="settings_permission_activate">An/Aus</string>
+    <string name="settings_permission_ask">Fragen?</string>
+    <string name="settings_permission_name">Zugriffsrechte</string>
+    <string name="settings_permission_camera_title">KAMERA</string>
+    <string name="settings_permission_camera_text">Kann die App Bilder von Pflanzen machen?</string>
+    <string name="settings_permission_storage_title">EXTERNER SPEICHER</string>
+    <string name="settings_permission_storage_text">Kann die App Pflanzen auf dem externen Speicher ablegen?</string>
+    <string name="settings_permission_location_title">ORTUNG</string>
+    <string name="settings_permission_location_text">Kann die App die Position mit GPS ermitteln?</string>
+    <string name="settings_permission_internet_title">INTERNET</string>
+    <string name="settings_permission_internet_text">Kann die App sich zu Mundraub und Kartendiensten verbinden?</string>
+    <string name="error_can_edit_permissions_only_externally">App-Rechte können nur extern verwaltet werden. Bitte öffne die Android-Einstellungen und ändere die Rechte der App selbst.</string>
+    <string name="error_can_not_edit_permissions_api_too_old">Diese Version von Android ist zu alt, um die Zugriffsrechte der App zu ändern. Sorry.</string>
+    <string name="settings_ask_for_error_report">Wenn die App startet, nachdem sie gecrasht ist: Wenn das eingeschaltet ist, fragt die App ob Du den Fehlerbericht benutzen möchtest.</string>
+
+    </resources>
