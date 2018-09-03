@@ -61,7 +61,6 @@ public class ChoosePlantType extends MundraubBaseActivity {
 
     private void fillInPlantTypes() {
         List<PlantCategory> categories = new ArrayList<PlantCategory>(PlantCategory.all());
-        // TODO: Sort by name
         PlantCategoryAdapter adapter = new PlantCategoryAdapter(this, categories);
         plantTypesView.setAdapter(adapter);
     }
