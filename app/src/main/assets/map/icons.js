@@ -16,7 +16,7 @@ function iconFromName(name, type) {
             anchorXUnits: 'fraction',
             anchorYUnits: 'fraction',
             opacity: 0.5,
-            src: BASE_ICON_PATH + "/" + name + "." + type,
+            src: BASE_ICON_PATH + "/" + name + "." + (type || "png"),
         });
     return icon;
 }
@@ -73,11 +73,11 @@ for (var i = 0; i < 100; i++) {
     var name = categoryToName[category];
     if (name) {
         catetories.push(name);
-        var icon = iconFromName(name, "png");
+        var icon = iconFromName(name);
         categoryToIcon[category] = icon;
     }
 }
-var iconForAGroupOfPlants = iconFromName("group", "svg");
+var iconForAGroupOfPlants = iconFromName("group");
 
 
 function iconForCategory(category) {
