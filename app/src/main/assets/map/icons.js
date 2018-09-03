@@ -16,7 +16,7 @@ function iconFromName(name, type) {
             anchorXUnits: 'fraction',
             anchorYUnits: 'fraction',
             opacity: 0.5,
-            src: BASE_ICON_PATH + "/" + name.replace(" ", "-") + "." + (type || "png"),
+            src: BASE_ICON_PATH + "/" + name.replace(/ /g, "-") + "." + (type || "png"),
         });
     return icon;
 }
