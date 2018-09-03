@@ -1,9 +1,30 @@
 
 function getMarkerIconOfPlant(plant) {
-    var category = plant.properties.tid;
-    if (category) {
-        return iconForCategory(category);
+    if (plant.count) {
+        return iconForAGroupOfPlants.clone();
+    } else {
+        var category = plant.properties.tid;
+        if (category) {
+            return iconForCategory(category);
+        }
     }
+}
+
+function iconFromName(name) {
+    var icon = new OpenLayers.Icon({
+            anchor: [0.5, 1],
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'fraction',
+            opacity: 0.5,
+            src: BASE_ICON_PATH + "/" + name + ".png"
+        });
+    return icon;
+}
+
+function setIconDescriptionOfMarker(marker, text) {
+    var div = marker.icon.imageDiv.appendChild(document.createElement("div"));
+    div.innerText = text;
+    div.classList.add("marker-description");
 }
 
 var categoryToName = {
@@ -52,15 +73,12 @@ for (var i = 0; i < 100; i++) {
     var name = categoryToName[category];
     if (name) {
         catetories.push(name);
-        categoryToIcon[category] = new OpenLayers.Icon({
-            anchor: [0.5, 1],
-            anchorXUnits: 'fraction',
-            anchorYUnits: 'fraction',
-            opacity: 0.5,
-            src: BASE_ICON_PATH + "/" + name + ".png"
-        });
+        var icon = iconFromName(name);
+        categoryToIcon[category] = icon;
     }
 }
+var iconForAGroupOfPlants = iconFromName("group");
+
 
 function iconForCategory(category) {
     return categoryToIcon[category].clone();

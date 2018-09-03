@@ -52,7 +52,7 @@ function getPlantsInRange(corner1, corner2, zoom, onSuccess) {
 }
 
 function getPlantsOnMap(map, onSuccess) {
-    var zoom = map.zoom < 13 ? 18 : map.zoom; // show plants for many zoom levels
+    var zoom = map.zoom > 13 ? 18 : map.zoom; // show plants for many zoom levels
     getPlantsInRange(
             getPositionFromPixel({x:0, y:0}),
             getPositionFromPixel({x:map.size.w, y:map.size.h}),
@@ -74,6 +74,9 @@ function updatePlants() {
                 var marker = new OpenLayers.Marker(position);
                 if (icon) {
                     marker.setUrl(icon.url.src);
+                }
+                if (plant.count) {
+                    setIconDescriptionOfMarker(marker, plant.count)
                 }
                 plants.addMarker(marker);
                 marker.display(true);

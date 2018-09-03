@@ -155,3 +155,10 @@ div.olControlAttribution {
     padding-right: 4px;
     padding-left: 4px;
 }
+
+.marker-description {
+    position: absolute;
+    top: 0px;
+    text-align: center;
+    width: 100%;
+}
