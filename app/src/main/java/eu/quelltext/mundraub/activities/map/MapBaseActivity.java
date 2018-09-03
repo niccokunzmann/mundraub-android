@@ -1,7 +1,7 @@
 package eu.quelltext.mundraub.activities.map;
 
+import android.os.Build;
 import android.webkit.ConsoleMessage;
-import android.webkit.CookieSyncManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -9,8 +9,8 @@ import android.webkit.WebViewClient;
 
 import java.io.IOException;
 
-import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.activities.MundraubBaseActivity;
+import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.map.MundraubProxy;
 
 public class MapBaseActivity extends MundraubBaseActivity {
@@ -40,8 +40,10 @@ public class MapBaseActivity extends MundraubBaseActivity {
         });
         webView.setWebViewClient(new WebViewClient() {
             public void onPageFinished(WebView view, String url) {
-                // TODO: check for API level 21? https://stackoverflow.com/a/47913011
-                CookieSyncManager.getInstance().sync(); // from https://stackoverflow.com/a/8390280
+                if (Build.VERSION.SDK_INT < 21) {
+                    // CookieSyncManager is deprecated since API level 21 https://stackoverflow.com/a/47913011
+                    android.webkit.CookieSyncManager.getInstance().sync(); // from https://stackoverflow.com/a/8390280
+                }
             }
         });
         apiProxy = Settings.getMundraubMapProxy();
