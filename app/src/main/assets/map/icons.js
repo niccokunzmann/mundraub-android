@@ -52,7 +52,7 @@ for (var i = 0; i < 100; i++) {
     var name = categoryToName[category];
     if (name) {
         catetories.push(name);
-        categoryToIcon[category] = new OpenLayers.Icon({
+        categoryToIcon[category] = new ol.Icon({
             anchor: [0.5, 1],
             anchorXUnits: 'fraction',
             anchorYUnits: 'fraction',
