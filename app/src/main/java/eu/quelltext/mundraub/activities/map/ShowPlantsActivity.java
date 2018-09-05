@@ -24,6 +24,8 @@ public class ShowPlantsActivity extends MapBaseActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ShowPlantsActivity.this, NewPlantActivity.class);
+                String url = webView.getUrl();
+                intent.putExtra(NewPlantActivity.ARG_PLANT_LOCATION_MAP_URL, url);
                 startActivity(intent);
             }
         });

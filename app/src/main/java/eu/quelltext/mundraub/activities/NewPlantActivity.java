@@ -39,6 +39,7 @@ public class NewPlantActivity extends MundraubBaseActivity {
             ARG_PLANT_ID - the id of the plant
      */
     public static final String ARG_PLANT_ID = "plant_id";
+    public static final String ARG_PLANT_LOCATION_MAP_URL = "plant_location_map_url";
 
     private static final int INTENT_CODE_CHOOSE_PLANT = 0;
     private static final int INTENT_CODE_TAKE_PHOTO = 1;
@@ -78,6 +79,12 @@ public class NewPlantActivity extends MundraubBaseActivity {
             plant = new Plant();
             plant.save();
             autoFillGPSLocation(); // load GPS location for new plants automatically
+        }
+
+        // load plant location from map url
+        if (extras != null && extras.containsKey(ARG_PLANT_LOCATION_MAP_URL)) {
+            String url = extras.getString(ARG_PLANT_LOCATION_MAP_URL);
+            plant.setPositionFromMapUrl(url);
         }
 
         buttonPlantType = (Button) findViewById(R.id.button_plant_type);
