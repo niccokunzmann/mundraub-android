@@ -47,7 +47,9 @@ function getPlantsInRange(corner1, corner2, zoom, onSuccess) {
         console.log("markers for " + requestUrl, markers);
         onSuccess(markers);
     }, function () {
-        console.log("Could not request markers from " + requestUrl);
+        console.log("Could not request markers from " + requestUrl +
+                    " Did you start the server?" + 
+                    " https://github.com/niccokunzmann/mundraub-android/blob/master/docs/setup.md#proxy");
     });
 }
 

@@ -86,7 +86,7 @@ var marker;
 var map;
 
 function onload() {
-    console.log("Loading ...");
+    console.log("Loading map ...");
     try{
 
 
@@ -210,8 +210,10 @@ function onload() {
         printError(error)
         throw error;
     }
-    console.log("Done loading.");
+    console.log("Done loading map.");
 }
 
-window.addEventListener("load", onload);
+window.addEventListener("load", function() {
+    onNotifyThatTheTranslationsAreLoaded(onload);
+});
 

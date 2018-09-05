@@ -2,12 +2,14 @@ package eu.quelltext.mundraub.activities.map;
 
 import android.os.Build;
 import android.webkit.ConsoleMessage;
+import android.webkit.GeolocationPermissions;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import eu.quelltext.mundraub.activities.MundraubBaseActivity;
 import eu.quelltext.mundraub.common.Settings;
@@ -29,6 +31,13 @@ public class MapBaseActivity extends MundraubBaseActivity {
         // from https://stackoverflow.com/a/6255353/1320237
         webView.setVerticalScrollBarEnabled(false);
         webView.setHorizontalScrollBarEnabled(false);
+        // persist the gelocation database, see https://stackoverflow.com/a/5423026
+        webSettings.setGeolocationDatabasePath( this.getCacheDir().getPath() );
+        webSettings.setAppCacheEnabled(true); // https://stackoverflow.com/a/8921072
+        webSettings.setDatabaseEnabled(true); // https://stackoverflow.com/a/8921072
+        webSettings.setDomStorageEnabled(true); // https://stackoverflow.com/a/8921072
+        webSettings.setUserAgentString(webSettings.getUserAgentString() + " | language: " + Locale.getDefault().getLanguage()); // passthe user language from https://stackoverflow.com/a/9380140/1320237
+
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
@@ -36,6 +45,12 @@ public class MapBaseActivity extends MundraubBaseActivity {
                 log.d("WebView", consoleMessage.sourceId() + " at line " +
                         consoleMessage.lineNumber() + ": " + consoleMessage.message());
                 return true;
+            }
+
+            @Override
+            public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
+                getPermissions().ACCESS_FINE_LOCATION.askIfNotGranted();
+                callback.invoke(origin, true, false); // from https://stackoverflow.com/a/5423026
             }
         });
         webView.setWebViewClient(new WebViewClient() {
