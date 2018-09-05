@@ -1,4 +1,8 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- NOTE: Translations are not done here but instead online on Transifex!
+         Open this link to translate the app to your language:
+         https://www.transifex.com/mundraub-android/mundraub-android-app/
+      -->
     <!-- Universal -->
     <string name="app_name" translatable="false">Mundraub</string>
 
