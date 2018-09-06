@@ -27,32 +27,30 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
     }, 
 
     trigger: function(e) {
-        var position = getPositionFromPixel(e.xy);
-        //alert("You clicked near " + lonlat.lat + " N, " +
-        //                          + lonlat.lon + " E");
-        //alert(position);
-        setPositionInURL(position.lon, position.lat);
-        try {
-            marker.destroy();
-        } catch (e) {
-            printError(e);
-        }
-        marker = new OpenLayers.Marker(position.lonlat);
-        markers.addMarker(marker);
+        var lonlat = getLonLatFromPixel(e.xy);
+        setMarkerToPosition(lonlat)
     }
 });
 
-
-function getPositionFromPixel(xy) {
-    var lonlat = map.getLonLatFromPixel(xy);
-    var position = new OpenLayers.LonLat(lonlat.lon, lonlat.lat).transform( toProjection, fromProjection);
-    position.lonlat = lonlat;
-    position.xy = xy;
-    return position;
+function getLonLatFromPixel(xy) {
+    var position = map.getLonLatFromPixel(xy);
+    return new OpenLayers.LonLat(position.lon, position.lat).transform( toProjection, fromProjection);
 }
 
-function setPositionInURL(lon, lat) {
-    document.location.hash = "#" + lon + "," + lat;
+function setMarkerToPosition(lonlat) {
+    setPositionInURL(lonlat);
+    try {
+        marker.destroy();
+    } catch (e) {
+        printError(e);
+    }
+    marker = new OpenLayers.Marker(lonLatToMarkerPosition(lonlat));
+    markers.addMarker(marker);
+}
+
+function setPositionInURL(lonlat) {
+    console.log("setPositionInURL", lonlat);
+    document.location.hash = "#" + lonlat.lon + "," + lonlat.lat;
 }
 
 function lonLatToMarkerPosition(lonLat) {
@@ -61,7 +59,7 @@ function lonLatToMarkerPosition(lonLat) {
 
 function setPosition(doNotPrint) {
     try {
-        map.setCenter(position, zoom);
+        map.setCenter(lonLatToMarkerPosition(center), zoom);
     } catch (error) {
         if (!doNotPrint) {
             printError(error);
@@ -71,15 +69,12 @@ function setPosition(doNotPrint) {
     updatePlants();
 }
 
-
-var lat = 21.7679;
-var lon = 78.8718;
+var center = {lon: 78.8718, lat:21.7679};
 var zoom = 10;
 
 // projection from https://wiki.openstreetmap.org/wiki/OpenLayers_Simple_Example#Add_Markers
 var fromProjection;
 var toProjection;
-var position;
 var markers;
 var plants;
 var marker;
@@ -98,21 +93,20 @@ function onload() {
 
         var startLocation = settingsString.substr(1, settingsString.length).split(",");
         if (startLocation.length == 2) {
-            lon = parseFloat(startLocation[0]);
-            lat = parseFloat(startLocation[1]);
             zoom = 16;
+            center = {lon: parseFloat(startLocation[0]), lat: parseFloat(startLocation[1])};
         }
-        setPositionInURL(lon, lat);
+        
+        setPositionInURL(center);
 
 
 
         // projection from https://wiki.openstreetmap.org/wiki/OpenLayers_Simple_Example#Add_Markers
         fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
         toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
-        position       = lonLatToMarkerPosition({lon:lon, lat:lat});
         markers = new OpenLayers.Layer.Markers( translate("Location") );
         plants = new OpenLayers.Layer.Markers( translate("Plants") );
-        marker = new OpenLayers.Marker(position);
+        marker = new OpenLayers.Marker(lonLatToMarkerPosition(center));
 
         markers.addMarker(marker);
 

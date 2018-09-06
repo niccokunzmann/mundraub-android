@@ -226,3 +226,7 @@ div.olControlAttribution {
     background: rgba(200, 3, 3, 0.5);
 }
 
+.gps-active {
+    background: rgba(3, 200, 3, 0.5);
+}
+

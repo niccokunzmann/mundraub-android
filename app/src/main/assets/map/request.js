@@ -56,8 +56,8 @@ function getPlantsInRange(corner1, corner2, zoom, onSuccess) {
 function getPlantsOnMap(map, onSuccess) {
     var zoom = map.zoom > 13 ? 18 : map.zoom; // show plants for many zoom levels
     getPlantsInRange(
-            getPositionFromPixel({x:0, y:0}),
-            getPositionFromPixel({x:map.size.w, y:map.size.h}),
+            map.getLonLatFromPixel({x:0, y:0}),
+            map.getLonLatFromPixel({x:map.size.w, y:map.size.h}),
             zoom,
             onSuccess)
 }
