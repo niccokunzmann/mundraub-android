@@ -5,10 +5,5 @@
 
 cd "`dirname \"$0\"`"
 
-this_version="`./latest_version`"
-minor_version="`echo \"$this_version\" | grep -oE '[0-9]+$'`"
-prefix="`echo \"$this_version\" | grep -oE '^v[0-9]+\.'`"
-
-# echo next version
-echo -n "$prefix$(($minor_version + 1))"
+./version-add "`./latest_version`" 1
 

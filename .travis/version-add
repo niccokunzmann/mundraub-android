@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# This script adds numbers to a given version.
+#
+# $ ./version-add v112.222 5
+# v112.227
+
+cd "`dirname \"$0\"`"
+
+this_version="$1"
+increment="$2"
+minor_version="`echo \"$this_version\" | grep -oE '[0-9]+$'`"
+prefix="`echo \"$this_version\" | grep -oE '^v[0-9]+\.'`"
+
+# echo next version
+echo -n "$prefix$(($minor_version + $increment))"
+
