@@ -185,12 +185,11 @@ function onload() {
             new OpenLayers.Control.LayerSwitcher(),
             new OpenLayers.Control.Navigation(),
             attribution,
-            click
+            click,
+            getGPSButton(),
         ]);
 
         click.activate();
-
-
 
         try {
             setPosition(true);
