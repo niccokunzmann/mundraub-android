@@ -205,6 +205,8 @@ function onload() {
             // see https://gis.stackexchange.com/a/26619
             updatePlants();
         });
+        
+        controlsBlockMapClick();
 
     } catch(error) {
         printError(error)
