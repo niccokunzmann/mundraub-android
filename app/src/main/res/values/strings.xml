@@ -174,5 +174,6 @@
 
     <!-- Map of all plants -->
     <string name="title_activity_show_plants">Map of Plants</string>
+    <string name="menu_my_plants">My Plants</string>
 
 </resources>

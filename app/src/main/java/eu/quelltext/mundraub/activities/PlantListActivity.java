@@ -239,4 +239,9 @@ public class PlantListActivity extends FirstActivity {
             }
         }
     }
+
+    @Override
+    protected void openMyPlants() {
+        recyclerView.scrollToPosition(0);
+    }
 }

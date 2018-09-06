@@ -57,9 +57,17 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
             case R.id.item_settings:
                 openSettings();
                 return true;
+            case R.id.item_my_plants:
+                openMyPlants();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    protected void openMyPlants() {
+        Intent intent = new Intent(this, PlantListActivity.class);
+        this.startActivity(intent);
     }
 
     protected void openSettings() {
