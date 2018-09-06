@@ -92,7 +92,7 @@ function onload() {
 
         var click = new OpenLayers.Control.Click();
 
-        var settingsString = document.location.search;
+        var settingsString = document.location.hash.length != 0 ? document.location.hash : document.location.search;
 
         console.log("settingString=" + settingsString);
 
