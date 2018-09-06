@@ -78,13 +78,12 @@ public class NewPlantActivity extends MundraubBaseActivity {
         } else {
             plant = new Plant();
             plant.save();
-            autoFillGPSLocation(); // load GPS location for new plants automatically
-        }
-
-        // load plant location from map url
-        if (extras != null && extras.containsKey(ARG_PLANT_LOCATION_MAP_URL)) {
-            String url = extras.getString(ARG_PLANT_LOCATION_MAP_URL);
-            plant.setPositionFromMapUrl(url);
+            if (extras != null && extras.containsKey(ARG_PLANT_LOCATION_MAP_URL)) {
+                String url = extras.getString(ARG_PLANT_LOCATION_MAP_URL);
+                plant.setPositionFromMapUrl(url); // load plant location from map url
+            } else {
+                autoFillGPSLocation(); // load GPS location for new plants automatically
+            }
         }
 
         buttonPlantType = (Button) findViewById(R.id.button_plant_type);
