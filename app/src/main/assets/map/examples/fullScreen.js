@@ -61,12 +61,15 @@ function setPosition(doNotPrint) {
     try {
         map.setCenter(lonLatToMarkerPosition(center), zoom);
     } catch (error) {
-        if (!doNotPrint) {
+        if (doNotPrint) {
+            console.log("Retry setting the center of the map.")
+        } else {
             printError(error);
         }
         throw error;
     }
     updatePlants();
+    controlsBlockMapClick();
 }
 
 var center = {lon: 78.8718, lat:21.7679};
@@ -199,7 +202,6 @@ function onload() {
             updatePlants();
         });
         
-        controlsBlockMapClick();
 
     } catch(error) {
         printError(error)
