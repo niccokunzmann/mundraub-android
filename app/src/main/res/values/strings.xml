@@ -178,6 +178,7 @@
     <string name="ask_download_offline_data">Would you like to update the offline data now?</string>
     <string name="success_offline_data_was_downloaded">All data to go offline was downloaded.</string>
     <string name="error_debug_api_can_not_download_offline_data">The debug API can not download offline data. Please use the Mundraub API at the bottom of the settings.</string>
+    <string name="settings_create_public_api_for_debug">If this is enabled, the app provides the Mundraub map API to the locxal network. No harm can be done as this API is read only.</string>
 
     <!-- Map of all plants -->
     <string name="title_activity_show_plants">Map of Plants</string>

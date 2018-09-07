@@ -77,6 +77,20 @@ public class SettingsActivity extends MundraubBaseActivity {
                 return Settings.useErrorReport();
             }
         });
+        synchronizeBooleanSetting(R.id.toggle_public_api, new Toggled() {
+            @Override
+            public int onToggle(boolean checked) {
+                if (checked) {
+                    getPermissions().INTERNET.askIfNotGranted();
+                }
+                return Settings.debugMundraubMapAPI(checked);
+            }
+
+            @Override
+            public boolean isChecked() {
+                return Settings.debugMundraubMapAPI();
+            }
+        });
         synchronizeBooleanSetting(R.id.toggle_offline_mode, new Toggled() {
             @Override
             public int onToggle(boolean checked) {
@@ -96,12 +110,12 @@ public class SettingsActivity extends MundraubBaseActivity {
                 } else {
                     getPermissions().INTERNET.askIfNotGranted();
                 }
-                return Settings.useErrorReport(checked);
+                return Settings.useOfflineMapAPI(checked);
             }
 
             @Override
             public boolean isChecked() {
-                return Settings.useErrorReport();
+                return Settings.useOfflineMapAPI();
             }
         });
         synchronizePermissionSetting(R.id.toggle_camera, R.id.toggle_camera_ask, getPermissions().CAMERA);

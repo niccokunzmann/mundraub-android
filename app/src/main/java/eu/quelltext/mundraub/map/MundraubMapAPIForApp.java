@@ -12,15 +12,8 @@ public class MundraubMapAPIForApp extends MundraubMapAPI {
     private static MundraubMapAPI instance;
     private final Logger.Log log;
 
-    public static MundraubProxy getInstance() throws IOException {
-        if (instance == null) {
-            instance = new MundraubMapAPIForApp();
-        }
-        return instance;
-    }
-
-    private MundraubMapAPIForApp() {
-        super();
+    public MundraubMapAPIForApp() {
+        super(Settings.hostForMundraubAPI());
         log = Logger.newFor(this);
     }
 
