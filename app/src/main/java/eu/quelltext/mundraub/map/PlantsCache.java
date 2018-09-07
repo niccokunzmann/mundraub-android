@@ -3,6 +3,7 @@ package eu.quelltext.mundraub.map;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
@@ -33,6 +34,54 @@ public class PlantsCache extends ErrorAware {
                 context = context;
             }
         });
+    }
+
+    public static JSONArray getPlantsInBoundingBox(double minLon, double minLat, double maxLon, double maxLat) throws JSONException {
+        SQLiteDatabase database = getReadableDatabase();
+
+        String[] projection = {
+                Marker.COLUMN_LONGITUDE,
+                Marker.COLUMN_LATITUDE,
+                Marker.COLUMN_TYPE_ID,
+                Marker.COLUMN_NODE_ID
+        };
+
+        String selection =
+                Marker.COLUMN_LONGITUDE + " >= ? and " +
+                Marker.COLUMN_LONGITUDE + " <= ? and " +
+                Marker.COLUMN_LATITUDE  + " >= ? and " +
+                Marker.COLUMN_LATITUDE  + " <= ?";
+
+        String[] selectionArgs = {
+                Double.toString(minLon),
+                Double.toString(maxLon),
+                Double.toString(minLat),
+                Double.toString(maxLat)
+        };
+
+        Cursor cursor = database.query(
+                Marker.TABLE_NAME,  // The table to query
+                projection,         // The columns to return
+                selection,          // The columns for the WHERE clause
+                selectionArgs,      // The values for the WHERE clause
+                null,       // don't group the rows
+                null,        // don't filter by row groups
+                null        // don't sort
+        );
+        log.d("getPlantsInBoundingBox", "The total cursor count is " + cursor.getCount());
+        JSONArray result = new JSONArray();
+        for (int i = 0; i < cursor.getCount(); i++) {
+            cursor.moveToPosition(i);
+            JSONObject marker = new JSONObject();
+            JSONArray position = new JSONArray();
+            marker.put(JSON_TYPE_ID, cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_TYPE_ID)));
+            marker.put(JSON_NODE_ID, cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_NODE_ID)));
+            position.put(cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_LATITUDE)));
+            position.put(cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_LONGITUDE)));
+            marker.put(JSON_POSITION, position);
+            result.put(marker);
+        }
+        return result;
     }
 
     public static class Marker implements BaseColumns {
@@ -139,6 +188,10 @@ public class PlantsCache extends ErrorAware {
 
     private static SQLiteDatabase getWritableDatabase() {
         return new MarkerDBSQLiteHelper().getWritableDatabase();
+    }
+
+    private static SQLiteDatabase getReadableDatabase() {
+        return new MarkerDBSQLiteHelper().getReadableDatabase();
     }
 
 
