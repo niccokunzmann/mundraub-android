@@ -25,6 +25,7 @@ import eu.quelltext.mundraub.initialization.Initialization;
 import eu.quelltext.mundraub.initialization.Permissions;
 import eu.quelltext.mundraub.map.ErrorAwareMundraubMapAPI;
 import eu.quelltext.mundraub.map.MundraubProxy;
+import eu.quelltext.mundraub.map.OfflinePlantsMapAPI;
 import okhttp3.OkHttpClient;
 
 import static eu.quelltext.mundraub.common.Settings.ChangeListener.SETTINGS_CAN_CHANGE;
@@ -67,6 +68,7 @@ public class Settings {
     private static File persistentPathForPlants = new File(Environment.getExternalStorageDirectory(), PLANT_STORAGE_DIRECTORY_NAME);
     private static Map<String, Boolean> permissionQuestion = new HashMap<String, Boolean>();
     private static boolean useErrorReport = true;
+    private static boolean useOfflineMapAPI = false;
 
     static {
         Initialization.provideActivityFor(new Initialization.ActivityInitialized() {
@@ -93,6 +95,7 @@ public class Settings {
         log.d("useMundraubAPI", useMundraubAPI);
         log.d("useCacheForPlants", useCacheForPlants);
         log.d("useErrorReport", useErrorReport);
+        log.d("useOfflineMapAPI", useOfflineMapAPI);
         if (!useCacheForPlants) {
             log.d("persistentPathForPlants", persistentPathForPlants.toString());
         }
@@ -107,6 +110,7 @@ public class Settings {
         useCacheForPlants = preferences.getBoolean("useCacheForPlants", useCacheForPlants);
         persistentPathForPlants = new File(preferences.getString("persistentPathForPlants", persistentPathForPlants.toString()));
         useErrorReport = preferences.getBoolean("useErrorReport", useErrorReport);
+        useOfflineMapAPI = preferences.getBoolean("useOfflineMapAPI", useOfflineMapAPI);
         // load the permission questions
         permissionQuestion.clear();
         for (String key : preferences.getAll().keySet()) {
@@ -128,6 +132,7 @@ public class Settings {
             editor.putBoolean("useCacheForPlants", useCacheForPlants);
             editor.putString("persistentPathForPlants", persistentPathForPlants.toString());
             editor.putBoolean("useErrorReport", useErrorReport);
+            editor.putBoolean("useOfflineMapAPI", useOfflineMapAPI);
             for (String key: permissionQuestion.keySet()) {
                 editor.putBoolean(key, permissionQuestion.get(key));
             }
@@ -205,6 +210,14 @@ public class Settings {
         return commit();
     }
 
+    public static boolean useOfflineMapAPI() {
+        return useOfflineMapAPI;
+    }
+
+    public static int useOfflineMapAPI(boolean isChecked) {
+        useOfflineMapAPI = isChecked;
+        return commit();
+    }
 
     public static boolean useCacheForPlants() {
         return useCacheForPlants;
@@ -288,6 +301,10 @@ public class Settings {
     }
 
     public static MundraubProxy getMundraubMapProxy() {
-        return new ErrorAwareMundraubMapAPI();
+        if (useOfflineMapAPI()) {
+            return new OfflinePlantsMapAPI();
+        } else {
+            return new ErrorAwareMundraubMapAPI();
+        }
     }
 }
