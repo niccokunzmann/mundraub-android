@@ -95,22 +95,28 @@ public class SettingsActivity extends MundraubBaseActivity {
             @Override
             public int onToggle(boolean checked) {
                 if (checked) {
-                    new Dialog(SettingsActivity.this).askYesNo(
-                            R.string.reason_offline_data_needs_to_be_downloaded,
-                            R.string.ask_download_offline_data,
-                            new Dialog.YesNoCallback() {
-                                @Override
-                                public void yes() {
-                                    goOffline();
-                                }
+                    if (!Settings.useOfflineMapAPI()) {
+                        new Dialog(SettingsActivity.this).askYesNo(
+                                R.string.reason_offline_data_needs_to_be_downloaded,
+                                R.string.ask_download_offline_data,
+                                new Dialog.YesNoCallback() {
+                                    @Override
+                                    public void yes() {
+                                        goOffline();
+                                    }
 
-                                @Override
-                                public void no() {}
-                            });
+                                    @Override
+                                    public void no() {
+                                        Settings.useOfflineMapAPI(true);
+                                        update();
+                                    }
+                                });
+                    }
                 } else {
                     getPermissions().INTERNET.askIfNotGranted();
+                    return Settings.useOfflineMapAPI(false);
                 }
-                return Settings.useOfflineMapAPI(checked);
+                return Settings.COMMIT_SUCCESSFUL;
             }
 
             @Override
@@ -134,6 +140,8 @@ public class SettingsActivity extends MundraubBaseActivity {
                 API.instance().updateAllPlantMarkers(new API.Callback() {
                     @Override
                     public void onSuccess() {
+                        Settings.useOfflineMapAPI(true);
+                        update();
                         new Dialog(SettingsActivity.this).alertSuccess(R.string.success_offline_data_was_downloaded);
                     }
 
