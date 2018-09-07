@@ -65,12 +65,12 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
         return Response.newFixedLengthResponse(Status.NOT_FOUND, NanoHTTPD.MIME_HTML, msg);
     }
 
-    class PlantHandler implements IHandler<IHTTPSession, Response>  {
+    protected class PlantHandler implements IHandler<IHTTPSession, Response>  {
 
         @Override
         public Response handle(IHTTPSession input) {
-            System.out.println("input.getMethod(): " + input.getMethod() + " " + (input.getMethod() == Method.GET));
-            System.out.println("input.getUri(): " + input.getUri() + " " + input.getUri().equals("/plant"));
+            debug("input.getMethod(): " + input.getMethod() + " " + (input.getMethod() == Method.GET));
+            debug("input.getUri(): " + input.getUri() + " " + input.getUri().equals("/plant"));
             if (input.getMethod() != Method.GET || !input.getUri().equals("/plant")) {
                 return null;
             }
@@ -102,7 +102,7 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
     }
 
     protected okhttp3.Response httpGet(HttpUrl url) throws IOException {
-        System.out.println("GET: " + url.toString());
+        debug("GET: " + url.toString());
         Request request = new Request.Builder()
                 .url(url)
                 .addHeader("Accept", "application/json")
@@ -110,6 +110,10 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
                 .build();
         okhttp3.Response response = client().newCall(request).execute();
         return response;
+    }
+
+    protected void debug(String s) {
+        System.out.println(s);
     }
 
     protected OkHttpClient client() {
