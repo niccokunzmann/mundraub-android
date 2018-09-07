@@ -42,6 +42,7 @@ import okio.Buffer;
 public class MundraubAPI extends API {
 
     public static final String HEADER_USER_AGENT = "Mundraub App (eu.quelltext.mundraub)";
+    private static final String ALL_PLANT_MARKERS_URL = "https://mundraub.org/cluster/plant?bbox=-180.0,-90.0,180.0,90&zoom=18&cat=4,5,6,7,8,9,10,11,12,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37"; // see https://github.com/niccokunzmann/mundraub-android/issues/96
     private final String URL_LOGIN = "https://mundraub.org/user/login";
     private final String URL_ADD_PLANT_FORM = "https://mundraub.org/node/add/plant/";
     private final int RETURN_CODE_LOGIN_SUCCESS = HttpURLConnection.HTTP_SEE_OTHER;
@@ -230,6 +231,25 @@ public class MundraubAPI extends API {
     protected int updatePlantAsync(Plant plant, String plantId) throws ErrorWithExplanation {
         return R.string.error_not_implemented;
     }
+
+    @Override
+    protected JSONObject getAllPlantMarkersAsync() throws ErrorWithExplanation {
+        try {
+            return new JSONObject(getURL(ALL_PLANT_MARKERS_URL, false));
+        } catch (JSONException e) {
+            log.printStackTrace(e);
+            abortOperation(R.string.error_invalid_json_for_markers);
+        } catch (IOException e) {
+            log.printStackTrace(e);
+        } catch (ErrorWithExplanation errorWithExplanation) {
+            errorWithExplanation.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            log.printStackTrace(e);
+        } catch (KeyManagementException e) {
+            log.printStackTrace(e);
+        }
+        return null;
+    };
 
     @Override
     protected int addPlantAsync(Plant plant) throws ErrorWithExplanation {
