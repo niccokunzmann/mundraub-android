@@ -1,7 +1,5 @@
 package eu.quelltext.mundraub.api;
 
-import org.json.JSONObject;
-
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.plant.Plant;
 
@@ -31,9 +29,8 @@ public class DummyAPI extends API {
     }
 
     @Override
-    protected JSONObject getAllPlantMarkersAsync() throws ErrorWithExplanation {
-        abortOperation(R.string.error_debug_api_can_not_download_offline_data);
-        return null;
+    protected int setAllPlantMarkersAsync() throws ErrorWithExplanation {
+        return R.string.error_debug_api_can_not_download_offline_data;
     }
 
     @Override

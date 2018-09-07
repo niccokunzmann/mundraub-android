@@ -84,6 +84,10 @@ public class PlantsCache extends ErrorAware {
         return result;
     }
 
+    public static void clear() {
+        new MarkerDBSQLiteHelper().clearTable(getWritableDatabase());
+    }
+
     public static class Marker implements BaseColumns {
         public static final String TABLE_NAME = "marker";
         public static final String COLUMN_LONGITUDE = "longitude";
@@ -193,6 +197,4 @@ public class PlantsCache extends ErrorAware {
     private static SQLiteDatabase getReadableDatabase() {
         return new MarkerDBSQLiteHelper().getReadableDatabase();
     }
-
-
 }
