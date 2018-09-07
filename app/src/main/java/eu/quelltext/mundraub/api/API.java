@@ -2,12 +2,9 @@ package eu.quelltext.mundraub.api;
 
 import android.os.AsyncTask;
 
-import org.json.JSONObject;
-
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.error.ErrorAware;
-import eu.quelltext.mundraub.map.PlantsCache;
 import eu.quelltext.mundraub.plant.Plant;
 
 public abstract class API extends ErrorAware {
@@ -116,8 +113,7 @@ public abstract class API extends ErrorAware {
         doAsynchronously(cb, new AsyncOperation() {
             @Override
             public int operate() throws ErrorWithExplanation {
-                PlantsCache.updatePlantMarkers(getAllPlantMarkersAsync());
-                return TASK_SUCCEEDED;
+                return setAllPlantMarkersAsync();
             }
         });
     }
@@ -145,6 +141,6 @@ public abstract class API extends ErrorAware {
     protected abstract int loginAsync(String username, String password) throws ErrorWithExplanation;
     protected abstract int deletePlantAsync(String plantId) throws ErrorWithExplanation;
     protected abstract int updatePlantAsync(Plant plant, String plantId) throws ErrorWithExplanation;
-    protected abstract JSONObject getAllPlantMarkersAsync() throws ErrorWithExplanation;
+    protected abstract int setAllPlantMarkersAsync() throws ErrorWithExplanation;
 
 }
