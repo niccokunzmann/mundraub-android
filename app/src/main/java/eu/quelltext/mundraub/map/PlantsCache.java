@@ -31,61 +31,70 @@ public class PlantsCache extends ErrorAware {
         Initialization.provideActivityFor(new Initialization.ActivityInitialized() {
             @Override
             public void setActivity(Activity context) {
-                context = context;
+                PlantsCache.context = context;
             }
         });
     }
 
     public static JSONArray getPlantsInBoundingBox(double minLon, double minLat, double maxLon, double maxLat) throws JSONException {
         SQLiteDatabase database = getReadableDatabase();
+        try {
 
-        String[] projection = {
-                Marker.COLUMN_LONGITUDE,
-                Marker.COLUMN_LATITUDE,
-                Marker.COLUMN_TYPE_ID,
-                Marker.COLUMN_NODE_ID
-        };
+            String[] projection = {
+                    Marker.COLUMN_LONGITUDE,
+                    Marker.COLUMN_LATITUDE,
+                    Marker.COLUMN_TYPE_ID,
+                    Marker.COLUMN_NODE_ID
+            };
 
-        String selection =
-                Marker.COLUMN_LONGITUDE + " >= ? and " +
-                Marker.COLUMN_LONGITUDE + " <= ? and " +
-                Marker.COLUMN_LATITUDE  + " >= ? and " +
-                Marker.COLUMN_LATITUDE  + " <= ?";
+            String selection =
+                    Marker.COLUMN_LONGITUDE + " >= ? and " +
+                            Marker.COLUMN_LONGITUDE + " <= ? and " +
+                            Marker.COLUMN_LATITUDE + " >= ? and " +
+                            Marker.COLUMN_LATITUDE + " <= ?";
 
-        String[] selectionArgs = {
-                Double.toString(minLon),
-                Double.toString(maxLon),
-                Double.toString(minLat),
-                Double.toString(maxLat)
-        };
+            String[] selectionArgs = {
+                    Double.toString(minLon),
+                    Double.toString(maxLon),
+                    Double.toString(minLat),
+                    Double.toString(maxLat)
+            };
 
-        Cursor cursor = database.query(
-                Marker.TABLE_NAME,  // The table to query
-                projection,         // The columns to return
-                selection,          // The columns for the WHERE clause
-                selectionArgs,      // The values for the WHERE clause
-                null,       // don't group the rows
-                null,        // don't filter by row groups
-                null        // don't sort
-        );
-        log.d("getPlantsInBoundingBox", "The total cursor count is " + cursor.getCount());
-        JSONArray result = new JSONArray();
-        for (int i = 0; i < cursor.getCount(); i++) {
-            cursor.moveToPosition(i);
-            JSONObject marker = new JSONObject();
-            JSONArray position = new JSONArray();
-            marker.put(JSON_TYPE_ID, cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_TYPE_ID)));
-            marker.put(JSON_NODE_ID, cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_NODE_ID)));
-            position.put(cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_LATITUDE)));
-            position.put(cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_LONGITUDE)));
-            marker.put(JSON_POSITION, position);
-            result.put(marker);
+            Cursor cursor = database.query(
+                    Marker.TABLE_NAME,  // The table to query
+                    projection,         // The columns to return
+                    selection,          // The columns for the WHERE clause
+                    selectionArgs,      // The values for the WHERE clause
+                    null,       // don't group the rows
+                    null,        // don't filter by row groups
+                    null        // don't sort
+            );
+            log.d("getPlantsInBoundingBox", "The total cursor count is " + cursor.getCount());
+            JSONArray result = new JSONArray();
+            for (int i = 0; i < cursor.getCount(); i++) {
+                cursor.moveToPosition(i);
+                JSONObject marker = new JSONObject();
+                JSONArray position = new JSONArray();
+                marker.put(JSON_TYPE_ID, cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_TYPE_ID)));
+                marker.put(JSON_NODE_ID, cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_NODE_ID)));
+                position.put(cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_LATITUDE)));
+                position.put(cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_LONGITUDE)));
+                marker.put(JSON_POSITION, position);
+                result.put(marker);
+            }
+            return result;
+        } finally {
+            database.close();
         }
-        return result;
     }
 
     public static void clear() {
-        new MarkerDBSQLiteHelper().clearTable(getWritableDatabase());
+        SQLiteDatabase database = getWritableDatabase();
+        try {
+            new MarkerDBSQLiteHelper().clearTable(database);
+        } finally {
+            database.close();
+        }
     }
 
     public static class Marker implements BaseColumns {
@@ -128,10 +137,10 @@ public class PlantsCache extends ErrorAware {
     public static class MarkerDBSQLiteHelper extends SQLiteOpenHelper {
 
         private static final int DATABASE_VERSION = 1;
-        public static final String DATABASE_NAME = "marker_database";
+        public static final String DATABASE_NAME = "marker_database.db";
 
         public MarkerDBSQLiteHelper() {
-            super(context, DATABASE_NAME, null, DATABASE_VERSION);
+            super(PlantsCache.context, DATABASE_NAME, null, DATABASE_VERSION);
         }
 
         @Override
@@ -164,29 +173,33 @@ public class PlantsCache extends ErrorAware {
     public static void updatePlantMarkers(JSONObject json) throws API.ErrorWithExplanation {
         // this is called form the API with all markers needed.
         SQLiteDatabase database = getWritableDatabase();
-        new MarkerDBSQLiteHelper().clearTable(database);
-        if (json == null || !json.has(JSON_FEATURES)) {
-            return;
-        }
-        // see the api for the response
-        // https://github.com/niccokunzmann/mundraub-android/blob/master/docs/api.md#markers
         try {
-            JSONArray markers = json.getJSONArray(JSON_FEATURES);
-            for (int i = 0; i < markers.length(); i++) {
-                JSONObject markerJSON = markers.getJSONObject(i);
-                JSONArray position = markerJSON.getJSONArray(JSON_POSITION);
-                Marker marker = new Marker(
-                        position.getDouble(JSON_INDEX_LONGITUDE),
-                        position.getDouble(JSON_INDEX_LATITUDE),
-                        Integer.parseInt(markerJSON.getString(JSON_TYPE_ID)),
-                        Integer.parseInt(markerJSON.getString(JSON_NODE_ID))
-                        );
-                marker.saveToDB(database);
+            new MarkerDBSQLiteHelper().clearTable(database);
+            if (json == null || !json.has(JSON_FEATURES)) {
+                return;
             }
-        } catch (JSONException e) {
-            log.printStackTrace(e);
-            API.abortOperation(R.string.error_invalid_json_for_markers);
-            return;
+            // see the api for the response
+            // https://github.com/niccokunzmann/mundraub-android/blob/master/docs/api.md#markers
+            try {
+                JSONArray markers = json.getJSONArray(JSON_FEATURES);
+                for (int i = 0; i < markers.length(); i++) {
+                    JSONObject markerJSON = markers.getJSONObject(i);
+                    JSONArray position = markerJSON.getJSONArray(JSON_POSITION);
+                    Marker marker = new Marker(
+                            position.getDouble(JSON_INDEX_LONGITUDE),
+                            position.getDouble(JSON_INDEX_LATITUDE),
+                            Integer.parseInt(markerJSON.getString(JSON_TYPE_ID)),
+                            Integer.parseInt(markerJSON.getString(JSON_NODE_ID))
+                    );
+                    marker.saveToDB(database);
+                }
+            } catch (JSONException e) {
+                log.printStackTrace(e);
+                API.abortOperation(R.string.error_invalid_json_for_markers);
+                return;
+            }
+        } finally {
+            database.close();
         }
     }
 
