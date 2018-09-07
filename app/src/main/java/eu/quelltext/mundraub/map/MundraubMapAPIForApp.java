@@ -24,13 +24,18 @@ public class MundraubMapAPIForApp extends MundraubMapAPI {
 
     public void start() throws IOException {
         super.start();
-        log.d("START", getUrl());
+        log.d("START", this.getClass().getSimpleName() + " at " +  getUrl());
         //log.d("TEST", httpGet(HttpUrl.parse(getUrl())).body().string());
     }
 
     public void stop() {
         super.stop();
-        log.d("STOP", getUrl());
+        log.d("STOP", this.getClass().getSimpleName() + " at " + getUrl());
+    }
+
+    @Override
+    protected void debug(String s) {
+        log.d("debug", s);
     }
 
     protected OkHttpClient client() {
