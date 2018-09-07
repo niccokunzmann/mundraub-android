@@ -346,7 +346,7 @@
                 android:text="@string/settings_debug" />
 
             <LinearLayout
-                android:id="@+id/layout_debug_api"
+                android:id="@+id/layout_use_debug_api"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
@@ -389,6 +389,29 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/settings_ask_for_error_report" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_public_api"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:orientation="horizontal">
+
+                <ToggleButton
+                    android:id="@+id/toggle_public_api"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:checked="true"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="256dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_create_public_api_for_debug" />
             </LinearLayout>
 
         </LinearLayout>

@@ -33,11 +33,10 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
         super.stop();
     }
 
-    protected MundraubMapAPI() {
-        super("localhost", DEFAULT_PORT);
+    protected MundraubMapAPI(String hostname) {
+        super(hostname, DEFAULT_PORT);
         addHTTPInterceptor(new PlantHandler());
     }
-
 
     public int getPort() {
         return getListeningPort() > 0 ? getListeningPort() : DEFAULT_PORT;
@@ -50,7 +49,7 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
 
     public static void main(String[] args){
         try {
-            MundraubMapAPI api = new MundraubMapAPI();
+            MundraubMapAPI api = new MundraubMapAPI("0.0.0.0");
             System.out.println("MundraubMapAPI started at " + api.getUrl());
             api.start();
         } catch (IOException e) {

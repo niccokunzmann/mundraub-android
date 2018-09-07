@@ -13,7 +13,7 @@ import eu.quelltext.mundraub.common.Helper;
 /*
  * Use the local databse to get the markers and not the online data.
  */
-public class OfflinePlantsMapAPI extends ErrorAwareMundraubMapAPI {
+public class OfflinePlantsMapAPI extends MundraubMapAPIForApp {
 
     private static final String JSON_BBOX = "bbox";
     private static final String JSON_FEATURES = "features";
