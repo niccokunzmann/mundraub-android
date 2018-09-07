@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Environment;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +23,7 @@ import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.error.Logger;
 import eu.quelltext.mundraub.initialization.Initialization;
 import eu.quelltext.mundraub.initialization.Permissions;
-import eu.quelltext.mundraub.map.MundraubMapAPIForApp;
+import eu.quelltext.mundraub.map.ErrorAwareMundraubMapAPI;
 import eu.quelltext.mundraub.map.MundraubProxy;
 import okhttp3.OkHttpClient;
 
@@ -289,25 +288,6 @@ public class Settings {
     }
 
     public static MundraubProxy getMundraubMapProxy() {
-        try {
-            return MundraubMapAPIForApp.getInstance();
-        } catch (IOException e) {
-            log.printStackTrace(e);
-            log.e("Map proxy:", "could not create the map proxy");
-            return new MundraubProxy() {
-
-                private Logger.Log log = Logger.newFor(this);
-
-                @Override
-                public void start() {
-                    log.d("DUMMY", "start");
-                }
-
-                @Override
-                public void stop() {
-                    log.d("DUMMY", "stop");
-                }
-            };
-        }
+        return new ErrorAwareMundraubMapAPI();
     }
 }
