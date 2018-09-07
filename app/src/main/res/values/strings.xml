@@ -170,8 +170,14 @@
     <string name="settings_permission_internet_title">INTERNET</string>
     <string name="settings_permission_internet_text">Can the app connect to Mundraub and Map services?</string>
     <string name="error_can_edit_permissions_only_externally">App permissions can only be edited externally. Please open the Android settings of the app to change them.</string>
-    <string name="error_can_not_edit_permissions_api_too_old">This version of Androud is too old to revoke permissions of the app. Sorry.</string>
+    <string name="error_can_not_edit_permissions_api_too_old">This version of Android is too old to revoke permissions of the app. Sorry.</string>
     <string name="settings_ask_for_error_report">When the app starts after it crashed: If this is enabled, you will be asked if you want to use the error report.</string>
+    <string name="settings_offline">Offline Settings</string>
+    <string name="settings_use_offline_mode">If this is enabled, the map will use the downloaded local data to fill the map. If disabled, an up-to-date version is used from Mundraub.org.</string>
+    <string name="reason_offline_data_needs_to_be_downloaded">In order to have something off-line, we need to download the data. You can also use what is already on the phone.</string>
+    <string name="ask_download_offline_data">Would you like to update the offline data now?</string>
+    <string name="success_offline_data_was_downloaded">All data to go offline was downloaded.</string>
+    <string name="error_debug_api_can_not_download_offline_data">The debug API can not download offline data. Please use the Mundraub API at the bottom of the settings.</string>
 
     <!-- Map of all plants -->
     <string name="title_activity_show_plants">Map of Plants</string>

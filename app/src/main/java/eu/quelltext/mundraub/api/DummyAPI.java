@@ -31,7 +31,8 @@ public class DummyAPI extends API {
     }
 
     @Override
-    protected JSONObject getAllPlantMarkersAsync() {
+    protected JSONObject getAllPlantMarkersAsync() throws ErrorWithExplanation {
+        abortOperation(R.string.error_debug_api_can_not_download_offline_data);
         return null;
     }
 
