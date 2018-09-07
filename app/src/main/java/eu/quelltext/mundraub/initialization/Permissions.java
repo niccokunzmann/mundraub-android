@@ -167,6 +167,15 @@ public class Permissions {
             }
             return isGranted();
         }
+
+        public void askIfNotGranted(PermissionChange permissionChange) {
+            if (isGranted()) {
+                permissionChange.onGranted(this);
+            } else {
+                onChange(permissionChange);
+                check();
+            }
+        }
     }
 
     public interface PermissionChange {

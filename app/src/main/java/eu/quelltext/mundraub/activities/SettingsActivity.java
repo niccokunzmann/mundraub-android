@@ -5,6 +5,7 @@ import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
 import eu.quelltext.mundraub.R;
+import eu.quelltext.mundraub.api.API;
 import eu.quelltext.mundraub.common.Dialog;
 import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.initialization.Permissions;
@@ -68,7 +69,33 @@ public class SettingsActivity extends MundraubBaseActivity {
                 if (checked) {
                     getPermissions().WRITE_EXTERNAL_STORAGE.askIfNotGranted();
                 }
-                log.d("synchronizeBooleanSetting", "toggle_error_report");
+                return Settings.useErrorReport(checked);
+            }
+
+            @Override
+            public boolean isChecked() {
+                return Settings.useErrorReport();
+            }
+        });
+        synchronizeBooleanSetting(R.id.toggle_offline_mode, new Toggled() {
+            @Override
+            public int onToggle(boolean checked) {
+                if (checked) {
+                    new Dialog(SettingsActivity.this).askYesNo(
+                            R.string.reason_offline_data_needs_to_be_downloaded,
+                            R.string.ask_download_offline_data,
+                            new Dialog.YesNoCallback() {
+                                @Override
+                                public void yes() {
+                                    goOffline();
+                                }
+
+                                @Override
+                                public void no() {}
+                            });
+                } else {
+                    getPermissions().INTERNET.askIfNotGranted();
+                }
                 return Settings.useErrorReport(checked);
             }
 
@@ -81,6 +108,28 @@ public class SettingsActivity extends MundraubBaseActivity {
         synchronizePermissionSetting(R.id.toggle_location, R.id.toggle_location_ask, getPermissions().ACCESS_FINE_LOCATION);
         synchronizePermissionSetting(R.id.toggle_internet, R.id.toggle_internet_ask, getPermissions().INTERNET);
         synchronizePermissionSetting(R.id.toggle_storage, R.id.toggle_storage_ask, getPermissions().WRITE_EXTERNAL_STORAGE);
+    }
+
+    private void goOffline() {
+        getPermissions().INTERNET.askIfNotGranted(new Permissions.PermissionChange() {
+            @Override
+            public void onDenied(Permissions.Permission permission) {}
+
+            @Override
+            public void onGranted(Permissions.Permission permission) {
+                API.instance().updateAllPlantMarkers(new API.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        new Dialog(SettingsActivity.this).alertSuccess(R.string.success_offline_data_was_downloaded);
+                    }
+
+                    @Override
+                    public void onFailure(int errorResourceString) {
+                        new Dialog(SettingsActivity.this).alertError(errorResourceString);
+                    }
+                });
+            }
+        });
     }
 
     interface Toggled {
