@@ -20,15 +20,7 @@ import okhttp3.Request;
  */
 public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
 
-    private static MundraubMapAPI instance = null;
     private final static int DEFAULT_PORT = 39768;
-
-    public static MundraubProxy getInstance() throws IOException {
-        if (instance == null) {
-            instance = new MundraubMapAPI();
-        }
-        return instance;
-    }
 
     @Override
     public void start() throws IOException {
@@ -75,10 +67,6 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
 
     class PlantHandler implements IHandler<IHTTPSession, Response>  {
 
-        String API_PROTOCOL = "https";
-        String API_HOST = "mundraub.org";
-        String API_PATH = "/cluster/plant";
-
         @Override
         public Response handle(IHTTPSession input) {
             System.out.println("input.getMethod(): " + input.getMethod() + " " + (input.getMethod() == Method.GET));
@@ -87,10 +75,7 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
                 return null;
             }
             try {
-
-                HttpUrl url = HttpUrl.parse(API_PROTOCOL + "://" + API_HOST + API_PATH + "?" + input.getQueryParameterString());
-                okhttp3.Response response = httpGet(url);
-                byte[] bytes = response.body().bytes();
+                byte[] bytes = getResponseBytesFromPlantMarkerQuery(input.getQueryParameterString());
                 Response result = Response.newFixedLengthResponse(Status.OK, "application/json", bytes);
                 result.addHeader("Access-Control-Allow-Origin", "*"); // allow JavaScript to access the content
                 result.addHeader("Content-Type", "application/json; charset=UTF-8");
@@ -100,6 +85,16 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
                 return null;
             }
         }
+    }
+
+    String API_PROTOCOL = "https";
+    String API_HOST = "mundraub.org";
+    String API_PATH = "/cluster/plant";
+
+    protected byte[] getResponseBytesFromPlantMarkerQuery(String queryParameterString) throws IOException {
+        HttpUrl url = HttpUrl.parse(API_PROTOCOL + "://" + API_HOST + API_PATH + "?" + queryParameterString);
+        okhttp3.Response response = httpGet(url);
+        return response.body().bytes();
     }
 
     protected void handleError(Exception e) {
