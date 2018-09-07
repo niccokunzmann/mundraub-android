@@ -141,7 +141,7 @@ body {
     -webkit-text-size-adjust: none;
 }
 
-div.olControlZoom a {
+div.olControlZoom .olButton {
     line-height: 34px;
     height: 50px;
     width: 50px;

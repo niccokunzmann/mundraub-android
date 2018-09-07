@@ -450,14 +450,14 @@ div.olControlZoom, div.olControlTextButtonPanel {
     border-radius: 4px;
     padding: 2px;
 }
-div.olControlZoom a {
+div.olControlZoom .olButton {
     font-size: 18px;
     line-height: 19px;
     height: 22px;
     width:22px;
     padding: 0;
 }
-div.olControlZoom a, div.olControlTextButtonPanel .olButton {
+div.olControlZoom .olButton, div.olControlTextButtonPanel .olButton {
     display: block;
     margin: 1px;
     color: white;
