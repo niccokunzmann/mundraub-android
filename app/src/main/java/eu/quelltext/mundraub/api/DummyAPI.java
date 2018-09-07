@@ -1,5 +1,7 @@
 package eu.quelltext.mundraub.api;
 
+import org.json.JSONObject;
+
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.plant.Plant;
 
@@ -26,6 +28,11 @@ public class DummyAPI extends API {
     protected int updatePlantAsync(Plant plant, String plantId) throws ErrorWithExplanation {
         simulateNetwork();
         return TASK_SUCCEEDED;
+    }
+
+    @Override
+    protected JSONObject getAllPlantMarkersAsync() {
+        return null;
     }
 
     @Override
