@@ -1,5 +1,6 @@
 package eu.quelltext.mundraub.map;
 
+import org.json.JSONException;
 import org.nanohttpd.protocols.http.IHTTPSession;
 import org.nanohttpd.protocols.http.NanoHTTPD;
 import org.nanohttpd.protocols.http.request.Method;
@@ -91,7 +92,7 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
     String API_HOST = "mundraub.org";
     String API_PATH = "/cluster/plant";
 
-    protected byte[] getResponseBytesFromPlantMarkerQuery(String queryParameterString) throws IOException {
+    protected byte[] getResponseBytesFromPlantMarkerQuery(String queryParameterString) throws IOException, JSONException {
         HttpUrl url = HttpUrl.parse(API_PROTOCOL + "://" + API_HOST + API_PATH + "?" + queryParameterString);
         okhttp3.Response response = httpGet(url);
         return response.body().bytes();
