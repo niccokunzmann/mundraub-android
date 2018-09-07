@@ -62,6 +62,14 @@ public class MapBaseActivity extends MundraubBaseActivity {
             }
         });
         apiProxy = Settings.getMundraubMapProxy();
+        Settings.onChange(new Settings.ChangeListener() {
+            @Override
+            public int settingsChanged() {
+                apiProxy.stop();
+                apiProxy = Settings.getMundraubMapProxy();
+                return SETTINGS_CAN_CHANGE;
+            }
+        });
         getPermissions().INTERNET.askIfNotGranted();
     }
 
@@ -69,9 +77,7 @@ public class MapBaseActivity extends MundraubBaseActivity {
     protected void onResume() {
         super.onResume();
         try {
-            log.d("start", "proxy1");
             apiProxy.start();
-            log.d("start", "proxy2");
         } catch (IOException e) {
             log.printStackTrace(e);
         }
