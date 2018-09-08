@@ -17,6 +17,9 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
 
     protected Logger.Log log;
     private Permissions permissions = null;
+    private boolean isCreated = false;
+    private boolean isStarted = false;
+    private boolean isResumed = false;
 
     protected Permissions getPermissions() {
         if (permissions == null) {
@@ -30,6 +33,55 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
         super.onCreate(savedInstanceState);
         Initialization.provideActivity(this);
         log = Logger.newFor(this);
+        isCreated = true;
+        log.d("activity life cycle", "onCreate");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        isCreated = false;
+        log.d("activity life cycle", "onDestroy");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        isStarted = true;
+        log.d("activity life cycle", "onStart");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        isStarted = false;
+        log.d("activity life cycle", "onStop");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isResumed = true;
+        log.d("activity life cycle", "onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isResumed = false;
+        log.d("activity life cycle", "onPause");
+    }
+
+/*    public boolean isCreated() {
+        return isCreated;
+    }
+
+    public boolean isResumed() {
+        return isResumed;
+    }*/
+
+    public boolean canCreateDialog() {
+        return isStarted;
     }
 
     @Override

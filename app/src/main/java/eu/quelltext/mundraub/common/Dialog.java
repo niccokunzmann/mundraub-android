@@ -1,17 +1,23 @@
 package eu.quelltext.mundraub.common;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 
 import eu.quelltext.mundraub.R;
+import eu.quelltext.mundraub.activities.MundraubBaseActivity;
 
 public class Dialog {
 
-    private final Context context;
+    private final MundraubBaseActivity activity;
 
-    public Dialog(Context context) {
-        this.context = context;
+    public Dialog(Activity activity) {
+        /* Pattern: Destroyed activity check
+         * before you access anything from the activity, use a guard clause to ensure it is
+         * usable.
+         *     if (!canCreateDialog()) return;
+         */
+        this.activity = (MundraubBaseActivity) activity;
     }
 
     public void alertInfo(int messageResourceString) {
@@ -34,11 +40,18 @@ public class Dialog {
     }
 
     private void alert(int title, int icon, int message, final ClosedCallback cb) {
-        alert(title, icon, context.getResources().getString(message), cb);
+        if (!canCreateDialog()) return;
+        alert(title, icon, activity.getResources().getString(message), cb);
     }
+
+    private boolean canCreateDialog() {
+        return activity != null && activity.canCreateDialog();
+    }
+
     private void alert(int title, int icon, String message, final ClosedCallback cb) {
+        if (!canCreateDialog()) return;
         // from https://stackoverflow.com/a/2115770/1320237
-        AlertDialog.Builder builder = Helper.getAlertBuilder(context);
+        AlertDialog.Builder builder = Helper.getAlertBuilder(activity);
         builder.setTitle(title)
                 .setMessage(message)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -48,6 +61,7 @@ public class Dialog {
                 })
                 .setIcon(icon)
                 .show();
+
     }
 
     public interface ClosedCallback {
@@ -66,10 +80,12 @@ public class Dialog {
     }
 
     public void askYesNo(int reason, int question, final YesNoCallback callback) {
-        String reasonString = context.getResources().getString(reason);
+        if (!canCreateDialog()) return;
+        String reasonString = activity.getResources().getString(reason);
         askYesNo(reasonString, question, callback);
     }
     public void askYesNo(String reason, int question, final YesNoCallback callback) {
+        if (!canCreateDialog()) return;
         // from https://stackoverflow.com/a/2478662
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
@@ -85,8 +101,8 @@ public class Dialog {
                 }
             }
         };
-        AlertDialog.Builder builder = Helper.getAlertBuilder(context);;
-        builder .setMessage(reason + "\n" + context.getResources().getString(question))
+        AlertDialog.Builder builder = Helper.getAlertBuilder(activity);;
+        builder .setMessage(reason + "\n" + activity.getResources().getString(question))
                 .setNegativeButton(R.string.no, dialogClickListener)
                 .setPositiveButton(R.string.yes, dialogClickListener)
                 .show();
