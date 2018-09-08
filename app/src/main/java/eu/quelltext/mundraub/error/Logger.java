@@ -1,7 +1,6 @@
 package eu.quelltext.mundraub.error;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Environment;
 
 import java.io.File;
@@ -26,7 +25,7 @@ public class Logger implements UncaughtExceptionHandler, Initialization.Activity
     private static Logger logger; // initialize as soon as possible;
     private static final String LOG_FILE_NAME = "eu.quelltext.mundraub.log.txt";
     private static final String ERROR_FILE_NAME = "eu.quelltext.mundraub.error.txt";
-    private static Context context;
+    private static Activity activity;
     private final UncaughtExceptionHandler defaultExceptionHandler;
     private final PrintStream logStream;
     private final String TAG = "LOGGER" + TAG_DIVIDER;
@@ -107,18 +106,18 @@ public class Logger implements UncaughtExceptionHandler, Initialization.Activity
     }
 
     @Override
-    public void setActivity(Activity newContext) {
+    public void setActivity(Activity newActivity) {
         if (!hasContext()) {
-            context = newContext;
+            activity = newActivity;
             checkErrorReport();
         }
     }
 
     private void checkErrorReport() {
         if (hasErrorReport()) {
-            String messageTemplate = context.getResources().getString(R.string.error_app_crashed);
+            String messageTemplate = activity.getResources().getString(R.string.error_app_crashed);
             String message = String.format(messageTemplate, getErrorReport().getAbsolutePath());
-            new Dialog(context).askYesNo(message, R.string.ask_error_report_is_needed, new Dialog.YesNoCallback() {
+            new Dialog(activity).askYesNo(message, R.string.ask_error_report_is_needed, new Dialog.YesNoCallback() {
                 @Override
                 public void yes() {
                 }
@@ -135,7 +134,7 @@ public class Logger implements UncaughtExceptionHandler, Initialization.Activity
     }
 
     private static boolean hasContext() {
-        return context != null;
+        return activity != null;
     }
 
     public interface Loggable {
@@ -159,6 +158,9 @@ public class Logger implements UncaughtExceptionHandler, Initialization.Activity
         }
         public void d(String tag, int i) {
             logger.d(this.tag, tag + TAG_DIVIDER + Integer.toString(i));
+        }
+        public void d(String tag, double d) {
+            logger.d(this.tag, tag + TAG_DIVIDER + Double.toString(d));
         }
 
         public void e(String tag, String s) {
