@@ -98,7 +98,6 @@
     <string name="error_connection">Es gab einen Fehler bei der Verbindung zum Server.</string>
     <string name="error_could_not_delete_plant">Die Pflanze konnte online nicht gelöscht werden. Es gab irgendeinen Fehler. Schau bitte selbst online nach.</string>
     <string name="error_could_not_validate_host">Der Identität des Servers wird nicht vertraut. Das ist ein bekanntes Problem älterer Android-Pattformen. Momentan kannst Du vertraute Verbindungen in den Einstellungen ausschalten, um den Fehler zu umgehen. Du darfst gerne eine Lösung beisteuern.</string>
-
     <!-- map to choose plant position -->
     <string name="attention">Achtung</string>
     <string name="info_plant_position_is_chosen_from_best_guess">Diese Pflanze hat keine Position gesetzt. Der Marker ist bei der nächsten Pflanze. Bitte finde selbst die richtige Position.</string>
@@ -155,10 +154,7 @@
     <string name="settings_permission_internet_title">INTERNET</string>
     <string name="settings_permission_internet_text">Kann die App sich zu Mundraub und Kartendiensten verbinden?</string>
     <string name="error_can_edit_permissions_only_externally">App-Rechte können nur extern verwaltet werden. Bitte öffne die Android-Einstellungen und ändere die Rechte der App selbst.</string>
-    <string name="error_can_not_edit_permissions_api_too_old">Diese Version von Android ist zu alt, um die Zugriffsrechte der App zu ändern. Sorry.</string>
     <string name="settings_ask_for_error_report">Wenn die App startet, nachdem sie gecrasht ist: Wenn das eingeschaltet ist, fragt die App ob Du den Fehlerbericht benutzen möchtest.</string>
-
     <!-- Map of all plants -->
     <string name="title_activity_show_plants">Pflanzenkarte</string>
-
-</resources>
+    </resources>
