@@ -35,7 +35,7 @@ public class OfflinePlantsMapAPI extends MundraubMapAPIForApp {
         double maxLat = Double.parseDouble(bbox[3]);
         JSONArray markers = PlantsCache.getPlantsInBoundingBox(minLon, minLat, maxLon, maxLat);
         JSONObject result = new JSONObject();
-        result.put(JSON_FEATURES, result);
+        result.put(JSON_FEATURES, markers);
         return result.toString().getBytes("UTF-8"); // encoding from https://stackoverflow.com/a/5729823
     }
 }
