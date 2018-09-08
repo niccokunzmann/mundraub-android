@@ -123,7 +123,7 @@
     <string name="about_app">This is the inofficial app for Mundraub.org. The source is open. You are invited to contribute.</string>
     <string name="about_view_source">View the source code</string>
     <string name="about_view_source_url" translatable="false">https://github.com/niccokunzmann/mundraub-android</string>
-    <string name="about_view_source_at_version">View the source code of version <xliff:g example="1.0" id="version">%1$s</xliff:g> at commit <xliff:g example="5849748" id="commit">%2$s</xliff:g>.</string>
+    <string name="about_view_source_at_version" formatted="false">View the source code of version <xliff:g example="1.0" id="version">%1$s</xliff:g> at commit <xliff:g example="5849748" id="commit">%2$s</xliff:g>.</string>
     <string name="about_view_source_at_version_url" translatable="false">https://github.com/niccokunzmann/mundraub-android/commit/%s</string>
     <string name="about_four_freedoms">You have the freedom to run, study, redistribute and improve the software.</string>
     <string name="about_view_four_freedoms">More about our four freedoms</string>
