@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,7 +40,30 @@ public class PlantsCache extends ErrorAware {
         });
     }
 
+    static double getLongitude(double longitude) {
+        longitude = (longitude + 180) % 360 - 180;
+        while (longitude < -180) {
+            longitude += 360;
+        }
+        return longitude;
+    }
+
+    static double getLatitude(double latitude) {
+        if (latitude > 90 || latitude < -90) {
+            log.e("Invalid latitude", latitude + "");
+        }
+        return latitude;
+    }
+
     public static JSONArray getPlantsInBoundingBox(double minLon, double minLat, double maxLon, double maxLat) throws JSONException {
+        minLon = getLongitude(minLon);
+        minLat = getLatitude(minLat);
+        maxLon = getLongitude(maxLon);
+        maxLat = getLatitude(maxLat);
+        log.d("minLon", minLon);
+        log.d("minLat", minLat);
+        log.d("maxLon", maxLon);
+        log.d("maxLat", maxLat);
         SQLiteDatabase database = getReadableDatabase();
         try {
 
@@ -51,10 +75,17 @@ public class PlantsCache extends ErrorAware {
             };
 
             String selection =
-                    Marker.COLUMN_LONGITUDE + " >= ? and " +
-                            Marker.COLUMN_LONGITUDE + " <= ? and " +
-                            Marker.COLUMN_LATITUDE + " >= ? and " +
-                            Marker.COLUMN_LATITUDE + " <= ?";
+                    Marker.COLUMN_LONGITUDE + " > " + minLon + " and " +
+                    Marker.COLUMN_LONGITUDE + " < " + maxLon + " and " +
+                    Marker.COLUMN_LATITUDE + " > " + minLat + " and " +
+                    Marker.COLUMN_LATITUDE + " < " + maxLat +
+                    "";
+            /*selection =
+                    Marker.COLUMN_LONGITUDE + " > ? and " +
+                            Marker.COLUMN_LONGITUDE + " < ? and " +
+                            Marker.COLUMN_LATITUDE + " > ? and " +
+                            Marker.COLUMN_LATITUDE + " < ?" +
+                    "";*/
 
             String[] selectionArgs = {
                     Double.toString(minLon),
@@ -62,6 +93,8 @@ public class PlantsCache extends ErrorAware {
                     Double.toString(minLat),
                     Double.toString(maxLat)
             };
+            selectionArgs = null;
+            //selection = null;
 
             Cursor cursor = database.query(
                     Marker.TABLE_NAME,  // The table to query
@@ -74,15 +107,20 @@ public class PlantsCache extends ErrorAware {
             );
             log.d("getPlantsInBoundingBox", "The total cursor count is " + cursor.getCount());
             JSONArray result = new JSONArray();
-            for (int i = 0; i < cursor.getCount(); i++) {
+            for (int i = 0; i < cursor.getCount() && i < 100; i++) {
                 cursor.moveToPosition(i);
                 JSONObject marker = new JSONObject();
+                JSONObject properties = new JSONObject();
                 JSONArray position = new JSONArray();
-                marker.put(JSON_TYPE_ID, cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_TYPE_ID)));
-                marker.put(JSON_NODE_ID, cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_NODE_ID)));
-                position.put(cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_LATITUDE)));
-                position.put(cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_LONGITUDE)));
+                double latitude = cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_LATITUDE));
+                double longitude = cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_LONGITUDE));
+                position.put(latitude); // latitude before longitude
+                position.put(longitude);
+                Log.d("pos", latitude + "lat " + longitude + "long");
                 marker.put(JSON_POSITION, position);
+                properties.put(JSON_TYPE_ID, cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_TYPE_ID)));
+                properties.put(JSON_NODE_ID, cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_NODE_ID)));
+                marker.put(JSON_PROPERTIES, properties);
                 result.put(marker);
             }
             return result;
