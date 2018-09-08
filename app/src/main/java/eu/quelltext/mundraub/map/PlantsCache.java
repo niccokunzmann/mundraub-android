@@ -14,6 +14,8 @@ import org.json.JSONObject;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.api.API;
+import eu.quelltext.mundraub.api.progress.Progress;
+import eu.quelltext.mundraub.api.progress.Progressable;
 import eu.quelltext.mundraub.error.ErrorAware;
 import eu.quelltext.mundraub.error.Logger;
 import eu.quelltext.mundraub.initialization.Initialization;
@@ -26,6 +28,7 @@ public class PlantsCache extends ErrorAware {
 
     private static Context context;
     private static Logger.Log log = Logger.newFor("PlantsCache");
+    private static Progress updateProgress;
 
     static {
         Initialization.provideActivityFor(new Initialization.ActivityInitialized() {
@@ -97,6 +100,19 @@ public class PlantsCache extends ErrorAware {
         }
     }
 
+    public static Progress update(API.Callback callback) {
+        if (updateProgress == null || updateProgress.isDone()) {
+            updateProgress = API.instance().updateAllPlantMarkers(callback);
+        } else {
+            updateProgress.addCallback(callback);
+        }
+        return updateProgress;
+    }
+
+    public static Progress getUpdateProgressOrNull() {
+        return updateProgress;
+    }
+
     public static class Marker implements BaseColumns {
         public static final String TABLE_NAME = "marker";
         public static final String COLUMN_LONGITUDE = "longitude";
@@ -164,16 +180,21 @@ public class PlantsCache extends ErrorAware {
     }
 
     private static final String JSON_FEATURES = "features";
-    private static final String JSON_POSITION = "position";
+    private static final String JSON_POSITION = "pos";
     private static final String JSON_TYPE_ID = "tid";
     private static final String JSON_NODE_ID = "nid";
+    private static final String JSON_PROPERTIES = "properties";
     private static final int JSON_INDEX_LONGITUDE = 1;
     private static final int JSON_INDEX_LATITUDE = 0;
+    private static final int BULK_INSERT_MARKERS = 500;
 
-    public static void updatePlantMarkers(JSONObject json) throws API.ErrorWithExplanation {
+    public static void updatePlantMarkers(JSONObject json, Progressable fraction) throws API.ErrorWithExplanation {
         // this is called form the API with all markers needed.
         SQLiteDatabase database = getWritableDatabase();
+        int markersAdded = 0;
+        database.beginTransaction();
         try {
+            JSONObject invalidMarker = null;
             new MarkerDBSQLiteHelper().clearTable(database);
             if (json == null || !json.has(JSON_FEATURES)) {
                 return;
@@ -182,24 +203,49 @@ public class PlantsCache extends ErrorAware {
             // https://github.com/niccokunzmann/mundraub-android/blob/master/docs/api.md#markers
             try {
                 JSONArray markers = json.getJSONArray(JSON_FEATURES);
+                log.d("number of markers to add", markers.length());
                 for (int i = 0; i < markers.length(); i++) {
                     JSONObject markerJSON = markers.getJSONObject(i);
+                    if (!markerJSON.has(JSON_POSITION) || !markerJSON.has(JSON_PROPERTIES)) {
+                        invalidMarker = markerJSON;
+                        continue;
+                    }
                     JSONArray position = markerJSON.getJSONArray(JSON_POSITION);
+                    JSONObject properties = markerJSON.getJSONObject(JSON_PROPERTIES);
+                    if (!properties.has(JSON_TYPE_ID) || !properties.has(JSON_NODE_ID) ||
+                        position.length() != 2) {
+                        invalidMarker = markerJSON;
+                        continue;
+                    }
                     Marker marker = new Marker(
                             position.getDouble(JSON_INDEX_LONGITUDE),
                             position.getDouble(JSON_INDEX_LATITUDE),
-                            Integer.parseInt(markerJSON.getString(JSON_TYPE_ID)),
-                            Integer.parseInt(markerJSON.getString(JSON_NODE_ID))
+                            Integer.parseInt(properties.getString(JSON_TYPE_ID)),
+                            Integer.parseInt(properties.getString(JSON_NODE_ID))
                     );
                     marker.saveToDB(database);
+                    fraction.setProgress(1.0 * i / markers.length());
+                    markersAdded++;
+                    if (markersAdded % BULK_INSERT_MARKERS == 0) {
+                        database.setTransactionSuccessful();
+                        database.endTransaction();
+                        log.d("bulk insert markers", BULK_INSERT_MARKERS + " " + markersAdded + " of " + markers.length());
+                        database.beginTransaction();
+                    }
                 }
             } catch (JSONException e) {
                 log.printStackTrace(e);
                 API.abortOperation(R.string.error_invalid_json_for_markers);
                 return;
             }
+            if (invalidMarker != null) {
+                log.e("invalidMarker", invalidMarker.toString());
+            }
+            database.setTransactionSuccessful(); // from https://stackoverflow.com/a/32088155
         } finally {
+            database.endTransaction();
             database.close();
+            log.d("markers added", markersAdded);
         }
     }
 
@@ -210,4 +256,6 @@ public class PlantsCache extends ErrorAware {
     private static SQLiteDatabase getReadableDatabase() {
         return new MarkerDBSQLiteHelper().getReadableDatabase();
     }
+
+
 }

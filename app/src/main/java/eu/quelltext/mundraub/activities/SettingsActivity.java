@@ -1,28 +1,76 @@
 package eu.quelltext.mundraub.activities;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ProgressBar;
 import android.widget.ToggleButton;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.api.API;
+import eu.quelltext.mundraub.api.progress.Progress;
 import eu.quelltext.mundraub.common.Dialog;
 import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.initialization.Permissions;
+import eu.quelltext.mundraub.map.PlantsCache;
 
 public class SettingsActivity extends MundraubBaseActivity {
+
+    private ProgressBar updateProgress;
+    final Handler handler = new Handler();
+    ProgressUpdate progressAutoUpdate;
+
+    class ProgressUpdate implements Runnable {
+        boolean stopped = false;
+        @Override
+        public void run() {
+            try {
+                updateOrHideUpdateProgress();
+            } finally {
+                if (!stopped) {
+                    handler.postDelayed(this, 500);
+                }
+            }
+        }
+
+        public void stop() {
+            stopped = true;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        updateProgress = (ProgressBar) findViewById(R.id.update_progress);
+    }
+
+    private void updateOrHideUpdateProgress() {
+        Progress progress = PlantsCache.getUpdateProgressOrNull();
+        if (progress == null) {
+            updateProgress.setVisibility(View.GONE);
+        } else {
+            updateProgress.setVisibility(View.VISIBLE);
+            int max = 100;
+            updateProgress.setProgress((int)Math.round(max * progress.getProgress()));
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         update();
+        progressAutoUpdate = new ProgressUpdate();
+        progressAutoUpdate.run();
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        progressAutoUpdate.stop();
+    }
+
     private void update() {
         synchronizeBooleanSetting(R.id.toggle_API,  new Toggled() {
             @Override
@@ -137,7 +185,7 @@ public class SettingsActivity extends MundraubBaseActivity {
 
             @Override
             public void onGranted(Permissions.Permission permission) {
-                API.instance().updateAllPlantMarkers(new API.Callback() {
+                PlantsCache.update(new API.Callback() {
                     @Override
                     public void onSuccess() {
                         Settings.useOfflineMapAPI(true);
