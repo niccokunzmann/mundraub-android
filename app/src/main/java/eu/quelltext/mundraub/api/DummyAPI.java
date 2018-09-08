@@ -1,6 +1,7 @@
 package eu.quelltext.mundraub.api;
 
 import eu.quelltext.mundraub.R;
+import eu.quelltext.mundraub.api.progress.Progressable;
 import eu.quelltext.mundraub.plant.Plant;
 
 public class DummyAPI extends API {
@@ -29,7 +30,7 @@ public class DummyAPI extends API {
     }
 
     @Override
-    protected int setAllPlantMarkersAsync() throws ErrorWithExplanation {
+    protected int setAllPlantMarkersAsync(Progressable progress) throws ErrorWithExplanation {
         return R.string.error_debug_api_can_not_download_offline_data;
     }
 

@@ -26,8 +26,9 @@ import java.util.regex.Pattern;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import eu.quelltext.mundraub.common.Helper;
 import eu.quelltext.mundraub.R;
+import eu.quelltext.mundraub.api.progress.Progressable;
+import eu.quelltext.mundraub.common.Helper;
 import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.map.PlantsCache;
 import eu.quelltext.mundraub.plant.Plant;
@@ -234,12 +235,19 @@ public class MundraubAPI extends API {
     }
 
     @Override
-    protected int setAllPlantMarkersAsync() throws ErrorWithExplanation {
+    protected int setAllPlantMarkersAsync(Progressable progress) throws ErrorWithExplanation {
+        double FRACTION_DOWNLOAD = 0.05;
+        double FRACTION_PARSING = 1 - FRACTION_DOWNLOAD;
         try {
             PlantsCache.clear();
-            for (String url : getUrlsForAllPlants()) {
-                JSONObject json = new JSONObject(getURL(url, false));
-                PlantsCache.updatePlantMarkers(json);
+            List<String> urls = getUrlsForAllPlants();
+            for (String url : urls) {
+                log.d("setAllPlantMarkersAsync", url);
+                String data = getURL(url, false);
+                progress.getFraction(FRACTION_DOWNLOAD / urls.size()).setProgress(1);
+                log.d("data", data.substring(0, (data.length() > 100 ? 100 : data.length())) + " " + data.length() + " bytes");
+                JSONObject json = new JSONObject(data);
+                PlantsCache.updatePlantMarkers(json, progress.getFraction(FRACTION_PARSING / urls.size()));
             }
         } catch (JSONException e) {
             log.printStackTrace(e);
@@ -252,6 +260,8 @@ public class MundraubAPI extends API {
             log.printStackTrace(e);
         } catch (KeyManagementException e) {
             log.printStackTrace(e);
+        } catch (Exception e) {
+            log.printStackTrace(e);
         }
         return TASK_SUCCEEDED;
     }
@@ -262,6 +272,7 @@ public class MundraubAPI extends API {
             // see https://github.com/niccokunzmann/mundraub-android/issues/96
             String url = "https://mundraub.org/cluster/plant?bbox=-180.0,-90.0,180.0,90&zoom=18&cat=" + category.getValueForAPI();
             urls.add(url);
+            log.d("possible url", url);
         }
         return urls;
     }

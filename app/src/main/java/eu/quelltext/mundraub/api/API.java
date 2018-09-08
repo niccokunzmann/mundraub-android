@@ -3,6 +3,8 @@ package eu.quelltext.mundraub.api;
 import android.os.AsyncTask;
 
 import eu.quelltext.mundraub.R;
+import eu.quelltext.mundraub.api.progress.Progress;
+import eu.quelltext.mundraub.api.progress.Progressable;
 import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.error.ErrorAware;
 import eu.quelltext.mundraub.plant.Plant;
@@ -20,10 +22,10 @@ public abstract class API extends ErrorAware {
         return Settings.useMundraubAPI() ? mundraubAPI : dummyAPI;
     }
 
-    public void login(final String username, final String password, Callback cb) {
-        doAsynchronously(cb, new AsyncOperation() {
+    public Progress login(final String username, final String password, Callback cb) {
+        return doAsynchronously(cb, new AsyncOperation() {
             @Override
-            public int operate() throws ErrorWithExplanation {
+            public int operate(Progress progress) throws ErrorWithExplanation {
                 int success = loginAsync(username, password);
                 isLoggedIn = success == TASK_SUCCEEDED;
                 return success;
@@ -31,9 +33,10 @@ public abstract class API extends ErrorAware {
         });
     }
 
-    private void doAsynchronously(Callback cb, AsyncOperation op) {
+    private Progress doAsynchronously(Callback cb, AsyncOperation op) {
         Task task = new Task(cb, op);
         task.execute();
+        return task.getProgress();
     }
 
     public boolean isLoggedIn() {
@@ -42,18 +45,18 @@ public abstract class API extends ErrorAware {
 
     private class Task extends AsyncTask<Void, Void, Integer> {
 
-        private final Callback cb;
+        private final Progress progress;
         private final AsyncOperation operation;
 
         Task(Callback cb, AsyncOperation operation) {
             this.operation = operation;
-            this.cb = cb;
+            this.progress = new Progress(cb);
         }
 
         @Override
         protected Integer doInBackground(Void... params) {
             try {
-                return operation.operate();
+                return operation.operate(progress);
             } catch (ErrorWithExplanation e) {
                 return e.explanationResourceId;
             }
@@ -62,58 +65,63 @@ public abstract class API extends ErrorAware {
         @Override
         protected void onPostExecute(Integer result) {
             if (result == TASK_SUCCEEDED) {
-                cb.onSuccess();
+                progress.setSuccess();
             } else {
-                cb.onFailure(result);
+                progress.setError(result);
             }
         }
 
         @Override
         protected void onCancelled() {
-            cb.onFailure(TASK_CANCELLED);
+            progress.setError(TASK_CANCELLED);
+        }
+
+        public Progress getProgress() {
+            return progress;
         }
     }
 
-    public interface Callback {
-        void onSuccess();
-        void onFailure(int errorResourceString);
+    public static abstract class Callback {
+        public abstract void onSuccess();
+        public void onFailure(int errorResourceString){};
+        public void onProgress(double portion){};
     }
-    private interface AsyncOperation {
-        int operate() throws ErrorWithExplanation;
+    private abstract class AsyncOperation {
+        abstract int operate(Progress progress) throws ErrorWithExplanation;
     }
 
-    public void addPlant(final Plant plant, Callback callback) {
-        doAsynchronously(callback, new AsyncOperation() {
+    public Progress addPlant(final Plant plant, Callback callback) {
+        return doAsynchronously(callback, new AsyncOperation() {
             @Override
-            public int operate() throws ErrorWithExplanation {
+            public int operate(Progress progress) throws ErrorWithExplanation {
                 return addPlantAsync(plant);
             }
         });
     }
 
-    public void deletePlant(final String id, Callback callback) {
-        doAsynchronously(callback, new AsyncOperation() {
+    public Progress deletePlant(final String id, Callback callback) {
+        return doAsynchronously(callback, new AsyncOperation() {
             @Override
-            public int operate() throws ErrorWithExplanation {
+            public int operate(Progress progress) throws ErrorWithExplanation {
                 return deletePlantAsync(id);
             }
         });
     }
 
-    public void updatePlant(final Plant plant, final String id, Callback cb) {
-        doAsynchronously(cb, new AsyncOperation() {
+    public Progress updatePlant(final Plant plant, final String id, Callback cb) {
+        return doAsynchronously(cb, new AsyncOperation() {
             @Override
-            public int operate() throws ErrorWithExplanation {
+            public int operate(Progress progress) throws ErrorWithExplanation {
                 return updatePlantAsync(plant, id);
             }
         });
     }
 
-    public void updateAllPlantMarkers(Callback cb) {
-        doAsynchronously(cb, new AsyncOperation() {
+    public Progress updateAllPlantMarkers(Callback cb) {
+        return doAsynchronously(cb, new AsyncOperation() {
             @Override
-            public int operate() throws ErrorWithExplanation {
-                return setAllPlantMarkersAsync();
+            public int operate(Progress progress) throws ErrorWithExplanation {
+                return setAllPlantMarkersAsync(progress);
             }
         });
     }
@@ -141,6 +149,6 @@ public abstract class API extends ErrorAware {
     protected abstract int loginAsync(String username, String password) throws ErrorWithExplanation;
     protected abstract int deletePlantAsync(String plantId) throws ErrorWithExplanation;
     protected abstract int updatePlantAsync(Plant plant, String plantId) throws ErrorWithExplanation;
-    protected abstract int setAllPlantMarkersAsync() throws ErrorWithExplanation;
+    protected abstract int setAllPlantMarkersAsync(Progressable progress) throws ErrorWithExplanation;
 
 }
