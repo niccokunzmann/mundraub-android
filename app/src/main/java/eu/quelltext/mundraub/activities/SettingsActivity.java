@@ -1,5 +1,7 @@
 package eu.quelltext.mundraub.activities;
 
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -54,6 +56,11 @@ public class SettingsActivity extends MundraubBaseActivity {
             updateProgress.setVisibility(View.VISIBLE);
             int max = 100;
             updateProgress.setProgress((int)Math.round(max * progress.getProgress()));
+            // update color from https://stackoverflow.com/a/15809803
+            Drawable progressDrawable = updateProgress.getProgressDrawable().mutate();
+            int color = progress.isDoneAndError() ? Color.RED : Color.GREEN;
+            progressDrawable.setColorFilter(color, android.graphics.PorterDuff.Mode.MULTIPLY);
+            updateProgress.setProgressDrawable(progressDrawable);
         }
     }
 

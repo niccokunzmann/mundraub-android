@@ -249,6 +249,7 @@ public class MundraubAPI extends API {
                 JSONObject json = new JSONObject(data);
                 PlantsCache.updatePlantMarkers(json, progress.getFraction(FRACTION_PARSING / urls.size()));
             }
+            return TASK_SUCCEEDED;
         } catch (JSONException e) {
             log.printStackTrace(e);
             abortOperation(R.string.error_invalid_json_for_markers);
@@ -263,7 +264,7 @@ public class MundraubAPI extends API {
         } catch (Exception e) {
             log.printStackTrace(e);
         }
-        return TASK_SUCCEEDED;
+        return R.string.error_not_specified;
     }
 
     private List<String> getUrlsForAllPlants() {
@@ -272,7 +273,6 @@ public class MundraubAPI extends API {
             // see https://github.com/niccokunzmann/mundraub-android/issues/96
             String url = "https://mundraub.org/cluster/plant?bbox=-180.0,-90.0,180.0,90&zoom=18&cat=" + category.getValueForAPI();
             urls.add(url);
-            log.d("possible url", url);
         }
         return urls;
     }
