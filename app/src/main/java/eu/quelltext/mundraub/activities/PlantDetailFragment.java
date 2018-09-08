@@ -166,7 +166,7 @@ public class PlantDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (plant.shouldAskTheUserAboutPlacementBeforeUpload()) {
-                    new Dialog(getContext()).askYesNo(
+                    new Dialog(getActivity()).askYesNo(
                             plant.getRepositionReason(),
                             R.string.ask_open_the_map,
                             new Dialog.YesNoCallback() {
@@ -205,7 +205,7 @@ public class PlantDetailFragment extends Fragment {
         updateButton(R.id.button_delete, plant.online().canDelete(), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Dialog(getContext()).askYesNo(
+                new Dialog(getActivity()).askYesNo(
                         R.string.delete_plant_information,
                         R.string.ask_delete_plant,
                         new Dialog.YesNoCallback() {
@@ -233,12 +233,12 @@ public class PlantDetailFragment extends Fragment {
             @Override
             public void onSuccess() {
                 updateOnlineActivities();
-                new Dialog(getContext()).alertSuccess(successResourceId);
+                new Dialog(getActivity()).alertSuccess(successResourceId);
             }
 
             @Override
             public void onFailure(int errorResourceString) {
-                new Dialog(getContext()).alertError(errorResourceString);
+                new Dialog(getActivity()).alertError(errorResourceString);
             }
         };
     }
