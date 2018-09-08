@@ -246,8 +246,12 @@ public class MundraubAPI extends API {
                 String data = getURL(url, false);
                 progress.getFraction(FRACTION_DOWNLOAD / urls.size()).setProgress(1);
                 log.d("data", data.substring(0, (data.length() > 100 ? 100 : data.length())) + " " + data.length() + " bytes");
-                JSONObject json = new JSONObject(data);
-                PlantsCache.updatePlantMarkers(json, progress.getFraction(FRACTION_PARSING / urls.size()));
+                Progressable fraction = progress.getFraction(FRACTION_PARSING / urls.size());
+                if (data.length() > 5) { // data is null
+                    JSONObject json = new JSONObject(data);
+                    PlantsCache.updatePlantMarkers(json, fraction);
+                }
+                fraction.setProgress(1);
             }
             return TASK_SUCCEEDED;
         } catch (JSONException e) {
@@ -271,8 +275,10 @@ public class MundraubAPI extends API {
         List<String> urls = new ArrayList<String>();
         for (PlantCategory category: PlantCategory.all()) {
             // see https://github.com/niccokunzmann/mundraub-android/issues/96
-            String url = "https://mundraub.org/cluster/plant?bbox=-180.0,-90.0,180.0,90&zoom=18&cat=" + category.getValueForAPI();
-            urls.add(url);
+            urls.add("https://mundraub.org/cluster/plant?bbox=-180.0,-90.0,0.0,0&zoom=18&cat=" + category.getValueForAPI());
+            urls.add("https://mundraub.org/cluster/plant?bbox=0.0,-90.0,180.0,0&zoom=18&cat=" + category.getValueForAPI());
+            urls.add("https://mundraub.org/cluster/plant?bbox=-180.0,0.0,0.0,90&zoom=18&cat=" + category.getValueForAPI());
+            urls.add("https://mundraub.org/cluster/plant?bbox=0.0,0.0,180.0,90&zoom=18&cat=" + category.getValueForAPI());
         }
         return urls;
     }
