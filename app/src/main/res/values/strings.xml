@@ -108,7 +108,7 @@
     <string name="error_connection">There was an error with the connection to the server.</string>
     <string name="error_could_not_delete_plant">The plant could not be deleted online. There was some error. Please go online and delete it yourself.</string>
     <string name="error_could_not_validate_host">The identity of the server is not trusted. This is a known problem on older platforms. Currently, you can disable trusted connections in the settings to work around this error. Feel free to contribute a solution.</string>
-    <string name="error_invalid_json_for_markers">The markers returned by Mundrsaub.org are in anunexpected format. Maybe they changed the API? Please report this issue, see the About page in the menu.</string>
+    <string name="error_invalid_json_for_markers">The markers returned by Mundraub.org are in an unexpected format. Maybe they changed the API? Please report this issue, see the About page in the menu.</string>
 
     <!-- map to choose plant position -->
     <string name="attention">Attention</string>
