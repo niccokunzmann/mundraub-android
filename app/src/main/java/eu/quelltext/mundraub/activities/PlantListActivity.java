@@ -21,7 +21,6 @@ import java.util.List;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.error.Logger;
-import eu.quelltext.mundraub.initialization.FirstActivity;
 import eu.quelltext.mundraub.plant.Plant;
 
 /**
@@ -32,7 +31,7 @@ import eu.quelltext.mundraub.plant.Plant;
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class PlantListActivity extends FirstActivity {
+public class PlantListActivity extends MundraubBaseActivity {
 
     private static final String ARG_RECYCLER_VIEW_STATE = "recycler_view_state";
     /**
