@@ -66,7 +66,7 @@ public class PlantsCache extends ErrorAware {
         log.d("maxLat", maxLat);
         SQLiteDatabase database = getReadableDatabase();
         try {
-
+            //log.d("number of plants in database", Marker.getCount(database));
             String[] projection = {
                     Marker.COLUMN_LONGITUDE,
                     Marker.COLUMN_LATITUDE,
@@ -74,18 +74,34 @@ public class PlantsCache extends ErrorAware {
                     Marker.COLUMN_NODE_ID
             };
 
-            String selection =
-                    Marker.COLUMN_LONGITUDE + " > " + minLon + " and " +
-                    Marker.COLUMN_LONGITUDE + " < " + maxLon + " and " +
-                    Marker.COLUMN_LATITUDE + " > " + minLat + " and " +
-                    Marker.COLUMN_LATITUDE + " < " + maxLat +
-                    "";
-            /*selection =
-                    Marker.COLUMN_LONGITUDE + " > ? and " +
-                            Marker.COLUMN_LONGITUDE + " < ? and " +
-                            Marker.COLUMN_LATITUDE + " > ? and " +
-                            Marker.COLUMN_LATITUDE + " < ?" +
-                    "";*/
+            String selection = "";
+            if (minLon < maxLon) {
+                selection +=
+                        Marker.COLUMN_LONGITUDE + " > " + minLon + " and " +
+                                Marker.COLUMN_LONGITUDE + " < " + maxLon;
+            } else {
+                selection +=
+                        Marker.COLUMN_LONGITUDE + " < " + minLon + " and " +
+                                Marker.COLUMN_LONGITUDE + " > " + maxLon;
+                Log.d("rare case", "minLon " + minLon + " > maxLon" + maxLon);
+            }
+            if (minLat < maxLat) {
+                selection += " and " +
+                        Marker.COLUMN_LATITUDE + " > " + minLat + " and " +
+                        Marker.COLUMN_LATITUDE + " < " + maxLat;
+            } else {
+                selection += " and " +
+                        Marker.COLUMN_LATITUDE + " < " + minLat + " and " +
+                        Marker.COLUMN_LATITUDE + " > " + maxLat;
+                Log.d("rare case", "minLat " + minLat + " > maxLat" + maxLat);
+            }
+            //selection = /*" and " +*/ Marker.COLUMN_TYPE_ID + " = 6";
+        /*selection =
+                Marker.COLUMN_LONGITUDE + " > ? and " +
+                        Marker.COLUMN_LONGITUDE + " < ? and " +
+                        Marker.COLUMN_LATITUDE + " > ? and " +
+                        Marker.COLUMN_LATITUDE + " < ?" +
+                "";*/
 
             String[] selectionArgs = {
                     Double.toString(minLon),
@@ -107,21 +123,23 @@ public class PlantsCache extends ErrorAware {
             );
             log.d("getPlantsInBoundingBox", "The total cursor count is " + cursor.getCount());
             JSONArray result = new JSONArray();
-            for (int i = 0; i < cursor.getCount() && i < 100; i++) {
+            for (int i = 0; i < cursor.getCount() /*&& i < 100*/; i++) {
                 cursor.moveToPosition(i);
+                double latitude = cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_LATITUDE));
+                double longitude = cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_LONGITUDE));
+                String typeId = Integer.toString(cursor.getInt(cursor.getColumnIndexOrThrow(Marker.COLUMN_TYPE_ID)));
+                String nodeId = Integer.toString(cursor.getInt(cursor.getColumnIndexOrThrow(Marker.COLUMN_NODE_ID)));
                 JSONObject marker = new JSONObject();
                 JSONObject properties = new JSONObject();
                 JSONArray position = new JSONArray();
-                double latitude = cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_LATITUDE));
-                double longitude = cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_LONGITUDE));
                 position.put(latitude); // latitude before longitude
                 position.put(longitude);
-                Log.d("pos", latitude + "lat " + longitude + "long");
+                Log.d("pos", latitude + "lat " + longitude + "lon " + typeId + "=type " + nodeId + "= node");
                 marker.put(JSON_POSITION, position);
-                properties.put(JSON_TYPE_ID, cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_TYPE_ID)));
-                properties.put(JSON_NODE_ID, cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_NODE_ID)));
+                properties.put(JSON_TYPE_ID, typeId);
+                properties.put(JSON_NODE_ID, nodeId);
                 marker.put(JSON_PROPERTIES, properties);
-                result.put(marker);
+                if (i < 100) result.put(marker);
             }
             return result;
         } finally {
@@ -172,8 +190,8 @@ public class PlantsCache extends ErrorAware {
         private final int node;
 
         private Marker(double longitude, double latitude, int type, int node) {
-            this.longitude = longitude;
-            this.latitude = latitude;
+            this.longitude = getLongitude(longitude);
+            this.latitude = getLatitude(latitude);
             this.type = type;
             this.node = node;
         }
@@ -185,6 +203,19 @@ public class PlantsCache extends ErrorAware {
             values.put(COLUMN_TYPE_ID,   type);
             values.put(COLUMN_NODE_ID,   node);
             /*long rowId = */database.insert(TABLE_NAME, null, values);
+        }
+
+        public static int getCount(SQLiteDatabase database) {
+            return database.rawQuery("SELECT " + _ID  + " from " + TABLE_NAME, null).getCount();
+        }
+
+        public static int getCount() {
+            SQLiteDatabase database = getReadableDatabase();
+            try {
+                return getCount(database);
+            } finally {
+                database.close();
+            }
         }
     }
 
@@ -233,7 +264,6 @@ public class PlantsCache extends ErrorAware {
         database.beginTransaction();
         try {
             JSONObject invalidMarker = null;
-            new MarkerDBSQLiteHelper().clearTable(database);
             if (json == null || !json.has(JSON_FEATURES)) {
                 return;
             }
@@ -280,6 +310,7 @@ public class PlantsCache extends ErrorAware {
                 log.e("invalidMarker", invalidMarker.toString());
             }
             database.setTransactionSuccessful(); // from https://stackoverflow.com/a/32088155
+            log.d("markers in database", Marker.getCount(database));
         } finally {
             database.endTransaction();
             database.close();
