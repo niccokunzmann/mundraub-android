@@ -39,7 +39,6 @@
     <string name="mint">Minze</string>
     <string name="rosemary">Rosmarin</string>
     <string name="thyme">Thymian</string>
-    <string name="juniper">Wacholder</string>
     <string name="woodruff">Waldmeister</string>
     <string name="other_herbs">Andere Kräuter</string>
     <string name="hazel">Haselnuss</string>
@@ -98,6 +97,7 @@
     <string name="error_connection">Es gab einen Fehler bei der Verbindung zum Server.</string>
     <string name="error_could_not_delete_plant">Die Pflanze konnte online nicht gelöscht werden. Es gab irgendeinen Fehler. Schau bitte selbst online nach.</string>
     <string name="error_could_not_validate_host">Der Identität des Servers wird nicht vertraut. Das ist ein bekanntes Problem älterer Android-Pattformen. Momentan kannst Du vertraute Verbindungen in den Einstellungen ausschalten, um den Fehler zu umgehen. Du darfst gerne eine Lösung beisteuern.</string>
+    <string name="error_invalid_json_for_markers">Die Standpunkte, die ich von Mundraub.org erhalten habe, habe ich in einem anderen Format erwartet. Hat Mundraub.org vielleicht die API verändert? Bitte benachrichtige die Entwickler über dieses Problem im Menupunkt \"Über\".</string>
 
     <!-- map to choose plant position -->
     <string name="attention">Achtung</string>
@@ -111,7 +111,7 @@
     <!-- About -->
     <string name="about_app">Das ist die inoffizielle App für Mundraub.org. Der Quelltext is offen. Du bist eingeladen, beizutragen.</string>
     <string name="about_view_source">Sieh den Quelltext an</string>
-    <string name="about_view_source_at_version">Schau den Quelltext zur Version <xliff:g example="1.0" id="version">%1$s</xliff:g>  und dem Commit <xliff:g example="5849748" id="commit">%2$s</xliff:g> an.</string>
+    <string name="about_view_source_at_version" formatted="false">Schau den Quelltext zur Version <xliff:g example="1.0" id="version">%1$s</xliff:g>  und dem Commit <xliff:g example="5849748" id="commit">%2$s</xliff:g> an.</string>
     <string name="about_four_freedoms">Du hast die Freiheit, diese App auszuführen, sie zu studieren, verteilen und verbessern.</string>
     <string name="about_view_four_freedoms">Mehr über unsere vier Freiheiten</string>
     <string name="about_view_four_freedoms_url">https://de.wikipedia.org/wiki/Freie_Software#Die_vier_Freiheiten</string>
@@ -155,10 +155,18 @@
     <string name="settings_permission_internet_title">INTERNET</string>
     <string name="settings_permission_internet_text">Kann die App sich zu Mundraub und Kartendiensten verbinden?</string>
     <string name="error_can_edit_permissions_only_externally">App-Rechte können nur extern verwaltet werden. Bitte öffne die Android-Einstellungen und ändere die Rechte der App selbst.</string>
-    <string name="error_can_not_edit_permissions_api_too_old">Diese Version von Android ist zu alt, um die Zugriffsrechte der App zu ändern. Sorry.</string>
+    <string name="error_can_not_edit_permissions_api_too_old">Diese Version von Android ist zu alt, um die Zugriffsrechte für die App zurückzunehmen. Sorry.</string>
     <string name="settings_ask_for_error_report">Wenn die App startet, nachdem sie gecrasht ist: Wenn das eingeschaltet ist, fragt die App ob Du den Fehlerbericht benutzen möchtest.</string>
+    <string name="settings_offline">Offline-Einstellungen</string>
+    <string name="settings_use_offline_mode">Wenn das eingeschaltet ist, verwendet die Karte die lokalen Daten, die die App heruntergeladen hat. Wenn das ausgeschaltet ist, wir die aktuelle Version von Mundraub.org verwendet.</string>
+    <string name="reason_offline_data_needs_to_be_downloaded">Um etwas offline zu machen, müssen wir Daten runtergeladen haben. Du kannst auch das verwenden, was schon runtergeladen wurde.</string>
+    <string name="ask_download_offline_data">Möchtest du die Offline-Daten jetzt aktualisieren?</string>
+    <string name="success_offline_data_was_downloaded">Alle Daten, um offline zu gehen, wurden erfolgreich runtergeladen.</string>
+    <string name="error_debug_api_can_not_download_offline_data">Die Debug-API kann keine Daten runterladen. Bitte benutze die Mundraub-API unten in den Einstellungen zu diesem Zweck.</string>
+    <string name="settings_create_public_api_for_debug">Wenn das eingeschaltet ist, stellt die App die Mundraub-API im lokalen Netzwerk frei. Das ist nicht schlimm, da die API nur Lesen erlaubt und kein Verändern.</string>
 
     <!-- Map of all plants -->
     <string name="title_activity_show_plants">Pflanzenkarte</string>
+    <string name="menu_my_plants">Meine Pflanzen</string>
 
 </resources>
