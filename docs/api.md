@@ -116,3 +116,18 @@ The URL is
 - Since the plants are not clustered, a maximum of
     `PlantsCache.MAXIMUM_MARKER_COUNT_TO_SERVE` = 1000 plant markers are served.
 
+## Android Translations
+
+We do not want to translate strings twice.
+Thus we pass the translations to the map using
+
+> http://localhost:39768/translations/app.json
+
+```json
+{
+    "key": "localized value",
+    "apple": "Apfel"
+}
+```
+
+
