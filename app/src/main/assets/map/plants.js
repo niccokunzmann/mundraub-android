@@ -1,23 +1,38 @@
 
+function getLonLatFromPlant(plant) {
+    var lon = plant.pos[1];
+    var lat = plant.pos[0];
+    if (typeof lon == "string") {
+        lon = parseFloat(lon);
+    }
+    if (typeof lat == "string") {
+        lat = parseFloat(lat);
+    }
+    return {lon:lon, lat:lat};
+}
+
 function addPlantMarker(plant) {
-    var position = lonLatToMarkerPosition({lon:plant.pos[1], lat:plant.pos[0]});
+    var lonlat = getLonLatFromPlant(plant);
+    var position = lonLatToMarkerPosition(lonlat);
     var icon = getMarkerIconOfPlant(plant);
     var isPlantCluster = plant.count != undefined;
-    var marker = addMarker(position, function() {
+    var plantMarker = addMarker(position, function() {
         if (isPlantCluster) {
             return "<b>" + plant.count + "</b>"
         } else {
-            return "<b>" + translate(tidToName(plant.properties.tid)) + "</b>";
+            return "<b>" + translate(tidToName(plant.properties.tid)) + "</b>" + 
+                "<br/>" + translate("Distance to marker") + " " + 
+                distanceString(lonlat, markerPositionToLonLat(marker.lonlat));
         }
     });
     if (icon) {
-        marker.setUrl(icon.url.src);
+        plantMarker.setUrl(icon.url.src);
     }
     if (isPlantCluster) {
-        setIconDescriptionOfMarker(marker, plant.count)
+        setIconDescriptionOfMarker(plantMarker, plant.count)
     }
-    marker.display(true);
-    injectClickLink(marker.icon.imageDiv, marker.click);
+    plantMarker.display(true);
+    injectClickLink(plantMarker.icon.imageDiv, plantMarker.click);
 }
 
 var popups = [];

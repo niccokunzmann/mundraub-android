@@ -34,7 +34,7 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 
 function getLonLatFromPixel(xy) {
     var position = map.getLonLatFromPixel(xy);
-    return new OpenLayers.LonLat(position.lon, position.lat).transform( toProjection, fromProjection);
+    return markerPositionToLonLat(position);
 }
 
 function setMarkerToPosition(lonlat) {
@@ -55,6 +55,10 @@ function setPositionInURL(lonlat) {
 
 function lonLatToMarkerPosition(lonLat) {
     return new OpenLayers.LonLat(lonLat.lon, lonLat.lat).transform( fromProjection, toProjection);
+}
+
+function markerPositionToLonLat(position) {
+    return new OpenLayers.LonLat(position.lon, position.lat).transform( toProjection, fromProjection);
 }
 
 function setPosition(doNotPrint) {
