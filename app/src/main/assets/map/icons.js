@@ -63,6 +63,12 @@ var categoryToName = {
     "17": "other nut"
 };
 
+var DEFAULT_PLANT_CATEGORY_NAME = "unnamed plant"
+
+function tidToName(tid) {
+    return categoryToName[tid] || DEFAULT_PLANT_CATEGORY_NAME;
+}
+
 var categories = [];
 
 var BASE_ICON_PATH = "../img/markers";
