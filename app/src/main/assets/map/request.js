@@ -37,7 +37,7 @@ var PLANT_MARKER_URL = "http://localhost:" + API_PROXY_DEFAULT_PORT + "/plant"
 var PLANT_MARKER_CATEGORIES = "cat=4,5,6,7,8,9,10,11,12,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37";
 
 function getPlantsInRange(corner1, corner2, zoom, onSuccess) {
-    var minLat = Math.min(corner1.lat, corner2.lat);
+    var minLat = Math.min(corner1.lat, corner2.lat); // TODO: maybe this needs some refactoring because the view may be wrong at 180deg.
     var maxLat = Math.max(corner1.lat, corner2.lat);
     var minLon = Math.min(corner1.lon, corner2.lon);
     var maxLon = Math.max(corner1.lon, corner2.lon);
