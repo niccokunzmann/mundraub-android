@@ -78,7 +78,10 @@ function onNotifyThatTheTranslationsAreLoaded(func) {
 }
 
 // notify about translations even if they do not exist.
-setTimeout(_notifyThatTheTranslationsAreLoaded, 100);
+setTimeout(function() {
+        _notifyThatTheTranslationsAreLoaded();
+        console.log("Loading translations timed out.");
+    }, 1000);
 
 function loadJSONTranslations() {
     getAppTranslations(function (translations){
