@@ -1,8 +1,9 @@
-# API
+# Mundraub API
 
 This document describes the API provided by Mundraub.org.
 
 # Markers
+[markers]: #markers
 
 Mundraub.org can be queried for markers.
 
@@ -99,5 +100,17 @@ The app can support more categories of plants if they are mapped to the
 corresponding existing category such as `other fruit trees`, `other fruit shrub`,
 `other herbs` and `other nut`.
 
+# App API
 
+The app also provides an API at http://localhost:39768.
+
+## App Markers
+
+This works as the [markers] from Mundraub with slight differences.
+The URL is
+
+> http://localhost:39768/plant?bbox=8.551296288299936,51.986380387835624,8.558162743378013,51.99235302537756&zoom=18&cat=4,5,6,7,8,9,10,11,12,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37
+
+- The `cat` parameter is ignored.
+- The `zoom` level does not cluster the plants.
 
