@@ -2,5 +2,6 @@ define(
 {
     "Location": "Position",
     "Plants": "Pflanzen",
-    "Satellite": "Satellit"
+    "Satellite": "Satellit",
+    "GPS": "GPS"
 });
