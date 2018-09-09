@@ -48,6 +48,11 @@ This is a result which shows a cluster of two plants:
     ]
 }
 ```
+
+This is the result, if there are no markers given:
+```json
+null
+```
   
 ## Categories
 [categories]: #categories
