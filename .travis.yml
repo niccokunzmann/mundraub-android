@@ -43,6 +43,7 @@ before_script:
 script:
 # build
 - gradle build
+- ./scripts/runHTTPProxy.sh --compile
 # use the build
 - "find | grep '\\.apk'"
 - .travis/release-apk && [ -f "`.travis/release-apk`" ]
