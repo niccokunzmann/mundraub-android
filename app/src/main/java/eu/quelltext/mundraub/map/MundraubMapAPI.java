@@ -1,5 +1,6 @@
 package eu.quelltext.mundraub.map;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.nanohttpd.protocols.http.IHTTPSession;
 import org.nanohttpd.protocols.http.NanoHTTPD;
 import org.nanohttpd.protocols.http.request.Method;
@@ -34,7 +35,8 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
 
     protected MundraubMapAPI(String hostname) {
         super(hostname, DEFAULT_PORT);
-        addHTTPInterceptor(new PlantHandler());
+        addHTTPInterceptor(new PlantHandler(API_PATH));
+        //addHTTPInterceptor(new TranslationsHandler());
     }
 
     public int getPort() {
@@ -64,25 +66,63 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
         return Response.newFixedLengthResponse(Status.NOT_FOUND, NanoHTTPD.MIME_HTML, msg);
     }
 
-    protected class PlantHandler implements IHandler<IHTTPSession, Response>  {
+    protected class URIHandler implements IHandler<IHTTPSession, Response> {
+
+        private final String uri;
+
+        public URIHandler(String uri) {
+            this.uri = uri;
+        }
 
         @Override
         public Response handle(IHTTPSession input) {
-            debug("input.getMethod(): " + input.getMethod() + " " + (input.getMethod() == Method.GET));
-            debug("input.getUri(): " + input.getUri() + " " + input.getUri().equals("/plant"));
-            if (input.getMethod() != Method.GET || !input.getUri().equals(API_PATH)) {
-                return null;
+            if (this.shouldServe(input)) {
+                try {
+                    return respondTo(input);
+                } catch (Exception e) {
+                    return handleError(e);
+                }
             }
-            try {
-                byte[] bytes = getResponseBytesFromPlantMarkerQuery(input.getQueryParameterString());
-                Response result = Response.newFixedLengthResponse(Status.OK, "application/json", bytes);
-                result.addHeader("Access-Control-Allow-Origin", "*"); // allow JavaScript to access the content
-                result.addHeader("Content-Type", "application/json; charset=UTF-8");
-                return result;
-            } catch(Exception e) {
-                handleError(e);
-                return null;
-            }
+            return null;
+        }
+
+        public Response respondTo(IHTTPSession input) throws Exception {
+            return null;
+        }
+
+        public boolean shouldServe(IHTTPSession input) {
+            return wantsToHandleMethod(input.getMethod()) &&
+                    wantsToServeURI(input.getUri());
+        }
+
+        public boolean wantsToServeURI(String uri) {
+            return uri.equals(this.uri);
+        }
+
+        public boolean wantsToHandleMethod(Method method) {
+            return method == Method.GET;
+        }
+
+        public Response handleError(Exception e) {
+            MundraubMapAPI.this.handleError(e);
+            String msg = "<html><body><h1>500 Internal server errir</h1>\n" +
+                    "<pre>" + ExceptionUtils.getStackTrace(e) + "</pre></body></html>";
+            return Response.newFixedLengthResponse(Status.INTERNAL_ERROR, NanoHTTPD.MIME_HTML, msg);
+        }
+    }
+
+    protected class PlantHandler extends URIHandler  {
+
+        protected PlantHandler(String uri) {
+            super(uri);
+        }
+
+        public Response respondTo(IHTTPSession input) throws Exception {
+            byte[] bytes = getResponseBytesFromPlantMarkerQuery(input.getQueryParameterString());
+            Response result = Response.newFixedLengthResponse(Status.OK, "application/json", bytes);
+            result.addHeader("Access-Control-Allow-Origin", "*"); // allow JavaScript to access the content
+            result.addHeader("Content-Type", "application/json; charset=UTF-8");
+            return result;
         }
     }
 
@@ -122,4 +162,6 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
                 .followSslRedirects(false)
                 .build();
     }
+
+    
 }
