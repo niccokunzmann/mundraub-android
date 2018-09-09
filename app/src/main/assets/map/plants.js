@@ -44,7 +44,7 @@ function addMarker(ll, getPopupContentHTML) {
         currentPopup = this.popup;
         OpenLayers.Event.stop(evt);
     };
-    marker.events.register("mousedown", feature, markerClick);
+    marker.events.register("click", feature, markerClick);
 
     plants.addMarker(marker);
     return marker;
