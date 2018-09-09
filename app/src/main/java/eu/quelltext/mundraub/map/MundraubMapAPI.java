@@ -22,6 +22,8 @@ import okhttp3.Request;
 public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
 
     private final static int DEFAULT_PORT = 39768;
+    private static final String API_PATH_TRANSLATIONS = "/translations/app.js";
+
 
     @Override
     public void start() throws IOException {
@@ -36,7 +38,7 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
     protected MundraubMapAPI(String hostname) {
         super(hostname, DEFAULT_PORT);
         addHTTPInterceptor(new PlantHandler(API_PATH));
-        //addHTTPInterceptor(new TranslationsHandler());
+        addHTTPInterceptor(new TranslationsHandler(API_PATH_TRANSLATIONS));
     }
 
     public int getPort() {
@@ -163,5 +165,24 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
                 .build();
     }
 
-    
+    protected class TranslationsHandler extends URIHandler {
+
+        public TranslationsHandler(String uri) {
+            super(uri);
+        }
+
+        @Override
+        public Response respondTo(IHTTPSession input) throws Exception {
+            byte[] bytes = getResponseBytesForAppTranslations();
+            Response result = Response.newFixedLengthResponse(Status.OK, "application/json", bytes);
+            result.addHeader("Access-Control-Allow-Origin", "*"); // allow JavaScript to access the content
+            result.addHeader("Content-Type", "application/json; charset=UTF-8");
+            return result;
+        }
+    }
+
+    protected byte[] getResponseBytesForAppTranslations() {
+        // to be overwritten by subclasses
+        return "{\"apple\":\"Apfel\"}".getBytes();
+    }
 }
