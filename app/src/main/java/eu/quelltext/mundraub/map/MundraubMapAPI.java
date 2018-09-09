@@ -9,6 +9,7 @@ import org.nanohttpd.protocols.http.response.Status;
 import org.nanohttpd.util.IHandler;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -181,8 +182,8 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
         }
     }
 
-    protected byte[] getResponseBytesForAppTranslations() {
+    protected byte[] getResponseBytesForAppTranslations() throws UnsupportedEncodingException {
         // to be overwritten by subclasses
-        return "{\"apple\":\"Apfel\"}".getBytes();
+        return "{\"apple\":\"Apfel\"}".getBytes("UTF-8");
     }
 }

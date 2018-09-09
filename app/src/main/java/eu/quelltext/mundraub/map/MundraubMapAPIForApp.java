@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.error.Logger;
@@ -52,7 +53,7 @@ public class MundraubMapAPIForApp extends MundraubMapAPI {
     }
 
     @Override
-    protected byte[] getResponseBytesForAppTranslations() {
+    protected byte[] getResponseBytesForAppTranslations() throws UnsupportedEncodingException {
         Activity activity = Initialization.getActivity();
         Resources resources = activity.getResources();
         JSONObject json = new JSONObject();
@@ -63,6 +64,6 @@ public class MundraubMapAPIForApp extends MundraubMapAPI {
                 log.printStackTrace(e);
             }
         }
-        return json.toString().getBytes();
+        return json.toString().getBytes("UTF-8");
     }
 }
