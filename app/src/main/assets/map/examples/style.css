@@ -230,3 +230,8 @@ div.olControlAttribution {
     background: rgba(3, 200, 3, 0.5);
 }
 
+.olPopupCloseBox {
+    background: url("../img/close.gif") no-repeat;
+    cursor: pointer;
+}
+

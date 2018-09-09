@@ -1,6 +1,11 @@
 function sendRequest(url, onSuccess, onError){
     // see https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Sending_forms_through_JavaScript
     var XHR = new XMLHttpRequest();
+    if (!onError) {
+        onError = function() {
+            console.log("ERROR: " + url + " failed.");
+        }
+    }
     // Define what happens on successful data submission
     XHR.addEventListener('load', function(event) {
         if (event.target.status == 200) {
@@ -14,17 +19,13 @@ function sendRequest(url, onSuccess, onError){
                 onSuccess(json, event);
             }
         } else {
-            if (onError) {
-                onError(event);
-            }
+            onError(event);
         }
     });
 
     // Define what happens in case of error
     XHR.addEventListener('error', function(event) {
-        if (onError) {
-            onError(event);
-        }
+        onError(event);
     });
 
     // Set up our request
@@ -33,7 +34,8 @@ function sendRequest(url, onSuccess, onError){
 }
 
 var API_PROXY_DEFAULT_PORT = 39768;
-var PLANT_MARKER_URL = "http://localhost:" + API_PROXY_DEFAULT_PORT + "/cluster/plant"
+var API_HOST = "http://localhost:" + API_PROXY_DEFAULT_PORT;
+var PLANT_MARKER_URL = API_HOST + "/cluster/plant"
 var PLANT_MARKER_CATEGORIES = "cat=4,5,6,7,8,9,10,11,12,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37";
 
 function getPlantsInRange(corner1, corner2, zoom, onSuccess) {
@@ -71,18 +73,18 @@ function updatePlants() {
         }
         if (newPlants) {
             newPlants.features.forEach(function(plant) {
-                var position = lonLatToMarkerPosition({lon:plant.pos[1], lat:plant.pos[0]});
-                var icon = getMarkerIconOfPlant(plant);
-                var marker = new OpenLayers.Marker(position);
-                if (icon) {
-                    marker.setUrl(icon.url.src);
-                }
-                if (plant.count) {
-                    setIconDescriptionOfMarker(marker, plant.count)
-                }
-                plants.addMarker(marker);
-                marker.display(true);
+                addPlantMarker(plant);
             });
         }
     });
 }
+
+var APP_TRANSLATIONS_URL = API_HOST + "/translations/app.js"
+
+/*
+ * Get translations from the app so we do not have to translate twice.
+ */
+function getAppTranslations(onSuccess) {
+    sendRequest(APP_TRANSLATIONS_URL, onSuccess);
+}
+

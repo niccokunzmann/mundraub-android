@@ -84,5 +84,3 @@ function iconForCategory(category) {
     return categoryToIcon[category].clone();
 }
 
-
-

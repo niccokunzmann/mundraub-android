@@ -1,6 +1,8 @@
 
 var localizedTranslations = {};
 var translationBase = {};
+var appTranslations = {};
+
 
 function loadTranslationLanguage(language) {
     script = document.createElement("script");
@@ -41,16 +43,22 @@ var define = function (newTranslations) {
 loadTranslationLanguage(defaultLanguage);
 
 function translate(key) {
-    var t = localizedTranslations[key];
-    if (t != undefined) {
-        return t;
+    var lookupChain = [
+        [appTranslations, null],
+        [localizedTranslations, "key " + key + " is not translated to " + language],
+        [translationBase, "ERROR: key " + key + " is not found in the " + defaultLanguage + " translations. It should be there. Make sure it is not misspelled."],
+    ];
+    for (var i = 0; i < lookupChain.length; i++) {
+        translations = lookupChain[i][0];
+        var translation = translations[key];
+        if (translation != undefined) {
+            return translation;
+        }
+        var errorMessage = lookupChain[i][1];
+        if (errorMessage) {
+            console.log();
+        }
     }
-    console.log("key " + key + " is not translated to " + language);
-    t = translationBase[key];
-    if (t != undefined) {
-        return t;
-    }
-    console.log("ERROR: key " + key + " is not found in the " + defaultLanguage + " translations. It should be there. Make sure it is not misspelled.");
     return key;
 }
 
@@ -71,4 +79,12 @@ function onNotifyThatTheTranslationsAreLoaded(func) {
 
 // notify about translations even if they do not exist.
 setTimeout(_notifyThatTheTranslationsAreLoaded, 100);
+
+function loadJSONTranslations() {
+    getAppTranslations(function (translations){
+        appTranslations = translations;
+    });
+}
+
+window.addEventListener("load", loadJSONTranslations);
 
