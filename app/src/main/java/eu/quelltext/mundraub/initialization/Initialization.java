@@ -10,6 +10,10 @@ public class Initialization {
     private static final List<ActivityInitialized> initializers = new ArrayList<ActivityInitialized>();
     private static Activity activity = null;
 
+    public static Activity getActivity() {
+        return activity;
+    }
+
     public interface ActivityInitialized {
         void setActivity(Activity context);
     }

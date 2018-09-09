@@ -1,9 +1,17 @@
 package eu.quelltext.mundraub.map;
 
+import android.app.Activity;
+import android.content.res.Resources;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.error.Logger;
+import eu.quelltext.mundraub.initialization.Initialization;
+import eu.quelltext.mundraub.plant.PlantCategory;
 import okhttp3.OkHttpClient;
 
 public class MundraubMapAPIForApp extends MundraubMapAPI {
@@ -43,4 +51,18 @@ public class MundraubMapAPIForApp extends MundraubMapAPI {
         return Settings.getOkHttpClient();
     }
 
+    @Override
+    protected byte[] getResponseBytesForAppTranslations() {
+        Activity activity = Initialization.getActivity();
+        Resources resources = activity.getResources();
+        JSONObject json = new JSONObject();
+        for (PlantCategory category : PlantCategory.all()) {
+            try {
+                json.put(category.getId(), resources.getString(category.getResourceId()));
+            } catch (JSONException e) {
+                log.printStackTrace(e);
+            }
+        }
+        return json.toString().getBytes();
+    }
 }
