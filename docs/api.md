@@ -2,7 +2,7 @@
 
 This document describes the API provided by Mundraub.org.
 
-# Markers
+## Markers
 [markers]: #markers
 
 Mundraub.org can be queried for markers.
@@ -50,10 +50,14 @@ This is a result which shows a cluster of two plants:
 }
 ```
 
+### Edge Cases
+
 This is the result, if there are no markers given:
 ```json
 null
 ```
+
+Note that the position is sometimes a float and sometimes a string.
   
 ## Categories
 [categories]: #categories
