@@ -1,7 +1,6 @@
 package eu.quelltext.mundraub.map;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -20,7 +19,7 @@ public class OfflinePlantsMapAPI extends MundraubMapAPIForApp {
 
 
     @Override
-    protected byte[] getResponseBytesFromPlantMarkerQuery(String queryParameterString) throws IOException, JSONException {
+    protected byte[] getResponseBytesFromPlantMarkerQuery(String queryParameterString) throws IOException, Exception /*JSONException*/ {
         Map<String, List<String>> parameters = Helper.splitQuery(queryParameterString);
         if (!parameters.containsKey(JSON_BBOX)) {
             return "{\"error\":\"bbox parameter is required\"}".getBytes("UTF-8"); // encoding from https://stackoverflow.com/a/5729823

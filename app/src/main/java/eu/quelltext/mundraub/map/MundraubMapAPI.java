@@ -1,6 +1,5 @@
 package eu.quelltext.mundraub.map;
 
-import org.json.JSONException;
 import org.nanohttpd.protocols.http.IHTTPSession;
 import org.nanohttpd.protocols.http.NanoHTTPD;
 import org.nanohttpd.protocols.http.request.Method;
@@ -71,7 +70,7 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
         public Response handle(IHTTPSession input) {
             debug("input.getMethod(): " + input.getMethod() + " " + (input.getMethod() == Method.GET));
             debug("input.getUri(): " + input.getUri() + " " + input.getUri().equals("/plant"));
-            if (input.getMethod() != Method.GET || !input.getUri().equals("/plant")) {
+            if (input.getMethod() != Method.GET || !input.getUri().equals(API_PATH)) {
                 return null;
             }
             try {
@@ -91,7 +90,7 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
     String API_HOST = "mundraub.org";
     String API_PATH = "/cluster/plant";
 
-    protected byte[] getResponseBytesFromPlantMarkerQuery(String queryParameterString) throws IOException, JSONException {
+    protected byte[] getResponseBytesFromPlantMarkerQuery(String queryParameterString) throws IOException, Exception /*JSONException*/ {
         HttpUrl url = HttpUrl.parse(API_PROTOCOL + "://" + API_HOST + API_PATH + "?" + queryParameterString);
         okhttp3.Response response = httpGet(url);
         return response.body().bytes();
