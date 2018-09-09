@@ -66,11 +66,7 @@ function getPlantsOnMap(map, onSuccess) {
 
 function updatePlants() {
     getPlantsOnMap(map, function newPlants(newPlants) {
-        while (plants.markers.length > 0) {
-            var marker = plants.markers[0];
-            plants.removeMarker(marker);
-            marker.destroy();
-        }
+        destroyAllPlantMarkers();
         if (newPlants) {
             newPlants.features.forEach(function(plant) {
                 addPlantMarker(plant);

@@ -17,6 +17,24 @@ function addPlantMarker(plant) {
         setIconDescriptionOfMarker(marker, plant.count)
     }
     marker.display(true);
+    injectClickLink(marker.icon.imageDiv, marker.click);
+}
+
+var popups = [];
+
+function destroyAllPopups() {
+    while (popups.length > 0) {
+        popups.pop().destroy();
+    }
+}
+
+function destroyAllPlantMarkers() {
+    while (plants.markers.length > 0) {
+        var marker = plants.markers[0];
+        plants.removeMarker(marker);
+        marker.destroy();
+    }
+    destroyAllPopups();
 }
 
 function addMarker(ll, getPopupContentHTML) {
@@ -33,18 +51,20 @@ function addMarker(ll, getPopupContentHTML) {
     var marker = feature.createMarker();
 
     var markerClick = function (evt) {
-        if (this.popup == null) {
-            this.data.popupContentHTML = getPopupContentHTML();
-            this.popup = this.createPopup(this.closeBox);
-            map.addPopup(this.popup);
-            this.popup.show();
-        } else {
-            this.popup.toggle();
+        if (feature.popup == null) {
+            feature.data.popupContentHTML = getPopupContentHTML();
+            feature.popup = feature.createPopup(feature.closeBox);
+            map.addPopup(feature.popup);
+            popups.push(feature.popup);
+            feature.popup.show();
+        } else if (!evt.used){
+            feature.popup.toggle();
         }
-        currentPopup = this.popup;
+        evt.used = true;
         OpenLayers.Event.stop(evt);
     };
     marker.events.register("click", feature, markerClick);
+    marker.click = markerClick;
 
     plants.addMarker(marker);
     return marker;
