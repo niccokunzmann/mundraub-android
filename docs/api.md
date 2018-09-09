@@ -113,4 +113,6 @@ The URL is
 
 - The `cat` parameter is ignored.
 - The `zoom` level does not cluster the plants.
+- Since the plants are not clustered, a maximum of
+    `PlantsCache.MAXIMUM_MARKER_COUNT_TO_SERVE` = 1000 plant markers are served.
 

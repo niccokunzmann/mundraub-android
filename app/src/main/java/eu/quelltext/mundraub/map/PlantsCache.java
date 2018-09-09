@@ -30,6 +30,7 @@ public class PlantsCache extends ErrorAware {
     private static Context context;
     private static Logger.Log log = Logger.newFor("PlantsCache");
     private static Progress updateProgress;
+    private static final int MAXIMUM_MARKER_COUNT_TO_SERVE = 1000;
 
     static {
         Initialization.provideActivityFor(new Initialization.ActivityInitialized() {
@@ -123,7 +124,7 @@ public class PlantsCache extends ErrorAware {
             );
             log.d("getPlantsInBoundingBox", "The total cursor count is " + cursor.getCount());
             JSONArray result = new JSONArray();
-            for (int i = 0; i < cursor.getCount() /*&& i < 100*/; i++) {
+            for (int i = 0; i < cursor.getCount() && i < MAXIMUM_MARKER_COUNT_TO_SERVE; i++) {
                 cursor.moveToPosition(i);
                 double latitude = cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_LATITUDE));
                 double longitude = cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_LONGITUDE));
