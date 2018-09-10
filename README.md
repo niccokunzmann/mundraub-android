@@ -4,6 +4,7 @@ Mundraub-Android
 [![Build Status](https://travis-ci.org/niccokunzmann/mundraub-android.svg?branch=master)][travis]
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/niccokunzmann/mundraub-android.svg)](http://isitmaintained.com/project/niccokunzmann/mundraub-android "Percentage of issues still open")
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/niccokunzmann/mundraub-android.svg)](http://isitmaintained.com/project/niccokunzmann/mundraub-android "Average time to resolve an issue")
+[![][first-issues-image]][first-issues]
 [![Latest Release](https://img.shields.io/github/release/niccokunzmann/mundraub-android.svg?logo=github)][releases]
 [![F-Droid](https://img.shields.io/f-droid/v/eu.quelltext.mundraub.svg)][fdroid]
 
@@ -31,7 +32,7 @@ Contributions are welcome.
 
 - We use [Transifex][tx] to translate the app to your language.
   If you like to have your language included, please open an issue and translate yourself :)
-- We use [Android Studio] to develop the app.
+- We use [Android Studio] to develop the app. If you like, you can start development with [small issues. ![][first-issues-image]][first-issues]
 - Feedback is welcome, please open an [issue][issues].
   - Crash: You can report a debug log file if you gave EXTERNAL_STORAGE permissions or use logcat to retrieve the log.
     If you gave permissions, you should be able to find it under `eu.quelltext.mundraub.log.txt`
@@ -86,3 +87,5 @@ Languages:
 [releases]: https://github.com/niccokunzmann/mundraub-android/releases
 [Contribution Guidelines]: CONTRIBUTING.md
 [nanohttpd]: http://nanohttpd.org/
+[first-issues]: https://github.com/niccokunzmann/mundraub-android/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22
+[first-issues-image]: https://img.shields.io/github/issues/niccokunzmann/mundraub-android/good%20first%20issue.svg?label=good%20first%20issues
