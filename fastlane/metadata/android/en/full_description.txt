@@ -4,11 +4,24 @@ You have your phone with you all the time.
 When you find an edible plant, you like to share with others, you can record location, type and a photo.
 Later, when you have Internet, you can upload it to the map of free plants to eat: Mundraub.org.
 
+Features:
+<ul>
+    <li>Collect all plant data offline</li>
+    <li>Integrated map to find plants</li>
+    <li>Plant markers can be downloaded offline</li>
+    <li>Mundraub.org publishing</li>
+</ul>
+
 Permissions:
-* CAMERA to take a photo of the plant
-* GPS to auto-fill the location
-* INTERNET to upload the plant and display a map
-* STORAGE (optional) to
-    * save the plants as JSON in an exportable format
-    * save the app log so you can help us when the app crashes
+<ul>
+    <li>CAMERA to take a photo of the plant</li>
+    <li>GPS to auto-fill the location</li>
+    <li>INTERNET to upload the plant and display a map</li>
+    <li>STORAGE (optional) to
+        <ul>
+            <li>save the plants as JSON in an exportable format</li>
+            <li>save the app log so you can help us when the app crashes</li>
+        </ul>
+    </li>
+</ul>
 
