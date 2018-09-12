@@ -20,21 +20,21 @@ import eu.quelltext.mundraub.error.ErrorAware;
 public class PlantCategory extends ErrorAware {
 
     private final int resourceId;
-    private final int fieldForAPI;
+    private final int fieldForMundraubAPI;
     private final String id;
     private static final String INTENT_FIELD = "PlantCategory";
 
     public static final PlantCategory NULL = new NullCategory();
     private static Map<String, PlantCategory> idToPlantCategory = new HashMap<>();
-    private static Map<Integer, PlantCategory> fieldToPlantCategory = new HashMap<>();
+    private static Map<Integer, PlantCategory> mundraubAPIFieldToPlantCategory = new HashMap<>();
     private static List<PlantCategory> sortedCategories = new ArrayList<PlantCategory>();
     private Drawable markerDrawable = null;
     private boolean triedGettingMarkerDrawable = false;
 
-    private static void addCategory(int fieldForAPI, String id, int resourceId) {
-        PlantCategory category = new PlantCategory(id, fieldForAPI, resourceId);
+    private static void addCategory(int fieldForMundraubAPI, String id, int resourceId) {
+        PlantCategory category = new PlantCategory(id, fieldForMundraubAPI, resourceId);
         idToPlantCategory.put(id, category);
-        fieldToPlantCategory.put(fieldForAPI, category);
+        mundraubAPIFieldToPlantCategory.put(fieldForMundraubAPI, category);
         sortedCategories.add(category);
     }
 
@@ -113,9 +113,9 @@ public class PlantCategory extends ErrorAware {
         // </optgroup>
     }
 
-    PlantCategory(String id, int fieldForAPI, int resourceId) {
+    PlantCategory(String id, int fieldForMundraubAPI, int resourceId) {
         this.id = id;
-        this.fieldForAPI = fieldForAPI;
+        this.fieldForMundraubAPI = fieldForMundraubAPI;
         this.resourceId = resourceId;
     }
 
@@ -184,7 +184,7 @@ public class PlantCategory extends ErrorAware {
     }
 
     public String getValueForAPI() {
-        return Integer.toString(fieldForAPI);
+        return Integer.toString(fieldForMundraubAPI);
     }
 
     public static PlantCategory withId(String id) {
