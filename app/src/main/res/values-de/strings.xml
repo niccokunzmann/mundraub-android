@@ -169,5 +169,4 @@
     <!-- Map of all plants -->
     <string name="title_activity_show_plants">Pflanzenkarte</string>
     <string name="menu_my_plants">Meine Pflanzen</string>
-
-</resources>
+    </resources>
