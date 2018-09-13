@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import eu.quelltext.mundraub.R;
@@ -22,6 +23,7 @@ public class SettingsActivity extends MundraubBaseActivity {
     private ProgressBar updateProgress;
     final Handler handler = new Handler();
     ProgressUpdate progressAutoUpdate;
+    private TextView textDatabaseCount;
 
     class ProgressUpdate implements Runnable {
         boolean stopped = false;
@@ -29,6 +31,7 @@ public class SettingsActivity extends MundraubBaseActivity {
         public void run() {
             try {
                 updateOrHideUpdateProgress();
+                updateMarkerCount();
             } finally {
                 if (!stopped) {
                     handler.postDelayed(this, 500);
@@ -41,11 +44,17 @@ public class SettingsActivity extends MundraubBaseActivity {
         }
     }
 
+    private void updateMarkerCount() {
+        String text = getResources().getString(R.string.settings_number_of_markers);
+        textDatabaseCount.setText(text.replaceAll("%1\\$d", Integer.toString(PlantsCache.Marker.getCount())));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         updateProgress = (ProgressBar) findViewById(R.id.update_progress);
+        textDatabaseCount = (TextView) findViewById(R.id.text_number_of_markers);
     }
 
     private void updateOrHideUpdateProgress() {

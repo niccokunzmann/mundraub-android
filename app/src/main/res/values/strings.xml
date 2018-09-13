@@ -192,6 +192,7 @@
     <string name="success_offline_data_was_downloaded">All data to go offline was downloaded.</string>
     <string name="error_debug_api_can_not_download_offline_data">The debug API can not download offline data. Please use the Mundraub API at the bottom of the settings.</string>
     <string name="settings_create_public_api_for_debug">If this is enabled, the app provides the Mundraub map API to the local network. No harm can be done as this API is read only.</string>
+    <string name="settings_number_of_markers">Number of markers offline: <xliff:g example="51022" id="count">%1$d</xliff:g></string>
 
     <!-- Map of all plants -->
     <string name="title_activity_show_plants">Map of Plants</string>
