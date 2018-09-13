@@ -53,14 +53,17 @@ public class SettingsActivity extends MundraubBaseActivity {
         if (progress == null) {
             updateProgress.setVisibility(View.GONE);
         } else {
-            updateProgress.setVisibility(View.VISIBLE);
             int max = 100;
-            updateProgress.setProgress((int)Math.round(max * progress.getProgress()));
-            // update color from https://stackoverflow.com/a/15809803
-            Drawable progressDrawable = updateProgress.getProgressDrawable().mutate();
-            int color = progress.isDoneAndError() ? Color.RED : Color.GREEN;
-            progressDrawable.setColorFilter(color, android.graphics.PorterDuff.Mode.MULTIPLY);
-            updateProgress.setProgressDrawable(progressDrawable);
+            int newProgress = (int) Math.round(max * progress.getProgress());
+            if (newProgress != updateProgress.getProgress()) {
+                updateProgress.setVisibility(View.VISIBLE);
+                updateProgress.setProgress(newProgress);
+                // update color from https://stackoverflow.com/a/15809803
+                Drawable progressDrawable = updateProgress.getProgressDrawable().mutate();
+                int color = progress.isDoneAndError() ? Color.RED : Color.GREEN;
+                progressDrawable.setColorFilter(color, android.graphics.PorterDuff.Mode.MULTIPLY);
+                updateProgress.setProgressDrawable(progressDrawable);
+            }
         }
     }
 
