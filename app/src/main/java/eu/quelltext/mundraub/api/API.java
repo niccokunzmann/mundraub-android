@@ -53,7 +53,7 @@ public abstract class API extends ErrorAware {
 
     public static API[] getMarkerAPIs() {
         return new API[]{
-                //mundraubAPI,
+                mundraubAPI,
                 naOvoceAPI
         }; // TODO: settings
     }
