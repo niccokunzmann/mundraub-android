@@ -35,7 +35,7 @@ public class PlantsCache extends ErrorAware {
     private static Context context;
     private static Logger.Log log = Logger.newFor("PlantsCache");
     private static JoinedProgress updateProgress;
-    private static final int MAXIMUM_MARKER_COUNT_TO_SERVE = 1000;
+    private static final int MAXIMUM_MARKER_COUNT_TO_SERVE = 100;
     private static final int API_ID_MUNDRAUB = 1;
     private static final int API_ID_NA_OVOCE = 2;
 
@@ -126,7 +126,8 @@ public class PlantsCache extends ErrorAware {
             );
             log.d("getPlantsInBoundingBox", "The total cursor count is " + cursor.getCount());
             JSONArray result = new JSONArray();
-            for (int i = 0; i < cursor.getCount() && i < MAXIMUM_MARKER_COUNT_TO_SERVE; i++) {
+            int max = cursor.getCount();
+            for (int i = 0; i < max && i < MAXIMUM_MARKER_COUNT_TO_SERVE; i++) {
                 cursor.moveToPosition(i);
                 Marker marker = Marker.fromCursor(cursor);
                 result.put(marker.toJSON());
@@ -207,6 +208,8 @@ public class PlantsCache extends ErrorAware {
                 COLUMN_CATEGORY_ID + " TINYINT, " +
                 COLUMN_API_ID + " TINYINT" +
                 ")";
+        private static final int INVALID_COUNT = -1;
+        private static int totalCountInDatabase = INVALID_COUNT;
 
         private final double longitude;
         private final double latitude;
@@ -232,17 +235,20 @@ public class PlantsCache extends ErrorAware {
             /*long rowId = */database.insert(TABLE_NAME, null, values);
         }
 
-        public static int getCount(SQLiteDatabase database) {
-            return database.rawQuery("SELECT " + _ID  + " from " + TABLE_NAME, null).getCount();
+        public static void updateCount(SQLiteDatabase database) {
+            totalCountInDatabase = database.rawQuery("SELECT " + _ID  + " from " + TABLE_NAME, null).getCount();
         }
 
         public static int getCount() {
-            SQLiteDatabase database = getReadableDatabase();
-            try {
-                return getCount(database);
-            } finally {
-                database.close();
+            if (totalCountInDatabase == INVALID_COUNT) {
+                SQLiteDatabase database = getReadableDatabase();
+                try {
+                    updateCount(database);
+                } finally {
+                    database.close();
+                }
             }
+            return totalCountInDatabase;
         }
 
         public static Marker fromCursor(Cursor cursor) {
@@ -423,7 +429,8 @@ public class PlantsCache extends ErrorAware {
 
         public void success() {
             database.setTransactionSuccessful(); // from https://stackoverflow.com/a/32088155
-            log.d("markers in database", Marker.getCount(database));
+            Marker.updateCount(database);
+            log.d("markers in database", Marker.getCount());
         }
 
         public void close() {
