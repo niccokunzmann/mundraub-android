@@ -255,6 +255,8 @@ public class PlantsCache extends ErrorAware {
             );
         }
 
+        private static final String JSON_MAP_CATEGORY = "category";
+
         public JSONObject toJSON() throws JSONException {
             JSONObject json = new JSONObject();
             JSONObject properties = new JSONObject();
@@ -262,7 +264,8 @@ public class PlantsCache extends ErrorAware {
             position.put(latitude); // latitude before longitude
             position.put(longitude);
             json.put(JSON_MUNDRAUB_POSITION, position);
-            properties.put(JSON_MUNDRAUB_TYPE_ID, category.getValueForMundraubAPI());
+            //properties.put(JSON_MUNDRAUB_TYPE_ID, category.getValueForMundraubAPI());
+            properties.put(JSON_MAP_CATEGORY, category.getId());
             properties.put(JSON_MUNDRAUB_NODE_ID, markerIdInAPI);
             json.put(JSON_MUNDRAUB_PROPERTIES, properties);
             return json;

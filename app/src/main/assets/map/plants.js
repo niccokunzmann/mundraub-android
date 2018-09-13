@@ -20,7 +20,7 @@ function addPlantMarker(plant) {
         if (isPlantCluster) {
             return "<b>" + plant.count + "</b>"
         } else {
-            return "<b>" + translate(tidToName(plant.properties.tid)) + "</b>" + 
+            return "<b>" + translate(getCategoryId(plant)) + "</b>" + 
                 "<br/>" + translate("Distance to marker") + " " + 
                 distanceString(lonlat, markerPositionToLonLat(marker.lonlat));
         }

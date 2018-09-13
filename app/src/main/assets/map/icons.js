@@ -1,22 +1,25 @@
 
 function getMarkerIconOfPlant(plant) {
     if (plant.count) {
-        return iconForAGroupOfPlants.clone();
-    } else {
-        var category = plant.properties.tid;
-        if (category) {
-            return iconForCategory(category);
-        }
+        return ICON_FOR_A_GROUP_OF_PLANTS.clone();
+    } else {    
+        return iconForCategoryId(getCategoryId(plant));
     }
 }
 
-function iconFromName(name, type) {
+function getCategoryId(plant) {
+    return tidToCategoryId[plant.properties.tid] || // using the mundraub API
+           plant.properties.category || // using the offline API
+           DEFAULT_PLANT_CATEGORY_NAME; // erm. using erm. yeah, maybe there is an error...
+}
+
+function iconFromFilename(name) {
     var icon = new OpenLayers.Icon({
             anchor: [0.5, 1],
             anchorXUnits: 'fraction',
             anchorYUnits: 'fraction',
             opacity: 0.5,
-            src: BASE_ICON_PATH + "/" + name.replace(/ /g, "-") + "." + (type || "png"),
+            src: BASE_ICON_PATH + "/" + name.replace(/ /g, "-") + ".png",
         });
     return icon;
 }
@@ -27,7 +30,8 @@ function setIconDescriptionOfMarker(marker, text) {
     div.className = "marker-description";
 }
 
-var categoryToName = {
+// this mapping is used for direct access to the Mundraub API
+var tidToCategoryId = {
     "4":  "apple",
     "10": "apricot",
     "5":  "pear",
@@ -62,31 +66,18 @@ var categoryToName = {
     "15": "walnut",
     "17": "other nut"
 };
-
 var DEFAULT_PLANT_CATEGORY_NAME = "unnamed plant"
-
-function tidToName(tid) {
-    return categoryToName[tid] || DEFAULT_PLANT_CATEGORY_NAME;
-}
-
-var categories = [];
-
 var BASE_ICON_PATH = "../img/markers";
+var ICON_FOR_A_GROUP_OF_PLANTS = iconFromFilename("group");
 
-var categoryToIcon = {};
-for (var i = 0; i < 100; i++) {
-    var category = "" + i;
-    var name = categoryToName[category];
-    if (name) {
-        categories.push(name);
-        var icon = iconFromName(name);
-        categoryToIcon[category] = icon;
+var categoryIdToIcon = {};
+
+function iconForCategoryId(categoryId) {
+    var icon = categoryIdToIcon[categoryId];
+    if (!icon) {
+        icon = iconFromFilename(categoryId);
+        categoryIdToIcon[categoryId] = icon;
     }
-}
-var iconForAGroupOfPlants = iconFromName("group");
-
-
-function iconForCategory(category) {
-    return categoryToIcon[category].clone();
+    return icon.clone();
 }
 
