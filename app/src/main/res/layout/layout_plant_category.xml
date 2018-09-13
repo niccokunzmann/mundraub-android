@@ -22,7 +22,8 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/text_margin"
         android:layout_marginRight="@dimen/text_margin"
-        android:layout_weight="0" />
+        android:layout_weight="0"
+        android:scaleType="center" />
 
     <TextView
         android:id="@+id/text_plant_category"
