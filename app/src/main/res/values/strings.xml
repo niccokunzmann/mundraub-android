@@ -73,13 +73,16 @@
     <!-- Login -->
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_username">Username</string>
+    <string name="prompt_email">E-Mail</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign In (Account Required)</string>
     <string name="action_sign_in_short">Sign in</string>
+    <string name="action_register">Register new account</string>
     <string name="error_invalid_username">This username is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="invalid_credentials">User does not exist or password is wrong.</string>
     <string name="error_field_required">Please fill this field</string>
+
 
     <!-- view plant details -->
     <string name="upload_plant_online">Share this plant online</string>
@@ -196,5 +199,7 @@
     <!-- Map of all plants -->
     <string name="title_activity_show_plants">Map of Plants</string>
     <string name="menu_my_plants">My Plants</string>
+    <string name="error_invalid_email">Please fill in a valid email address.</string>
+    <string name="signup_successful_see_email">The sign up process was successful. You should recieve an e-mail soon.</string>
 
 </resources>

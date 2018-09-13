@@ -35,6 +35,11 @@ public class NaOvoceAPI extends API {
     }
 
     @Override
+    protected int signupAsync(String email, String username, String password) throws ErrorWithExplanation {
+        return R.string.error_not_implemented;
+    }
+
+    @Override
     protected Set<String> getUrlsForAllPlants() {
         String host = host();
         HashSet<String> urls = new HashSet<String>();

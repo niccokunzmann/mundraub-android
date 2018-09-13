@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
-import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.KeyEvent;
 import android.view.View;
@@ -16,10 +15,12 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.api.API;
+import eu.quelltext.mundraub.common.Dialog;
 
 /**
  * A login screen that offers login via email/password.
@@ -31,14 +32,17 @@ public class LoginActivity extends MundraubBaseActivity {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    private API api = API.instance();
+    private Button mEmailSignInButton;
+    private Button registerButton;
+    private LinearLayout emailLayout;
+    private AutoCompleteTextView emailText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
-        usernameView = (AutoCompleteTextView) findViewById(R.id.email);
+        usernameView = (AutoCompleteTextView) findViewById(R.id.username);
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -52,13 +56,24 @@ public class LoginActivity extends MundraubBaseActivity {
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
             }
         });
+
+        registerButton = (Button) findViewById(R.id.register_button);
+        registerButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attemptSignup();
+            }
+        });
+
+        emailLayout = (LinearLayout) findViewById(R.id.email_layout);
+        emailText = (AutoCompleteTextView) findViewById(R.id.email);
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
@@ -67,21 +82,85 @@ public class LoginActivity extends MundraubBaseActivity {
         getPermissions().INTERNET.askIfNotGranted();
     }
 
+
+
+
+    private String getPassword() {
+        return mPasswordView.getText().toString();
+    }
+
+    private String getUsername() {
+        return usernameView.getText().toString();
+    }
+
+    private String getEmail() {
+        return emailText.getText().toString();
+    }
+
+    private boolean requestingValidUsername() {
+        if (requestFillInIfEmpty(usernameView)) {
+            return true;
+        }
+        if (!isUsernameValid(getUsername())) {
+            setErrorAndFocus(usernameView, R.string.error_invalid_username);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean requestingValidPassword() {
+        if (requestFillInIfEmpty(mPasswordView)) {
+            return true;
+        }
+        if (!isPasswordValid(getPassword())) {
+            setErrorAndFocus(mPasswordView, R.string.error_invalid_password);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean requestingValidEmail() {
+        if (requestFillInIfEmpty(emailText)) {
+            return true;
+        }
+        if (!getEmail().contains("@") || !getEmail().contains(".")) {
+            setErrorAndFocus(emailText, R.string.error_invalid_email);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean requestFillInIfEmpty(EditText textView) {
+        String text = textView.getText().toString();
+        if (text.isEmpty()) {
+            setErrorAndFocus(textView, R.string.error_field_required);
+            return true;
+        }
+        return false;
+    }
+
     private void loadPassword() {
         SharedPreferences settings = getSharedPreferences("UserInfo", 0);
         usernameView.setText(settings.getString("Username", "").toString());
         mPasswordView.setText(settings.getString("Password", "").toString());
+        emailText.setText(settings.getString("Email", "").toString());
     }
 
     private void savePassword() {
         // from https://stackoverflow.com/a/10209902
         SharedPreferences settings = getSharedPreferences("UserInfo", 0);
         SharedPreferences.Editor editor = settings.edit();
-        editor.putString("Username", usernameView.getText().toString());
-        editor.putString("Password", mPasswordView.getText().toString());
+        editor.putString("Username", getUsername());
+        editor.putString("Password", getPassword());
+        editor.putString("Email", getEmail());
         editor.commit();
     }
 
+    private void resetErrors() {
+        usernameView.setError(null);
+        mPasswordView.setError(null);
+        emailText.setError(null);
+    }
 
     /**
      * Attempts to sign in or register the account specified by the login form.
@@ -89,62 +168,68 @@ public class LoginActivity extends MundraubBaseActivity {
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-
-        // Reset errors.
-        usernameView.setError(null);
-        mPasswordView.setError(null);
-
-        // Store values at the time of the login attempt.
-        String username = usernameView.getText().toString();
-        String password = mPasswordView.getText().toString();
-
-        boolean cancel = false;
-        View focusView = null;
-
-        // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            setError(mPasswordView, R.string.error_invalid_password);
-            focusView = mPasswordView;
-            cancel = true;
+        activateLoginView();
+        resetErrors();
+        if (requestingValidPassword() || requestingValidUsername()) {
+            return;
         }
+        // Show a progress spinner, and kick off a background task to
+        // perform the user login attempt.
+        showProgress(true);
+        API.instance().login(getUsername(), getPassword(), new API.Callback() {
+            @Override
+            public void onSuccess() {
+                showProgress(false);
+                loginSuccessful();
+                finish();
+            }
 
-        // Check for a valid username address.
-        if (TextUtils.isEmpty(username)) {
-            setError(usernameView, R.string.error_field_required);
-            focusView = usernameView;
-            cancel = true;
-        } else if (!isUsernameValid(username)) {
-            setError(usernameView, R.string.error_invalid_username);
-            focusView = usernameView;
-            cancel = true;
-        }
-
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
-            focusView.requestFocus();
-        } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            showProgress(true);
-            api.login(username, password, new API.Callback() {
-                @Override
-                public void onSuccess() {
-                    loginSuccessful();
-                    finish();
-                }
-
-                @Override
-                public void onFailure(int errorResourceId) {
-                    showProgress(false);
-                    setError(mPasswordView, errorResourceId);
-                    mPasswordView.requestFocus();
-                }
-            });
-        }
+            @Override
+            public void onFailure(int errorResourceId) {
+                showProgress(false);
+                setErrorAndFocus(mPasswordView, errorResourceId);
+            }
+        });
     }
 
-    private void setError(EditText editText, int errorResourceId) {
+    private void attemptSignup() {
+        activateSignupView();
+        resetErrors();
+        if (requestingValidEmail() || requestingValidPassword() || requestingValidUsername()) {
+            return;
+        }
+        showProgress(true);
+        API.instance().signup(getEmail(), getUsername(), getPassword(), new API.Callback() {
+            @Override
+            public void onSuccess() {
+                showProgress(false);
+                signupSuccessful();
+                finish();
+            }
+
+            @Override
+            public void onFailure(int errorResourceId) {
+                showProgress(false);
+                setErrorAndFocus(usernameView, errorResourceId);
+            }
+        });
+    }
+
+    private void activateSignupView() {
+        emailLayout.setVisibility(View.VISIBLE);
+    }
+
+    private void activateLoginView() {
+        emailLayout.setVisibility(View.GONE);
+    }
+
+    private void signupSuccessful() {
+        savePassword();
+        new Dialog(this).alertSuccess(R.string.signup_successful_see_email);
+        activateLoginView();
+    }
+
+    private void setErrorAndFocus(EditText editText, int errorResourceId) {
         // from https://stackoverflow.com/a/7350315/1320237
         int ecolor = R.color.colorAccent;
         String estring = getResources().getString(errorResourceId);
@@ -152,6 +237,7 @@ public class LoginActivity extends MundraubBaseActivity {
         SpannableStringBuilder ssbuilder = new SpannableStringBuilder(estring);
         ssbuilder.setSpan(fgcspan, 0, estring.length(), 0);
         editText.setError(ssbuilder);
+        editText.requestFocus();
     }
 
     private void loginSuccessful() {
