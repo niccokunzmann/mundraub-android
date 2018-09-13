@@ -23,6 +23,12 @@ public class DummyAPI extends API {
     }
 
     @Override
+    protected int signupAsync(String email, String username, String password) throws ErrorWithExplanation {
+        simulateNetwork();
+        return TASK_SUCCEEDED;
+    }
+
+    @Override
     protected int deletePlantAsync(String plantId) throws ErrorWithExplanation {
         simulateNetwork();
         return TASK_SUCCEEDED;

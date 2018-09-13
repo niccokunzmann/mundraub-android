@@ -58,6 +58,17 @@ public abstract class API extends ErrorAware {
         }; // TODO: settings
     }
 
+    public Progress signup(final String email, final String username, final String password, Callback callback) {
+        return doAsynchronously(callback, new AsyncOperation() {
+            @Override
+            public int operate(Progress progress) throws ErrorWithExplanation {
+                int success = signupAsync(email, username, password);
+                isLoggedIn = success == TASK_SUCCEEDED;
+                return success;
+            }
+        });
+    }
+
     private class Task extends AsyncTask<Void, Void, Integer> {
 
         private final Progress progress;
@@ -212,6 +223,7 @@ public abstract class API extends ErrorAware {
 
     protected abstract int addPlantAsync(Plant plant) throws ErrorWithExplanation;
     protected abstract int loginAsync(String username, String password) throws ErrorWithExplanation;
+    protected abstract int signupAsync(String email, String username, String password) throws ErrorWithExplanation;
     protected abstract int deletePlantAsync(String plantId) throws ErrorWithExplanation;
     protected abstract int updatePlantAsync(Plant plant, String plantId) throws ErrorWithExplanation;
     protected abstract Set<String> getUrlsForAllPlants();

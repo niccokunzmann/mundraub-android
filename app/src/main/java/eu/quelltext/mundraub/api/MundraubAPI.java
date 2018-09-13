@@ -153,6 +153,11 @@ public class MundraubAPI extends API {
     }
 
     @Override
+    protected int signupAsync(String email, String username, String password) throws ErrorWithExplanation {
+        return R.string.error_not_implemented;
+    }
+
+    @Override
     protected int deletePlantAsync(String plantId) throws ErrorWithExplanation {
         if (plantExistsOnline(plantId)) {
             try {
