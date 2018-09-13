@@ -68,7 +68,11 @@ public class LoginActivity extends MundraubBaseActivity {
         registerButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptSignup();
+                if (!isSignupView()) {
+                    activateSignupView();
+                } else {
+                    attemptSignup();
+                }
             }
         });
 
@@ -198,13 +202,13 @@ public class LoginActivity extends MundraubBaseActivity {
         if (requestingValidEmail() || requestingValidPassword() || requestingValidUsername()) {
             return;
         }
+        savePassword();
         showProgress(true);
         API.instance().signup(getEmail(), getUsername(), getPassword(), new API.Callback() {
             @Override
             public void onSuccess() {
                 showProgress(false);
                 signupSuccessful();
-                finish();
             }
 
             @Override
@@ -213,6 +217,10 @@ public class LoginActivity extends MundraubBaseActivity {
                 setErrorAndFocus(usernameView, errorResourceId);
             }
         });
+    }
+
+    private boolean isSignupView() {
+        return emailLayout.getVisibility() != View.GONE;
     }
 
     private void activateSignupView() {

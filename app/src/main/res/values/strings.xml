@@ -82,7 +82,8 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="invalid_credentials">User does not exist or password is wrong.</string>
     <string name="error_field_required">Please fill this field</string>
-
+    <string name="error_invalid_email">Please fill in a valid email address.</string>
+    <string name="signup_successful_see_email">The sign up process was successful. You should recieve an e-mail soon.</string>
 
     <!-- view plant details -->
     <string name="upload_plant_online">Share this plant online</string>
@@ -125,6 +126,7 @@
     <string name="error_could_not_delete_plant">The plant could not be deleted online. There was some error. Please go online and delete it yourself.</string>
     <string name="error_could_not_validate_host">The identity of the server is not trusted. This is a known problem on older platforms. Currently, you can disable trusted connections in the settings to work around this error. Feel free to contribute a solution.</string>
     <string name="error_invalid_json_for_markers">The markers returned by Mundraub.org are in an unexpected format. Maybe they changed the API? Please report this issue, see the About page in the menu.</string>
+    <string name="error_could_not_sign_up_mundraub">Could not sign up at Mundraub.org.</string>
 
     <!-- map to choose plant position -->
     <string name="attention">Attention</string>
@@ -199,7 +201,5 @@
     <!-- Map of all plants -->
     <string name="title_activity_show_plants">Map of Plants</string>
     <string name="menu_my_plants">My Plants</string>
-    <string name="error_invalid_email">Please fill in a valid email address.</string>
-    <string name="signup_successful_see_email">The sign up process was successful. You should recieve an e-mail soon.</string>
 
 </resources>

@@ -48,6 +48,7 @@ public class MundraubAPI extends API {
 
     public static final String HEADER_USER_AGENT = "Mundraub App (eu.quelltext.mundraub)";
     private final String URL_LOGIN = "https://mundraub.org/user/login";
+    private final String URL_SIGNUP = "https://mundraub.org/user/register";
     private final String URL_ADD_PLANT_FORM = "https://mundraub.org/node/add/plant/";
     private final int RETURN_CODE_LOGIN_SUCCESS = HttpURLConnection.HTTP_SEE_OTHER;
     private final int RETURN_CODE_LOGIN_FAILURE = HttpURLConnection.HTTP_OK;
@@ -154,7 +155,51 @@ public class MundraubAPI extends API {
 
     @Override
     protected int signupAsync(String email, String username, String password) throws ErrorWithExplanation {
-        return R.string.error_not_implemented;
+        try {
+            Map<String, String> formValues = getFormValues(URL_SIGNUP);
+            formValues.put("name", username);
+            formValues.put("mail", email);
+            formValues.put("pass[pass1]", password);
+            formValues.put("pass[pass2]", password);
+            //formValues.put("op", formValues.get("op").replace(" ", "+"));
+            logFormValues("signupAsync", formValues);
+            Thread.sleep(20000); // the signup process uses a honey pod for bots https://www.drupal.org/project/honeypot
+            return postFormTo(formValues, URL_SIGNUP, new FormPostHooks() {
+                @Override
+                public void buildForm(MultipartBody.Builder formBuilder) {
+                }
+
+                @Override
+                public int responseSeeOther(String url) {
+                    return TASK_SUCCEEDED;
+                }
+
+                @Override
+                public int responseOK() {
+                    return R.string.error_could_not_sign_up_mundraub;
+                }
+
+                @Override
+                public int responseUnknown(int returnCode) {
+                    return R.string.error_unexpected_return_code;
+                }
+            });
+        } catch (IOException e) {
+            log.printStackTrace(e);
+        } catch (KeyManagementException e) {
+            log.printStackTrace(e);
+        } catch (NoSuchAlgorithmException e) {
+            log.printStackTrace(e);
+        } catch (InterruptedException e) {
+            log.printStackTrace(e);
+        }
+        return R.string.error_not_specified;
+    }
+
+    private void logFormValues(String tag, Map<String, String> formValues) {
+        for (String key : formValues.keySet()) {
+            log.d(tag, key + "=" + formValues.get(key));
+        }
     }
 
     @Override
@@ -385,7 +430,7 @@ public class MundraubAPI extends API {
     private static final MediaType MEDIA_TYPE_OCTET = MediaType.parse("application/octet-stream");
 
     private int postFormTo(Map<String, String> formValues, String url, FormPostHooks hooks) throws NoSuchAlgorithmException, KeyManagementException, IOException {
-        Helper.trustAllConnections();
+        Helper.trustAllConnections(); // TODO: do we need this?
         final OkHttpClient client = Settings.getOkHttpClient();
         MultipartBody.Builder formBuilder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM);
