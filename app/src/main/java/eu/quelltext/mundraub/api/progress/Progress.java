@@ -1,13 +1,9 @@
 package eu.quelltext.mundraub.api.progress;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import eu.quelltext.mundraub.api.API;
 
-public class Progress extends Progressable {
+public class Progress extends ProgressableResult {
 
-    private final List<API.Callback> callbacks = new ArrayList<API.Callback>();
     private boolean done = false;
     private boolean error = false;
     private int errorResourceId;
@@ -15,7 +11,7 @@ public class Progress extends Progressable {
 
     public Progress(API.Callback callback) {
         super();
-        callbacks.add(callback);
+        addCallback(callback);
     }
 
     public boolean isDone() {
@@ -43,7 +39,7 @@ public class Progress extends Progressable {
         error = true;
         done = true; // should be last because of concurrency
         progress = 1;
-        for (API.Callback callback : callbacks) {
+        for (API.Callback callback : getCallbacks()) {
             callback.onProgress(progress);
             callback.onFailure(errorResourceId);
         }
@@ -51,13 +47,13 @@ public class Progress extends Progressable {
 
     public void setSuccess() {
         if (done) {
-            log.e("setError", "cannot complete twice");
+            log.e("setSuccess", "cannot complete twice");
             return;
         }
         error = false;
         done = true; // should be last because of concurrency
         progress = 1;
-        for (API.Callback callback : callbacks) {
+        for (API.Callback callback : getCallbacks()) {
             callback.onProgress(progress);
             callback.onSuccess();
         }
@@ -71,7 +67,7 @@ public class Progress extends Progressable {
         } else {
             progress = portion;
         }
-        for (API.Callback callback : callbacks) {
+        for (API.Callback callback : getCallbacks()) {
             callback.onProgress(progress);
         }
     }
@@ -80,7 +76,4 @@ public class Progress extends Progressable {
         return progress;
     }
 
-    public void addCallback(API.Callback callback) {
-        callbacks.add(callback);
-    }
 }

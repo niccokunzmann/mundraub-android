@@ -15,11 +15,13 @@ import org.json.JSONObject;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.api.API;
+import eu.quelltext.mundraub.api.progress.JoinedProgress;
 import eu.quelltext.mundraub.api.progress.Progress;
 import eu.quelltext.mundraub.api.progress.Progressable;
 import eu.quelltext.mundraub.error.ErrorAware;
 import eu.quelltext.mundraub.error.Logger;
 import eu.quelltext.mundraub.initialization.Initialization;
+import eu.quelltext.mundraub.plant.PlantCategory;
 
 /*
  * This class is following the tutorial at
@@ -29,8 +31,10 @@ public class PlantsCache extends ErrorAware {
 
     private static Context context;
     private static Logger.Log log = Logger.newFor("PlantsCache");
-    private static Progress updateProgress;
+    private static JoinedProgress updateProgress;
     private static final int MAXIMUM_MARKER_COUNT_TO_SERVE = 1000;
+    private static final int API_ID_MUNDRAUB = 1;
+    private static final int API_ID_NA_OVOCE = 2;
 
     static {
         Initialization.provideActivityFor(new Initialization.ActivityInitialized() {
@@ -68,12 +72,7 @@ public class PlantsCache extends ErrorAware {
         SQLiteDatabase database = getReadableDatabase();
         try {
             //log.d("number of plants in database", Marker.getCount(database));
-            String[] projection = {
-                    Marker.COLUMN_LONGITUDE,
-                    Marker.COLUMN_LATITUDE,
-                    Marker.COLUMN_TYPE_ID,
-                    Marker.COLUMN_NODE_ID
-            };
+            String[] projection = Marker.PROJECTION;
 
             String selection = "";
             if (minLon < maxLon) {
@@ -126,21 +125,8 @@ public class PlantsCache extends ErrorAware {
             JSONArray result = new JSONArray();
             for (int i = 0; i < cursor.getCount() && i < MAXIMUM_MARKER_COUNT_TO_SERVE; i++) {
                 cursor.moveToPosition(i);
-                double latitude = cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_LATITUDE));
-                double longitude = cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_LONGITUDE));
-                String typeId = Integer.toString(cursor.getInt(cursor.getColumnIndexOrThrow(Marker.COLUMN_TYPE_ID)));
-                String nodeId = Integer.toString(cursor.getInt(cursor.getColumnIndexOrThrow(Marker.COLUMN_NODE_ID)));
-                JSONObject marker = new JSONObject();
-                JSONObject properties = new JSONObject();
-                JSONArray position = new JSONArray();
-                position.put(latitude); // latitude before longitude
-                position.put(longitude);
-                Log.d("pos", latitude + "lat " + longitude + "lon " + typeId + "=type " + nodeId + "= node");
-                marker.put(JSON_POSITION, position);
-                properties.put(JSON_TYPE_ID, typeId);
-                properties.put(JSON_NODE_ID, nodeId);
-                marker.put(JSON_PROPERTIES, properties);
-                if (i < 100) result.put(marker);
+                Marker marker = Marker.fromCursor(cursor);
+                result.put(marker.toJSON());
             }
             return result;
         } finally {
@@ -159,7 +145,11 @@ public class PlantsCache extends ErrorAware {
 
     public static Progress update(API.Callback callback) {
         if (updateProgress == null || updateProgress.isDone()) {
-            updateProgress = API.instance().updateAllPlantMarkers(callback);
+            clear();
+            updateProgress = new JoinedProgress(callback);
+            for (API api: API.getMarkerAPIs()) {
+                updateProgress.addProgressable(api.updateAllPlantMarkers(API.Callback.NULL));
+            }
         } else {
             updateProgress.addCallback(callback);
         }
@@ -170,39 +160,54 @@ public class PlantsCache extends ErrorAware {
         return updateProgress;
     }
 
+
+
     public static class Marker implements BaseColumns {
         public static final String TABLE_NAME = "marker";
         public static final String COLUMN_LONGITUDE = "longitude";
         public static final String COLUMN_LATITUDE = "latitude";
-        public static final String COLUMN_TYPE_ID = "type";
-        public static final String COLUMN_NODE_ID = "node";
+        public static final String COLUMN_MARKER_ID_IN_API = "node";
+        public static final String COLUMN_CATEGORY_ID = "category";
+        public static final String COLUMN_API_ID = "api";
+        public static final String[] PROJECTION = {
+                COLUMN_LONGITUDE,
+                COLUMN_LATITUDE,
+                COLUMN_MARKER_ID_IN_API,
+                COLUMN_CATEGORY_ID,
+                COLUMN_API_ID
+        };
 
         public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " +
                 TABLE_NAME + " (" +
                 _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_LONGITUDE + " DOUBLE, " +
                 COLUMN_LATITUDE + " DOUBLE, " +
-                COLUMN_TYPE_ID + " INTEGER, " +
-                COLUMN_NODE_ID + " INTEGER" + ")";
+                COLUMN_MARKER_ID_IN_API + " INTEGER, " +
+                COLUMN_CATEGORY_ID + " TINYINT, " +
+                COLUMN_API_ID + " TINYINT" +
+                ")";
 
         private final double longitude;
         private final double latitude;
-        private final int type;
-        private final int node;
+        private final PlantCategory category;
+        private final int markerIdInAPI;
+        private final int apiId;
 
-        private Marker(double longitude, double latitude, int type, int node) {
+        private Marker(double longitude, double latitude, PlantCategory category, int markerIdInAPI, int apiId) {
             this.longitude = getLongitude(longitude);
             this.latitude = getLatitude(latitude);
-            this.type = type;
-            this.node = node;
+            this.category = category;
+            this.markerIdInAPI = markerIdInAPI;
+            this.apiId = apiId;
         }
 
         private void saveToDB(SQLiteDatabase database) {
             ContentValues values = new ContentValues();
             values.put(COLUMN_LONGITUDE, longitude);
             values.put(COLUMN_LATITUDE,  latitude);
-            values.put(COLUMN_TYPE_ID,   type);
-            values.put(COLUMN_NODE_ID,   node);
+            values.put(COLUMN_MARKER_ID_IN_API,   markerIdInAPI);
+            values.put(COLUMN_CATEGORY_ID,   category.getDatabaseId());
+            values.put(COLUMN_API_ID,   apiId);
             /*long rowId = */database.insert(TABLE_NAME, null, values);
         }
 
@@ -218,11 +223,34 @@ public class PlantsCache extends ErrorAware {
                 database.close();
             }
         }
+
+        public static Marker fromCursor(Cursor cursor) {
+            return new Marker(
+                    cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_LONGITUDE)),
+                    cursor.getDouble(cursor.getColumnIndexOrThrow(Marker.COLUMN_LATITUDE)),
+                    PlantCategory.fromDatabaseId(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_CATEGORY_ID))),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_MARKER_ID_IN_API)),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_API_ID))
+            );
+        }
+
+        public JSONObject toJSON() throws JSONException {
+            JSONObject json = new JSONObject();
+            JSONObject properties = new JSONObject();
+            JSONArray position = new JSONArray();
+            position.put(latitude); // latitude before longitude
+            position.put(longitude);
+            json.put(JSON_MUNDRAUB_POSITION, position);
+            properties.put(JSON_MUNDRAUB_TYPE_ID, category.getValueForMundraubAPI());
+            properties.put(JSON_MUNDRAUB_NODE_ID, markerIdInAPI);
+            json.put(JSON_MUNDRAUB_PROPERTIES, properties);
+            return json;
+        }
     }
 
     public static class MarkerDBSQLiteHelper extends SQLiteOpenHelper {
 
-        private static final int DATABASE_VERSION = 1;
+        private static final int DATABASE_VERSION = 2;
         public static final String DATABASE_NAME = "marker_database.db";
 
         public MarkerDBSQLiteHelper() {
@@ -249,73 +277,149 @@ public class PlantsCache extends ErrorAware {
         }
     }
 
-    private static final String JSON_FEATURES = "features";
-    private static final String JSON_POSITION = "pos";
-    private static final String JSON_TYPE_ID = "tid";
-    private static final String JSON_NODE_ID = "nid";
-    private static final String JSON_PROPERTIES = "properties";
-    private static final int JSON_INDEX_LONGITUDE = 1;
-    private static final int JSON_INDEX_LATITUDE = 0;
-    private static final int BULK_INSERT_MARKERS = 500;
+    private static final String JSON_MUNDRAUB_FEATURES = "features";
+    private static final String JSON_MUNDRAUB_POSITION = "pos";
+    private static final String JSON_MUNDRAUB_TYPE_ID = "tid";
+    private static final String JSON_MUNDRAUB_NODE_ID = "nid";
+    private static final String JSON_MUNDRAUB_PROPERTIES = "properties";
+    private static final int JSON_MUNDRAUB_INDEX_LONGITUDE = 1;
+    private static final int JSON_MUNDRAUB_INDEX_LATITUDE = 0;
 
-    public static void updatePlantMarkers(JSONObject json, Progressable fraction) throws API.ErrorWithExplanation {
+    public static void updateMundraubPlantMarkers(JSONObject json, Progressable fraction) throws API.ErrorWithExplanation {
         // this is called form the API with all markers needed.
-        SQLiteDatabase database = getWritableDatabase();
-        int markersAdded = 0;
-        database.beginTransaction();
+        if (json == null || !json.has(JSON_MUNDRAUB_FEATURES)) {
+            return;
+        }
+
         try {
+            JSONArray markers = json.getJSONArray(JSON_MUNDRAUB_FEATURES);
             JSONObject invalidMarker = null;
-            if (json == null || !json.has(JSON_FEATURES)) {
-                return;
-            }
             // see the api for the response
             // https://github.com/niccokunzmann/mundraub-android/blob/master/docs/api.md#markers
+            BulkWriter writer = new BulkWriter(getWritableDatabase(), fraction, markers.length());
             try {
-                JSONArray markers = json.getJSONArray(JSON_FEATURES);
-                log.d("number of markers to add", markers.length());
                 for (int i = 0; i < markers.length(); i++) {
                     JSONObject markerJSON = markers.getJSONObject(i);
-                    if (!markerJSON.has(JSON_POSITION) || !markerJSON.has(JSON_PROPERTIES)) {
+                    if (!markerJSON.has(JSON_MUNDRAUB_POSITION) || !markerJSON.has(JSON_MUNDRAUB_PROPERTIES)) {
                         invalidMarker = markerJSON;
                         continue;
                     }
-                    JSONArray position = markerJSON.getJSONArray(JSON_POSITION);
-                    JSONObject properties = markerJSON.getJSONObject(JSON_PROPERTIES);
-                    if (!properties.has(JSON_TYPE_ID) || !properties.has(JSON_NODE_ID) ||
-                        position.length() != 2) {
+                    JSONArray position = markerJSON.getJSONArray(JSON_MUNDRAUB_POSITION);
+                    JSONObject properties = markerJSON.getJSONObject(JSON_MUNDRAUB_PROPERTIES);
+                    if (!properties.has(JSON_MUNDRAUB_TYPE_ID) || !properties.has(JSON_MUNDRAUB_NODE_ID) ||
+                            position.length() != 2) {
                         invalidMarker = markerJSON;
                         continue;
                     }
-                    Marker marker = new Marker(
-                            position.getDouble(JSON_INDEX_LONGITUDE),
-                            position.getDouble(JSON_INDEX_LATITUDE),
-                            Integer.parseInt(properties.getString(JSON_TYPE_ID)),
-                            Integer.parseInt(properties.getString(JSON_NODE_ID))
+                    writer.addMarker(
+                            position.getDouble(JSON_MUNDRAUB_INDEX_LONGITUDE),
+                            position.getDouble(JSON_MUNDRAUB_INDEX_LATITUDE),
+                            PlantCategory.fromMundraubAPIField(Integer.parseInt(properties.getString(JSON_MUNDRAUB_TYPE_ID))),
+                            Integer.parseInt(properties.getString(JSON_MUNDRAUB_NODE_ID)),
+                            API_ID_MUNDRAUB
                     );
-                    marker.saveToDB(database);
-                    fraction.setProgress(1.0 * i / markers.length());
-                    markersAdded++;
-                    if (markersAdded % BULK_INSERT_MARKERS == 0) {
-                        database.setTransactionSuccessful();
-                        database.endTransaction();
-                        log.d("bulk insert markers", BULK_INSERT_MARKERS + " " + markersAdded + " of " + markers.length());
-                        database.beginTransaction();
-                    }
                 }
-            } catch (JSONException e) {
-                log.printStackTrace(e);
-                API.abortOperation(R.string.error_invalid_json_for_markers);
-                return;
+                writer.success();
+            } finally {
+                writer.close();
             }
             if (invalidMarker != null) {
                 log.e("invalidMarker", invalidMarker.toString());
             }
+        } catch (JSONException e) {
+            log.printStackTrace(e);
+            API.abortOperation(R.string.error_invalid_json_for_markers);
+            return;
+        }
+
+    }
+
+    private static final String JSON_NA_OVOCE_LONGITUDE = "lng";
+    private static final String JSON_NA_OVOCE_LATITUDE = "lat";
+    private static final String JSON_NA_OVOCE_KIND = "kind";
+    private static final String JSON_NA_OVOCE_ID = "id";
+
+
+    public static void updateNaOvocePlantMarkers(JSONArray markers, Progressable fraction) throws API.ErrorWithExplanation {
+        // example from https://na-ovoce.cz/api/v1/fruit/?kind=a1bb
+        // [{"id":39634,"lat":"48.6093236745","lng":"17.9082361616","kind":"a1bb","time":"2018-08-31 13:21:34","url":"https://na-ovoce.cz/api/v1/fruit/39634/"}, ...
+        try {
+            JSONObject invalidMarker = null;
+            // see the api for the response
+            // https://github.com/niccokunzmann/mundraub-android/blob/master/docs/api.md#markers
+            BulkWriter writer = new BulkWriter(getWritableDatabase(), fraction, markers.length());
+            try {
+                for (int i = 0; i < markers.length(); i++) {
+                    JSONObject markerJSON = markers.getJSONObject(i);
+                    if (    !markerJSON.has(JSON_NA_OVOCE_LONGITUDE) ||
+                            !markerJSON.has(JSON_NA_OVOCE_LATITUDE) ||
+                            !markerJSON.has(JSON_NA_OVOCE_KIND) ||
+                            !markerJSON.has(JSON_NA_OVOCE_ID)) {
+                        invalidMarker = markerJSON;
+                        continue;
+                    }
+                    writer.addMarker(
+                            markerJSON.getDouble(JSON_NA_OVOCE_LONGITUDE),
+                            markerJSON.getDouble(JSON_NA_OVOCE_LATITUDE),
+                            PlantCategory.fromNaOvoceAPIField(Integer.parseInt(markerJSON.getString(JSON_NA_OVOCE_KIND))),
+                            Integer.parseInt(markerJSON.getString(JSON_NA_OVOCE_ID)),
+                            API_ID_NA_OVOCE
+                    );
+                }
+                writer.success();
+            } finally {
+                writer.close();
+            }
+            if (invalidMarker != null) {
+                log.e("invalidMarker", invalidMarker.toString());
+            }
+        } catch (JSONException e) {
+            log.printStackTrace(e);
+            API.abortOperation(R.string.error_invalid_json_for_markers);
+            return;
+        }
+    }
+
+    private static class BulkWriter {
+
+        private static final int BULK_INSERT_MARKERS = 500;
+
+        private final SQLiteDatabase database;
+        private final Progressable fraction;
+        private final int totalCount;
+        private int markersAdded = 0;
+
+        private BulkWriter(SQLiteDatabase database, Progressable fraction, int totalCount) {
+            this.database = database;
+            this.fraction = fraction;
+            this.totalCount = totalCount;
+            log.d("number of markers to add", totalCount);
+            database.beginTransaction();
+        }
+
+        public void success() {
             database.setTransactionSuccessful(); // from https://stackoverflow.com/a/32088155
             log.d("markers in database", Marker.getCount(database));
-        } finally {
+        }
+
+        public void close() {
             database.endTransaction();
             database.close();
             log.d("markers added", markersAdded);
+        }
+
+        public void addMarker(double longitude, double latitude, PlantCategory category, int markerIdInAPI, int apiId) {
+            Marker marker = new Marker(longitude, latitude, category, markerIdInAPI, apiId);
+            marker.saveToDB(database);
+            fraction.setProgress(1.0 * markersAdded / totalCount);
+            markersAdded++;
+            if (markersAdded % BULK_INSERT_MARKERS == 0) {
+                database.setTransactionSuccessful();
+                database.endTransaction();
+                log.d("bulk insert markers", BULK_INSERT_MARKERS + " " + markersAdded + " of " + totalCount);
+                database.beginTransaction();
+            }
+
         }
     }
 
