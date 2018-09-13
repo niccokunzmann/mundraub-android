@@ -28,9 +28,9 @@ public class PlantCategory extends ErrorAware {
 
     public static final PlantCategory NULL = new NullCategory();
     private static Map<String, PlantCategory> idToPlantCategory = new HashMap<>();
-    private static Map<Integer, PlantCategory> mundraubAPIFieldToPlantCategory = new HashMap<>();
-    private static Map<Integer, PlantCategory> naOvoceAPIFieldToPlantCategory = new HashMap<>();
-    private static Map<Integer, PlantCategory> databaseIdToPlantCategory = new HashMap<>();
+    private static Map<Integer, PlantCategory> mundraubAPIFieldToPlantCategory = new HashMap<Integer, PlantCategory>();
+    private static Map<Integer, PlantCategory> naOvoceAPIFieldToPlantCategory = new HashMap<Integer, PlantCategory>();
+    private static Map<Integer, PlantCategory> databaseIdToPlantCategory = new HashMap<Integer, PlantCategory>();
     private static List<PlantCategory> sortedCategories = new ArrayList<PlantCategory>();
     private Drawable markerDrawable = null;
     private boolean triedGettingMarkerDrawable = false;

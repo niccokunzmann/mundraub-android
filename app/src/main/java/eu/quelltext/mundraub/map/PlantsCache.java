@@ -361,7 +361,7 @@ public class PlantsCache extends ErrorAware {
                     writer.addMarker(
                             markerJSON.getDouble(JSON_NA_OVOCE_LONGITUDE),
                             markerJSON.getDouble(JSON_NA_OVOCE_LATITUDE),
-                            PlantCategory.fromNaOvoceAPIField(Integer.parseInt(markerJSON.getString(JSON_NA_OVOCE_KIND))),
+                            PlantCategory.fromNaOvoceAPIField(Integer.parseInt(markerJSON.getString(JSON_NA_OVOCE_KIND), 16)),
                             Integer.parseInt(markerJSON.getString(JSON_NA_OVOCE_ID)),
                             API_ID_NA_OVOCE
                     );

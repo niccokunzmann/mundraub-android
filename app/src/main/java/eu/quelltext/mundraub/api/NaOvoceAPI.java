@@ -8,6 +8,7 @@ import java.util.Set;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.api.progress.Progressable;
+import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.map.PlantsCache;
 import eu.quelltext.mundraub.plant.Plant;
 import eu.quelltext.mundraub.plant.PlantCategory;
@@ -35,12 +36,17 @@ public class NaOvoceAPI extends API {
 
     @Override
     protected Set<String> getUrlsForAllPlants() {
+        String host = host();
         HashSet<String> urls = new HashSet<String>();
         for (PlantCategory category: PlantCategory.all()) {
             // see https://github.com/niccokunzmann/mundraub-android/issues/96
-            urls.add("https://na-ovoce.cz/api/v1/fruit/?kind=" + category.getValueForNaOvoceAPI());
+            urls.add(host + "/api/v1/fruit/?kind=" + category.getValueForNaOvoceAPI());
         }
         return urls;
+    }
+
+    protected String host() {
+        return Settings.useInsecureConnections() ? "http://na-ovoce.quelltext.eu" : "https://na-ovoce.cz";
     }
 
     @Override
