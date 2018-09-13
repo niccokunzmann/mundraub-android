@@ -13,6 +13,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.api.API;
 import eu.quelltext.mundraub.api.progress.JoinedProgress;
@@ -146,9 +149,25 @@ public class PlantsCache extends ErrorAware {
     public static Progress update(API.Callback callback) {
         if (updateProgress == null || updateProgress.isDone()) {
             clear();
-            updateProgress = new JoinedProgress(callback);
-            for (API api: API.getMarkerAPIs()) {
-                updateProgress.addProgressable(api.updateAllPlantMarkers(API.Callback.NULL));
+            final API[] apis = API.getMarkerAPIs();
+            updateProgress = new JoinedProgress(callback, apis.length);
+            final List<API.Callback> callbacks = new ArrayList<API.Callback>();
+            for (int i = 0; i < apis.length; i++) {
+                final int nextIndex = i + 1;
+                callbacks.add(new API.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        API api = apis[nextIndex];
+                        API.Callback nextCallback = callbacks.get(nextIndex);
+                        updateProgress.addProgressable(api.updateAllPlantMarkers(nextCallback));
+                    }
+                });
+            }
+            callbacks.add(callback);
+            if (apis.length == 0) {
+                callback.onSuccess();
+            } else {
+                updateProgress.addProgressable(apis[0].updateAllPlantMarkers(callbacks.get(0))); // start the callback chain
             }
         } else {
             updateProgress.addCallback(callback);

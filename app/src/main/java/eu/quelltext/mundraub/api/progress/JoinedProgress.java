@@ -8,10 +8,12 @@ import eu.quelltext.mundraub.api.API;
 public class JoinedProgress extends Progress  {
 
     private final List<ProgressableResult> progressables = new ArrayList<ProgressableResult>();
+    private final int length;
     private int successCount = 0;
 
-    public JoinedProgress(API.Callback callback) {
+    public JoinedProgress(API.Callback callback, int length) {
         super(callback);
+        this.length = length;
     }
 
     public void addProgressable(ProgressableResult progressableResult) {
@@ -35,7 +37,7 @@ public class JoinedProgress extends Progress  {
     }
 
     private int size() {
-        return progressables.size();
+        return length;
     }
 
     @Override
