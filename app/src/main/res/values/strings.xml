@@ -56,6 +56,19 @@
     <string name="walnut">Walnut</string>
     <string name="other_nut">Other Nut</string>
     <string name="unnamed_plant">Unknown Plant</string>
+    <string name="sour_cherry">Sour Cherry</string>
+    <string name="wild_rose">Wild Rose</string>
+    <string name="bilberry">Bilberry</string>
+    <string name="lemon_balm">Lemon Balm</string>
+    <string name="wild_garlic">Wild Garlic</string>
+    <string name="chokeberry">Chokeberry</string>
+    <string name="medlar">Medlar</string>
+    <string name="service_tree">Service Tree</string>
+    <string name="rowan">Rowan</string>
+    <string name="almond">Almond</string>
+    <string name="gooseberry">Gooseberry</string>
+    <string name="peach">Peach</string>
+    <string name="silverberry">Silverberry</string>
 
     <!-- Login -->
     <string name="title_activity_login">Sign in</string>
@@ -183,18 +196,5 @@
     <!-- Map of all plants -->
     <string name="title_activity_show_plants">Map of Plants</string>
     <string name="menu_my_plants">My Plants</string>
-    <string name="sour_cherry">Sour Cherry</string>
-    <string name="wild_rose">Wild Rose</string>
-    <string name="bilberry">Bilberry</string>
-    <string name="lemon_balm">Lemon Balm</string>
-    <string name="wild_garlic">Wild Garlic</string>
-    <string name="chokeberry">Chokeberry</string>
-    <string name="medlar">Medlar</string>
-    <string name="service_tree">Service Tree</string>
-    <string name="rowan">Rowan</string>
-    <string name="almond">Almond</string>
-    <string name="gooseberry">Gooseberry</string>
-    <string name="peach">Peach</string>
-    <string name="silverberry">Silverberry</string>
 
 </resources>
