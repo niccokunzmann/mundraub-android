@@ -105,15 +105,18 @@ public class PlantCategory extends ErrorAware {
         // <option value="9">-Quitte</option>
         addCategory(9, 0xa31a, 9, "quince", R.string.quince);
         // <option value="12">-Andere Obstbäume</option>
-        addCategory(10, 0, 12, "other fruit trees", R.string.other_fruit_trees);
         addCategory(11, 0xa277, 12, "service tree", R.string.service_tree);
         addCategory(12, 0xa2b2, 12, "rowan", R.string.rowan);
         addCategory(13, 0xa382, 12, "peach", R.string.peach);
+        addCategory(27, 0xa398, 12, "wild rose", R.string.wild_rose);
+        addCategory(28, 0xa09b, 12, "chokeberry", R.string.chokeberry);
+        addCategory(29, 0xa0c9, 12, "medlar", R.string.medlar);
+        addCategory(10, 0, 12, "other fruit trees", R.string.other_fruit_trees);
         // </optgroup><optgroup label="Obststräucher"><option value="18">-Brombeere</option>
         addCategory(14, 0xa0d5, 18, "blackberry", R.string.blackberry);
         // <option value="20">-Heidelbeere</option>
         addCategory(15, 0xa477, 20, "blueberry", R.string.blueberry);
-        addCategory(16, 0xa477, 20, "bilberry", R.string.bilberry);
+        //addCategory(16, 0xa477, 20, "bilberry", R.string.bilberry);
         // <option value="22">-Himbeere</option>
         addCategory(17, 0xa349, 22, "raspberry", R.string.raspberry);
         // <option value="21">-Holunder</option>
@@ -133,12 +136,8 @@ public class PlantCategory extends ErrorAware {
         // <option value="29">-Weißdorn</option>
         addCategory(25, 0xa272, 29, "haw", R.string.haw);
         // <option value="30">-Andere Obststräucher</option>
-        addCategory(26, 0, 30, "other fruit shrub", R.string.other_fruit_shrub);
-        addCategory(27, 0xa398, 30, "wild rose", R.string.wild_rose);
-        addCategory(28, 0xa09b, 30, "chokeberry", R.string.chokeberry);
-        addCategory(29, 0xa0c9, 30, "medlar", R.string.medlar);
         addCategory(30, 0xa43a, 30, "gooseberry", R.string.gooseberry);
-        addCategory(31, 0xa3d3, 30, "silverberry", R.string.silverberry);
+        addCategory(26, 0, 30, "other fruit shrub", R.string.other_fruit_shrub);
         // </optgroup><optgroup label="Kräuter"><option value="31">-Bärlauch</option>
         addCategory(32, 0, 31, "ramsons", R.string.ramsons);
         // <option value="33">-Minze</option>
@@ -152,9 +151,10 @@ public class PlantCategory extends ErrorAware {
         // <option value="35">-Waldmeister</option>
         addCategory(37, 0, 35, "woodruff", R.string.woodruff);
         // <option value="37">-Andere Kräuter</option>
-        addCategory(38, 0, 37, "other herbs", R.string.other_herbs);
+        addCategory(31, 0xa3d3, 37, "silverberry", R.string.silverberry);
         addCategory(39, 0xa324, 37, "lemon balm", R.string.lemon_balm); // Zitronenmelisse
         addCategory(40, 0xa1bb, 37, "wild garlic", R.string.wild_garlic);
+        addCategory(38, 0, 37, "other herbs", R.string.other_herbs);
         // </optgroup><optgroup label="Nüsse"><option value="16">-Esskastanie</option>
         addCategory(41, 0xa08d, 16, "chestnut", R.string.chestnut);
         // <option value="14">-Haselnuss</option>
@@ -164,8 +164,8 @@ public class PlantCategory extends ErrorAware {
         // <option value="15">-Walnuss</option>
         addCategory(44, 0xa03b, 15, "walnut", R.string.walnut);
         // <option value="17">-Andere Nüsse</option>
-        addCategory(45, 0, 17, "other nut", R.string.other_nut);
         addCategory(46, 0xa485, 17, "almond", R.string.almond);
+        addCategory(45, 0, 17, "other nut", R.string.other_nut);
         // </optgroup>
     }
 
