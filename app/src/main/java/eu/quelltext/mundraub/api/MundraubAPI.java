@@ -19,8 +19,10 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -235,52 +237,24 @@ public class MundraubAPI extends API {
     }
 
     @Override
-    protected int setAllPlantMarkersAsync(Progressable progress) throws ErrorWithExplanation {
-        double FRACTION_DOWNLOAD = 0.05;
-        double FRACTION_PARSING = 1 - FRACTION_DOWNLOAD;
-        try {
-            PlantsCache.clear();
-            List<String> urls = getUrlsForAllPlants();
-            for (String url : urls) {
-                log.d("setAllPlantMarkersAsync", url);
-                String data = getURL(url, false);
-                progress.getFraction(FRACTION_DOWNLOAD / urls.size()).setProgress(1);
-                log.d("data", data.substring(0, (data.length() > 100 ? 100 : data.length())) + " " + data.length() + " bytes");
-                Progressable fraction = progress.getFraction(FRACTION_PARSING / urls.size());
-                if (data.length() > 5) { // data is null
-                    JSONObject json = new JSONObject(data);
-                    PlantsCache.updatePlantMarkers(json, fraction);
-                }
-                fraction.setProgress(1);
-            }
-            return TASK_SUCCEEDED;
-        } catch (JSONException e) {
-            log.printStackTrace(e);
-            abortOperation(R.string.error_invalid_json_for_markers);
-        } catch (IOException e) {
-            log.printStackTrace(e);
-        } catch (ErrorWithExplanation errorWithExplanation) {
-            errorWithExplanation.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            log.printStackTrace(e);
-        } catch (KeyManagementException e) {
-            log.printStackTrace(e);
-        } catch (Exception e) {
-            log.printStackTrace(e);
-        }
-        return R.string.error_not_specified;
-    }
-
-    private List<String> getUrlsForAllPlants() {
-        List<String> urls = new ArrayList<String>();
+    protected Set<String> getUrlsForAllPlants() {
+        HashSet<String> urls = new HashSet<String>();
         for (PlantCategory category: PlantCategory.all()) {
             // see https://github.com/niccokunzmann/mundraub-android/issues/96
-            urls.add("https://mundraub.org/cluster/plant?bbox=-180.0,-90.0,0.0,0&zoom=18&cat=" + category.getValueForAPI());
-            urls.add("https://mundraub.org/cluster/plant?bbox=0.0,-90.0,180.0,0&zoom=18&cat=" + category.getValueForAPI());
-            urls.add("https://mundraub.org/cluster/plant?bbox=-180.0,0.0,0.0,90&zoom=18&cat=" + category.getValueForAPI());
-            urls.add("https://mundraub.org/cluster/plant?bbox=0.0,0.0,180.0,90&zoom=18&cat=" + category.getValueForAPI());
+            urls.add("https://mundraub.org/cluster/plant?bbox=-180.0,-90.0,0.0,0&zoom=18&cat=" + category.getValueForMundraubAPI());
+            urls.add("https://mundraub.org/cluster/plant?bbox=0.0,-90.0,180.0,0&zoom=18&cat=" + category.getValueForMundraubAPI());
+            urls.add("https://mundraub.org/cluster/plant?bbox=-180.0,0.0,0.0,90&zoom=18&cat=" + category.getValueForMundraubAPI());
+            urls.add("https://mundraub.org/cluster/plant?bbox=0.0,0.0,180.0,90&zoom=18&cat=" + category.getValueForMundraubAPI());
         }
         return urls;
+    }
+
+    @Override
+    protected void addMarkers(String data, Progressable fraction) throws JSONException, ErrorWithExplanation {
+        if (data.length() > 5) { // data is null
+            JSONObject json = new JSONObject(data);
+            PlantsCache.updateMundraubPlantMarkers(json, fraction);
+        }
     }
 
     @Override
@@ -309,7 +283,7 @@ public class MundraubAPI extends API {
     }
 
     private void fillInPlant(Map<String, String> formValues, Plant plant) throws IOException, ErrorWithExplanation, NoSuchAlgorithmException, KeyManagementException, JSONException {
-        formValues.put("field_plant_category", plant.getCategory().getValueForAPI());
+        formValues.put("field_plant_category", plant.getCategory().getValueForMundraubAPI());
         formValues.put("field_plant_count_trees", plant.getFormCount());
         formValues.put("field_position[0][value]", plant.getPosition().forAPI());
         formValues.put("body[0][value]", plant.getDescription());
@@ -332,7 +306,7 @@ public class MundraubAPI extends API {
     }
 
     private String getPlantAddressFromOpenStreetMap(Plant plant) throws IOException, ErrorWithExplanation, KeyManagementException, NoSuchAlgorithmException {
-        return getURL(plant.getPosition().getOpenStreetMapAddressUrl(), false);
+        return httpGet(plant.getPosition().getOpenStreetMapAddressUrl());
     }
 
     private final String PATTERN_FORM_FIELD =
@@ -373,32 +347,34 @@ public class MundraubAPI extends API {
         }
         return result;
     }
+    
     private String getURL(String url_, boolean authenticate) throws IOException, ErrorWithExplanation, NoSuchAlgorithmException, KeyManagementException {
         log.d("getURL", url_);
         URL url =  new URL(url_);
         HttpURLConnection http = (HttpURLConnection) openSecureConnection(url);
         http.setRequestMethod("GET");
         if (authenticate) {
-            authenticate(http);
-        }
+                authenticate(http);
+            }
         http.addRequestProperty("Host", url.getHost());
         http.addRequestProperty("User-Agent", HEADER_USER_AGENT);
         http.connect();
         try {
             int returnCode = http.getResponseCode();
             // from https://stackoverflow.com/a/1359700/1320237
-            String result = Helper.getResultString(http);
+                    String result = Helper.getResultString(http);
             if (returnCode != HttpURLConnection.HTTP_OK) {
-                log.d("getURL", result);
-                log.d("getURL", "Unexpected return code " + returnCode);
-                abortOperation(R.string.error_unexpected_return_code);
-            }
+                    log.d("getURL", result);
+                    log.d("getURL", "Unexpected return code " + returnCode);
+                    abortOperation(R.string.error_unexpected_return_code);
+                }
             log.d("getURL", "Success " + url);
             return result;
         } finally {
             http.disconnect();
         }
     }
+
 
     private static final MediaType MEDIA_TYPE_JPG = MediaType.parse("image/jpeg");
     private static final MediaType MEDIA_TYPE_OCTET = MediaType.parse("application/octet-stream");

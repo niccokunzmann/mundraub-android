@@ -23,19 +23,24 @@ public class PlantCategory extends ErrorAware {
     private final int fieldForMundraubAPI;
     private final int fieldForNoOvoceAPI;
     private final String id;
+    private final int databaseId;
     private static final String INTENT_FIELD = "PlantCategory";
 
     public static final PlantCategory NULL = new NullCategory();
     private static Map<String, PlantCategory> idToPlantCategory = new HashMap<>();
     private static Map<Integer, PlantCategory> mundraubAPIFieldToPlantCategory = new HashMap<>();
+    private static Map<Integer, PlantCategory> naOvoceAPIFieldToPlantCategory = new HashMap<>();
+    private static Map<Integer, PlantCategory> databaseIdToPlantCategory = new HashMap<>();
     private static List<PlantCategory> sortedCategories = new ArrayList<PlantCategory>();
     private Drawable markerDrawable = null;
     private boolean triedGettingMarkerDrawable = false;
 
-    private static void addCategory(int fieldForNoOvoceAPI, int fieldForMundraubAPI, String id, int resourceId) {
-        PlantCategory category = new PlantCategory(id, fieldForMundraubAPI, fieldForNoOvoceAPI, resourceId);
+    private static void addCategory(int databaseId, int fieldForNoOvoceAPI, int fieldForMundraubAPI, String id, int resourceId) {
+        PlantCategory category = new PlantCategory(id, fieldForMundraubAPI, fieldForNoOvoceAPI, resourceId, databaseId);
         idToPlantCategory.put(id, category);
         mundraubAPIFieldToPlantCategory.put(fieldForMundraubAPI, category);
+        databaseIdToPlantCategory.put(databaseId, category);
+        naOvoceAPIFieldToPlantCategory.put(fieldForNoOvoceAPI, category);
         sortedCategories.add(category);
     }
 
@@ -80,95 +85,96 @@ public class PlantCategory extends ErrorAware {
      */
 
     static {
+        // never change the database id field!
         // from https://mundraub.org/map
-        //
         //<optgroup label="Obstbäume"><option value="4">-Apfel</option>
-        addCategory(0xa1e4, 4, "apple", R.string.apple);
+        addCategory(1, 0xa1e4, 4, "apple", R.string.apple);
         // <option value="10">-Aprikose</option>
-        addCategory(0xa13b, 10, "apricot", R.string.apricot);
+        addCategory(2, 0xa13b, 10, "apricot", R.string.apricot);
         // <option value="5">-Birne</option>
-        addCategory(0xa3b8, 5, "pear", R.string.pear);
+        addCategory(3, 0xa3b8, 5, "pear", R.string.pear);
         // <option value="6">-Kirsche</option>
-        addCategory(0xa412, 6, "cherry", R.string.cherry);
-        addCategory(0xa3a2, 6, "sour cherry", R.string.sour_cherry);
+        addCategory(4, 0xa412, 6, "cherry", R.string.cherry);
+        addCategory(5, 0xa3a2, 6, "sour cherry", R.string.sour_cherry);
         // <option value="7">-Mirabelle</option>
-        addCategory(0xa1d1, 7, "mirabelle", R.string.mirabelle);
+        addCategory(6, 0xa1d1, 7, "mirabelle", R.string.mirabelle);
         // <option value="11">-Maulbeere</option>
-        addCategory(0xa162, 11, "mulberry", R.string.mulberry);
+        addCategory(7, 0xa162, 11, "mulberry", R.string.mulberry);
         // <option value="8">-Pflaume</option>
-        addCategory(0xa2c9, 8, "plum", R.string.plum);
+        addCategory(8, 0xa2c9, 8, "plum", R.string.plum);
         // <option value="9">-Quitte</option>
-        addCategory(0xa31a, 9, "quince", R.string.quince);
+        addCategory(9, 0xa31a, 9, "quince", R.string.quince);
         // <option value="12">-Andere Obstbäume</option>
-        addCategory(0, 12, "other fruit trees", R.string.other_fruit_trees);
-        addCategory(0xa277, 12, "service tree", R.string.service_tree);
-        addCategory(0xa2b2, 12, "rowan", R.string.rowan);
-        addCategory(0xa382, 12, "peach", R.string.peach);
+        addCategory(10, 0, 12, "other fruit trees", R.string.other_fruit_trees);
+        addCategory(11, 0xa277, 12, "service tree", R.string.service_tree);
+        addCategory(12, 0xa2b2, 12, "rowan", R.string.rowan);
+        addCategory(13, 0xa382, 12, "peach", R.string.peach);
         // </optgroup><optgroup label="Obststräucher"><option value="18">-Brombeere</option>
-        addCategory(0xa0d5, 18, "blackberry", R.string.blackberry);
+        addCategory(14, 0xa0d5, 18, "blackberry", R.string.blackberry);
         // <option value="20">-Heidelbeere</option>
-        addCategory(0xa477, 20, "blueberry", R.string.blueberry);
-        addCategory(0xa477, 20, "bilberry", R.string.bilberry);
+        addCategory(15, 0xa477, 20, "blueberry", R.string.blueberry);
+        addCategory(16, 0xa477, 20, "bilberry", R.string.bilberry);
         // <option value="22">-Himbeere</option>
-        addCategory(0xa349, 22, "raspberry", R.string.raspberry);
+        addCategory(17, 0xa349, 22, "raspberry", R.string.raspberry);
         // <option value="21">-Holunder</option>
-        addCategory(0xa430, 21, "elder", R.string.elder);
+        addCategory(18, 0xa430, 21, "elder", R.string.elder);
         // <option value="27">-Hagebutte</option>
-        addCategory(0, 27, "rose hip", R.string.rose_hip);
+        addCategory(19, 0, 27, "rose hip", R.string.rose_hip);
         // <option value="25">-Felsenbirne</option>
-        addCategory(0, 25, "juneberry", R.string.juneberry);
+        addCategory(20, 0, 25, "juneberry", R.string.juneberry);
         // <option value="23">-Johannisbeere</option>
-        addCategory(0xa205, 23, "currant", R.string.currant);
+        addCategory(21, 0xa205, 23, "currant", R.string.currant);
         // <option value="24">-Kornelkirsche</option>
-        addCategory(0xa116, 24, "cornel cherry", R.string.cornel_cherry);
+        addCategory(22, 0xa116, 24, "cornel cherry", R.string.cornel_cherry);
         // <option value="26">-Sanddorn</option>
-        addCategory(0xa1f4, 26, "seaberry", R.string.seaberry);
+        addCategory(23, 0xa1f4, 26, "seaberry", R.string.seaberry);
         // <option value="28">-Schlehe</option>
-        addCategory(0xa0a7, 28, "sloe", R.string.sloe);
+        addCategory(24, 0xa0a7, 28, "sloe", R.string.sloe);
         // <option value="29">-Weißdorn</option>
-        addCategory(0xa272, 29, "haw", R.string.haw);
+        addCategory(25, 0xa272, 29, "haw", R.string.haw);
         // <option value="30">-Andere Obststräucher</option>
-        addCategory(0, 30, "other fruit shrub", R.string.other_fruit_shrub);
-        addCategory(0xa398, 30, "wild rose", R.string.wild_rose);
-        addCategory(0xa09b, 30, "chokeberry", R.string.chokeberry);
-        addCategory(0xa0c9, 30, "medlar", R.string.medlar);
-        addCategory(0xa43a, 30, "gooseberry", R.string.gooseberry);
-        addCategory(0xa3d3, 30, "silverberry", R.string.silverberry);
+        addCategory(26, 0, 30, "other fruit shrub", R.string.other_fruit_shrub);
+        addCategory(27, 0xa398, 30, "wild rose", R.string.wild_rose);
+        addCategory(28, 0xa09b, 30, "chokeberry", R.string.chokeberry);
+        addCategory(29, 0xa0c9, 30, "medlar", R.string.medlar);
+        addCategory(30, 0xa43a, 30, "gooseberry", R.string.gooseberry);
+        addCategory(31, 0xa3d3, 30, "silverberry", R.string.silverberry);
         // </optgroup><optgroup label="Kräuter"><option value="31">-Bärlauch</option>
-        addCategory(0, 31, "ramsons", R.string.ramsons);
+        addCategory(32, 0, 31, "ramsons", R.string.ramsons);
         // <option value="33">-Minze</option>
-        addCategory(0xa118, 33, "mint", R.string.mint);
+        addCategory(33, 0xa118, 33, "mint", R.string.mint);
         // <option value="34">-Rosmarin</option>
-        addCategory(0, 34, "rosemary", R.string.rosemary);
+        addCategory(34, 0, 34, "rosemary", R.string.rosemary);
         // <option value="36">-Thymian</option>
-        addCategory(0, 36, "thyme", R.string.thyme);
+        addCategory(35, 0, 36, "thyme", R.string.thyme);
         // <option value="32">-Wacholder</option>
-        addCategory(0, 32, "juniper", R.string.juniper);
+        addCategory(36, 0, 32, "juniper", R.string.juniper);
         // <option value="35">-Waldmeister</option>
-        addCategory(0, 35, "woodruff", R.string.woodruff);
+        addCategory(37, 0, 35, "woodruff", R.string.woodruff);
         // <option value="37">-Andere Kräuter</option>
-        addCategory(0, 37, "other herbs", R.string.other_herbs);
-        addCategory(0xa324, 37, "lemon balm", R.string.lemon_balm); // Zitronenmelisse
-        addCategory(0xa1bb, 37, "wild garlic", R.string.wild_garlic);
+        addCategory(38, 0, 37, "other herbs", R.string.other_herbs);
+        addCategory(39, 0xa324, 37, "lemon balm", R.string.lemon_balm); // Zitronenmelisse
+        addCategory(40, 0xa1bb, 37, "wild garlic", R.string.wild_garlic);
         // </optgroup><optgroup label="Nüsse"><option value="16">-Esskastanie</option>
-        addCategory(0xa08d, 16, "chestnut", R.string.chestnut);
+        addCategory(41, 0xa08d, 16, "chestnut", R.string.chestnut);
         // <option value="14">-Haselnuss</option>
-        addCategory(0xa3c4, 14, "hazel", R.string.hazel);
+        addCategory(42, 0xa3c4, 14, "hazel", R.string.hazel);
         // <option value="19">-Walderdbeere</option>
-        addCategory(0xa11b, 19, "wild strawberry", R.string.wild_strawberry);
+        addCategory(43, 0xa11b, 19, "wild strawberry", R.string.wild_strawberry);
         // <option value="15">-Walnuss</option>
-        addCategory(0xa03b, 15, "walnut", R.string.walnut);
+        addCategory(44, 0xa03b, 15, "walnut", R.string.walnut);
         // <option value="17">-Andere Nüsse</option>
-        addCategory(0, 17, "other nut", R.string.other_nut);
-        addCategory(0xa485, 17, "almond", R.string.almond);
+        addCategory(45, 0, 17, "other nut", R.string.other_nut);
+        addCategory(46, 0xa485, 17, "almond", R.string.almond);
         // </optgroup>
     }
 
-    PlantCategory(String id, int fieldForMundraubAPI, int fieldForNoOvoceAPI, int resourceId) {
+    PlantCategory(String id, int fieldForMundraubAPI, int fieldForNoOvoceAPI, int resourceId, int databaseId) {
         this.id = id;
         this.fieldForMundraubAPI = fieldForMundraubAPI;
         this.resourceId = resourceId;
         this.fieldForNoOvoceAPI = fieldForNoOvoceAPI;
+        this.databaseId = databaseId;
     }
 
     @Override
@@ -219,6 +225,31 @@ public class PlantCategory extends ErrorAware {
         return new File("/android_asset/map/img/markers/", id + ".png");
     }
 
+    public String getValueForNaOvoceAPI() {
+        return Integer.toHexString(fieldForNoOvoceAPI);
+    }
+
+    public static PlantCategory fromMundraubAPIField(int i) {
+        if (mundraubAPIFieldToPlantCategory.containsKey(i)) {
+            return mundraubAPIFieldToPlantCategory.get(i);
+        }
+        return NULL;
+    }
+
+    public static PlantCategory fromNaOvoceAPIField(int i) {
+        if (naOvoceAPIFieldToPlantCategory.containsKey(i)) {
+            return naOvoceAPIFieldToPlantCategory.get(i);
+        }
+        return NULL;
+    }
+
+    public static PlantCategory fromDatabaseId(int i) {
+        if (databaseIdToPlantCategory.containsKey(i)) {
+            return databaseIdToPlantCategory.get(i);
+        }
+        return NULL;
+    }
+
     public static class Intent extends android.content.Intent {
 
         public Intent(PlantCategory category) {
@@ -235,7 +266,7 @@ public class PlantCategory extends ErrorAware {
         return this.id;
     }
 
-    public String getValueForAPI() {
+    public String getValueForMundraubAPI() {
         return Integer.toString(fieldForMundraubAPI);
     }
 
@@ -254,10 +285,14 @@ public class PlantCategory extends ErrorAware {
         return !isUnknown() && fieldForNoOvoceAPI != 0;
     }
 
+    public int getDatabaseId() {
+        return databaseId;
+    }
+
     public static class NullCategory extends PlantCategory {
 
         NullCategory() {
-            super(null, -1, 0, R.string.unnamed_plant);
+            super(null, -1, 0, R.string.unnamed_plant, -1);
         }
         public boolean isUnknown() {
             return true;

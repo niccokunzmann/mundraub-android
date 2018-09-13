@@ -2,17 +2,25 @@ package eu.quelltext.mundraub.api;
 
 import android.os.AsyncTask;
 
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.util.Set;
+
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.api.progress.Progress;
 import eu.quelltext.mundraub.api.progress.Progressable;
 import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.error.ErrorAware;
 import eu.quelltext.mundraub.plant.Plant;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 
 public abstract class API extends ErrorAware {
 
     private static final API dummyAPI = new DummyAPI();
     private static final API mundraubAPI = new MundraubAPI();
+    private static final API naOvoceAPI = new NaOvoceAPI();
     public final int TASK_SUCCEEDED = R.string.task_completed_successfully;
     public final int TASK_CANCELLED = R.string.task_was_cancelled;
 
@@ -41,6 +49,13 @@ public abstract class API extends ErrorAware {
 
     public boolean isLoggedIn() {
         return isLoggedIn;
+    }
+
+    public static API[] getMarkerAPIs() {
+        return new API[]{
+                //mundraubAPI,
+                naOvoceAPI
+        }; // TODO: settings
     }
 
     private class Task extends AsyncTask<Void, Void, Integer> {
@@ -82,6 +97,12 @@ public abstract class API extends ErrorAware {
     }
 
     public static abstract class Callback {
+        public static final Callback NULL = new Callback() {
+            @Override
+            public void onSuccess() {
+            }
+        };
+
         public abstract void onSuccess();
         public void onFailure(int errorResourceString){};
         public void onProgress(double portion){};
@@ -143,12 +164,58 @@ public abstract class API extends ErrorAware {
         throw new ErrorWithExplanation(resourceId);
     }
 
+    protected int setAllPlantMarkersAsync(Progressable progress) throws ErrorWithExplanation {
+        double FRACTION_DOWNLOAD = 0.05;
+        double FRACTION_PARSING = 1 - FRACTION_DOWNLOAD;
+        Set<String> urls = getUrlsForAllPlants();
+        for (String url : urls) {
+        try {
+                log.d("setAllPlantMarkersAsync", url);
+                String data = httpGet(url);
+                progress.getFraction(FRACTION_DOWNLOAD / urls.size()).setProgress(1);
+                log.d("data", data.substring(0, (data.length() > 100 ? 100 : data.length())) + " " + data.length() + " bytes");
+                Progressable fraction = progress.getFraction(FRACTION_PARSING / urls.size());
+                addMarkers(data, fraction);
+                fraction.setProgress(1);
+            } catch (JSONException e) {
+                log.printStackTrace(e);
+                return R.string.error_invalid_json_for_markers;
+            } catch (IOException e) {
+                log.printStackTrace(e);
+                return R.string.error_connection;
+            } catch (Exception e) {
+                log.printStackTrace(e);
+                return R.string.error_not_specified;
+            }
+        }
+        return TASK_SUCCEEDED;
+    }
+
+    protected String httpGet(String url) throws IOException, ErrorWithExplanation {
+        OkHttpClient client = Settings.getOkHttpClient();
+        log.d("API GET", url.toString());
+        Request request = new Request.Builder()
+                .url(url)
+                .addHeader("Accept", "application/json")
+                .method("GET", null)
+                .build();
+        okhttp3.Response response = client.newCall(request).execute();
+        int code = response.code();
+        if (code != 200) {
+            abortOperation(R.string.error_unexpected_return_code);
+        }
+        return response.body().string();
+    }
+
+
     // methods to replace
 
     protected abstract int addPlantAsync(Plant plant) throws ErrorWithExplanation;
     protected abstract int loginAsync(String username, String password) throws ErrorWithExplanation;
     protected abstract int deletePlantAsync(String plantId) throws ErrorWithExplanation;
     protected abstract int updatePlantAsync(Plant plant, String plantId) throws ErrorWithExplanation;
-    protected abstract int setAllPlantMarkersAsync(Progressable progress) throws ErrorWithExplanation;
+    protected abstract Set<String> getUrlsForAllPlants();
+    protected abstract void addMarkers(String data, Progressable fraction) throws JSONException, ErrorWithExplanation;
+
 
 }

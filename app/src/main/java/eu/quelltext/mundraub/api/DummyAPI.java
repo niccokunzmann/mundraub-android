@@ -1,5 +1,10 @@
 package eu.quelltext.mundraub.api;
 
+import org.json.JSONException;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.api.progress.Progressable;
 import eu.quelltext.mundraub.plant.Plant;
@@ -30,8 +35,13 @@ public class DummyAPI extends API {
     }
 
     @Override
-    protected int setAllPlantMarkersAsync(Progressable progress) throws ErrorWithExplanation {
-        return R.string.error_debug_api_can_not_download_offline_data;
+    protected Set<String> getUrlsForAllPlants() {
+        return new HashSet<String>();
+    }
+
+    @Override
+    protected void addMarkers(String data, Progressable fraction) throws JSONException, ErrorWithExplanation {
+
     }
 
     @Override
@@ -50,6 +60,4 @@ public class DummyAPI extends API {
         }
         return TASK_SUCCEEDED;
     }
-
-
 }
