@@ -39,7 +39,6 @@
                 android:id="@+id/layout_offline"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:layout_weight="4"
                 android:orientation="horizontal">
 
@@ -57,6 +56,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:paddingBottom="@dimen/activity_horizontal_margin"
                     android:text="@string/settings_use_offline_mode" />
 
             </LinearLayout>
@@ -65,6 +65,7 @@
                 android:id="@+id/divider1"
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_weight="4"
                 android:background="@color/colorPrimary" />
 
@@ -75,11 +76,40 @@
                 android:text="@string/settings_connection" />
 
 
+            <RadioGroup
+                android:id="@+id/api_choice"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:checkedButton="@+id/radioButton_mundraub">
+
+                <RadioButton
+                    android:id="@+id/radioButton_mundraub"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_use_mundraub_api" />
+
+                <RadioButton
+                    android:id="@+id/radioButton_na_ovoce"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_use_na_ovoce" />
+
+                <RadioButton
+                    android:id="@+id/radioButton_dummy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_use_dummy" />
+            </RadioGroup>
+
             <LinearLayout
                 android:id="@+id/layout_connection"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                
                 android:layout_weight="4"
                 android:orientation="horizontal">
 
@@ -97,6 +127,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:paddingBottom="@dimen/activity_horizontal_margin"
                     android:text="@string/setting_use_secure_connection" />
 
             </LinearLayout>
@@ -106,6 +137,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
                 android:layout_weight="4"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:background="@color/colorPrimary" />
 
             <TextView
@@ -118,7 +150,6 @@
                 android:id="@+id/layout_storage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:layout_weight="4"
                 android:orientation="horizontal">
 
@@ -136,6 +167,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:paddingBottom="@dimen/activity_horizontal_margin"
                     android:text="@string/settings_use_cache" />
             </LinearLayout>
 
@@ -144,6 +176,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
                 android:layout_weight="4"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:background="@color/colorPrimary" />
 
             <TextView
@@ -213,6 +246,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/activity_horizontal_margin"
                             android:text="@string/settings_permission_camera_text" />
                     </LinearLayout>
 
@@ -251,6 +285,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/activity_horizontal_margin"
                             android:text="@string/settings_permission_internet_text" />
                     </LinearLayout>
 
@@ -289,6 +324,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/activity_horizontal_margin"
                             android:text="@string/settings_permission_storage_text" />
                     </LinearLayout>
 
@@ -327,6 +363,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/activity_horizontal_margin"
                             android:text="@string/settings_permission_location_text" />
                     </LinearLayout>
 
@@ -344,6 +381,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
                 android:layout_weight="4"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:background="@color/colorPrimary" />
 
             <TextView
@@ -351,29 +389,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:text="@string/settings_debug" />
-
-            <LinearLayout
-                android:id="@+id/layout_use_debug_api"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
-                android:orientation="horizontal">
-
-                <ToggleButton
-                    android:id="@+id/toggle_API"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4"
-                    android:checked="true"
-                    tools:layout_editor_absoluteX="0dp"
-                    tools:layout_editor_absoluteY="256dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/settings_use_mundraub_api" />
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layout_error_report"
@@ -395,6 +410,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:paddingBottom="@dimen/activity_horizontal_margin"
                     android:text="@string/settings_ask_for_error_report" />
             </LinearLayout>
 
@@ -418,6 +434,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:paddingBottom="@dimen/activity_horizontal_margin"
                     android:text="@string/settings_create_public_api_for_debug" />
             </LinearLayout>
 

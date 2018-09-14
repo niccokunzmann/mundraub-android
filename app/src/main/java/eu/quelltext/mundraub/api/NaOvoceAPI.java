@@ -60,4 +60,14 @@ public class NaOvoceAPI extends API {
         PlantsCache.updateNaOvocePlantMarkers(json, fraction);
     }
 
+    @Override
+    public String id() {
+        return Settings.API_ID_NA_OVOCE;
+    }
+
+    public int radioButtonId(){
+        return R.id.radioButton_na_ovoce;
+    }
+
+
 }

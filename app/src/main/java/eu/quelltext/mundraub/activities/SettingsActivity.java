@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.ToggleButton;
 
 import eu.quelltext.mundraub.R;
@@ -22,6 +23,7 @@ public class SettingsActivity extends MundraubBaseActivity {
     private ProgressBar updateProgress;
     final Handler handler = new Handler();
     ProgressUpdate progressAutoUpdate;
+    private RadioGroup apiRadioGroup;
 
     class ProgressUpdate implements Runnable {
         boolean stopped = false;
@@ -46,6 +48,7 @@ public class SettingsActivity extends MundraubBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         updateProgress = (ProgressBar) findViewById(R.id.update_progress);
+        apiRadioGroup = (RadioGroup) findViewById(R.id.api_choice);
     }
 
     private void updateOrHideUpdateProgress() {
@@ -82,18 +85,16 @@ public class SettingsActivity extends MundraubBaseActivity {
     }
 
     private void update() {
-        synchronizeBooleanSetting(R.id.toggle_API,  new Toggled() {
+        apiRadioGroup.check(API.instance().radioButtonId());
+        apiRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public int onToggle(boolean checked) {
-                if (checked) {
-                    getPermissions().INTERNET.askIfNotGranted();
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                for (API api: API.all()) {
+                    if (checkedId == api.radioButtonId()) {
+                        Settings.useAPI(api);
+                    }
                 }
-                return Settings.useMundraubAPI(checked);
-            }
-
-            @Override
-            public boolean isChecked() {
-                return Settings.useMundraubAPI();
+                update();
             }
         });
         synchronizeBooleanSetting(R.id.toggle_secure_connection, new Toggled() {

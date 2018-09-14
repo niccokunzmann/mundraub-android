@@ -18,16 +18,21 @@ import okhttp3.Request;
 
 public abstract class API extends ErrorAware {
 
-    private static final API dummyAPI = new DummyAPI();
-    private static final API mundraubAPI = new MundraubAPI();
-    private static final API naOvoceAPI = new NaOvoceAPI();
+    public static final API DUMMY = new DummyAPI();
+    public static final API MUNDRAUB = new MundraubAPI();
+    public static final API NA_OVOCE = new NaOvoceAPI();
+    public static final API DEFAULT = MUNDRAUB;
     public final int TASK_SUCCEEDED = R.string.task_completed_successfully;
     public final int TASK_CANCELLED = R.string.task_was_cancelled;
 
     private boolean isLoggedIn;
+
+    public static API[] all() {
+        return new API[]{DUMMY, MUNDRAUB, NA_OVOCE};
+    }
     
-    public static final API instance() {
-        return Settings.useMundraubAPI() ? mundraubAPI : dummyAPI;
+    public static API instance() {
+        return apiFromId(Settings.getAPIId());
     }
 
     public Progress login(final String username, final String password, Callback cb) {
@@ -53,8 +58,8 @@ public abstract class API extends ErrorAware {
 
     public static API[] getMarkerAPIs() {
         return new API[]{
-                mundraubAPI,
-                naOvoceAPI
+                MUNDRAUB,
+                NA_OVOCE
         }; // TODO: settings
     }
 
@@ -67,6 +72,15 @@ public abstract class API extends ErrorAware {
                 return success;
             }
         });
+    }
+
+    public static API apiFromId(String id) {
+        for (API api: all()) {
+            if (api.id().equals(id)) {
+                return api;
+            }
+        }
+        return DEFAULT;
     }
 
     private class Task extends AsyncTask<Void, Void, Integer> {
@@ -218,7 +232,6 @@ public abstract class API extends ErrorAware {
         return response.body().string();
     }
 
-
     // methods to replace
 
     protected abstract int addPlantAsync(Plant plant) throws ErrorWithExplanation;
@@ -228,6 +241,6 @@ public abstract class API extends ErrorAware {
     protected abstract int updatePlantAsync(Plant plant, String plantId) throws ErrorWithExplanation;
     protected abstract Set<String> getUrlsForAllPlants();
     protected abstract void addMarkers(String data, Progressable fraction) throws JSONException, ErrorWithExplanation;
-
-
+    public abstract String id();
+    public abstract int radioButtonId();
 }

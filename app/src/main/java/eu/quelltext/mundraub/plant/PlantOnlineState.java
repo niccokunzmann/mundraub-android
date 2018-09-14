@@ -13,10 +13,7 @@ public class PlantOnlineState {
     public static final String JSON_CLASS_OFFLINE = "offline";
     public static final String JSON_CLASS_ONLINE = "online";
     public static final String JSON_ID = "id";
-
-    private static API api() {
-        return API.instance();
-    }
+    public static final String JSON_API = "api";
 
     public interface OnlineAction {
 
@@ -32,7 +29,7 @@ public class PlantOnlineState {
         void delete(API.Callback cb);
         JSONObject toJSON() throws JSONException;
 
-        void publishedWithId(String s);
+        void publishedWithId(String s, API api);
 
         boolean isPublished();
     }
@@ -40,16 +37,18 @@ public class PlantOnlineState {
     static private class OfflineState implements OnlineAction {
 
         private final Plant plant;
-        private final API api;
 
         private OfflineState(Plant plant) {
             this.plant = plant;
-            this.api = API.instance();
+        }
+
+        private static API api() {
+            return API.instance();
         }
 
         @Override
         public boolean mustLogin() {
-            return !api.isLoggedIn();
+            return !api().isLoggedIn();
         }
 
         @Override
@@ -78,7 +77,7 @@ public class PlantOnlineState {
                 cb.onFailure(R.string.operation_not_permitted);
                 return;
             }
-            api.addPlant(plant, cb);
+            api().addPlant(plant, cb);
         }
 
         @Override
@@ -101,8 +100,8 @@ public class PlantOnlineState {
         }
 
         @Override
-        public void publishedWithId(String id) {
-            this.plant.setOnline(new OnlineState(plant, id));
+        public void publishedWithId(String id, API api) {
+            this.plant.setOnline(new OnlineState(plant, id, api));
         }
 
         @Override
@@ -118,15 +117,17 @@ public class PlantOnlineState {
     static private class OnlineState implements OnlineAction {
         private final Plant plant;
         private final String id;
+        private final API api;
 
-        private OnlineState(Plant plant, String id) {
+        private OnlineState(Plant plant, String id, API api) {
             this.plant = plant;
             this.id = id;
+            this.api = api;
         }
 
         @Override
         public boolean mustLogin() {
-            return !api().isLoggedIn();
+            return !api.isLoggedIn();
         }
 
         @Override
@@ -136,7 +137,7 @@ public class PlantOnlineState {
 
         @Override
         public boolean canUpdate() {
-            return api().isLoggedIn();
+            return api.isLoggedIn();
         }
 
         @Override
@@ -146,7 +147,7 @@ public class PlantOnlineState {
 
         @Override
         public boolean canDelete() {
-            return api().isLoggedIn();
+            return api.isLoggedIn();
         }
 
         @Override
@@ -156,7 +157,7 @@ public class PlantOnlineState {
 
         @Override
         public void update(API.Callback cb) {
-            api().updatePlant(plant, id, cb);
+            api.updatePlant(plant, id, cb);
         }
 
         @Override
@@ -166,7 +167,7 @@ public class PlantOnlineState {
 
         @Override
         public void delete(final API.Callback cb) {
-            api().deletePlant(id, new API.Callback() {
+            api.deletePlant(id, new API.Callback() {
                 @Override
                 public void onSuccess() {
                     plant.setOnline(new OfflineState(plant));
@@ -185,18 +186,19 @@ public class PlantOnlineState {
             JSONObject json = new JSONObject();
             json.put(JSON_CLASS, JSON_CLASS_ONLINE);
             json.put(JSON_ID, id);
+            json.put(JSON_API, api.id());
             return json;
         }
 
         @Override
-        public void publishedWithId(final String newId) {
+        public void publishedWithId(final String newId, final API api) {
             if (newId == id) {
                 return;
             }
             delete(new API.Callback() {
                 @Override
                 public void onSuccess() {
-                    plant.setOnline(new OnlineState(plant, newId));
+                    plant.setOnline(new OnlineState(plant, newId, api));
                 }
 
                 @Override
@@ -206,7 +208,7 @@ public class PlantOnlineState {
                             " was published twice under id " +
                             newId + " and " + id + ". Could not delete " + id +
                             ". Trying to delete " + newId);
-                    OnlineState s = new OnlineState(plant, newId);
+                    OnlineState s = new OnlineState(plant, newId, api);
                     s.delete(new API.Callback() {
                         @Override
                         public void onSuccess() {
@@ -230,7 +232,11 @@ public class PlantOnlineState {
 
         private static OnlineAction fromJSON(Plant plant, JSONObject json) throws JSONException {
             String onlineId = json.getString(JSON_ID);
-            return new OnlineState(plant, onlineId);
+            API api = API.MUNDRAUB; // legacy: API not set, 2018-09-14
+            if (json.has(JSON_API)) {
+                api = API.apiFromId(json.getString(JSON_API));
+            }
+            return new OnlineState(plant, onlineId, api);
         }
     }
 

@@ -83,7 +83,7 @@
     <string name="invalid_credentials">User does not exist or password is wrong.</string>
     <string name="error_field_required">Please fill this field</string>
     <string name="error_invalid_email">Please fill in a valid email address.</string>
-    <string name="signup_successful_see_email">The sign up process was successful. You should recieve an e-mail soon.</string>
+    <string name="signup_successful_see_email">The sign up process was successful. You should receive an e-mail soon.</string>
 
     <!-- view plant details -->
     <string name="upload_plant_online">Share this plant online</string>
@@ -169,8 +169,10 @@
     <string name="permission_denied_consequences">The permission is not given, so the app cannot do that.</string>
 
     <!-- settings -->
-    <string name="settings_use_mundraub_api">If this is enabled, use the Mundraub.org API to publish plants. Otherwise, a local dummy API is used which good for testing.</string>
-    <string name="setting_use_secure_connection">If this is enabled, this app connections to Mundraub.org are trusted by the Certificate Authorities. This may cause a problem on older platforms which can not verify the certificate.</string>
+    <string name="settings_use_mundraub_api">If this is enabled, this app publishes the plants to Mundraub.org.</string>
+    <string name="settings_use_na_ovoce">If this is enabled, this app publishes the plants to Na-Ovoce.cz.</string>
+    <string name="settings_use_dummy">If this is enabled, this app does not publish the plants but instead simulates a local API for testing.</string>
+    <string name="setting_use_secure_connection">If this is enabled, this app connections to Mundraub.org and other servers are trusted by the Certificate Authorities. This may cause a problem on older platforms which can not verify the certificate.</string>
     <string name="settings_use_cache">If this is enabled, the app uses the cache directory for the plants. You can delete them when you need to. If this is disabled, the app uses the external storage, so you can sync and transfer the plants.</string>
     <string name="settings_can_change" translatable="false">The settings are allowed to change. This is not displayed.</string>
     <string name="error_could_not_move_plants">The plants could not be moved to the desired directory.</string>

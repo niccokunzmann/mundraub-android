@@ -7,6 +7,7 @@ import java.util.Set;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.api.progress.Progressable;
+import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.plant.Plant;
 
 public class DummyAPI extends API {
@@ -66,4 +67,14 @@ public class DummyAPI extends API {
         }
         return TASK_SUCCEEDED;
     }
+
+    @Override
+    public String id() {
+        return Settings.API_ID_DUMMY;
+    }
+
+    public int radioButtonId(){
+        return R.id.radioButton_dummy;
+    }
+
 }

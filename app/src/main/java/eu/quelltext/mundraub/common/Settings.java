@@ -20,6 +20,7 @@ import javax.net.ssl.X509TrustManager;
 
 import eu.quelltext.mundraub.BuildConfig;
 import eu.quelltext.mundraub.R;
+import eu.quelltext.mundraub.api.API;
 import eu.quelltext.mundraub.error.Logger;
 import eu.quelltext.mundraub.initialization.Initialization;
 import eu.quelltext.mundraub.initialization.Permissions;
@@ -56,13 +57,17 @@ public class Settings {
     private static List<ChangeListener> listeners = new ArrayList<ChangeListener>();
     private static Activity activity = null;
 
+    public static String API_ID_MUNDRAUB = "mundraub";
+    public static String API_ID_NA_OVOCE = "na-ovoce";
+    public static String API_ID_DUMMY = "dummy";
+
     /* persistent variables for the settings
-     * If you like to add new settings, please see useMundraubAPI
+     * If you like to add new settings, please see useInsecureConnections
      * as an example for where these are used.
      * Here is an example commit ce993038e703548156f31c46b1fb30d38c9d2bc9:
      * https://github.com/niccokunzmann/mundraub-android/commit/ce993038e703548156f31c46b1fb30d38c9d2bc9
      */
-    private static boolean useMundraubAPI = true;
+    private static String useAPIId = API_ID_MUNDRAUB;
     private static boolean useInsecureConnections = false;
     private static boolean useCacheForPlants = true;
     private static File persistentPathForPlants = new File(Environment.getExternalStorageDirectory(), PLANT_STORAGE_DIRECTORY_NAME);
@@ -93,7 +98,7 @@ public class Settings {
         log.d("COMMIT_HASH", COMMIT_HASH);
         log.d("Permissions.CAN_ASK_FOR_PERMISSIONS", Permissions.CAN_ASK_FOR_PERMISSIONS);
         log.d("useInsecureConnections", useInsecureConnections);
-        log.d("useMundraubAPI", useMundraubAPI);
+        log.d("useAPIId", useAPIId);
         log.d("useCacheForPlants", useCacheForPlants);
         log.d("useErrorReport", useErrorReport);
         log.d("useOfflineMapAPI", useOfflineMapAPI);
@@ -107,7 +112,7 @@ public class Settings {
     }
 
     private static void load() {
-        useMundraubAPI = preferences.getBoolean("useMundraubAPI", useMundraubAPI);
+        useAPIId = preferences.getString("useAPIId", useAPIId);
         useInsecureConnections = preferences.getBoolean("useInsecureConnections", useInsecureConnections);
         useCacheForPlants = preferences.getBoolean("useCacheForPlants", useCacheForPlants);
         persistentPathForPlants = new File(preferences.getString("persistentPathForPlants", persistentPathForPlants.toString()));
@@ -130,7 +135,7 @@ public class Settings {
     private static int commit() {
         if (hasPreferences()) {
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean("useMundraubAPI", useMundraubAPI);
+            editor.putString("useAPIId", useAPIId);
             editor.putBoolean("useInsecureConnections", useInsecureConnections);
             editor.putBoolean("useCacheForPlants", useCacheForPlants);
             editor.putString("persistentPathForPlants", persistentPathForPlants.toString());
@@ -163,12 +168,12 @@ public class Settings {
         return activity != null;
     }
 
-    public static boolean useMundraubAPI() {
-        return useMundraubAPI;
+    public static String getAPIId() {
+        return useAPIId;
     }
 
-    public static int useMundraubAPI(boolean useMundraub) {
-        useMundraubAPI = useMundraub;
+    public static int useAPI(API api) {
+        useAPIId = api.id();
         return commit();
     }
 

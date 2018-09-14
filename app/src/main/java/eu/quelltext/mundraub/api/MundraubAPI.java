@@ -531,4 +531,14 @@ public class MundraubAPI extends API {
         return plantId;
     }
 
+    @Override
+    public String id() {
+        return Settings.API_ID_MUNDRAUB;
+    }
+
+    public int radioButtonId(){
+        return R.id.radioButton_mundraub;
+    }
+
+
 }
