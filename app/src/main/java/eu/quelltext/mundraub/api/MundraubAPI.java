@@ -504,7 +504,7 @@ public class MundraubAPI extends API {
             @Override
             public int responseSeeOther(String seeOther) {
                 try {
-                    plant.online().publishedWithId(getPlantIdFromLocationUrl(seeOther));
+                    plant.online().publishedWithId(getPlantIdFromLocationUrl(seeOther), MundraubAPI.this);
                 } catch (ErrorWithExplanation errorWithExplanation) {
                     return errorWithExplanation.getExplanationResourceId();
                 }

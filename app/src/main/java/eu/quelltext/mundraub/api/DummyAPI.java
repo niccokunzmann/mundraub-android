@@ -54,7 +54,7 @@ public class DummyAPI extends API {
     @Override
     protected int addPlantAsync(Plant plant) throws ErrorWithExplanation {
         simulateNetwork();
-        plant.online().publishedWithId(Integer.toString(id++));
+        plant.online().publishedWithId(Integer.toString(id++), this);
         return TASK_SUCCEEDED;
     }
 
