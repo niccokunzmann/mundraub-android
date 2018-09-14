@@ -77,5 +77,8 @@ public class NaOvoceAPI extends API {
         return "https://na-ovoce.cz/fruit/detail/" + id + "/";
     };
 
-
+    @Override
+    public int nameResourceIdForLoginActivity() {
+        return R.string.login_api_name_na_ovoce;
+    }
 }

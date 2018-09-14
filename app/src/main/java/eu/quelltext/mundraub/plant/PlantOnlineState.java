@@ -1,9 +1,13 @@
 package eu.quelltext.mundraub.plant;
 
+import android.content.Context;
+import android.content.Intent;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import eu.quelltext.mundraub.R;
+import eu.quelltext.mundraub.activities.LoginActivity;
 import eu.quelltext.mundraub.api.API;
 import eu.quelltext.mundraub.error.Logger;
 
@@ -34,6 +38,8 @@ public class PlantOnlineState {
         boolean isPublished();
 
         API api();
+
+        void openLoginFrom(Context context);
     }
 
     static private class OfflineState implements OnlineAction {
@@ -46,6 +52,12 @@ public class PlantOnlineState {
 
         public API api() {
             return API.instance();
+        }
+
+        @Override
+        public void openLoginFrom(Context context) {
+            Intent intent = new Intent(context, LoginActivity.class);
+            context.startActivity(intent);
         }
 
         @Override
@@ -129,6 +141,13 @@ public class PlantOnlineState {
 
         public API api() {
             return api;
+        }
+
+        @Override
+        public void openLoginFrom(Context context) {
+            Intent intent = new Intent(context, LoginActivity.class);
+            intent.putExtra(LoginActivity.ARG_API_ID, api.id());
+            context.startActivity(intent);
         }
 
         @Override

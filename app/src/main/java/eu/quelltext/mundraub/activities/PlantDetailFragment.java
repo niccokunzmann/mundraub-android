@@ -158,9 +158,7 @@ public class PlantDetailFragment extends Fragment {
         updateButton(R.id.button_login, plant.online().mustLogin(), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, LoginActivity.class);
-                intent.putExtra(LoginActivity.ARG_API_ID, plant.online().api().id());
-                context.startActivity(intent);
+                plant.online().openLoginFrom(context);
             }
         });
         updateButton(R.id.button_upload, plant.online().canCreate(), new View.OnClickListener() {

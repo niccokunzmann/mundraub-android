@@ -313,6 +313,11 @@ public class MundraubAPI extends API {
     }
 
     @Override
+    public int nameResourceIdForLoginActivity() {
+        return R.string.login_api_name_mundraub;
+    }
+
+    @Override
     protected int addPlantAsync(Plant plant) throws ErrorWithExplanation {
         try {
             Map<String, String> formValues = getFormValues(URL_ADD_PLANT_FORM);

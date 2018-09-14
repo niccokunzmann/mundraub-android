@@ -81,4 +81,8 @@ public class DummyAPI extends API {
         return null;
     }
 
+    @Override
+    public int nameResourceIdForLoginActivity() {
+        return R.string.login_api_name_dummy;
+    }
 }

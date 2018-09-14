@@ -38,6 +38,7 @@ public class LoginActivity extends MundraubBaseActivity {
     private LinearLayout emailLayout;
     private AutoCompleteTextView emailText;
     private String apiId = null;
+    private TextView apiName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,9 +88,12 @@ public class LoginActivity extends MundraubBaseActivity {
         loadPassword();
         getPermissions().INTERNET.askIfNotGranted();
 
-        if (getIntent().getExtras().containsKey(ARG_API_ID)) {
+        Bundle extras = getIntent().getExtras();
+        if (extras != null && extras.containsKey(ARG_API_ID)) {
             apiId = getIntent().getExtras().getString(ARG_API_ID);
         }
+
+        apiName = (TextView) findViewById(R.id.text_platform_name);
     }
 
     private API api() {
@@ -307,6 +311,12 @@ public class LoginActivity extends MundraubBaseActivity {
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        apiName.setText(api().nameResourceIdForLoginActivity());
     }
 }
 

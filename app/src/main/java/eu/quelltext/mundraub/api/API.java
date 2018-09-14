@@ -83,7 +83,6 @@ public abstract class API extends ErrorAware {
         return DEFAULT;
     }
 
-
     private class Task extends AsyncTask<Void, Void, Integer> {
 
         private final Progress progress;
@@ -245,5 +244,7 @@ public abstract class API extends ErrorAware {
     public abstract String id();
     public abstract int radioButtonId();
     public abstract String getPlantUrl(String id);
+    public abstract int nameResourceIdForLoginActivity();
+
 
 }

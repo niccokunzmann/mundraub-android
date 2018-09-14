@@ -84,6 +84,9 @@
     <string name="error_field_required">Please fill this field</string>
     <string name="error_invalid_email">Please fill in a valid email address.</string>
     <string name="signup_successful_see_email">The sign up process was successful. You should receive an e-mail soon.</string>
+    <string name="login_api_name_mundraub">Mundraub.org</string>
+    <string name="login_api_name_na_ovoce">Na-Ovoce.org</string>
+    <string name="login_api_name_dummy">Local Dummy API</string>
 
     <!-- view plant details -->
     <string name="upload_plant_online">Share this plant online</string>
