@@ -72,7 +72,7 @@ public class PlantCategory extends ErrorAware {
         0xa205 Ribes // https://en.wikipedia.org/wiki/Ribes
         0xa162 Mulberry Tree
         0xa11b Wild Strawberry
-        0xa1bb Wild Garlic
+        0xa1bb Wild Garlic // https://cs.wikipedia.org/wiki/%C4%8Cesnek_medv%C4%9Bd%C3%AD -> https://en.wikipedia.org/wiki/Allium_ursinum -> ramsons
         0xa116 Cornel
         0xa09b Chokeberry // https://de.wikipedia.org/wiki/Apfelbeeren
         0xa0c9 Medlar // https://de.wikipedia.org/wiki/Mispel
@@ -139,7 +139,7 @@ public class PlantCategory extends ErrorAware {
         addCategory(30, 0xa43a, 30, "gooseberry", R.string.gooseberry);
         addCategory(26, 0, 30, "other fruit shrub", R.string.other_fruit_shrub);
         // </optgroup><optgroup label="Kräuter"><option value="31">-Bärlauch</option>
-        addCategory(32, 0, 31, "ramsons", R.string.ramsons);
+        addCategory(32, 0xa1bb, 31, "ramsons", R.string.ramsons);
         // <option value="33">-Minze</option>
         addCategory(33, 0xa118, 33, "mint", R.string.mint);
         // <option value="34">-Rosmarin</option>
@@ -153,7 +153,6 @@ public class PlantCategory extends ErrorAware {
         // <option value="37">-Andere Kräuter</option>
         addCategory(31, 0xa3d3, 37, "silverberry", R.string.silverberry);
         addCategory(39, 0xa324, 37, "lemon balm", R.string.lemon_balm); // Zitronenmelisse
-        addCategory(40, 0xa1bb, 37, "wild garlic", R.string.wild_garlic);
         addCategory(38, 0, 37, "other herbs", R.string.other_herbs);
         // </optgroup><optgroup label="Nüsse"><option value="16">-Esskastanie</option>
         addCategory(41, 0xa08d, 16, "chestnut", R.string.chestnut);
