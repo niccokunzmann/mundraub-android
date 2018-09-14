@@ -136,6 +136,8 @@
     <string name="menu_about">About</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_map">Map</string>
+    <string name="menu_my_plants">My Plants</string>
+    <string name="menu_mundraub_rules">Mundraub Rules</string>
 
     <!-- About -->
     <string name="about_app">This is the inofficial app for Mundraub.org. The source is open. You are invited to contribute.</string>
@@ -200,6 +202,14 @@
 
     <!-- Map of all plants -->
     <string name="title_activity_show_plants">Map of Plants</string>
-    <string name="menu_my_plants">My Plants</string>
+
+    <!-- Mundraub rules https://mundraub.org/mundraeuber-regeln -->
+    <string name="heading_mundraub_rules">Community Rules of Mundraub</string>
+    <string name="mundraub_rule_1">Please make sure before you create an entry or before you harvest, that no property rights conflict.</string>
+    <string name="mundraub_rule_2">Be careful with trees, nature and animals living there. Picking for your own needs is allowed but not more and not commercially. You need a permit for that.</string>
+    <string name="mundraub_rule_3">Share the fruit of your discovery and give something back.</string>
+    <string name="mundraub_rule_4">Get involved in care and plantation of fruit trees.</string>
+    <string name="mundraub_rules_long_version">Show me the long version!</string>
+    <string name="mundraub_rules_i_understand">Sounds reasonable, I understand!</string>
 
 </resources>
