@@ -88,9 +88,9 @@
     <!-- view plant details -->
     <string name="upload_plant_online">Share this plant online</string>
     <string name="edit_plant_online">Upload the changes</string>
-    <string name="delete_plant_online">Remove the plant from mundraub.org</string>
-    <string name="view_plant_online">View the plant on mundraub.org</string>
-    <string name="plant_online_description">Change the plant on mundraub.org:</string>
+    <string name="delete_plant_online">Remove the plant from the platform</string>
+    <string name="view_plant_online">View the plant online</string>
+    <string name="plant_online_description">Change the plant online:</string>
     <string name="error">Error</string>
     <string name="success">Success!</string>
     <string name="longitude">Longitude:</string>
@@ -99,7 +99,7 @@
     <string name="reason_reposition_unknown_position">The recorded position of the plant might be too far off. Please check it.</string>
     <string name="reason_reposition_gps_position">The GPS position is probably too far away from reality. Please check on the map if it is ok.</string>
     <string name="delete_plant_information">If you delete the plant online, the plant, all comments and all other information about this plant is lost.</string>
-    <string name="ask_delete_plant">Would you like to remove the plant from Mundraub.org?</string>
+    <string name="ask_delete_plant">Would you like to remove the plant from the online platform?</string>
     <string name="no">no</string>
     <string name="yes">yes</string>
     <string name="edit">Edit</string>

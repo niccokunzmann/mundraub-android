@@ -3,7 +3,6 @@ package eu.quelltext.mundraub.activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,6 +27,7 @@ import eu.quelltext.mundraub.common.Dialog;
  */
 public class LoginActivity extends MundraubBaseActivity {
 
+    public static final String ARG_API_ID = "api_id";
     // UI references.
     private AutoCompleteTextView usernameView;
     private EditText mPasswordView;
@@ -37,6 +37,7 @@ public class LoginActivity extends MundraubBaseActivity {
     private Button registerButton;
     private LinearLayout emailLayout;
     private AutoCompleteTextView emailText;
+    private String apiId = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,9 +86,18 @@ public class LoginActivity extends MundraubBaseActivity {
 
         loadPassword();
         getPermissions().INTERNET.askIfNotGranted();
+
+        if (getIntent().getExtras().containsKey(ARG_API_ID)) {
+            apiId = getIntent().getExtras().getString(ARG_API_ID);
+        }
     }
 
-
+    private API api() {
+        if (apiId == null) {
+            return API.instance();
+        }
+        return API.fromId(apiId);
+    }
 
 
     private String getPassword() {
@@ -181,7 +191,7 @@ public class LoginActivity extends MundraubBaseActivity {
         // Show a progress spinner, and kick off a background task to
         // perform the user login attempt.
         showProgress(true);
-        API.instance().login(getUsername(), getPassword(), new API.Callback() {
+        api().login(getUsername(), getPassword(), new API.Callback() {
             @Override
             public void onSuccess() {
                 showProgress(false);
@@ -205,7 +215,7 @@ public class LoginActivity extends MundraubBaseActivity {
         }
         savePassword();
         showProgress(true);
-        API.instance().signup(getEmail(), getUsername(), getPassword(), new API.Callback() {
+        api().signup(getEmail(), getUsername(), getPassword(), new API.Callback() {
             @Override
             public void onSuccess() {
                 showProgress(false);

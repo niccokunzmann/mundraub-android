@@ -13,6 +13,10 @@ import eu.quelltext.mundraub.map.PlantsCache;
 import eu.quelltext.mundraub.plant.Plant;
 import eu.quelltext.mundraub.plant.PlantCategory;
 
+/*
+ * Implement the na-ovoce API.
+ * See https://github.com/jsmesami/naovoce/blob/master/API.apib
+ */
 public class NaOvoceAPI extends API {
     @Override
     protected int addPlantAsync(Plant plant) throws ErrorWithExplanation {
@@ -68,6 +72,10 @@ public class NaOvoceAPI extends API {
     public int radioButtonId(){
         return R.id.radioButton_na_ovoce;
     }
+
+    public String getPlantUrl(String id) {
+        return "https://na-ovoce.cz/fruit/detail/" + id + "/";
+    };
 
 
 }

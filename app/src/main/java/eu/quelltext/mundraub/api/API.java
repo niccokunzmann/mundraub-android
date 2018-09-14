@@ -32,7 +32,7 @@ public abstract class API extends ErrorAware {
     }
     
     public static API instance() {
-        return apiFromId(Settings.getAPIId());
+        return fromId(Settings.getAPIId());
     }
 
     public Progress login(final String username, final String password, Callback cb) {
@@ -74,7 +74,7 @@ public abstract class API extends ErrorAware {
         });
     }
 
-    public static API apiFromId(String id) {
+    public static API fromId(String id) {
         for (API api: all()) {
             if (api.id().equals(id)) {
                 return api;
@@ -82,6 +82,7 @@ public abstract class API extends ErrorAware {
         }
         return DEFAULT;
     }
+
 
     private class Task extends AsyncTask<Void, Void, Integer> {
 
@@ -243,4 +244,6 @@ public abstract class API extends ErrorAware {
     protected abstract void addMarkers(String data, Progressable fraction) throws JSONException, ErrorWithExplanation;
     public abstract String id();
     public abstract int radioButtonId();
+    public abstract String getPlantUrl(String id);
+
 }

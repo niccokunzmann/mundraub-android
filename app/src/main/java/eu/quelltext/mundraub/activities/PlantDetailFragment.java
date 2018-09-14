@@ -159,6 +159,7 @@ public class PlantDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, LoginActivity.class);
+                intent.putExtra(LoginActivity.ARG_API_ID, plant.online().api().id());
                 context.startActivity(intent);
             }
         });

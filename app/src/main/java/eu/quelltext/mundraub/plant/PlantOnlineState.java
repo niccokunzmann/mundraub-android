@@ -32,6 +32,8 @@ public class PlantOnlineState {
         void publishedWithId(String s, API api);
 
         boolean isPublished();
+
+        API api();
     }
 
     static private class OfflineState implements OnlineAction {
@@ -42,7 +44,7 @@ public class PlantOnlineState {
             this.plant = plant;
         }
 
-        private static API api() {
+        public API api() {
             return API.instance();
         }
 
@@ -125,6 +127,10 @@ public class PlantOnlineState {
             this.api = api;
         }
 
+        public API api() {
+            return api;
+        }
+
         @Override
         public boolean mustLogin() {
             return !api.isLoggedIn();
@@ -162,7 +168,7 @@ public class PlantOnlineState {
 
         @Override
         public String getURL() {
-            return "https://mundraub.org/map?nid=" + id;
+            return api.getPlantUrl(id);
         }
 
         @Override
@@ -234,7 +240,7 @@ public class PlantOnlineState {
             String onlineId = json.getString(JSON_ID);
             API api = API.MUNDRAUB; // legacy: API not set, 2018-09-14
             if (json.has(JSON_API)) {
-                api = API.apiFromId(json.getString(JSON_API));
+                api = API.fromId(json.getString(JSON_API));
             }
             return new OnlineState(plant, onlineId, api);
         }

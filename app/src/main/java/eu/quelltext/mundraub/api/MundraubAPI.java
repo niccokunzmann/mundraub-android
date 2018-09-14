@@ -308,6 +308,11 @@ public class MundraubAPI extends API {
     }
 
     @Override
+    public String getPlantUrl(String id) {
+        return "https://mundraub.org/map?nid=" + id;
+    }
+
+    @Override
     protected int addPlantAsync(Plant plant) throws ErrorWithExplanation {
         try {
             Map<String, String> formValues = getFormValues(URL_ADD_PLANT_FORM);

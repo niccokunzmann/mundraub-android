@@ -77,4 +77,8 @@ public class DummyAPI extends API {
         return R.id.radioButton_dummy;
     }
 
+    public String getPlantUrl(String id) {
+        return null;
+    }
+
 }
