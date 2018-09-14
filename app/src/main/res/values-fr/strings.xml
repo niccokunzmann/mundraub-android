@@ -1,5 +1,97 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Edit and add a plant -->
+    <string name="plant_has_unfilled_form_fields">Ajoutez des informations sur cette plante ...</string>
+    <string name="all_plant_fields_are_filled">Tout les champs requis sont remplis.</string>
+    <string name="choose_plant_type">Choisissez un type de plante !</string>
     <string name="count">Nombre:</string>
+    <string name="description">Description</string>
+    <string name="position">Position :</string>
+    <string name="title_plant_list">Plantes</string>
+    <string name="title_plant_detail">Détails de la plante</string>
+    <string name="delete">Supprimer</string>
     <string name="GPS">GPS</string>
+    <string name="osm_license">Contributeurs © OpenStreetMap</string>
+    <string name="map">Carte</string>
+
+    <!-- types of plants -->
+    <string name="apple">Pommier</string>
+    <string name="apricot">Abricotier</string>
+    <string name="pear">Poirier</string>
+    <string name="cherry">Cerisier</string>
+    <string name="mirabelle">Mirabellier</string>
+    <string name="mulberry">Mûrier</string>
+    <string name="plum">Prunier</string>
+    <string name="quince">Poirier de Coing</string>
+    <string name="other_fruit_trees">Autre arbre fruitier</string>
+    <string name="blackberry">Mûres (ronces)</string>
+    <string name="blueberry">Myrtillier Bleuet</string>
+    <string name="raspberry">Framboisier</string>
+    <string name="elder">Sureau</string>
+    <string name="rose_hip">Cynorhodon Poil-à-gratter</string>
+    <string name="juneberry">Amélanchier</string>
+    <string name="currant">Groseiller</string>
+    <string name="cornel_cherry">Cornouiller sauvage</string>
+    <string name="seaberry">Argousier</string>
+    <string name="haw">Aubépine</string>
+    <string name="sloe">Prunellier</string>
+    <string name="other_fruit_shrub">Autre arbuste fruitier</string>
+    <string name="ramsons">Ail des ours</string>
+    <string name="mint">Menthe</string>
+    <string name="rosemary">Romarin</string>
+    <string name="thyme">Thym</string>
+    <string name="juniper">Genévrier</string>
+    <string name="woodruff">Aspérule</string>
+    <string name="other_herbs">Autre herbe</string>
+    <string name="hazel">Noisetier</string>
+    <string name="chestnut">Châtaigner</string>
+    <string name="wild_strawberry">Fraisier des bois</string>
+    <string name="walnut">Noyer</string>
+    <string name="other_nut">autre noix</string>
+    <string name="unnamed_plant">Plante inconnue</string>
+    <string name="sour_cherry">Cerisier Griotte</string>
+    <string name="wild_rose">Églantier</string>
+    <string name="bilberry">Myrtillier</string>
+    <string name="lemon_balm">Mélisse Citronnelle</string>
+    <string name="chokeberry">Aronia</string>
+    <string name="medlar">Néflier</string>
+    <string name="service_tree">Cormier ou Sorbus</string>
+    <string name="rowan">Sorbier</string>
+    <string name="almond">Amandier</string>
+    <string name="gooseberry">Groseilles blanches</string>
+    <string name="peach">Pêcher</string>
+    <string name="silverberry">Chalef argenté</string>
+
+    <!-- Login -->
+    <string name="title_activity_login">Se connecter</string>
+    <string name="prompt_username">Nom d\'utilisateur</string>
+    <string name="prompt_email">E-mail</string>
+    <string name="prompt_password">Mot de passe</string>
+    <string name="action_sign_in">Se connecter (compte requis)</string>
+    <string name="action_sign_in_short">Se connecter</string>
+    <string name="action_register">Enregistrer un nouveau compte</string>
+    <string name="error_invalid_username">Ce nom d\'utilisateur est invalide</string>
+    <string name="error_invalid_password">Ce mot de passe est trop court</string>
+    <string name="invalid_credentials">Nom d\'utilisateur inexistant ou mot de passe incorrect.</string>
+    <string name="error_field_required">Veuillez remplir ce champ</string>
+    <string name="error_invalid_email">Veuillez entrer une adresse mail valide</string>
+    <!-- view plant details -->
+    <string name="upload_plant_online">Partager cette plante en ligne</string>
+    <string name="edit_plant_online">Envoyer les changements</string>
+    <string name="error">Erreur</string>
+    <string name="success">Succès !</string>
+    <string name="longitude">Longitude:</string>
+    <string name="latitude">Latitude:</string>
+    <string name="ask_open_the_map">Voulez-vous ouvrir la carte et d\'abord positionner la plante ?</string>
+    <string name="reason_reposition_unknown_position">La position enregistrée de la plante peut être trop éloignée. Veuillez vérifier.</string>
+    <string name="reason_reposition_gps_position">La position GPS est probablement trop lointaine de votre position réelle. Veuillez vérifier la carte.</string>
+    <string name="delete_plant_information">Si vous supprimez la plante en ligne, celle-ci, tout les commentaires et autres informations seront perdues.</string>
+    <string name="no">non</string>
     <string name="yes">oui</string>
+    <string name="edit">Modifier</string>
+
+    <!-- list all plants -->
+    <string name="plant_list_date_format">mm/jj/aaaa</string>
+
+    <string name="task_was_cancelled">L\'action a été annulée.</string>
+    <string name="operation_not_permitted">Action non autorisée.</string>
     </resources>
