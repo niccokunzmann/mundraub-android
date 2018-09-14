@@ -1,6 +1,7 @@
 package eu.quelltext.mundraub.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -112,6 +113,9 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
             case R.id.item_my_plants:
                 openMyPlants();
                 return true;
+            case R.id.item_rules:
+                openMundraubRules();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -140,5 +144,17 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         getPermissions().onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    protected void openURLInBrowser(String url) {
+        // from https://stackoverflow.com/a/3004542/1320237
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
+    }
+
+    protected void openMundraubRules() {
+        Intent intent = new Intent(this, MundraubRulesActivity.class);
+        startActivity(intent);
     }
 }

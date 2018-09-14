@@ -47,7 +47,8 @@
         <activity
             android:name=".activities.map.ShowPlantsActivity"
             android:label="@string/title_activity_show_plants"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.MundraubRulesActivity"></activity>
     </application>
 
 </manifest>

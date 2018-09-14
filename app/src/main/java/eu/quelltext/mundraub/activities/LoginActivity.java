@@ -3,6 +3,7 @@ package eu.quelltext.mundraub.activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -250,6 +251,7 @@ public class LoginActivity extends MundraubBaseActivity {
 
     private void loginSuccessful() {
         savePassword();
+        openMundraubRules();
         finish();
     }
 
