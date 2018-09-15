@@ -48,7 +48,14 @@
     <string name="walnut">Walnuss</string>
     <string name="other_nut">Andere Nüsse</string>
     <string name="unnamed_plant">Unbenannte Pflanze</string>
-
+    <string name="sour_cherry">Sauerkirsche</string>
+    <string name="lemon_balm">Zitronenmelisse</string>
+    <string name="chokeberry">Apfelbeere</string>
+    <string name="medlar">Mispel</string>
+    <string name="service_tree">Elsbeere</string>
+    <string name="rowan">Voglebeere</string>
+    <string name="almond">Mandel</string>
+    <string name="gooseberry">Stachelbeere</string>
     <!-- Login -->
     <string name="title_activity_login">Einloggen</string>
     <string name="prompt_username">Nutzername</string>
@@ -59,13 +66,9 @@
     <string name="error_invalid_password">Das Passwort ist zu kurz</string>
     <string name="invalid_credentials">Der Nutzer existiert nicht oder das Passwort ist falsch.</string>
     <string name="error_field_required">Dieses Feld bitte füllen</string>
-
     <!-- view plant details -->
     <string name="upload_plant_online">Pflanze online teilen</string>
     <string name="edit_plant_online">Änderungen hochladen</string>
-    <string name="delete_plant_online">Pflanze von Mundraub.org entfernen</string>
-    <string name="view_plant_online">Pflanze auf Mundraub.org ansehen</string>
-    <string name="plant_online_description">Verwalte die Pflanze auf Mundraub.org:</string>
     <string name="error">Fehler</string>
     <string name="success">Erfolg!</string>
     <string name="longitude">Geografische Länge:</string>
@@ -74,12 +77,12 @@
     <string name="reason_reposition_unknown_position">Die erhaltene Position der Pflanze ist vielleicht zu weit weg vom Fundort. Bitte überprüfe das.</string>
     <string name="reason_reposition_gps_position">Die GPS-Position ist wahrscheinlich zu weit vom STandort entfernt. Schau bitte auf die Karte, um das zu überprüfen.</string>
     <string name="delete_plant_information">Wenn Du die Pflanze online löschst, sind die Kommentare anderer sowie die anderen Onlineinformationen verloren.</string>
-    <string name="ask_delete_plant">Möchtest Du die Pflanze von Mundraub.ort enfernen?</string>
     <string name="no">Nein</string>
     <string name="yes">Ja</string>
     <string name="edit">Ändern</string>
 
     <!-- list all plants -->
+    <!-- For the date format see https://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html -->
     <string name="plant_list_date_format">dd. MM. yyyy</string>
 
     <string name="task_was_cancelled">Die Aktion wurde abgebrochen.</string>
@@ -99,7 +102,6 @@
     <string name="error_could_not_delete_plant">Die Pflanze konnte online nicht gelöscht werden. Es gab irgendeinen Fehler. Schau bitte selbst online nach.</string>
     <string name="error_could_not_validate_host">Der Identität des Servers wird nicht vertraut. Das ist ein bekanntes Problem älterer Android-Pattformen. Momentan kannst Du vertraute Verbindungen in den Einstellungen ausschalten, um den Fehler zu umgehen. Du darfst gerne eine Lösung beisteuern.</string>
     <string name="error_invalid_json_for_markers">Die Standpunkte, die ich von Mundraub.org erhalten habe, habe ich in einem anderen Format erwartet. Hat Mundraub.org vielleicht die API verändert? Bitte benachrichtige die Entwickler über dieses Problem im Menupunkt \"Über\".</string>
-
     <!-- map to choose plant position -->
     <string name="attention">Achtung</string>
     <string name="info_plant_position_is_chosen_from_best_guess">Diese Pflanze hat keine Position gesetzt. Der Marker ist bei der nächsten Pflanze. Bitte finde selbst die richtige Position.</string>
@@ -108,7 +110,7 @@
     <string name="menu_about">Über</string>
     <string name="menu_settings">Einstellungen</string>
     <string name="menu_map">Karte</string>
-
+    <string name="menu_my_plants">Meine Pflanzen</string>
     <!-- About -->
     <string name="about_app">Das ist die inoffizielle App für Mundraub.org. Der Quelltext is offen. Du bist eingeladen, beizutragen.</string>
     <string name="about_view_source">Sieh den Quelltext an</string>
@@ -135,9 +137,6 @@
     <string name="permission_purpose_internet">Die App braucht die Erlaubnis, auf das Internet zuzugreifen, um Dir zu erlauben, die Pflanzen auf Mundraub.org zu teilen.</string>
     <string name="permission_denied_consequences">Die Erlaubnis wurde der App nicht erteilt. Damit ist diese Funktion nicht verfügbar.</string>
 
-    <!-- settings -->
-    <string name="settings_use_mundraub_api">Wenn das eingeschaltet ist, benutzt die App Mundraub.org, um die Pflanzen zu publizieren. Wenn ausgeschaltet, wird die Test-API genutzt, die lokal läuft und gut zum Testen verwendet werden kann.</string>
-    <string name="setting_use_secure_connection">Wenn das eingeschaltet ist, wird den Verbindungen zu Mundraub.org von den Zertifikatautoritäten vertraut. Das kann ein Problem auf älteren Android-Versionen darstellen, die den neuen Zertifikaten nicht vertrauen.</string>
     <string name="settings_use_cache">Wenn das eingeschaltet ist, verwendet die App das Cacheverzeichnis für die Pflanzen. Du kannst sie löschen, wenn nötig. Wenn das aus ist, nutzt die App den externen Speicher, sodass Du die Pflanzen synchronisieren und kopieren kannst.</string>
     <string name="error_could_not_move_plants">Die Pflanzendaten konnten nicht in das gewünschte Verzeichnis verschoben werden.</string>
     <string name="settings_connection">Einstellungen für die Verbindung</string>
@@ -168,6 +167,5 @@
 
     <!-- Map of all plants -->
     <string name="title_activity_show_plants">Pflanzenkarte</string>
-    <string name="menu_my_plants">Meine Pflanzen</string>
 
-</resources>
+    </resources>
