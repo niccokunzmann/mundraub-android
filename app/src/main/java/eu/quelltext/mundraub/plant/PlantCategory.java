@@ -108,7 +108,6 @@ public class PlantCategory extends ErrorAware {
         addCategory(11, 0xa277, 12, "service tree", R.string.service_tree);
         addCategory(12, 0xa2b2, 12, "rowan", R.string.rowan);
         addCategory(13, 0xa382, 12, "peach", R.string.peach);
-        addCategory(27, 0xa398, 12, "wild rose", R.string.wild_rose);
         addCategory(28, 0xa09b, 12, "chokeberry", R.string.chokeberry);
         addCategory(29, 0xa0c9, 12, "medlar", R.string.medlar);
         addCategory(10, 0, 12, "other fruit trees", R.string.other_fruit_trees);
@@ -122,7 +121,7 @@ public class PlantCategory extends ErrorAware {
         // <option value="21">-Holunder</option>
         addCategory(18, 0xa430, 21, "elder", R.string.elder);
         // <option value="27">-Hagebutte</option>
-        addCategory(19, 0, 27, "rose hip", R.string.rose_hip);
+        addCategory(19, 0xa398, 27, "rose hip", R.string.rose_hip);
         // <option value="25">-Felsenbirne</option>
         addCategory(20, 0, 25, "juneberry", R.string.juneberry);
         // <option value="23">-Johannisbeere</option>
