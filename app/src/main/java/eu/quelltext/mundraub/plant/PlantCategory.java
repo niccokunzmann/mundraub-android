@@ -38,6 +38,7 @@ public class PlantCategory extends ErrorAware {
         PlantCategory category = new PlantCategory(id, fieldForMundraubAPI, fieldForNoOvoceAPI, resourceId, databaseId);
         idToPlantCategory.put(id, category);
         mundraubAPIFieldToPlantCategory.put(fieldForMundraubAPI, category);
+        assert !databaseIdToPlantCategory.containsKey(databaseId);
         databaseIdToPlantCategory.put(databaseId, category);
         naOvoceAPIFieldToPlantCategory.put(fieldForNoOvoceAPI, category);
         sortedCategories.add(category);
