@@ -21,7 +21,7 @@ public class MapCache extends ErrorAware implements Initialization.ActivityIniti
     private static final String PLANT_IMAGE_TYPE = "png";
     private final boolean DEBUG_USE_CACHE = true; // TODO: refactor into settings
     private File allTilesDirectory;
-    private HashMap callbacks = new HashMap<String, Callback>();
+    private HashMap<String, Callback> callbacks = new HashMap<String, Callback>();
 
     public MapCache() {
         super();
