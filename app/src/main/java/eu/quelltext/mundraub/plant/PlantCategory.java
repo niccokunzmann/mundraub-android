@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ public class PlantCategory extends ErrorAware {
 
     private final int resourceId;
     private final int fieldForMundraubAPI;
-    private final int fieldForNoOvoceAPI;
+    private final int fieldForNaOvoceAPI;
     private final String id;
     private final int databaseId;
     private static final String INTENT_FIELD = "PlantCategory";
@@ -167,13 +166,87 @@ public class PlantCategory extends ErrorAware {
         // </optgroup>
     }
 
-    PlantCategory(String id, int fieldForMundraubAPI, int fieldForNoOvoceAPI, int resourceId, int databaseId) {
+    PlantCategory(String id, int fieldForMundraubAPI, int fieldForNaOvoceAPI, int resourceId, int databaseId) {
         this.id = id;
         this.fieldForMundraubAPI = fieldForMundraubAPI;
         this.resourceId = resourceId;
-        this.fieldForNoOvoceAPI = fieldForNoOvoceAPI;
+        this.fieldForNaOvoceAPI = fieldForNaOvoceAPI;
         this.databaseId = databaseId;
     }
+
+    // ------- construct the plant category from different representations -------
+
+    public static PlantCategory fromMundraubAPIField(int i) {
+        if (mundraubAPIFieldToPlantCategory.containsKey(i)) {
+            return mundraubAPIFieldToPlantCategory.get(i);
+        }
+        return NULL;
+    }
+
+    public static PlantCategory fromNaOvoceAPIField(int i) {
+        if (naOvoceAPIFieldToPlantCategory.containsKey(i)) {
+            return naOvoceAPIFieldToPlantCategory.get(i);
+        }
+        return NULL;
+    }
+
+    public static PlantCategory fromDatabaseId(int i) {
+        if (databaseIdToPlantCategory.containsKey(i)) {
+            return databaseIdToPlantCategory.get(i);
+        }
+        return NULL;
+    }
+
+    public static PlantCategory withId(String id) {
+        if (id == null) {
+            return NULL;
+        }
+        if (idToPlantCategory.containsKey(id)) {
+            return idToPlantCategory.get(id);
+        }
+        return NULL;
+    }
+
+    public static PlantCategory fromIntent(android.content.Intent intent) {
+        return withId(intent.getStringExtra(INTENT_FIELD));
+    }
+
+    public static class NullCategory extends PlantCategory {
+
+        NullCategory() {
+            super(null, -1, 0, R.string.unnamed_plant, -1);
+        }
+        public boolean isUnknown() {
+            return true;
+        }
+    }
+
+    // ------- create different representations of the plant category  -------
+
+    public static class Intent extends android.content.Intent {
+
+        public Intent(PlantCategory category) {
+            super();
+            this.putExtra(INTENT_FIELD, category.getIntentIdetifier());
+        }
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public String getValueForMundraubAPI() {
+        return Integer.toString(fieldForMundraubAPI);
+    }
+
+    public int getDatabaseId() {
+        return databaseId;
+    }
+
+    public String getValueForNaOvoceAPI() {
+        return Integer.toHexString(fieldForNaOvoceAPI);
+    }
+
 
     @Override
     public String toString() {
@@ -219,82 +292,14 @@ public class PlantCategory extends ErrorAware {
         return markerDrawable;
     }
 
-    private File markerImageFilePath() {
-        return new File("/android_asset/map/img/markers/", id + ".png");
-    }
-
-    public String getValueForNaOvoceAPI() {
-        return Integer.toHexString(fieldForNoOvoceAPI);
-    }
-
-    public static PlantCategory fromMundraubAPIField(int i) {
-        if (mundraubAPIFieldToPlantCategory.containsKey(i)) {
-            return mundraubAPIFieldToPlantCategory.get(i);
-        }
-        return NULL;
-    }
-
-    public static PlantCategory fromNaOvoceAPIField(int i) {
-        if (naOvoceAPIFieldToPlantCategory.containsKey(i)) {
-            return naOvoceAPIFieldToPlantCategory.get(i);
-        }
-        return NULL;
-    }
-
-    public static PlantCategory fromDatabaseId(int i) {
-        if (databaseIdToPlantCategory.containsKey(i)) {
-            return databaseIdToPlantCategory.get(i);
-        }
-        return NULL;
-    }
-
-    public static class Intent extends android.content.Intent {
-
-        public Intent(PlantCategory category) {
-            super();
-            this.putExtra(INTENT_FIELD, category.getIntentIdetifier());
-        }
-    }
-
-    public static PlantCategory fromIntent(android.content.Intent intent) {
-        return withId(intent.getStringExtra(INTENT_FIELD));
-    }
-
-    public String getId() {
-        return this.id;
-    }
-
-    public String getValueForMundraubAPI() {
-        return Integer.toString(fieldForMundraubAPI);
-    }
-
-    public static PlantCategory withId(String id) {
-        if (id == null) {
-            return NULL;
-        }
-        return idToPlantCategory.get(id);
-    }
+    // ------- asking the category -------
 
     public boolean isUnknown() {
         return false;
     }
 
     public boolean canBeUsedByNaOvoce() {
-        return !isUnknown() && fieldForNoOvoceAPI != 0;
-    }
-
-    public int getDatabaseId() {
-        return databaseId;
-    }
-
-    public static class NullCategory extends PlantCategory {
-
-        NullCategory() {
-            super(null, -1, 0, R.string.unnamed_plant, -1);
-        }
-        public boolean isUnknown() {
-            return true;
-        }
+        return !isUnknown() && fieldForNaOvoceAPI != 0;
     }
 
 }
