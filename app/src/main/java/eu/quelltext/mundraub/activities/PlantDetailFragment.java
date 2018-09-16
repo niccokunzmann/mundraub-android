@@ -188,7 +188,7 @@ public class PlantDetailFragment extends Fragment {
                 plant.online().create(updateOrShowError(R.string.success_plant_uploaded));
             }
         });
-        updateButton(R.id.button_edit, plant.online().canUpdate(), new View.OnClickListener() {
+        updateButton(R.id.button_upload_changes, plant.online().canUpdate(), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 plant.online().update(updateOrShowError(R.string.success_plant_updated));

@@ -495,5 +495,9 @@ public class MundraubAPI extends API {
         return R.id.radioButton_mundraub;
     }
 
+    @Override
+    public boolean canUpdate() {
+        return false;
+    }
 
 }

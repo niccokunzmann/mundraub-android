@@ -146,9 +146,19 @@ public abstract class API extends ErrorAware {
         return doAsynchronously(callback, new AsyncOperation() {
             @Override
             public int operate(Progress progress) throws ErrorWithExplanation {
+                checkPlantForAPI(plant);
                 return addPlantAsync(plant);
             }
         });
+    }
+
+    protected void checkPlantForAPI(Plant plant) throws ErrorWithExplanation {
+        if (plant.getCategory().isUnknown()) {
+            abortOperation(R.string.error_plant_category_is_not_set);
+        }
+        if (!plant.getPosition().isValid()) {
+            abortOperation(R.string.error_plant_position_is_invalid);
+        }
     }
 
     public Progress deletePlant(final String id, Callback callback) {
@@ -164,9 +174,14 @@ public abstract class API extends ErrorAware {
         return doAsynchronously(cb, new AsyncOperation() {
             @Override
             public int operate(Progress progress) throws ErrorWithExplanation {
+                checkPlantForAPI(plant);
                 return updatePlantAsync(plant, id);
             }
         });
+    }
+
+    public boolean canUpdate() {
+        return true;
     }
 
     public Progress updateAllPlantMarkers(Callback cb) {

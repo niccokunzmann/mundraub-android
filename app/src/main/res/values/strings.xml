@@ -130,8 +130,18 @@
     <string name="error_connection">There was an error with the connection to the server.</string>
     <string name="error_could_not_delete_plant">The plant could not be deleted online. There was some error. Please go online and delete it yourself.</string>
     <string name="error_could_not_validate_host">The identity of the server is not trusted. This is a known problem on older platforms. Currently, you can disable trusted connections in the settings to work around this error. Feel free to contribute a solution.</string>
-    <string name="error_invalid_json_for_markers">The markers returned by Mundraub.org are in an unexpected format. Maybe they changed the API? Please report this issue, see the About page in the menu.</string>
+    <string name="error_invalid_json_for_markers">The markers returned by the platform are in an unexpected format. Maybe they changed the API? Please report this issue, see the About page in the menu.</string>
     <string name="error_could_not_sign_up_mundraub">Could not sign up at Mundraub.org.</string>
+    <string name="error_malformed_url">The given URL was malformed.</string>
+    <string name="error_invalid_protocol">There was an error with the used protocol.</string>
+    <string name="error_no_such_algorithm">The algorithm for the encryption is not present.</string>
+    <string name="error_key_management">Could not initilalize the key management.</string>
+    <string name="error_timeout">The connection to the server timed out.</string>
+    <string name="error_could_not_sign_up_na_ovoce">Could not sign up to Na-Ovoce.cz. The server did not return a user id.</string>
+    <string name="error_could_not_log_in_na_ovoce">Could not log in to Na-Ovoce.cz. The server did not return an authorization token. Please check your username and password and try again.</string>
+    <string name="error_invalid_category_na_ovoce">The category of this plant is not available on Na-Ovoce.cz. I can not publish this plant. Please choose another category or upload it somewhere else.</string>
+    <string name="error_plant_position_is_invalid">The plant has no valid position. It cannot be published.</string>
+    <string name="error_plant_category_is_not_set">Please choose a plant category to upload the plant.</string>
 
     <!-- map to choose plant position -->
     <string name="title_choose_map_position">Choose Plant Position</string>

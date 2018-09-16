@@ -162,7 +162,7 @@ public class PlantOnlineState {
 
         @Override
         public boolean canUpdate() {
-            return api.isLoggedIn();
+            return api.isLoggedIn() && api.canUpdate();
         }
 
         @Override
@@ -217,7 +217,7 @@ public class PlantOnlineState {
 
         @Override
         public void publishedWithId(final String newId, final API api) {
-            if (newId == id) {
+            if (newId.equals(id)) {
                 return;
             }
             delete(new API.Callback() {
