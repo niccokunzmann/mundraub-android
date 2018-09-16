@@ -61,6 +61,7 @@ Services:
 - [Travis][travis] to build the app and test the code
 - [GitHub] for publising and contributing to the code
 - [Transifex][tx] for managing translations
+    - [Microsoft Translate] with a free account for suggesting translations. 
 - [F-Droid][fdroid] for publishing the app
 
 Languages:
@@ -90,3 +91,4 @@ Languages:
 [nanohttpd]: http://nanohttpd.org/
 [first-issues]: https://github.com/niccokunzmann/mundraub-android/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22
 [first-issues-image]: https://img.shields.io/github/issues/niccokunzmann/mundraub-android/good%20first%20issue.svg?label=good%20first%20issues
+[Microsoft Translate]: https://portal.azure.com/#@niccokunzmannlive.onmicrosoft.com/resource/subscriptions/7ad79494-1d19-43e4-8f0c-59d1a34c5711/resourcegroups/Mundraub-Android-Resource-Group/providers/Microsoft.CognitiveServices/accounts/Mundraub-Android-Translations/quickstart
