@@ -14,7 +14,7 @@
         android:title="@string/menu_my_plants" />
     <item
         android:id="@+id/item_rules"
-        android:title="@string/menu_mundraub_rules" />
+        android:title="@string/menu_rules" />
     <item
         android:id="@+id/item_settings"
         android:title="@string/menu_settings" />

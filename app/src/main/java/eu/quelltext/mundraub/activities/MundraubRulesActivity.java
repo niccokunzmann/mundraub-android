@@ -29,7 +29,7 @@ public class MundraubRulesActivity extends MundraubBaseActivity {
         buttonViewLongVersion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openURLInBrowser("https://mundraub.org/mundraeuber-regeln");
+                openURLInBrowser(getResources().getString(R.string.rules_url));
             }
         });
     }
