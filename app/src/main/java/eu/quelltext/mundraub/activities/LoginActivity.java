@@ -6,6 +6,7 @@ import android.annotation.TargetApi;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.view.KeyEvent;
@@ -159,18 +160,32 @@ public class LoginActivity extends MundraubBaseActivity {
     }
 
     private void loadPassword() {
-        SharedPreferences settings = getSharedPreferences("UserInfo", 0);
-        usernameView.setText(settings.getString("Username", "").toString());
-        mPasswordView.setText(settings.getString("Password", "").toString());
-        emailText.setText(settings.getString("Email", "").toString());
+        SharedPreferences settings = getUserInfo();
+        usernameView.setText(settings.getString(getUsernameKey(), getUsername()).toString());
+        mPasswordView.setText(settings.getString(getPasswordKey(), getPassword()).toString());
+        emailText.setText(settings.getString("Email", getEmail()).toString());
+    }
+
+    @NonNull
+    private String getPasswordKey() {
+        return "Password-" + api().id();
+    }
+
+    @NonNull
+    private String getUsernameKey() {
+        return "Username-" + api().id();
+    }
+
+    private SharedPreferences getUserInfo() {
+        return getSharedPreferences("UserInfo", 0);
     }
 
     private void savePassword() {
         // from https://stackoverflow.com/a/10209902
-        SharedPreferences settings = getSharedPreferences("UserInfo", 0);
+        SharedPreferences settings = getUserInfo();
         SharedPreferences.Editor editor = settings.edit();
-        editor.putString("Username", getUsername());
-        editor.putString("Password", getPassword());
+        editor.putString(getUsernameKey(), getUsername());
+        editor.putString(getPasswordKey(), getPassword());
         editor.putString("Email", getEmail());
         editor.commit();
     }
@@ -317,6 +332,7 @@ public class LoginActivity extends MundraubBaseActivity {
     protected void onResume() {
         super.onResume();
         apiName.setText(api().nameResourceIdForLoginActivity());
+        loadPassword();
     }
 }
 
