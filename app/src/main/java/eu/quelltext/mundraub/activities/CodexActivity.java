@@ -6,7 +6,7 @@ import android.widget.Button;
 
 import eu.quelltext.mundraub.R;
 
-public class MundraubRulesActivity extends MundraubBaseActivity {
+public class CodexActivity extends MundraubBaseActivity {
 
     private Button buttonAccept;
     private Button buttonViewLongVersion;
@@ -14,7 +14,7 @@ public class MundraubRulesActivity extends MundraubBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mundraub_rules);
+        setContentView(R.layout.activity_codex);
 
         buttonAccept = (Button) findViewById(R.id.button_accept);
         buttonViewLongVersion = (Button) findViewById(R.id.button_long_version);

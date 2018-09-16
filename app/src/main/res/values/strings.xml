@@ -7,21 +7,20 @@
     <string name="app_name" translatable="false">Mundraub</string>
 
     <!-- Edit and add a plant -->
+    <string name="title_edit_plant">Edit Plant</string>
     <string name="plant_has_unfilled_form_fields">Please add more information about your plant ...</string>
     <string name="all_plant_fields_are_filled">All required fields of the plant are filled.</string>
     <string name="choose_plant_type">Choose a type of plant!</string>
     <string name="count">Count:</string>
     <string name="description">Description</string>
     <string name="position">Position:</string>
-    <string name="title_plant_list">Plants</string>
-    <string name="title_plant_detail">Plant Detail</string>
-    <string name="title_activity_choose_plant_type" translatable="false">ChoosePlantType</string>
     <string name="delete">Delete</string>
     <string name="GPS">GPS</string>
     <string name="osm_license">© OpenStreetMap contributors</string>
     <string name="map">Map</string>
 
     <!-- types of plants -->
+    <string name="title_activity_choose_plant_type">Plant Category</string>
     <string name="apple">Apple</string>
     <string name="apricot">Apricot</string>
     <string name="pear">Pear</string>
@@ -86,13 +85,12 @@
     <string name="login_api_name_dummy">Local Dummy API</string>
 
     <!-- view plant details -->
+    <string name="title_plant_detail">Plant Detail</string>
     <string name="upload_plant_online">Share this plant online</string>
     <string name="edit_plant_online">Upload the changes</string>
     <string name="delete_plant_online">Remove the plant from the platform</string>
     <string name="view_plant_online">View the plant online</string>
     <string name="plant_online_description">Change the plant online:</string>
-    <string name="error">Error</string>
-    <string name="success">Success!</string>
     <string name="longitude">Longitude:</string>
     <string name="latitude">Latitude:</string>
     <string name="ask_open_the_map">Would you like to open the map and place the plant first?</string>
@@ -104,7 +102,13 @@
     <string name="yes">yes</string>
     <string name="edit">Edit</string>
 
+    <!-- Dialogs -->
+    <string name="error">Error</string>
+    <string name="success">Success!</string>
+    <string name="attention">Attention</string>
+
     <!-- list all plants -->
+    <string name="title_my_plants">My Plants</string>
     <!-- For the date format see https://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html -->
     <string name="plant_list_date_format">MM/dd/yyyy</string>
 
@@ -130,8 +134,11 @@
     <string name="error_could_not_sign_up_mundraub">Could not sign up at Mundraub.org.</string>
 
     <!-- map to choose plant position -->
-    <string name="attention">Attention</string>
+    <string name="title_choose_map_position">Choose Plant Position</string>
     <string name="info_plant_position_is_chosen_from_best_guess">The plant has no recorded position. The marker is where the last plant was placed. Please find the correct position.</string>
+
+    <!-- Map of all plants -->
+    <string name="title_activity_show_plants">Map of Plants</string>
 
     <!-- menu -->
     <string name="menu_about">About</string>
@@ -141,6 +148,7 @@
     <string name="menu_rules">Community Codex</string>
 
     <!-- About -->
+    <string name="title_about">About the App</string>
     <string name="about_app">This is the inofficial app for Mundraub.org. The source is open. You are invited to contribute.</string>
     <string name="about_view_source">View the source code</string>
     <string name="about_view_source_url" translatable="false">https://github.com/niccokunzmann/mundraub-android</string>
@@ -170,6 +178,7 @@
     <string name="permission_denied_consequences">The permission is not given, so the app cannot do that.</string>
 
     <!-- settings -->
+    <string name="title_settings">App Settings</string>
     <string name="settings_use_mundraub_api">If this is enabled, this app publishes the plants to Mundraub.org.</string>
     <string name="settings_use_na_ovoce">If this is enabled, this app publishes the plants to Na-Ovoce.cz.</string>
     <string name="settings_use_dummy">If this is enabled, this app does not publish the plants but instead simulates a local API for testing.</string>
@@ -203,11 +212,8 @@
     <string name="error_debug_api_can_not_download_offline_data">The debug API can not download offline data. Please use the Mundraub API at the bottom of the settings.</string>
     <string name="settings_create_public_api_for_debug">If this is enabled, the app provides the Mundraub map API to the local network. No harm can be done as this API is read only.</string>
 
-    <!-- Map of all plants -->
-    <string name="title_activity_show_plants">Map of Plants</string>
-
     <!-- Mundraub rules https://mundraub.org/mundraeuber-regeln -->
-    <string name="heading_rules">Community Codex</string>
+    <string name="title_codex">Community Codex</string>
     <string name="mundraub_rule_1">Please make sure before you create an entry or before you harvest, that no property rights conflict.</string>
     <string name="mundraub_rule_2">Be careful with trees, nature and animals living there. Picking for your own needs is allowed but not more and not commercially. You need a permit for that.</string>
     <string name="mundraub_rule_3">Share the fruit of your discovery and give something back.</string>

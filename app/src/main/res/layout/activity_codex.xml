@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MundraubRulesActivity">
+    tools:context=".activities.CodexActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
                 android:id="@+id/textView13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/heading_rules"
+                android:text="@string/title_codex"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
 

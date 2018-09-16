@@ -154,7 +154,7 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
     }
 
     protected void openMundraubRules() {
-        Intent intent = new Intent(this, MundraubRulesActivity.class);
+        Intent intent = new Intent(this, CodexActivity.class);
         startActivity(intent);
     }
 }

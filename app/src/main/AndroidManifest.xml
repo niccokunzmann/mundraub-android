@@ -14,10 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.NewPlantActivity" />
+        <activity
+            android:name=".activities.NewPlantActivity"
+            android:label="@string/title_edit_plant"/>
         <activity
             android:name=".activities.PlantListActivity"
-            android:label="@string/app_name"
+            android:label="@string/title_my_plants"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,14 +43,23 @@
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".activities.map.ChooseMapPosition" />
-        <activity android:name=".activities.AboutActivity" />
-        <activity android:name=".activities.SettingsActivity" />
+        <activity
+            android:name=".activities.map.ChooseMapPosition"
+            android:label="@string/title_choose_map_position"/>
+        <activity
+            android:name=".activities.AboutActivity"
+            android:label="@string/title_about"/>
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:label="@string/title_settings"
+            />
         <activity
             android:name=".activities.map.ShowPlantsActivity"
             android:label="@string/title_activity_show_plants"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.MundraubRulesActivity"></activity>
+        <activity
+            android:name=".activities.CodexActivity"
+            android:label="@string/title_codex" />
     </application>
 
 </manifest>
