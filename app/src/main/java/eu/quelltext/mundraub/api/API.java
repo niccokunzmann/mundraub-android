@@ -5,7 +5,15 @@ import android.os.AsyncTask;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Set;
+
+import javax.net.ssl.SSLHandshakeException;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.api.progress.Progress;
@@ -172,7 +180,7 @@ public abstract class API extends ErrorAware {
         });
     }
 
-    public static class ErrorWithExplanation extends Throwable {
+    public static class ErrorWithExplanation extends Exception {
         private final int explanationResourceId;
 
         private ErrorWithExplanation(int explanationResourceId) {
@@ -205,12 +213,8 @@ public abstract class API extends ErrorAware {
             } catch (JSONException e) {
                 log.printStackTrace(e);
                 return R.string.error_invalid_json_for_markers;
-            } catch (IOException e) {
-                log.printStackTrace(e);
-                return R.string.error_connection;
             } catch (Exception e) {
-                log.printStackTrace(e);
-                return R.string.error_not_specified;
+                return handleExceptionConsistently(e);
             }
         }
         return TASK_SUCCEEDED;
@@ -230,6 +234,30 @@ public abstract class API extends ErrorAware {
             abortOperation(R.string.error_unexpected_return_code);
         }
         return response.body().string();
+    }
+
+    protected int handleExceptionConsistently(Exception e) {
+        log.printStackTrace(e);
+        if (SSLHandshakeException.class.isInstance(e)) {
+            return R.string.error_could_not_validate_host;
+        } else if (MalformedURLException.class.isInstance(e)) {
+            return R.string.error_malformed_url;
+        } else if (UnknownHostException.class.isInstance(e)) {
+            return R.string.error_unknown_hostname;
+        } else if (ProtocolException.class.isInstance(e)) {
+            return R.string.error_invalid_protocol;
+        } else if (NoSuchAlgorithmException.class.isInstance(e)) {
+            return R.string.error_no_such_algorithm;
+        } else if (KeyManagementException.class.isInstance(e)) {
+            return R.string.error_key_management;
+        } else if (SocketTimeoutException.class.isInstance(e)) {
+            return R.string.error_timeout;
+        } else if (IOException.class.isInstance(e)) {
+            return R.string.error_connection;
+        } else if (ErrorWithExplanation.class.isInstance(e)) {
+            return ((ErrorWithExplanation)e).getExplanationResourceId();
+        }
+        return R.string.error_not_specified;
     }
 
     // methods to replace

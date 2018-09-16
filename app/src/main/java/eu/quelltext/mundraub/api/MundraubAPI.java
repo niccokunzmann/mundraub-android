@@ -9,12 +9,9 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpCookie;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.net.UnknownHostException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -132,25 +129,9 @@ public class MundraubAPI extends API {
             String cookie = http.getHeaderField("Set-Cookie");
             setSessionFromCookie(cookie);
             return TASK_SUCCEEDED;
-        } catch (javax.net.ssl.SSLHandshakeException e) {
-            log.printStackTrace(e);
-            return R.string.error_could_not_validate_host;
-        } catch (UnknownHostException e) {
-            log.printStackTrace(e);
-            return R.string.error_unknown_hostname;
-        } catch (MalformedURLException e) {
-            log.printStackTrace(e);
-        } catch (ProtocolException e) {
-            log.printStackTrace(e);
-        } catch (IOException e) {
-            log.printStackTrace(e);
-        } catch (NoSuchAlgorithmException e) {
-            log.printStackTrace(e);
-        } catch (KeyManagementException e) {
-            log.printStackTrace(e);
-            // TODO: new error message for different exceptions
+        } catch (Exception e) {
+            return handleExceptionConsistently(e);
         }
-        return R.string.error_not_specified;
     }
 
     @Override
@@ -184,16 +165,9 @@ public class MundraubAPI extends API {
                     return R.string.error_unexpected_return_code;
                 }
             });
-        } catch (IOException e) {
-            log.printStackTrace(e);
-        } catch (KeyManagementException e) {
-            log.printStackTrace(e);
-        } catch (NoSuchAlgorithmException e) {
-            log.printStackTrace(e);
-        } catch (InterruptedException e) {
-            log.printStackTrace(e);
+        } catch (Exception e) {
+            return handleExceptionConsistently(e);
         }
-        return R.string.error_not_specified;
     }
 
     private void logFormValues(String tag, Map<String, String> formValues) {
@@ -207,19 +181,9 @@ public class MundraubAPI extends API {
         if (plantExistsOnline(plantId)) {
             try {
                 return deletePlantOnline(plantId);
-            } catch (javax.net.ssl.SSLHandshakeException e) {
-                log.printStackTrace(e);
-                return R.string.error_could_not_validate_host;
-            } catch (NoSuchAlgorithmException e) {
-                log.printStackTrace(e);
-            } catch (KeyManagementException e) {
-                log.printStackTrace(e);
-            } catch (IOException e) {
-                log.printStackTrace(e);
-                return R.string.error_connection;
+            } catch (Exception e) {
+                return handleExceptionConsistently(e);
             }
-            return R.string.error_not_specified;
-
         } else {
             return TASK_SUCCEEDED;
         }
@@ -230,15 +194,8 @@ public class MundraubAPI extends API {
         Map<String, String> formValues;
         try {
             formValues = getFormValues(plantDeleteUrl);
-        } catch (IOException e) {
-            log.printStackTrace(e);
-            return R.string.error_not_specified;
-        } catch (KeyManagementException e) {
-            log.printStackTrace(e);
-            return R.string.error_not_specified;
-        } catch (NoSuchAlgorithmException e) {
-            log.printStackTrace(e);
-            return R.string.error_not_specified;
+        } catch (Exception e) {
+            return handleExceptionConsistently(e);
         }
         return postFormTo(formValues, plantDeleteUrl, new FormPostHooks() {
             @Override
@@ -322,24 +279,12 @@ public class MundraubAPI extends API {
         try {
             Map<String, String> formValues = getFormValues(URL_ADD_PLANT_FORM);
             return postPlantFormTo(formValues, plant, URL_ADD_PLANT_FORM);
-        } catch (javax.net.ssl.SSLHandshakeException e) {
-            log.printStackTrace(e);
-            return R.string.error_could_not_validate_host;
-        } catch (MalformedURLException e) {
-            log.printStackTrace(e);
-        } catch (ProtocolException e) {
-            log.printStackTrace(e);
-        } catch (IOException e) {
-            log.printStackTrace(e);
-        } catch (NoSuchAlgorithmException e) {
-            log.printStackTrace(e);
-        } catch (KeyManagementException e) {
-            log.printStackTrace(e);
         } catch (JSONException e) {
             log.printStackTrace(e);
             return R.string.error_could_not_parse_open_street_map_data;
+        } catch (Exception e) {
+            return handleExceptionConsistently(e);
         }
-        return R.string.error_not_specified;
     }
 
     private void fillInPlant(Map<String, String> formValues, Plant plant) throws IOException, ErrorWithExplanation, NoSuchAlgorithmException, KeyManagementException, JSONException {
