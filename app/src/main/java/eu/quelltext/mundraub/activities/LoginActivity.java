@@ -53,7 +53,11 @@ public class LoginActivity extends MundraubBaseActivity {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
+                    if (isSignupView()) {
+                        attemptSignup();
+                    } else {
+                        attemptLogin();
+                    }
                     return true;
                 }
                 return false;
