@@ -75,9 +75,7 @@ public abstract class API extends ErrorAware {
         return doAsynchronously(callback, new AsyncOperation() {
             @Override
             public int operate(Progress progress) throws ErrorWithExplanation {
-                int success = signupAsync(email, username, password);
-                isLoggedIn = success == TASK_SUCCEEDED;
-                return success;
+                return signupAsync(email, username, password);
             }
         });
     }
