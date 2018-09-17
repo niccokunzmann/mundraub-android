@@ -486,9 +486,9 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
 
         public static Position from(JSONObject json) throws JSONException {
             String type = json.getString(JSON_POSITION_TYPE);
-            if (type == JSON_POSITION_TYPE_MAP) {
+            if (type.equals(JSON_POSITION_TYPE_MAP)) {
                 return MapPosition.fromJSON(json);
-            } else if (type == JSON_POSITION_TYPE_GPS) {
+            } else if (type.equals(JSON_POSITION_TYPE_GPS)) {
                 return GPSPosition.fromJSON(json);
             }
             return fromJSON(json);
@@ -520,6 +520,8 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
         private MapPosition(double longitude, double latitude) {
             super(longitude, latitude);
         }
+
+        @Override
         public JSONObject toJSON() throws JSONException {
             JSONObject json = super.toJSON();
             json.put(JSON_POSITION_TYPE, JSON_POSITION_TYPE_MAP);
