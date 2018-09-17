@@ -1,19 +1,19 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Edit and add a plant -->
+    <string name="title_edit_plant">Pflanze Bearbeiten</string>
     <string name="plant_has_unfilled_form_fields">Bitte fülle alle Felder für die Pflanze aus ...</string>
     <string name="all_plant_fields_are_filled">Alle benötigten Felder für die Pflanze sind gefüllt.</string>
     <string name="choose_plant_type">Wähle einen Pflanzentypen!</string>
     <string name="count">Anzahl:</string>
     <string name="description">Beschreibung</string>
     <string name="position">Position</string>
-    <string name="title_plant_list">Pflanzen</string>
-    <string name="title_plant_detail">Pflanzenbeschreibung</string>
     <string name="delete">Löschen</string>
     <string name="GPS">GPS</string>
     <string name="osm_license">© OpenStreetMap Beitragende</string>
     <string name="map">Karte</string>
 
     <!-- types of plants -->
+    <string name="title_activity_choose_plant_type">Art der Pflanze</string>
     <string name="apple">Apfel</string>
     <string name="apricot">Aprikose</string>
     <string name="pear">Birne</string>
@@ -48,43 +48,66 @@
     <string name="walnut">Walnuss</string>
     <string name="other_nut">Andere Nüsse</string>
     <string name="unnamed_plant">Unbenannte Pflanze</string>
+    <string name="sour_cherry">Sauerkirsche</string>
+    <string name="lemon_balm">Zitronenmelisse</string>
+    <string name="chokeberry">Apfelbeere</string>
+    <string name="medlar">Mispel</string>
+    <string name="service_tree">Elsbeere</string>
+    <string name="rowan">Voglebeere</string>
+    <string name="almond">Mandel</string>
+    <string name="gooseberry">Stachelbeere</string>
+    <string name="peach">Pfirsich</string>
+    <string name="silverberry">Ölweide</string>
 
     <!-- Login -->
     <string name="title_activity_login">Einloggen</string>
     <string name="prompt_username">Nutzername</string>
+    <string name="prompt_email">E-Mail</string>
     <string name="prompt_password">Passwort</string>
     <string name="action_sign_in">Einloggen (Profil verausgesetzt)</string>
     <string name="action_sign_in_short">Einloggen</string>
+    <string name="action_register">Neues Konto erstellen</string>
     <string name="error_invalid_username">Dieser Nutzername ist ungültig</string>
     <string name="error_invalid_password">Das Passwort ist zu kurz</string>
     <string name="invalid_credentials">Der Nutzer existiert nicht oder das Passwort ist falsch.</string>
     <string name="error_field_required">Dieses Feld bitte füllen</string>
+    <string name="error_invalid_email">Bitte fülle eine valide E-Mail-Adresse hier ein.</string>
+    <string name="signup_successful_see_email">Der Anmeldeprozess war erfolgreich</string>
+    <string name="login_api_name_mundraub">Mundraub.org</string>
+    <string name="login_api_name_na_ovoce">Na-Ovoce.cz</string>
+    <string name="login_api_name_dummy">Lokale Test-API</string>
 
     <!-- view plant details -->
+    <string name="title_plant_detail">Pflanzenbeschreibung</string>
     <string name="upload_plant_online">Pflanze online teilen</string>
     <string name="edit_plant_online">Änderungen hochladen</string>
-    <string name="delete_plant_online">Pflanze von Mundraub.org entfernen</string>
-    <string name="view_plant_online">Pflanze auf Mundraub.org ansehen</string>
-    <string name="plant_online_description">Verwalte die Pflanze auf Mundraub.org:</string>
-    <string name="error">Fehler</string>
-    <string name="success">Erfolg!</string>
+    <string name="delete_plant_online">Entferne die Pflanze von der Plattform</string>
+    <string name="view_plant_online">Zeige die Pflanze online an</string>
+    <string name="plant_online_description">Ändere die Pflante online:</string>
     <string name="longitude">Geografische Länge:</string>
     <string name="latitude">Geografische Breite:</string>
     <string name="ask_open_the_map">Möchtest Du die Karte öffnen, um die Pflanze genauer zu plazieren?</string>
     <string name="reason_reposition_unknown_position">Die erhaltene Position der Pflanze ist vielleicht zu weit weg vom Fundort. Bitte überprüfe das.</string>
     <string name="reason_reposition_gps_position">Die GPS-Position ist wahrscheinlich zu weit vom STandort entfernt. Schau bitte auf die Karte, um das zu überprüfen.</string>
     <string name="delete_plant_information">Wenn Du die Pflanze online löschst, sind die Kommentare anderer sowie die anderen Onlineinformationen verloren.</string>
-    <string name="ask_delete_plant">Möchtest Du die Pflanze von Mundraub.ort enfernen?</string>
+    <string name="ask_delete_plant">Möchtest Du die Pflanze von der Online-Plattform entfernen?</string>
     <string name="no">Nein</string>
     <string name="yes">Ja</string>
     <string name="edit">Ändern</string>
 
+    <!-- Dialogs -->
+    <string name="error">Fehler</string>
+    <string name="success">Erfolg!</string>
+    <string name="attention">Achtung</string>
+
     <!-- list all plants -->
+    <string name="title_my_plants">Meine Pflanzen</string>
+    <!-- For the date format see https://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html -->
     <string name="plant_list_date_format">dd. MM. yyyy</string>
 
     <string name="task_was_cancelled">Die Aktion wurde abgebrochen.</string>
     <string name="operation_not_permitted">Diese Aktion ist nicht erlaubt.</string>
-    <string name="error_unexpected_return_code">Der Server hat einen unerwarteten Rückgabewert gesented.</string>
+    <string name="error_unexpected_return_code">Der Server hat einen unerwarteten Rückgabewert gesendet.</string>
     <string name="error_not_specified">Es ist ein Fehler aufgetreten und wenn die Entwickler mehr Zeit genutzt hätten, wüsstest Du, woran es liegt. Zeit, beizutragen!</string>
     <string name="error_not_implemented">Diese Aktion wurde noch nicht implementiert.</string>
     <string name="success_plant_uploaded">Die Pflanze wurde auf Mundraub.org veröffentlicht.</string>
@@ -98,18 +121,35 @@
     <string name="error_connection">Es gab einen Fehler bei der Verbindung zum Server.</string>
     <string name="error_could_not_delete_plant">Die Pflanze konnte online nicht gelöscht werden. Es gab irgendeinen Fehler. Schau bitte selbst online nach.</string>
     <string name="error_could_not_validate_host">Der Identität des Servers wird nicht vertraut. Das ist ein bekanntes Problem älterer Android-Pattformen. Momentan kannst Du vertraute Verbindungen in den Einstellungen ausschalten, um den Fehler zu umgehen. Du darfst gerne eine Lösung beisteuern.</string>
-    <string name="error_invalid_json_for_markers">Die Standpunkte, die ich von Mundraub.org erhalten habe, habe ich in einem anderen Format erwartet. Hat Mundraub.org vielleicht die API verändert? Bitte benachrichtige die Entwickler über dieses Problem im Menupunkt \"Über\".</string>
+    <string name="error_invalid_json_for_markers">Die Marker, die von der Plattform geliefert wurden, sind in einem unerwarteten Format. Vielleicht haben die die API geändert? Bitte melde uns dieses Problem. Wie steht auf der Seite über die App.</string>
+    <string name="error_could_not_sign_up_mundraub">Ich konnte Dich nicht bei Mundraub.org anmelden.</string>
+    <string name="error_malformed_url">Die gegebene URL war nicht benutzbar.</string>
+    <string name="error_invalid_protocol">Es gab einen Fehler in der Benutzung des Protokolls.</string>
+    <string name="error_no_such_algorithm">Der Algorithmus für die Verschlüsselung ist nicht da.</string>
+    <string name="error_key_management">Konnte das Verwaltungssystem für die Verschlüsselung nicht erzeugen.</string>
+    <string name="error_timeout">Die Verbindung zum Server hat zu lange nicht geklappt.</string>
+    <string name="error_could_not_sign_up_na_ovoce">Du konntest nicht bei Na-Ovoce.cz angemeldet werden. Der Server hat keine Nutzer-ID geliefert.</string>
+    <string name="error_could_not_log_in_na_ovoce">Du konntest nicht bei Na-Ovoce.cz angemeldet werden. Der Server hat keinen Authentifizierungsschlüssel gesendet. Bitte überprüfe den Nutzernamen und das Passwort und versuche es erneut.</string>
+    <string name="error_invalid_category_na_ovoce">Diese Kategorie Pflanze wird nicht von Na-Ovoce.cz unterstützt. Ich kann die Pflanze nicht veröffentlichen. Bitte wähle eine andere Kategorie oder veröffentliche die Pflanze irgendwo anders.</string>
+    <string name="error_plant_position_is_invalid">Die Position der Pflanze ist nicht gesetzt. Deswegen kann die Pflanze nicht veröffentlicht werden.</string>
+    <string name="error_plant_category_is_not_set">Bitte wähle eine Kategorie für die Pflanze, um sie hochzuladen.</string>
 
     <!-- map to choose plant position -->
-    <string name="attention">Achtung</string>
+    <string name="title_choose_map_position">Pflanzen-Position Wählen</string>
     <string name="info_plant_position_is_chosen_from_best_guess">Diese Pflanze hat keine Position gesetzt. Der Marker ist bei der nächsten Pflanze. Bitte finde selbst die richtige Position.</string>
+
+    <!-- Map of all plants -->
+    <string name="title_activity_show_plants">Pflanzenkarte</string>
 
     <!-- menu -->
     <string name="menu_about">Über</string>
     <string name="menu_settings">Einstellungen</string>
     <string name="menu_map">Karte</string>
+    <string name="menu_my_plants">Meine Pflanzen</string>
+    <string name="menu_rules">Mundräuberregeln</string>
 
     <!-- About -->
+    <string name="title_about">Infos über die App</string>
     <string name="about_app">Das ist die inoffizielle App für Mundraub.org. Der Quelltext is offen. Du bist eingeladen, beizutragen.</string>
     <string name="about_view_source">Sieh den Quelltext an</string>
     <string name="about_view_source_at_version" formatted="false">Schau den Quelltext zur Version <xliff:g example="1.0" id="version">%1$s</xliff:g>  und dem Commit <xliff:g example="5849748" id="commit">%2$s</xliff:g> an.</string>
@@ -136,8 +176,11 @@
     <string name="permission_denied_consequences">Die Erlaubnis wurde der App nicht erteilt. Damit ist diese Funktion nicht verfügbar.</string>
 
     <!-- settings -->
-    <string name="settings_use_mundraub_api">Wenn das eingeschaltet ist, benutzt die App Mundraub.org, um die Pflanzen zu publizieren. Wenn ausgeschaltet, wird die Test-API genutzt, die lokal läuft und gut zum Testen verwendet werden kann.</string>
-    <string name="setting_use_secure_connection">Wenn das eingeschaltet ist, wird den Verbindungen zu Mundraub.org von den Zertifikatautoritäten vertraut. Das kann ein Problem auf älteren Android-Versionen darstellen, die den neuen Zertifikaten nicht vertrauen.</string>
+    <string name="title_settings">App-Einstellungen</string>
+    <string name="settings_use_mundraub_api">Wenn das eingeschaltet ist, publiziert die App die Pflanzen auf Mundraub.org.</string>
+    <string name="settings_use_na_ovoce">Wenn das eingeschaltet ist, publiziert die App die Pflanzen auf Na-Ovoce.cz.</string>
+    <string name="settings_use_dummy">Wenn das eingeschaltet ist, publiziert die App keine Pflanzen sondern nutzt einen lokale API zum Testen.</string>
+    <string name="setting_use_secure_connection">Wenn das eingeschaltet ist, wird den Verbindungen zu Mundraub.org und anderen Servern von den Zertifikatsautoritäten vertraut. Das kann Probleme auf älteren Androids geben, die nicht in der Lage sind, die neueren Zertifikate zu verwenden.</string>
     <string name="settings_use_cache">Wenn das eingeschaltet ist, verwendet die App das Cacheverzeichnis für die Pflanzen. Du kannst sie löschen, wenn nötig. Wenn das aus ist, nutzt die App den externen Speicher, sodass Du die Pflanzen synchronisieren und kopieren kannst.</string>
     <string name="error_could_not_move_plants">Die Pflanzendaten konnten nicht in das gewünschte Verzeichnis verschoben werden.</string>
     <string name="settings_connection">Einstellungen für die Verbindung</string>
@@ -166,8 +209,14 @@
     <string name="error_debug_api_can_not_download_offline_data">Die Debug-API kann keine Daten runterladen. Bitte benutze die Mundraub-API unten in den Einstellungen zu diesem Zweck.</string>
     <string name="settings_create_public_api_for_debug">Wenn das eingeschaltet ist, stellt die App die Mundraub-API im lokalen Netzwerk frei. Das ist nicht schlimm, da die API nur Lesen erlaubt und kein Verändern.</string>
 
-    <!-- Map of all plants -->
-    <string name="title_activity_show_plants">Pflanzenkarte</string>
-    <string name="menu_my_plants">Meine Pflanzen</string>
+    <!-- Mundraub rules https://mundraub.org/mundraeuber-regeln -->
+    <string name="title_codex">Mundräuberregeln</string>
+    <string name="mundraub_rule_1">Stelle vor dem Eintragen und/oder Ernten sicher, dass keine Eigentumsrechte verletzt werden.</string>
+    <string name="mundraub_rule_2">Gehe behutsam mit den Bäumen, der umgebenden Natur und den dort lebenden Tieren um. Für den Eigenbedarf pflücken ist erlaubt, aber nicht in großem Stil gewerbsmäßig, dazu braucht es eine behördliche Genehmigung.</string>
+    <string name="mundraub_rule_3">Teile die Früchte deiner Entdeckungen und gib etwas zurück.</string>
+    <string name="mundraub_rule_4">Engagiere dich bei der Pflege und Nachpflanzung von Obstbäumen.</string>
+    <string name="mundraub_rules_long_version">Zeige mir die lange Version!</string>
+    <string name="mundraub_rules_i_understand">Klingt gut, Ich verstehe es!</string>
+    <string name="rules_url">https://mundraub.org/mundraeuber-regeln</string>
 
 </resources>
