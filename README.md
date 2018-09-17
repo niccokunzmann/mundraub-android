@@ -46,8 +46,9 @@ Software Material List
 
 App components:
 
-- [Mundraub.org] for publishing the found plants and getting the markers on the map
-- [Na-Ovoce.cz] for getting markers on the map
+- For publishing the found plants and markers on the map:
+    - [Mundraub.org] (German)
+    - [Na-Ovoce.cz] (Czech)
 - [OpenLayers] for refining te position
 - [openstreetmap] for rendering OpenStreetMap
 - [World Imagery] for rendering a satellite map
