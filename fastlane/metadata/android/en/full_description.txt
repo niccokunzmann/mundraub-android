@@ -9,7 +9,7 @@ Features:
     <li>Collect all plant data offline</li>
     <li>Integrated map to find plants</li>
     <li>Plant markers can be downloaded offline</li>
-    <li>Mundraub.org publishing</li>
+    <li>Mundraub.org and Na-Ovoce.cz publishing</li>
 </ul>
 
 Permissions:
