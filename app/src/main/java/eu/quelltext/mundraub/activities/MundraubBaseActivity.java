@@ -82,7 +82,7 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
     }*/
 
     public boolean canCreateDialog() {
-        return isStarted;
+        return isCreated;
     }
 
     @Override
