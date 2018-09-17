@@ -1,5 +1,222 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Edit and add a plant -->
+    <string name="title_edit_plant">Modifier Plante</string>
+    <string name="plant_has_unfilled_form_fields">Ajoutez des informations sur cette plante ...</string>
+    <string name="all_plant_fields_are_filled">Tout les champs requis sont remplis.</string>
+    <string name="choose_plant_type">Choisissez un type de plante !</string>
     <string name="count">Nombre:</string>
+    <string name="description">Description</string>
+    <string name="position">Position :</string>
+    <string name="delete">Supprimer</string>
     <string name="GPS">GPS</string>
+    <string name="osm_license">Contributeurs © OpenStreetMap</string>
+    <string name="map">Carte</string>
+
+    <!-- types of plants -->
+    <string name="title_activity_choose_plant_type">Catégorie Plante</string>
+    <string name="apple">Pommier</string>
+    <string name="apricot">Abricotier</string>
+    <string name="pear">Poirier</string>
+    <string name="cherry">Cerisier</string>
+    <string name="mirabelle">Mirabellier</string>
+    <string name="mulberry">Mûrier</string>
+    <string name="plum">Prunier</string>
+    <string name="quince">Poirier de Coing</string>
+    <string name="other_fruit_trees">Autre arbre fruitier</string>
+    <string name="blackberry">Mûres (ronces)</string>
+    <string name="blueberry">Myrtillier Bleuet</string>
+    <string name="raspberry">Framboisier</string>
+    <string name="elder">Sureau</string>
+    <string name="rose_hip">Cynorhodon Poil-à-gratter</string>
+    <string name="juneberry">Amélanchier</string>
+    <string name="currant">Groseiller</string>
+    <string name="cornel_cherry">Cornouiller sauvage</string>
+    <string name="seaberry">Argousier</string>
+    <string name="haw">Aubépine</string>
+    <string name="sloe">Prunellier</string>
+    <string name="other_fruit_shrub">Autre arbuste fruitier</string>
+    <string name="ramsons">Ail des ours</string>
+    <string name="mint">Menthe</string>
+    <string name="rosemary">Romarin</string>
+    <string name="thyme">Thym</string>
+    <string name="juniper">Genévrier</string>
+    <string name="woodruff">Aspérule</string>
+    <string name="other_herbs">Autre herbe</string>
+    <string name="hazel">Noisetier</string>
+    <string name="chestnut">Châtaigner</string>
+    <string name="wild_strawberry">Fraisier des bois</string>
+    <string name="walnut">Noyer</string>
+    <string name="other_nut">autre noix</string>
+    <string name="unnamed_plant">Plante inconnue</string>
+    <string name="sour_cherry">Cerisier Griotte</string>
+    <string name="lemon_balm">Mélisse Citronnelle</string>
+    <string name="chokeberry">Aronia</string>
+    <string name="medlar">Néflier</string>
+    <string name="service_tree">Cormier ou Sorbus</string>
+    <string name="rowan">Sorbier</string>
+    <string name="almond">Amandier</string>
+    <string name="gooseberry">Groseilles blanches</string>
+    <string name="peach">Pêcher</string>
+    <string name="silverberry">Chalef argenté</string>
+
+    <!-- Login -->
+    <string name="title_activity_login">Se connecter</string>
+    <string name="prompt_username">Nom d\'utilisateur</string>
+    <string name="prompt_email">E-mail</string>
+    <string name="prompt_password">Mot de passe</string>
+    <string name="action_sign_in">Se connecter (compte requis)</string>
+    <string name="action_sign_in_short">Se connecter</string>
+    <string name="action_register">Enregistrer un nouveau compte</string>
+    <string name="error_invalid_username">Ce nom d\'utilisateur est invalide</string>
+    <string name="error_invalid_password">Ce mot de passe est trop court</string>
+    <string name="invalid_credentials">Nom d\'utilisateur inexistant ou mot de passe incorrect.</string>
+    <string name="error_field_required">Veuillez remplir ce champ</string>
+    <string name="error_invalid_email">Veuillez entrer une adresse mail valide</string>
+    <string name="signup_successful_see_email">Der Anmeldeprozess war erfolgreich. Du solltest bald eine E-Mail erhalten.</string>
+    <string name="login_api_name_mundraub">Mundraub.org</string>
+    <string name="login_api_name_na_ovoce">Na-Ovoce.cz</string>
+    <string name="login_api_name_dummy">Lokale Test-API</string>
+
+    <!-- view plant details -->
+    <string name="title_plant_detail">Détails de la plante</string>
+    <string name="upload_plant_online">Partager cette plante en ligne</string>
+    <string name="edit_plant_online">Envoyer les changements</string>
+    <string name="delete_plant_online">Entferne die Pflanze von der Plattform.</string>
+    <string name="view_plant_online">Zeige die Pflanze online an</string>
+    <string name="plant_online_description">Ändere die Pflanze online:</string>
+    <string name="longitude">Longitude:</string>
+    <string name="latitude">Latitude:</string>
+    <string name="ask_open_the_map">Voulez-vous ouvrir la carte et d\'abord positionner la plante ?</string>
+    <string name="reason_reposition_unknown_position">La position enregistrée de la plante peut être trop éloignée. Veuillez vérifier.</string>
+    <string name="reason_reposition_gps_position">La position GPS est probablement trop lointaine de votre position réelle. Veuillez vérifier la carte.</string>
+    <string name="delete_plant_information">Si vous supprimez la plante en ligne, celle-ci, tout les commentaires et autres informations seront perdues.</string>
+    <string name="ask_delete_plant">Möchtest Du die Pflanze von der Onlineplattform entfernen?</string>
+    <string name="no">non</string>
     <string name="yes">oui</string>
-    </resources>
+    <string name="edit">Modifier</string>
+
+    <!-- Dialogs -->
+    <string name="error">Erreur</string>
+    <string name="success">Succès !</string>
+    <string name="attention">Attention</string>
+
+    <!-- list all plants -->
+    <string name="title_my_plants">Mes plantes</string>
+    <!-- For the date format see https://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html -->
+    <string name="plant_list_date_format">mm/jj/aaaa</string>
+
+    <string name="task_was_cancelled">L\'action a été annulée.</string>
+    <string name="operation_not_permitted">Action non autorisée.</string>
+    <string name="error_unexpected_return_code">Le serveur a retourné un code inattendu.</string>
+    <string name="error_not_specified">Une erreur est survenue et si les développeurs y mettaient plus de temps, vous en sauriez plus sur ce qui se passe... Il est temps de s\'y mettre !</string>
+    <string name="error_not_implemented">Cette action n\'est pas encore implémentée. </string>
+    <string name="success_plant_uploaded">Plante uploadée sur mundraub.org</string>
+    <string name="success_plant_updated">Plante mise à jours avec succès.</string>
+    <string name="success_plant_deleted">Plante supprimée de mundraub.org.</string>
+    <string name="error_could_not_post_plant">La plante n\'a pas pu être publiée car le serveur a rejeté les données.</string>
+    <string name="error_no_plant_id">Le serveur n\'a pas répondu une ID de plante. Vérifiez en ligne ce qu\'il s\'est passé.</string>
+    <string name="error_unknown_hostname">Impossible de résoudre le nom de l\'hôte, et donc aucune connexion au serveur.</string>
+    <string name="error_could_not_parse_open_street_map_data">Impossible de récupérer l\'adresse d\' OpenStreetMap.</string>
+    <string name="error_count_not_check_plant">Impossible de demander au serveur si la plante existe.</string>
+    <string name="error_connection">Une erreur est survenue lors de la connexion au serveur.</string>
+    <string name="error_could_not_delete_plant">La plante n\'a pas pu être supprimée en ligne. Une erreur est survenue. Veuillez vous rendre sur le site  pour la supprimer manuellement.</string>
+    <string name="error_could_not_validate_host">L\'identité du serveur n\'est pas fiable. C\'est un problème connu sur d\'anciennes plateformes. Actuellement vous pouvez désactiver les connections de confiances dans paramètres pour contourner cette erreur. Vous êtes libre de contribuer à trouver une meilleure solution.</string>
+    <string name="error_invalid_json_for_markers">Les marqueurs retournés par Mundraub.org sont dans un format inattendu. Peut-être ont-ils changer l\'API ? SVP rapportez ce problème, voir la page À propos du menu.</string>
+    <string name="error_could_not_sign_up_mundraub">Impossible de se connecter à Mundraub.org</string>
+    <string name="error_malformed_url">L\'URL donnée contient une erreur de syntaxe.</string>
+    <string name="error_invalid_protocol">Une erreur est survenue lors de la connexion au serveur.</string>
+    <string name="error_no_such_algorithm">L\'algorithme de chiffrage n\'est pas présent.</string>
+    <string name="error_key_management">Impossible d\'initialiser la gestion des clés.</string>
+    <string name="error_timeout">Une erreur est survenue lors de la connexion au serveur.</string>
+    <string name="error_could_not_sign_up_na_ovoce">Impossible de créer un compte sur Na-Ovoce.cz. Le serveur n\'a pas retourné d\'ID utilisateur. </string>
+    <string name="error_could_not_log_in_na_ovoce">Impossible de se connecter à Na-Ovoce.cz. Le serveur n\'a pas retourné de token d\'autorisation. Veuillez vérifier votre nom d\'utilisateur et votre mot de passe avant de réessayer.</string>
+    <string name="error_invalid_category_na_ovoce">La catégorie de cette plante n\'est pas disponible sur Na-Ovoce.cz. Impossible de la publier. Veuillez choisir une autre catégorie ou l\'uploader ailleurs.</string>
+    <string name="error_plant_position_is_invalid">La plante n\'a pas de localisation valide. Impossible de la publier.</string>
+    <string name="error_plant_category_is_not_set">Veuillez choisir une catégorie de plante dans laquelle uploader.</string>
+
+    <!-- map to choose plant position -->
+    <string name="title_choose_map_position">Choisissez Position Plante</string>
+    <string name="info_plant_position_is_chosen_from_best_guess">La plante n\'a aucune localisation enregistrée. Le marqueur est où la dernière plante a été placée. Veuillez trouver la localisation correcte.</string>
+
+    <!-- Map of all plants -->
+    <string name="title_activity_show_plants">Carte des Plantes</string>
+
+    <!-- menu -->
+    <string name="menu_about">À Propos</string>
+    <string name="menu_settings">Paramètres</string>
+    <string name="menu_map">Carte</string>
+    <string name="menu_my_plants">Mes plantes</string>
+    <string name="menu_rules">Codex Communautaire</string>
+
+    <!-- About -->
+    <string name="title_about">A propos</string>
+    <string name="about_app">Ceci est une application open-source non-officielle pour Mundraub.org. Vous êtes invité à contribuer.</string>
+    <string name="about_view_source">Voir le code source</string>
+    <string name="about_view_source_at_version" formatted="false">Voir le code source de la version<xliff:g example="1.0" id="version">%1$s</xliff:g> au commit <xliff:g example="5849748" id="commit">%2$s</xliff:g>.</string>
+    <string name="about_four_freedoms">Vous êtes libre d\'exécuter, étudier, redistribuer et améliorer cette application.</string>
+    <string name="about_view_four_freedoms">Plus d\'informations à propos de nos 4 libertés</string>
+    <string name="about_view_four_freedoms_url">https://fr.wikipedia.org/wiki/Logiciel_libre#Définition_de_la_Free_Software_Foundation_(FSF)</string>
+    <string name="about_issues">Si vous rencontrez un problème avec l\'application et que vous voulez le signaler, vous pouvez ouvrir une nouvelle Issue.</string>
+    <string name="about_view_issues">Afficher les Issues ou en ouvrir une</string>
+    <string name="about_licenses">Cette appli a un modèle de licence double : GPL version 3 pour l\'application, et licence MIT pour la carte.</string>
+    <string name="about_gpl">Voir la licence GPLv3</string>
+    <string name="about_mit">Voir la licence MIT</string>
+
+    <!-- Crash reporting -->
+    <string name="error_app_crashed">L\'appli a rencontré une erreur inattendue et a crashé. Si vous souhaitez aider à résoudre le problème, rendez-vous sur F-Droid, ouvrez le Suivi des Problèmes et signalez le crash avec le fichier %s.</string>
+    <string name="ask_error_report_is_needed">Voulez-vous utiliser le rapport d\'erreur ?</string>
+
+    <!-- Requesting permissions -->
+    <string name="permission_request">Voulez-vous accorder cette permission maintenant, afin que l\'application puisse utiliser cette fonctionnalité ?</string>
+    <string name="permission_error_no_api">Je n\'ai pas pu ouvrir la boîte de dialogue des permissions car la version de l\'API de ce périphérique est trop basse. Essayez d\'accorder la permission vous-même !</string>
+    <string name="permission_purpose_access_fine_location">L\'appli a besoin d\'une permission pour accéder à l\'emplacement de l\'appareil afin de remplir automatiquement la position de la plante.</string>
+    <string name="permission_purpose_camera">L\'appli a besoin d\'une permission pour accéder à la caméra afin de prendre des photos de plantes.</string>
+    <string name="permission_purpose_external_storage">L\'appli doit être autorisée à écrire les plantes trouvées sur le stockage de l\'appareil afin de pouvoir les voir lorsque l\'application est fermée puis rouverte.</string>
+    <string name="permission_purpose_internet">L\'appli a besoin d\'une autorisation pour accéder à Internet afin de vous permettre de télécharger la position et les infos des plantes.</string>
+    <string name="permission_denied_consequences">La permission n\'a pas été accordée, l\'application ne peut donc pas faire cela.</string>
+
+    <!-- settings -->
+    <string name="title_settings">Paramètres</string>
+    <string name="settings_use_mundraub_api">Si cette option est activée, l\'appli publiera les plantes sur Mundraub.org.</string>
+    <string name="settings_use_na_ovoce">Si cette option est activée, l\'appli publiera les plantes sur Na-Ovoce.cz.</string>
+    <string name="settings_use_dummy">Si cette option est activée, l\'appli ne publiera pas les plantes découvertes, mais simulera une API locale pour les tester.</string>
+    <string name="setting_use_secure_connection">Si cette option est activée, l\'appli se connectera à Mundraub.org et d\'autres serveurs via des connections approuvés par des Autorités de Certification. Cela peut être problématique sur des appareils anciens qui ne peuvent pas vérifier le certificat.</string>
+    <string name="settings_use_cache">Si cette option est activée, l\'appli utilisera le répertoire cache des plantes. Vous pouvez les supprimer quand vous le souhaitez. Si cette option est désactivée, l\'application utilise le stockage externe pour vous permettre de synchroniser et de transférer les plantes.</string>
+    <string name="error_could_not_move_plants">Les plantes n\'ont pas pu être déplacées dans le répertoire souhaité.</string>
+    <string name="settings_connection">Paramètres de Connexion</string>
+    <string name="settings_storage">Paramètres de Stockage</string>
+    <string name="settings_debug">Paramètres de Débogage</string>
+    <string name="settings_permissions">Paramètres des Permissions</string>
+    <string name="settings_permission_activate">On/Off</string>
+    <string name="settings_permission_ask">Demander?</string>
+    <string name="settings_permission_name">Permission</string>
+    <string name="settings_permission_camera_title">CAMERA</string>
+    <string name="settings_permission_camera_text">L\'appli peut-elle prendre des photos de plantes ?</string>
+    <string name="settings_permission_storage_title">STOCKAGE EXTERNE</string>
+    <string name="settings_permission_storage_text">L\'appli peut-elle enregistrer les plantes sur le stockage externe ?</string>
+    <string name="settings_permission_location_title">LOCALISATION</string>
+    <string name="settings_permission_location_text">L\'appli peut-elle remplir la localisation de la plante via le GPS ?</string>
+    <string name="settings_permission_internet_title">INTERNET</string>
+    <string name="settings_permission_internet_text">L\'appli peut-elle se connecter à Mundraub et aux services de cartes ?</string>
+    <string name="error_can_edit_permissions_only_externally">Les permissions de l\'application ne peuvent être modifiées qu\'en externe. Veuillez ouvrir les paramètres Android de l\'application pour les modifier.</string>
+    <string name="error_can_not_edit_permissions_api_too_old">Désolé, cette version d\'Android est trop ancienne pour révoquer les permissions de l\'application.</string>
+    <string name="settings_ask_for_error_report">Lorsque l\'application démarre après avoir crasher : si cette option est activée, il vous sera demandé si vous souhaitez utiliser le rapport d\'erreur.</string>
+    <string name="settings_offline">Paramètres Hors-Ligne</string>
+    <string name="settings_use_offline_mode">Si cette option est activée, la carte utilise les données locales téléchargées pour remplir la carte. Si cette option est désactivée, une version à jour est utilisée depuis Mundraub.org.</string>
+    <string name="reason_offline_data_needs_to_be_downloaded">Pour avoir quelque chose qui s\'affiche hors-ligne, nous devons télécharger des données. Vous pouvez également utiliser ce qui est déjà stocké sur le téléphone.</string>
+    <string name="ask_download_offline_data">Voulez-vous mettre à jour les données hors-ligne maintenant?</string>
+    <string name="success_offline_data_was_downloaded">Toutes les données hors-ligne sont maintenant téléchargées.</string>
+    <string name="error_debug_api_can_not_download_offline_data">L\'API de débogage ne peut pas télécharger les données hors connexion. Veuillez utiliser l\'API Mundraub au bas des paramètres.</string>
+    <string name="settings_create_public_api_for_debug">Si cette option est activée, l\'application fournit l\'API de carte Mundraub au réseau local. Aucun dommage ne peut être fait car cette API est en lecture seule.</string>
+
+    <!-- Mundraub rules https://mundraub.org/mundraeuber-regeln -->
+    <string name="title_codex">Codex Communautaire</string>
+    <string name="mundraub_rule_1">Veuillez vous assurer avant de créer une entrée ou de faire une récolte qu\'il n\'y a aucun problème de propriété.</string>
+    <string name="mundraub_rule_2">Attention aux arbres, à la nature et aux animaux qui y vivent ! Cueillir pour vos propres besoins est autorisé mais pas plus, et pas dans un but commercial. Vous auriez besoin d\'un permis pour cela.</string>
+    <string name="mundraub_rule_3">Partagez le fruit de votre découverte et donnez quelque chose en retour.</string>
+    <string name="mundraub_rule_4">Impliquez-vous dans les soins et la plantation d\'arbres fruitiers.</string>
+    <string name="mundraub_rules_long_version">Montrez-moi la version longue !</string>
+    <string name="mundraub_rules_i_understand">Cela me semble raisonnable, j\'accepte !</string>
+    <string name="rules_url">https://mundraub.org/mundraeuber-regeln</string>
+
+</resources>
