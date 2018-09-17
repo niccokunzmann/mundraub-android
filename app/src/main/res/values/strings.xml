@@ -65,6 +65,20 @@
     <string name="gooseberry">Gooseberry</string>
     <string name="peach">Peach</string>
     <string name="silverberry">Silverberry</string>
+    <string name="tangerine">Tangerine</string>
+    <string name="grapefruit">Grapefruit</string>
+    <string name="red_ribes">Red Ribes</string>
+    <string name="black_ribes">Black Ribes</string>
+    <string name="strawberry">Strawberry</string>
+    <string name="jostaberry">Jostaberry</string>
+    <string name="greengage">Greengage</string>
+    <string name="grape">Grape</string>
+    <string name="orange">Orange</string>
+    <string name="dogwood">Dogwood</string>
+    <string name="lemon">Lemon</string>
+    <string name="briar">Briar</string>
+    <string name="fig" />
+    <string name="horse_chestnut">Horse Chestnut</string>
 
     <!-- Login -->
     <string name="title_activity_login">Sign in</string>
@@ -140,6 +154,7 @@
     <string name="error_could_not_sign_up_na_ovoce">Could not sign up to Na-Ovoce.cz. The server did not return a user id.</string>
     <string name="error_could_not_log_in_na_ovoce">Could not log in to Na-Ovoce.cz. The server did not return an authorization token. Please check your username and password and try again.</string>
     <string name="error_invalid_category_na_ovoce">The category of this plant is not available on Na-Ovoce.cz. I can not publish this plant. Please choose another category or upload it somewhere else.</string>
+    <string name="error_invalid_category_mundraub">The category of this plant is not available on Mundraub.org. I can not publish this plant. Please choose another category or upload it somewhere else.</string>
     <string name="error_plant_position_is_invalid">The plant has no valid position. It cannot be published.</string>
     <string name="error_plant_category_is_not_set">Please choose a plant category to upload the plant.</string>
 
