@@ -1,0 +1,795 @@
+{
+  "categories": {
+    "apple": {
+      "fruitmap": {
+        "id": "Apple tree"
+      },
+      "mundraub": {
+        "id": 4
+      },
+      "na-ovoce": {
+        "id": "a1e4"
+      },
+      "database": {
+        "id": 1
+      }
+    },
+    "apricot": {
+      "fruitmap": {
+        "id": "Apricot tree"
+      },
+      "mundraub": {
+        "id": 10
+      },
+      "na-ovoce": {
+        "id": "a13b"
+      },
+      "database": {
+        "id": 2
+      }
+    },
+    "pear": {
+      "fruitmap": {
+        "id": "Pear tree"
+      },
+      "mundraub": {
+        "id": 5
+      },
+      "na-ovoce": {
+        "id": "a3b8"
+      },
+      "database": {
+        "id": 3
+      }
+    },
+    "cherry": {
+      "fruitmap": {
+        "id": "Cherry tree"
+      },
+      "mundraub": {
+        "id": 6
+      },
+      "na-ovoce": {
+        "id": "a412"
+      },
+      "database": {
+        "id": 4
+      }
+    },
+    "sour cherry": {
+      "fruitmap": {
+        "id": "Sour cherry"
+      },
+      "mundraub": {
+        "as": "cherry"
+      },
+      "na-ovoce": {
+        "id": "a3a2"
+      },
+      "database": {
+        "id": 5
+      }
+    },
+    "mirabelle": {
+      "fruitmap": {
+        "id": "Yellow Plum"
+      },
+      "mundraub": {
+        "id": 7
+      },
+      "na-ovoce": {
+        "id": "a1d1"
+      },
+      "database": {
+        "id": 6
+      }
+    },
+    "mulberry": {
+      "fruitmap": {
+        "id": "Mulberry"
+      },
+      "mundraub": {
+        "id": 11
+      },
+      "na-ovoce": {
+        "id": "a162"
+      },
+      "database": {
+        "id": 7
+      }
+    },
+    "plum": {
+      "fruitmap": {
+        "id": "Plum tree"
+      },
+      "mundraub": {
+        "id": 8
+      },
+      "na-ovoce": {
+        "id": "a2c9"
+      },
+      "database": {
+        "id": 8
+      }
+    },
+    "greengage": {
+      "fruitmap": {
+        "id": "Greengage"
+      },
+      "mundraub": {
+        "as": "plum"
+      },
+      "na-ovoce": {
+        "as": "plum"
+      },
+      "database": {
+        "id": 53
+      }
+    },
+    "quince": {
+      "fruitmap": {
+        "id": "Quince"
+      },
+      "mundraub": {
+        "id": 9
+      },
+      "na-ovoce": {
+        "id": "a31a"
+      },
+      "database": {
+        "id": 9
+      }
+    },
+    "service tree": {
+      "fruitmap": {
+        "id": "Service Tree"
+      },
+      "mundraub": {
+        "as": "other fruit trees"
+      },
+      "na-ovoce": {
+        "id": "a277"
+      },
+      "database": {
+        "id": 11
+      }
+    },
+    "rowan": {
+      "fruitmap": {
+        "id": "Rowan"
+      },
+      "mundraub": {
+        "as": "other fruit trees"
+      },
+      "na-ovoce": {
+        "id": "a2b2"
+      },
+      "database": {
+        "id": 12
+      }
+    },
+    "peach": {
+      "fruitmap": {
+        "id": "Peach tree"
+      },
+      "mundraub": {
+        "as": "other fruit trees"
+      },
+      "na-ovoce": {
+        "id": "a382"
+      },
+      "database": {
+        "id": 13
+      }
+    },
+    "chokeberry": {
+      "fruitmap": {
+        "id": "Chokeberry"
+      },
+      "mundraub": {
+        "as": "other fruit trees"
+      },
+      "na-ovoce": {
+        "id": "a09b"
+      },
+      "database": {
+        "id": 28
+      }
+    },
+    "medlar": {
+      "fruitmap": {
+        "id": "Medlar"
+      },
+      "mundraub": {
+        "as": "other fruit trees"
+      },
+      "na-ovoce": {
+        "id": "a0c9"
+      },
+      "database": {
+        "id": 29
+      }
+    },
+    "tangerine": {
+      "fruitmap": {
+        "id": "Tangerine"
+      },
+      "mundraub": {
+        "as": "other fruit trees"
+      },
+      "database": {
+        "id": 47
+      }
+    },
+    "grapefruit": {
+      "fruitmap": {
+        "id": "Grapefruit"
+      },
+      "mundraub": {
+        "as": "other fruit trees"
+      },
+      "database": {
+        "id": 48
+      }
+    },
+    "orange": {
+      "fruitmap": {
+        "id": "Orange"
+      },
+      "mundraub": {
+        "as": "other fruit trees"
+      },
+      "database": {
+        "id": 55
+      }
+    },
+    "lemon": {
+      "fruitmap": {
+        "id": "Lemon"
+      },
+      "mundraub": {
+        "as": "other fruit trees"
+      },
+      "database": {
+        "id": 57
+      }
+    },
+    "fig": {
+      "fruitmap": {
+        "id": "Fig"
+      },
+      "mundraub": {
+        "as": "other fruit trees"
+      },
+      "database": {
+        "id": 59
+      }
+    },
+    "other fruit trees": {
+      "mundraub": {
+        "id": 12
+      },
+      "database": {
+        "id": 10
+      }
+    },
+    "blackberry": {
+      "fruitmap": {
+        "id": "Blackberry"
+      },
+      "mundraub": {
+        "id": 18
+      },
+      "na-ovoce": {
+        "id": "a0d5"
+      },
+      "database": {
+        "id": 14
+      }
+    },
+    "briar": {
+      "fruitmap": {
+        "id": "Briar"
+      },
+      "mundraub": {
+        "as": "blackberry"
+      },
+      "na-ovoce": {
+        "as": "blackberry"
+      },
+      "database": {
+        "id": 58
+      }
+    },
+    "blueberry": {
+      "fruitmap": {
+        "as": "bilberry"
+      },
+      "mundraub": {
+        "as": "bilberry"
+      },
+      "na-ovoce": {
+        "as": "bilberry"
+      },
+      "database": {
+        "id": 15
+      }
+    },
+    "bilberry": {
+      "fruitmap": {
+        "id": "Bilberries"
+      },
+      "mundraub": {
+        "id": 20
+      },
+      "na-ovoce": {
+        "id": "a477"
+      },
+      "database": {
+        "id": 16
+      }
+    },
+    "raspberry": {
+      "fruitmap": {
+        "id": "Raspberry"
+      },
+      "mundraub": {
+        "id": 22
+      },
+      "na-ovoce": {
+        "id": "a349"
+      },
+      "database": {
+        "id": 17
+      }
+    },
+    "elder": {
+      "fruitmap": {
+        "id": "Elderberry"
+      },
+      "mundraub": {
+        "id": 21
+      },
+      "na-ovoce": {
+        "id": "a430"
+      },
+      "database": {
+        "id": 18
+      }
+    },
+    "rose hip": {
+      "mundraub": {
+        "id": 27
+      },
+      "na-ovoce": {
+        "id": "a398"
+      },
+      "database": {
+        "id": 19
+      }
+    },
+    "juneberry": {
+      "mundraub": {
+        "id": 25
+      },
+      "database": {
+        "id": 20
+      }
+    },
+    "currant": {
+      "mundraub": {
+        "id": 23
+      },
+      "na-ovoce": {
+        "id": "a205"
+      },
+      "database": {
+        "id": 21
+      }
+    },
+    "red ribes": {
+      "fruitmap": {
+        "id": "Red ribes"
+      },
+      "mundraub": {
+        "as": "currant"
+      },
+      "na-ovoce": {
+        "as": "currant"
+      },
+      "database": {
+        "id": 49
+      }
+    },
+    "black ribes": {
+      "fruitmap": {
+        "id": "Black ribes"
+      },
+      "mundraub": {
+        "as": "currant"
+      },
+      "na-ovoce": {
+        "as": "currant"
+      },
+      "database": {
+        "id": 50
+      }
+    },
+    "jostaberry": {
+      "fruitmap": {
+        "id": "Josta"
+      },
+      "mundraub": {
+        "as": "currant"
+      },
+      "na-ovoce": {
+        "as": "currant"
+      },
+      "database": {
+        "id": 52
+      }
+    },
+    "dogwood": {
+      "fruitmap": {
+        "id": "Dogwood"
+      },
+      "mundraub": {
+        "as": "cornel cherry"
+      },
+      "na-ovoce": {
+        "as": "cornel cherry"
+      },
+      "database": {
+        "id": 56
+      }
+    },
+    "cornel cherry": {
+      "fruitmap": {
+        "id": "Cornel"
+      },
+      "mundraub": {
+        "id": 24
+      },
+      "na-ovoce": {
+        "id": "a116"
+      },
+      "database": {
+        "id": 22
+      }
+    },
+    "seaberry": {
+      "fruitmap": {
+        "id": "Sea Buckthorn"
+      },
+      "mundraub": {
+        "id": 26
+      },
+      "na-ovoce": {
+        "id": "a1f4"
+      },
+      "database": {
+        "id": 23
+      }
+    },
+    "sloe": {
+      "fruitmap": {
+        "id": "Blackthorn"
+      },
+      "mundraub": {
+        "id": 28
+      },
+      "na-ovoce": {
+        "id": "a0a7"
+      },
+      "database": {
+        "id": 24
+      }
+    },
+    "haw": {
+      "fruitmap": {
+        "id": "Hawthorn"
+      },
+      "mundraub": {
+        "id": 29
+      },
+      "na-ovoce": {
+        "id": "a272"
+      },
+      "database": {
+        "id": 25
+      }
+    },
+    "gooseberry": {
+      "fruitmap": {
+        "id": "Gooseberry"
+      },
+      "mundraub": {
+        "as": "other fruit shrub"
+      },
+      "na-ovoce": {
+        "id": "a43a"
+      },
+      "database": {
+        "id": 30
+      }
+    },
+    "grape": {
+      "fruitmap": {
+        "id": "Grape"
+      },
+      "database": {
+        "id": 54
+      }
+    },
+    "other fruit shrub": {
+      "mundraub": {
+        "id": 30
+      },
+      "database": {
+        "id": 26
+      }
+    },
+    "ramsons": {
+      "fruitmap": {
+        "id": "Wild Garlic"
+      },
+      "mundraub": {
+        "id": 31
+      },
+      "na-ovoce": {
+        "id": "a1bb"
+      },
+      "database": {
+        "id": 32
+      }
+    },
+    "mint": {
+      "fruitmap": {
+        "id": "Mint"
+      },
+      "mundraub": {
+        "id": 33
+      },
+      "na-ovoce": {
+        "id": "a118"
+      },
+      "database": {
+        "id": 33
+      }
+    },
+    "rosemary": {
+      "mundraub": {
+        "id": 34
+      },
+      "database": {
+        "id": 34
+      }
+    },
+    "thyme": {
+      "mundraub": {
+        "id": 36
+      },
+      "database": {
+        "id": 35
+      }
+    },
+    "juniper": {
+      "mundraub": {
+        "id": 32
+      },
+      "database": {
+        "id": 36
+      }
+    },
+    "woodruff": {
+      "mundraub": {
+        "id": 35
+      },
+      "database": {
+        "id": 37
+      }
+    },
+    "silverberry": {
+      "fruitmap": {
+        "id": "Silverberry"
+      },
+      "mundraub": {
+        "as": "other herbs"
+      },
+      "na-ovoce": {
+        "id": "a3d3"
+      },
+      "database": {
+        "id": 31
+      }
+    },
+    "lemon balm": {
+      "fruitmap": {
+        "id": "Lemon Balm"
+      },
+      "mundraub": {
+        "as": "other herbs"
+      },
+      "na-ovoce": {
+        "id": "a324"
+      },
+      "database": {
+        "id": 39
+      }
+    },
+    "other herbs": {
+      "mundraub": {
+        "id": 37
+      },
+      "database": {
+        "id": 38
+      }
+    },
+    "chestnut": {
+      "fruitmap": {
+        "id": "Chestnut"
+      },
+      "mundraub": {
+        "id": 16
+      },
+      "na-ovoce": {
+        "id": "a08d"
+      },
+      "database": {
+        "id": 41
+      }
+    },
+    "horse chestnut": {
+      "fruitmap": {
+        "id": "Horse chestnut"
+      },
+      "mundraub": {
+        "as": "chestnut"
+      },
+      "na-ovoce": {
+        "as": "chestnut"
+      },
+      "database": {
+        "id": 60
+      }
+    },
+    "hazel": {
+      "fruitmap": {
+        "id": "Hazelnut"
+      },
+      "mundraub": {
+        "id": 14
+      },
+      "na-ovoce": {
+        "id": "a3c4"
+      },
+      "database": {
+        "id": 42
+      }
+    },
+    "wild strawberry": {
+      "fruitmap": {
+        "id": "Wild Strawberry"
+      },
+      "mundraub": {
+        "id": 19
+      },
+      "na-ovoce": {
+        "id": "a11b"
+      },
+      "database": {
+        "id": 43
+      }
+    },
+    "strawberry": {
+      "fruitmap": {
+        "id": "Strawberries"
+      },
+      "mundraub": {
+        "as": "wild strawberry"
+      },
+      "na-ovoce": {
+        "as": "wild strawberry"
+      },
+      "database": {
+        "id": 51
+      }
+    },
+    "walnut": {
+      "fruitmap": {
+        "id": "Walnut tree"
+      },
+      "mundraub": {
+        "id": 15
+      },
+      "na-ovoce": {
+        "id": "a03b"
+      },
+      "database": {
+        "id": 44
+      }
+    },
+    "almond": {
+      "fruitmap": {
+        "id": "Almond"
+      },
+      "mundraub": {
+        "as": "other nut"
+      },
+      "na-ovoce": {
+        "id": "a485"
+      },
+      "database": {
+        "id": 46
+      }
+    },
+    "other nut": {
+      "mundraub": {
+        "id": 17
+      },
+      "database": {
+        "id": 45
+      }
+    }
+  },
+  "order": [
+    "apple",
+    "apricot",
+    "pear",
+    "cherry",
+    "sour cherry",
+    "mirabelle",
+    "mulberry",
+    "plum",
+    "greengage",
+    "quince",
+    "service tree",
+    "rowan",
+    "peach",
+    "chokeberry",
+    "medlar",
+    "tangerine",
+    "grapefruit",
+    "orange",
+    "lemon",
+    "fig",
+    "other fruit trees",
+    "blackberry",
+    "briar",
+    "blueberry",
+    "bilberry",
+    "raspberry",
+    "elder",
+    "rose hip",
+    "juneberry",
+    "currant",
+    "red ribes",
+    "black ribes",
+    "jostaberry",
+    "dogwood",
+    "cornel cherry",
+    "seaberry",
+    "sloe",
+    "haw",
+    "gooseberry",
+    "grape",
+    "other fruit shrub",
+    "ramsons",
+    "mint",
+    "rosemary",
+    "thyme",
+    "juniper",
+    "woodruff",
+    "silverberry",
+    "lemon balm",
+    "other herbs",
+    "chestnut",
+    "horse chestnut",
+    "hazel",
+    "wild strawberry",
+    "strawberry",
+    "walnut",
+    "almond",
+    "other nut"
+  ]
+}

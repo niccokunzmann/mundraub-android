@@ -29,6 +29,7 @@ public abstract class API extends ErrorAware {
     public static final API DUMMY = new DummyAPI();
     public static final API MUNDRAUB = new MundraubAPI();
     public static final API NA_OVOCE = new NaOvoceAPI();
+    public static final API FRUITMAP = new FruitMapAPI();
     public static final API DEFAULT = MUNDRAUB;
     public final int TASK_SUCCEEDED = R.string.task_completed_successfully;
     public final int TASK_CANCELLED = R.string.task_was_cancelled;
@@ -67,7 +68,8 @@ public abstract class API extends ErrorAware {
     public static API[] getMarkerAPIs() {
         return new API[]{
                 MUNDRAUB,
-                NA_OVOCE
+                NA_OVOCE,
+                FRUITMAP
         }; // TODO: settings
     }
 
@@ -155,6 +157,9 @@ public abstract class API extends ErrorAware {
     protected void checkPlantForAPI(Plant plant) throws ErrorWithExplanation {
         if (plant.getCategory().isUnknown()) {
             abortOperation(R.string.error_plant_category_is_not_set);
+        }
+        if (!plant.getCategory().canBeUsedByAPI(this)) {
+            abortOperation(R.string.error_invalid_category_for_api);
         }
         if (!plant.getPosition().isValid()) {
             abortOperation(R.string.error_plant_position_is_invalid);

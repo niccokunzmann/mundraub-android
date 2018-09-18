@@ -55,12 +55,16 @@ public class ChoosePlantType extends MundraubBaseActivity {
         plantTypesView = (RecyclerView) findViewById(R.id.plant_types);
         // from https://stackoverflow.com/q/29141729
         plantTypesView.setLayoutManager(new LinearLayoutManager(this));
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
         fillInPlantTypes();
     }
 
     private void fillInPlantTypes() {
-        List<PlantCategory> categories = new ArrayList<PlantCategory>(PlantCategory.all());
+        List<PlantCategory> categories = new ArrayList<PlantCategory>(PlantCategory.allVisible());
         PlantCategoryAdapter adapter = new PlantCategoryAdapter(this, categories);
         plantTypesView.setAdapter(adapter);
     }

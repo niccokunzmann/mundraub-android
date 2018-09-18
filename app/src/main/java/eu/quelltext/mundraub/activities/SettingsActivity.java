@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
@@ -187,6 +188,25 @@ public class SettingsActivity extends MundraubBaseActivity {
         synchronizePermissionSetting(R.id.toggle_location, R.id.toggle_location_ask, getPermissions().ACCESS_FINE_LOCATION);
         synchronizePermissionSetting(R.id.toggle_internet, R.id.toggle_internet_ask, getPermissions().INTERNET);
         synchronizePermissionSetting(R.id.toggle_storage, R.id.toggle_storage_ask, getPermissions().WRITE_EXTERNAL_STORAGE);
+        synchronizeCategoryCheckbutton(R.id.checkBox_markers_mundraub, Settings.API_ID_MUNDRAUB);
+        synchronizeCategoryCheckbutton(R.id.checkBox_markers_na_ovoce, Settings.API_ID_NA_OVOCE);
+        synchronizeCategoryCheckbutton(R.id.checkBox_markers_fruitmap, Settings.API_ID_FRUITMAP);
+        synchronizeCategoryCheckbutton(R.id.checkBox_markers_community, Settings.API_ID_COMMUNITY);
+
+    }
+
+    private void synchronizeCategoryCheckbutton(int checkBox_markers, final String apiId) {
+        synchronizeCheckbutton(checkBox_markers, new Toggled() {
+            @Override
+            public int onToggle(boolean checked) {
+                return Settings.showCategory(apiId, checked);
+            }
+
+            @Override
+            public boolean isChecked() {
+                return Settings.showCategory(apiId);
+            }
+        });
     }
 
     private void goOffline() {
@@ -221,13 +241,27 @@ public class SettingsActivity extends MundraubBaseActivity {
     private void synchronizeBooleanSetting(final int resourceId, final Toggled onToggle) {
         final ToggleButton toggle = (ToggleButton) findViewById(resourceId);
         toggle.setChecked(onToggle.isChecked());
-        final SettingsActivity me = this;
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 int result = onToggle.onToggle(isChecked);
                 if (result != Settings.COMMIT_SUCCESSFUL) {
-                    new Dialog(me).alertError(result);
+                    new Dialog(SettingsActivity.this).alertError(result);
+                }
+                update();
+            }
+        });
+    }
+
+    private void synchronizeCheckbutton(final int resourceId, final Toggled onToggle) {
+        final CheckBox toggle = (CheckBox) findViewById(resourceId);
+        toggle.setChecked(onToggle.isChecked());
+        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                int result = onToggle.onToggle(isChecked);
+                if (result != Settings.COMMIT_SUCCESSFUL) {
+                    new Dialog(SettingsActivity.this).alertError(result);
                 }
                 update();
             }

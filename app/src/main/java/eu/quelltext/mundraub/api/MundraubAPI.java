@@ -499,11 +499,4 @@ public class MundraubAPI extends API {
     public boolean canUpdate() {
         return false;
     }
-
-    protected void checkPlantForAPI(Plant plant) throws ErrorWithExplanation {
-        super.checkPlantForAPI(plant);
-        if (!plant.getCategory().canBeUsedByMundraub()) {
-            abortOperation(R.string.error_invalid_category_mundraub);
-        }
-    }
 }
