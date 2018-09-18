@@ -32,6 +32,7 @@
     <string name="other_fruit_trees">Other Fruit Tree</string>
     <string name="blackberry">Blackberry</string>
     <string name="blueberry">Blueberry</string>
+    <string name="bilberry">Bilberry</string>
     <string name="raspberry">Raspberry</string>
     <string name="elder">Elder</string>
     <string name="rose_hip">Rose Hip</string>
@@ -77,8 +78,12 @@
     <string name="dogwood">Dogwood</string>
     <string name="lemon">Lemon</string>
     <string name="briar">Briar</string>
-    <string name="fig" />
+    <string name="fig">Fig</string>
     <string name="horse_chestnut">Horse Chestnut</string>
+    <string name="reason_plant_categories_could_not_load">The plant categories could not be loaded. This means that all edited plants do not have a category.</string>
+    <string name="plant_categories_could_not_load_ask_close">Would you like to close the app to prevent damage to your recoded plants?</string>
+    <string name="fruit_resource_id_not_found">Error: Add the plant category in the strings.xml file.</string>
+
 
     <!-- Login -->
     <string name="title_activity_login">Sign in</string>
@@ -97,6 +102,8 @@
     <string name="login_api_name_mundraub">Mundraub.org</string>
     <string name="login_api_name_na_ovoce">Na-Ovoce.cz</string>
     <string name="login_api_name_dummy">Local Dummy API</string>
+    <string name="login_api_name_fruitmap">FruitMap.org</string>
+
 
     <!-- view plant details -->
     <string name="title_plant_detail">Plant Detail</string>
@@ -153,8 +160,7 @@
     <string name="error_timeout">The connection to the server timed out.</string>
     <string name="error_could_not_sign_up_na_ovoce">Could not sign up to Na-Ovoce.cz. The server did not return a user id.</string>
     <string name="error_could_not_log_in_na_ovoce">Could not log in to Na-Ovoce.cz. The server did not return an authorization token. Please check your username and password and try again.</string>
-    <string name="error_invalid_category_na_ovoce">The category of this plant is not available on Na-Ovoce.cz. I can not publish this plant. Please choose another category or upload it somewhere else.</string>
-    <string name="error_invalid_category_mundraub">The category of this plant is not available on Mundraub.org. I can not publish this plant. Please choose another category or upload it somewhere else.</string>
+    <string name="error_invalid_category_for_api">The category of this plant is not available on this platform. I can not publish this plant. Please choose another category or upload it somewhere else.</string>
     <string name="error_plant_position_is_invalid">The plant has no valid position. It cannot be published.</string>
     <string name="error_plant_category_is_not_set">Please choose a plant category to upload the plant.</string>
 
@@ -206,6 +212,7 @@
     <string name="title_settings">App Settings</string>
     <string name="settings_use_mundraub_api">If this is enabled, this app publishes the plants to Mundraub.org.</string>
     <string name="settings_use_na_ovoce">If this is enabled, this app publishes the plants to Na-Ovoce.cz.</string>
+    <string name="settings_use_fruitmap">If this is enabled, this app publishes the plants to FruitMap.org.</string>
     <string name="settings_use_dummy">If this is enabled, this app does not publish the plants but instead simulates a local API for testing.</string>
     <string name="setting_use_secure_connection">If this is enabled, this app connections to Mundraub.org and other servers are trusted by the Certificate Authorities. This may cause a problem on older platforms which can not verify the certificate.</string>
     <string name="settings_use_cache">If this is enabled, the app uses the cache directory for the plants. You can delete them when you need to. If this is disabled, the app uses the external storage, so you can sync and transfer the plants.</string>
@@ -236,6 +243,11 @@
     <string name="success_offline_data_was_downloaded">All data to go offline was downloaded.</string>
     <string name="error_debug_api_can_not_download_offline_data">The debug API can not download offline data. Please use the Mundraub API at the bottom of the settings.</string>
     <string name="settings_create_public_api_for_debug">If this is enabled, the app provides the Mundraub map API to the local network. No harm can be done as this API is read only.</string>
+    <string name="settings_markers">Choose Your Plant Categories</string>
+    <string name="settings_use_markers_mundraub">When this is checked, you can choose your plant category from Mundraub.org.</string>
+    <string name="settings_use_markers_na_ovoce">When this is checked, you can choose your plant category from Na-Ovoce.cz.</string>
+    <string name="settings_use_markers_fruitmap">When this is checked, you can choose your plant category from FruitMap.org.</string>
+    <string name="settings_use_markers_community">When this is checked, you can choose categories of plants which are only available in the app and contributed by the community.</string>
 
     <!-- Mundraub rules https://mundraub.org/mundraeuber-regeln -->
     <string name="title_codex">Community Codex</string>

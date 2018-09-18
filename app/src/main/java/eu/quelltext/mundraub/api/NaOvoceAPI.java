@@ -37,13 +37,6 @@ public class NaOvoceAPI extends API {
     private static final String JSON_ID = "id";
     private String token = null;
 
-    protected void checkPlantForAPI(Plant plant) throws ErrorWithExplanation {
-        super.checkPlantForAPI(plant);
-        if (!plant.getCategory().canBeUsedByNaOvoce()) {
-            abortOperation(R.string.error_invalid_category_na_ovoce);
-        }
-    }
-
     @Override
     protected int addPlantAsync(Plant plant) throws ErrorWithExplanation {
         return sendPlantTo(plant, "POST", URL_ADD_PLANT);

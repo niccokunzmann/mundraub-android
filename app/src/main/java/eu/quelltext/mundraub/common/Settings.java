@@ -4,12 +4,18 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Environment;
+import android.support.annotation.Nullable;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -38,6 +44,13 @@ import static eu.quelltext.mundraub.common.Settings.ChangeListener.SETTINGS_CAN_
  */
 public class Settings {
 
+    public static final String API_ID_MUNDRAUB = "mundraub";
+    public static final String API_ID_NA_OVOCE = "na-ovoce";
+    public static final String API_ID_DUMMY = "dummy";
+    public static final String API_ID_FRUITMAP = "fruitmap";
+    public static final String API_ID_COMMUNITY = "community"; // only for markers
+
+
     private static final String PLANT_STORAGE_DIRECTORY_NAME = "eu.quelltext.mundraub";
     public static final String INVALID_HASH = "0000000000000000000000000000000000000000";
     public static final String COMMIT_HASH = INVALID_HASH;
@@ -57,10 +70,6 @@ public class Settings {
     private static List<ChangeListener> listeners = new ArrayList<ChangeListener>();
     private static Activity activity = null;
 
-    public static String API_ID_MUNDRAUB = "mundraub";
-    public static String API_ID_NA_OVOCE = "na-ovoce";
-    public static String API_ID_DUMMY = "dummy";
-
     /* persistent variables for the settings
      * If you like to add new settings, please see useInsecureConnections
      * as an example for where these are used.
@@ -75,6 +84,8 @@ public class Settings {
     private static boolean useErrorReport = true;
     private static boolean useOfflineMapAPI = false;
     private static boolean debugMundraubMapAPI = false;
+    private static Set<String> showCategories = new HashSet<>(Arrays.asList(API_ID_MUNDRAUB)); // https://stackoverflow.com/a/2041810/1320237
+
 
     static {
         Initialization.provideActivityFor(new Initialization.ActivityInitialized() {
@@ -103,6 +114,7 @@ public class Settings {
         log.d("useErrorReport", useErrorReport);
         log.d("useOfflineMapAPI", useOfflineMapAPI);
         log.d("debugMundraubMapAPI", debugMundraubMapAPI);
+        log.d("showCategories", showCategoriesString());
         if (!useCacheForPlants) {
             log.d("persistentPathForPlants", persistentPathForPlants.toString());
         }
@@ -119,6 +131,9 @@ public class Settings {
         useErrorReport = preferences.getBoolean("useErrorReport", useErrorReport);
         useOfflineMapAPI = preferences.getBoolean("useOfflineMapAPI", useOfflineMapAPI);
         debugMundraubMapAPI = preferences.getBoolean("debugMundraubMapAPI", debugMundraubMapAPI);
+        String s = preferences.getString("showCategories", showCategoriesString());
+        String[] l = StringUtils.split(s, ",");
+        showCategories = new HashSet<String>(Arrays.asList(l));
         // load the permission questions
         permissionQuestion.clear();
         for (String key : preferences.getAll().keySet()) {
@@ -132,6 +147,11 @@ public class Settings {
         }
     }
 
+    @Nullable
+    private static String showCategoriesString() {
+        return StringUtils.join(showCategories.toArray(), ",");
+    }
+
     private static int commit() {
         if (hasPreferences()) {
             SharedPreferences.Editor editor = preferences.edit();
@@ -142,6 +162,7 @@ public class Settings {
             editor.putBoolean("useErrorReport", useErrorReport);
             editor.putBoolean("useOfflineMapAPI", useOfflineMapAPI);
             editor.putBoolean("debugMundraubMapAPI", debugMundraubMapAPI);
+            editor.putString("showCategories", showCategoriesString());
             for (String key: permissionQuestion.keySet()) {
                 editor.putBoolean(key, permissionQuestion.get(key));
             }
@@ -312,7 +333,6 @@ public class Settings {
         }
     }
 
-
     public interface ChangeListener {
         int SETTINGS_CAN_CHANGE = R.string.settings_can_change;
         int settingsChanged();
@@ -329,4 +349,18 @@ public class Settings {
             return new MundraubMapAPIForApp();
         }
     }
+
+    public static int showCategory(String apiId, boolean checked) {
+        if (checked) {
+            showCategories.add(apiId);
+        } else {
+            showCategories.remove(apiId);
+        }
+        return commit();
+    }
+
+    public static boolean showCategory(String apiId) {
+        return showCategories.contains(apiId);
+    }
+
 }
