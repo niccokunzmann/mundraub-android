@@ -49,6 +49,7 @@ App components:
 - For publishing the found plants and markers on the map:
     - [Mundraub.org] (German)
     - [Na-Ovoce.cz] (Czech)
+    - [FruitMap.org] (Slovakian, English and Czech) (download only)
     - www.quelltext.eu in case the insecure connections for old Androids are enabled.
 - [OpenLayers] for refining te position
 - [openstreetmap] for rendering OpenStreetMap
@@ -95,4 +96,5 @@ Languages:
 [first-issues-image]: https://img.shields.io/github/issues/niccokunzmann/mundraub-android/good%20first%20issue.svg?label=good%20first%20issues
 [Microsoft Translate]: https://portal.azure.com/#@niccokunzmannlive.onmicrosoft.com/resource/subscriptions/7ad79494-1d19-43e4-8f0c-59d1a34c5711/resourcegroups/Mundraub-Android-Resource-Group/providers/Microsoft.CognitiveServices/accounts/Mundraub-Android-Translations/quickstart
 [Na-Ovoce.cz]: https://na-ovoce.cz/
+[FruitMap.org]: https://www.fruitmap.org/
 
