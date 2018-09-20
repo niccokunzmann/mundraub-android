@@ -77,6 +77,7 @@
     <string name="orange">Orange</string>
     <string name="dogwood">Dogwood</string>
     <string name="lemon">Lemon</string>
+    <!-- https://en.wikipedia.org/wiki/Briar_(thicket) -->
     <string name="briar">Briar</string>
     <string name="fig">Fig</string>
     <string name="horse_chestnut">Horse Chestnut</string>
@@ -122,6 +123,8 @@
     <string name="no">no</string>
     <string name="yes">yes</string>
     <string name="edit">Edit</string>
+    <string name="ask_upload_ok">Would you like to upload the plant like this?</string>
+    <string name="reason_category_changes">On \"<xliff:g example="Mundraub.org" id="platform">%1$s</xliff:g>\", the category \"<xliff:g example="Tangerine" id="source_category">%2$s</xliff:g>\" can only be uploaded as \"<xliff:g example="Other Fruit Tree" id="mapped_category">%3$s</xliff:g>\".</string>
 
     <!-- Dialogs -->
     <string name="error">Error</string>

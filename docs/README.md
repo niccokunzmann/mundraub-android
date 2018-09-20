@@ -201,7 +201,8 @@ https://github.com/niccokunzmann/mundraub-android/issues/108
     'Horse chestnut',
     'Rowan'
 
-https://www.fruitmap.org/api/trees
+https://www.fruitmap.org/api/trees  
+does not contain all categories.
 
     [{"id":"1","name":"Apple tree","color":"#FE3434","count":"2160"},
     {"id":"6","name":"Walnut tree","color":"#CB9668","count":"1533"},

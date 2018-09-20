@@ -23,6 +23,7 @@ import eu.quelltext.mundraub.common.Dialog;
 import eu.quelltext.mundraub.error.Logger;
 import eu.quelltext.mundraub.map.MapCache;
 import eu.quelltext.mundraub.plant.Plant;
+import eu.quelltext.mundraub.plant.PlantCategory;
 
 /**
  * A fragment representing a single Plant detail screen.
@@ -185,13 +186,33 @@ public class PlantDetailFragment extends Fragment {
             }
 
             private void createPlant() {
-                plant.online().create(updateOrShowError(R.string.success_plant_uploaded));
+                askForUploadIfCategoryChanges(new Dialog.YesNoCallback() {
+                    @Override
+                    public void yes() {
+                        plant.online().create(updateOrShowError(R.string.success_plant_uploaded));
+                    }
+                    @Override
+                    public void no() {
+
+                    }
+                });
+
             }
         });
         updateButton(R.id.button_upload_changes, plant.online().canUpdate(), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                plant.online().update(updateOrShowError(R.string.success_plant_updated));
+                askForUploadIfCategoryChanges(new Dialog.YesNoCallback() {
+                    @Override
+                    public void yes() {
+                        plant.online().update(updateOrShowError(R.string.success_plant_updated));
+                    }
+
+                    @Override
+                    public void no() {
+
+                    }
+                });
             }
         });
         updateButton(R.id.button_view, plant.online().hasURL(), new View.OnClickListener() {
@@ -218,6 +239,26 @@ public class PlantDetailFragment extends Fragment {
             }
         });
 
+    }
+
+    private String resourceIdToString(int resourceId) {
+        return getContext().getResources().getString(resourceId);
+    }
+
+    private void askForUploadIfCategoryChanges(Dialog.YesNoCallback yesNoCallback) {
+        API api = plant.online().api();
+        PlantCategory category = plant.getCategory();
+        PlantCategory categoryOnAPI = plant.getCategory().on(api);
+        if (category != categoryOnAPI) {
+            String reason = resourceIdToString(R.string.reason_category_changes);
+            String categoryName = resourceIdToString(api.nameResourceId());
+            String sourceCategory = resourceIdToString(plant.getCategory().getResourceId());
+            String targetCategory = resourceIdToString(plant.getCategory().on(api).getResourceId());
+            reason = String.format(reason, categoryName, sourceCategory, targetCategory);
+            new Dialog(this.getActivity()).askYesNo(reason, R.string.ask_upload_ok, yesNoCallback);
+        } else {
+            yesNoCallback.yes();
+        }
     }
 
     private void openURLInBrowser(String url) {

@@ -223,6 +223,13 @@ public class PlantCategory {
         return withId(intent.getStringExtra(INTENT_FIELD));
     }
 
+    public PlantCategory on(API api) {
+        if (apiIdToCategory.containsKey(api.id())) {
+            return apiIdToCategory.get(api.id());
+        }
+        return NULL;
+    }
+
     public static class NullCategory extends PlantCategory {
 
         NullCategory() {
