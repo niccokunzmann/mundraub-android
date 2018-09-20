@@ -1,7 +1,7 @@
 # Categories
 
 There are many categories available to choose your plant for.
-The `categories.json` file contains the following fields:
+The [categories.json] file contains the following fields:
 - `categories`  
     The available categories and their mapping to platform ids.
 - `order`  
@@ -235,3 +235,5 @@ does not contain all categories.
     {"id":"36","name":"Rowan","color":"#F15B40","count":"44"},
     {"id":"33","name":"Chokeberry","color":"#21409A","count":"41"},
     {"id":"41","name":"Sea Buckthorn","color":"#F07E26","count":"37"}]
+
+[categories.json]: ../app/src/main/assets/categories/categories.json
