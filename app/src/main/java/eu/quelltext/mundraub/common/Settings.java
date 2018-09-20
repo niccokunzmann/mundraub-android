@@ -85,6 +85,8 @@ public class Settings {
     private static boolean useOfflineMapAPI = false;
     private static boolean debugMundraubMapAPI = false;
     private static Set<String> showCategories = new HashSet<>(Arrays.asList(API_ID_MUNDRAUB)); // https://stackoverflow.com/a/2041810/1320237
+    private static boolean useFruitRadarNotifications = false;
+    private static int radarPlantRangeMeters = 50;
 
 
     static {
@@ -114,6 +116,8 @@ public class Settings {
         log.d("useErrorReport", useErrorReport);
         log.d("useOfflineMapAPI", useOfflineMapAPI);
         log.d("debugMundraubMapAPI", debugMundraubMapAPI);
+        log.d("useFruitRadarNotifications", useFruitRadarNotifications);
+        log.d("radarPlantRangeMeters", radarPlantRangeMeters);
         log.d("showCategories", showCategoriesString());
         if (!useCacheForPlants) {
             log.d("persistentPathForPlants", persistentPathForPlants.toString());
@@ -131,6 +135,8 @@ public class Settings {
         useErrorReport = preferences.getBoolean("useErrorReport", useErrorReport);
         useOfflineMapAPI = preferences.getBoolean("useOfflineMapAPI", useOfflineMapAPI);
         debugMundraubMapAPI = preferences.getBoolean("debugMundraubMapAPI", debugMundraubMapAPI);
+        useFruitRadarNotifications = preferences.getBoolean("useFruitRadarNotifications", useFruitRadarNotifications);
+        radarPlantRangeMeters = preferences.getInt("radarPlantRangeMeters", radarPlantRangeMeters);
         String s = preferences.getString("showCategories", showCategoriesString());
         String[] l = StringUtils.split(s, ",");
         showCategories = new HashSet<String>(Arrays.asList(l));
@@ -145,6 +151,7 @@ public class Settings {
         for (ChangeListener listener : listeners) {
             listener.settingsChanged();
         }
+        print();
     }
 
     @Nullable
@@ -162,6 +169,8 @@ public class Settings {
             editor.putBoolean("useErrorReport", useErrorReport);
             editor.putBoolean("useOfflineMapAPI", useOfflineMapAPI);
             editor.putBoolean("debugMundraubMapAPI", debugMundraubMapAPI);
+            editor.putBoolean("useFruitRadarNotifications", useFruitRadarNotifications);
+            editor.putInt("radarPlantRangeMeters", radarPlantRangeMeters);
             editor.putString("showCategories", showCategoriesString());
             for (String key: permissionQuestion.keySet()) {
                 editor.putBoolean(key, permissionQuestion.get(key));
@@ -334,6 +343,32 @@ public class Settings {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static boolean useFruitRadarNotifications() {
+        return useFruitRadarNotifications && useOfflineMapAPI();
+    }
+
+    public static int useFruitRadarNotifications(boolean used) {
+        useFruitRadarNotifications = used;
+        return commit();
+    }
+
+    public static int getRadarPlantRangeMeters() {
+        return radarPlantRangeMeters;
+    }
+
+    public static int getRadarGPSPrecisionMeters() {
+        return getRadarPlantRangeMeters() / 2;
+    }
+
+    public static double getRadarPlantMaximumRangeMeters() {
+        return getRadarPlantRangeMeters() * 2;
+    }
+
+    public static int setRadarPlantRangeMeters(int meters) {
+        radarPlantRangeMeters = meters;
+        return commit();
     }
 
     public interface ChangeListener {

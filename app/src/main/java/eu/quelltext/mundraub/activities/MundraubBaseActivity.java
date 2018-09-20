@@ -1,9 +1,14 @@
 package eu.quelltext.mundraub.activities;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -156,5 +161,15 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
     protected void openMundraubRules() {
         Intent intent = new Intent(this, CodexActivity.class);
         startActivity(intent);
+    }
+
+    public LocationManager createLocationManager() {
+        getPermissions().ACCESS_FINE_LOCATION.askIfNotGranted();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return null;
+        }
+        // from https://stackoverflow.com/a/10917500
+        return (LocationManager)
+                getSystemService(Context.LOCATION_SERVICE);
     }
 }

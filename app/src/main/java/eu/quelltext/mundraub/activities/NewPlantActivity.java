@@ -1,17 +1,14 @@
 package eu.quelltext.mundraub.activities;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -310,26 +307,11 @@ public class NewPlantActivity extends MundraubBaseActivity {
     }
 
     private boolean tryCreateLocationManager() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            // TODO: or create alert box:
-            //       protected void alertbox in http://rdcworld-android.blogspot.com/2012/01/get-current-location-coordinates-city.html
-            log.d("DEBUG", "Access to GPS position is not granted.");
-            return false;
-        }
         if (locationManager != null) {
             return true;
         }
-        // from https://stackoverflow.com/a/10917500
-        locationManager = (LocationManager)
-                getSystemService(Context.LOCATION_SERVICE);
-        return true;
+        locationManager = createLocationManager();
+        return locationManager != null;
     }
 
     private void stopGPSUpdates() {

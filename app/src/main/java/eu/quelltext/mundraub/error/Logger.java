@@ -38,13 +38,8 @@ public class Logger implements UncaughtExceptionHandler, Initialization.Activity
     public static Logger getInstance() {
         if (logger == null) {
             logger = new Logger();
-            afterCreateHook();
         }
         return logger;
-    }
-
-    private static void afterCreateHook() {
-        Settings.print();
     }
 
     private Logger() {

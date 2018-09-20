@@ -38,6 +38,8 @@ import javax.net.ssl.X509TrustManager;
 import eu.quelltext.mundraub.error.ErrorAware;
 
 public final class Helper extends ErrorAware {
+    private static final double EARTH_RADIUS_METERS = 6399594.;
+
     public static void deleteDir(File file) {
         // from https://stackoverflow.com/a/29175213/1320237
         File[] contents = file.listFiles();
@@ -98,6 +100,34 @@ public final class Helper extends ErrorAware {
         }
         imageView.setImageBitmap(bitmap);
         return true;
+    }
+
+    public static double metersToRadian(double distanceInMeters) {
+        return distanceInMeters / EARTH_RADIUS_METERS;
+    }
+
+    private static double DEG_TO_RAD = Math.PI / 180;
+    private static double deg2rad(double degrees) {
+        return degrees * DEG_TO_RAD;
+    }
+
+    public static double distanceInMetersBetween(double longitude1, double latitude1, double longitude2, double latitude2) {
+        // convert from degree to radial
+        double phi1 = deg2rad(latitude1);
+        double phi2 = deg2rad(latitude2);
+        double lambda1 = deg2rad(longitude1);
+        double lambda2 = deg2rad(longitude2);
+        // compute the deltas
+        double dPhi = phi1 - phi2; // Δφ
+        double dLambda = lambda1 - lambda2; // Δλ
+        // compute haversine formula
+        double dRoh = 2 * Math.asin(Math.sqrt(
+                Math.pow(Math.sin(dPhi / 2), 2) +
+                        Math.cos(phi1) * Math.cos(phi2) *
+                                Math.pow(Math.sin(dLambda / 2), 2)
+        ));
+        double distance = EARTH_RADIUS_METERS * dRoh;
+        return distance;
     }
 
     private static class TrustAllX509TrustManager implements X509TrustManager {

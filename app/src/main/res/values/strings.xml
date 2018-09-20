@@ -252,6 +252,12 @@
     <string name="settings_use_markers_na_ovoce">When this is checked, you can choose your plant category from Na-Ovoce.cz.</string>
     <string name="settings_use_markers_fruitmap">When this is checked, you can choose your plant category from FruitMap.org.</string>
     <string name="settings_use_markers_community">When this is checked, you can choose categories of plants which are only available in the app and contributed by the community.</string>
+    <string name="settings_fruit_radar">Fruit Radar</string>
+    <string name="settings_enable_fruit_radar">If this is enabled, the app notifies you about edible plants nearby.</string>
+    <string name="settings_distance_in_meters" formatted="false">When the plant is <xliff:g example="10" id="distance">%1$d</xliff:g> meters away, you receive a notification.</string>
+    <string name="settings_show_example_notification">show example notification</string>
+    <string name="reason_radar_only_works_in_offline_mode">The fruit radar only works in offline mode because it needs the markers downloaded.</string>
+    <string name="ask_switch_on_offline_mode">Would you like to enter the offline mode now?</string>
 
     <!-- Mundraub rules https://mundraub.org/mundraeuber-regeln -->
     <string name="title_codex">Community Codex</string>
@@ -262,5 +268,9 @@
     <string name="mundraub_rules_long_version">Show me the long version!</string>
     <string name="mundraub_rules_i_understand">Sounds reasonable, I understand!</string>
     <string name="rules_url">https://mundraub.org/mundraeuber-regeln</string>
+
+    <!-- Notifications -->
+    <string name="channel_name">Plants Nearby</string>
+    <string name="notification_text_with_distance" formatted="false"><xliff:g example="10" id="distance">%1$d</xliff:g> meters away</string>
 
 </resources>
