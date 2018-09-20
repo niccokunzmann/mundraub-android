@@ -247,11 +247,13 @@ public class MundraubAPI extends API {
     protected Set<String> getUrlsForAllPlants() {
         HashSet<String> urls = new HashSet<String>();
         for (PlantCategory category: PlantCategory.all()) {
-            // see https://github.com/niccokunzmann/mundraub-android/issues/96
-            urls.add("https://mundraub.org/cluster/plant?bbox=-180.0,-90.0,0.0,0&zoom=18&cat=" + category.getValueForMundraubAPI());
-            urls.add("https://mundraub.org/cluster/plant?bbox=0.0,-90.0,180.0,0&zoom=18&cat=" + category.getValueForMundraubAPI());
-            urls.add("https://mundraub.org/cluster/plant?bbox=-180.0,0.0,0.0,90&zoom=18&cat=" + category.getValueForMundraubAPI());
-            urls.add("https://mundraub.org/cluster/plant?bbox=0.0,0.0,180.0,90&zoom=18&cat=" + category.getValueForMundraubAPI());
+            if (category.canBeUsedByAPI(this)) {
+                // see https://github.com/niccokunzmann/mundraub-android/issues/96
+                urls.add("https://mundraub.org/cluster/plant?bbox=-180.0,-90.0,0.0,0&zoom=18&cat=" + category.getFieldFor(this));
+                urls.add("https://mundraub.org/cluster/plant?bbox=0.0,-90.0,180.0,0&zoom=18&cat=" + category.getFieldFor(this));
+                urls.add("https://mundraub.org/cluster/plant?bbox=-180.0,0.0,0.0,90&zoom=18&cat=" + category.getFieldFor(this));
+                urls.add("https://mundraub.org/cluster/plant?bbox=0.0,0.0,180.0,90&zoom=18&cat=" + category.getFieldFor(this));
+            }
         }
         return urls;
     }
@@ -288,7 +290,7 @@ public class MundraubAPI extends API {
     }
 
     private void fillInPlant(Map<String, String> formValues, Plant plant) throws IOException, ErrorWithExplanation, NoSuchAlgorithmException, KeyManagementException, JSONException {
-        formValues.put("field_plant_category", plant.getCategory().getValueForMundraubAPI());
+        formValues.put("field_plant_category", plant.getCategory().getFieldFor(this));
         formValues.put("field_plant_count_trees", plant.getFormCount());
         formValues.put("field_position[0][value]", plant.getPosition().forAPI());
         formValues.put("body[0][value]", plant.getDescription());

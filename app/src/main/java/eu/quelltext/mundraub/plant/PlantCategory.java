@@ -259,16 +259,12 @@ public class PlantCategory {
         return this.id;
     }
 
-    public String getValueForMundraubAPI() {
-        return apiIdToField.get(API_ID_MUNDRAUB);
-    }
-
     public int getDatabaseId() {
         return Integer.parseInt(apiIdToField.get(API_ID_DATABASE));
     }
 
-    public String getValueForNaOvoceAPI() {
-        return apiIdToField.get(API_ID_MUNDRAUB);
+    public String getFieldFor(API api) {
+        return apiIdToField.get(api.id());
     }
 
     @Override
@@ -318,6 +314,8 @@ public class PlantCategory {
         }
         return markerDrawable;
     }
+
+
 
     // ------- asking the category -------
 

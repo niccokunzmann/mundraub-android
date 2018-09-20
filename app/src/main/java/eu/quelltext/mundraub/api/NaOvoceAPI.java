@@ -48,7 +48,7 @@ public class NaOvoceAPI extends API {
             // https://github.com/jsmesami/naovoce/blob/master/API.apib#L214
             request.put("lat", positionString(plant.getLatitude()));
             request.put("lng", positionString(plant.getLongitude()));
-            request.put("kind", plant.getCategory().getValueForNaOvoceAPI());
+            request.put("kind", plant.getCategory().getFieldFor(this));
             request.put("description", plant.getDescription());
         } catch (JSONException e) {
             log.printStackTrace(e);
@@ -205,8 +205,9 @@ public class NaOvoceAPI extends API {
         String host = host();
         HashSet<String> urls = new HashSet<String>();
         for (PlantCategory category: PlantCategory.all()) {
-            // see https://github.com/niccokunzmann/mundraub-android/issues/96
-            urls.add(host + "/api/v1/fruit/?kind=" + category.getValueForNaOvoceAPI());
+            if (category.canBeUsedByAPI(this)) {
+                urls.add(host + "/api/v1/fruit/?kind=" + category.getFieldFor(this));
+            }
         }
         return urls;
     }
