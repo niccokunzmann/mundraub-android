@@ -9,7 +9,7 @@ Features:
 <li>Alle Pflanzendaten können offline eingetragen werden</li>
 <li>Eingebaute Karte, um Pflanzen zu finden</li>
 <li>Die Fundorte können runter geladen werden und sind offline verfügbar</li>
-<li>Eigene Fundorte können auf Mundraub.org publiziert werden</li>
+    <li>Mundraub.org and Na-Ovoce.cz publishing</li>
 </ul>
 
 Zugriffsrechte:

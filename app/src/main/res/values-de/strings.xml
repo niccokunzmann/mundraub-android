@@ -58,7 +58,6 @@
     <string name="gooseberry">Stachelbeere</string>
     <string name="peach">Pfirsich</string>
     <string name="silverberry">Ölweide</string>
-
     <!-- Login -->
     <string name="title_activity_login">Einloggen</string>
     <string name="prompt_username">Nutzername</string>
@@ -76,7 +75,6 @@
     <string name="login_api_name_mundraub">Mundraub.org</string>
     <string name="login_api_name_na_ovoce">Na-Ovoce.cz</string>
     <string name="login_api_name_dummy">Lokale Test-API</string>
-
     <!-- view plant details -->
     <string name="title_plant_detail">Pflanzenbeschreibung</string>
     <string name="upload_plant_online">Pflanze online teilen</string>
@@ -130,10 +128,8 @@
     <string name="error_timeout">Die Verbindung zum Server hat zu lange nicht geklappt.</string>
     <string name="error_could_not_sign_up_na_ovoce">Du konntest nicht bei Na-Ovoce.cz angemeldet werden. Der Server hat keine Nutzer-ID geliefert.</string>
     <string name="error_could_not_log_in_na_ovoce">Du konntest nicht bei Na-Ovoce.cz angemeldet werden. Der Server hat keinen Authentifizierungsschlüssel gesendet. Bitte überprüfe den Nutzernamen und das Passwort und versuche es erneut.</string>
-    <string name="error_invalid_category_na_ovoce">Diese Kategorie Pflanze wird nicht von Na-Ovoce.cz unterstützt. Ich kann die Pflanze nicht veröffentlichen. Bitte wähle eine andere Kategorie oder veröffentliche die Pflanze irgendwo anders.</string>
     <string name="error_plant_position_is_invalid">Die Position der Pflanze ist nicht gesetzt. Deswegen kann die Pflanze nicht veröffentlicht werden.</string>
     <string name="error_plant_category_is_not_set">Bitte wähle eine Kategorie für die Pflanze, um sie hochzuladen.</string>
-
     <!-- map to choose plant position -->
     <string name="title_choose_map_position">Pflanzen-Position Wählen</string>
     <string name="info_plant_position_is_chosen_from_best_guess">Diese Pflanze hat keine Position gesetzt. Der Marker ist bei der nächsten Pflanze. Bitte finde selbst die richtige Position.</string>
@@ -208,7 +204,6 @@
     <string name="success_offline_data_was_downloaded">Alle Daten, um offline zu gehen, wurden erfolgreich runtergeladen.</string>
     <string name="error_debug_api_can_not_download_offline_data">Die Debug-API kann keine Daten runterladen. Bitte benutze die Mundraub-API unten in den Einstellungen zu diesem Zweck.</string>
     <string name="settings_create_public_api_for_debug">Wenn das eingeschaltet ist, stellt die App die Mundraub-API im lokalen Netzwerk frei. Das ist nicht schlimm, da die API nur Lesen erlaubt und kein Verändern.</string>
-
     <!-- Mundraub rules https://mundraub.org/mundraeuber-regeln -->
     <string name="title_codex">Mundräuberregeln</string>
     <string name="mundraub_rule_1">Stelle vor dem Eintragen und/oder Ernten sicher, dass keine Eigentumsrechte verletzt werden.</string>
