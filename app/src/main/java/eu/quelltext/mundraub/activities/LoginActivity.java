@@ -335,7 +335,7 @@ public class LoginActivity extends MundraubBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        apiName.setText(api().nameResourceIdForLoginActivity());
+        apiName.setText(api().nameResourceId());
         loadPassword();
     }
 }

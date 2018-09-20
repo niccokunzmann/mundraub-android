@@ -299,7 +299,7 @@ public abstract class API extends ErrorAware {
     public abstract String id();
     public abstract int radioButtonId();
     public abstract String getPlantUrl(String id);
-    public abstract int nameResourceIdForLoginActivity();
+    public abstract int nameResourceId();
 
 
 }
