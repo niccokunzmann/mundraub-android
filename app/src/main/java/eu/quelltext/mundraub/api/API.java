@@ -14,6 +14,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Set;
 
 import javax.net.ssl.SSLHandshakeException;
+import javax.net.ssl.SSLProtocolException;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.api.progress.Progress;
@@ -239,7 +240,7 @@ public abstract class API extends ErrorAware {
     }
 
     protected String httpGet(String url) throws IOException, ErrorWithExplanation {
-        OkHttpClient client = Settings.getOkHttpClient();
+        OkHttpClient client = Settings.getOkHttpClient(getSSLInstanceName());
         log.d("API GET", url.toString());
         Request request = new Request.Builder()
                 .url(url)
@@ -254,6 +255,10 @@ public abstract class API extends ErrorAware {
         return response.body().string();
     }
 
+    protected String getSSLInstanceName() {
+        return "SSL";
+    }
+
     protected int handleExceptionConsistently(Exception e) {
         log.printStackTrace(e);
         if (SSLHandshakeException.class.isInstance(e)) {
@@ -264,8 +269,12 @@ public abstract class API extends ErrorAware {
             return R.string.error_unknown_hostname;
         } else if (ProtocolException.class.isInstance(e)) {
             return R.string.error_invalid_protocol;
-        } else if (NoSuchAlgorithmException.class.isInstance(e)) {
-            return R.string.error_no_such_algorithm;
+        } else if (SSLProtocolException.class.isInstance(e)) {
+            return R.string.error_could_not_establish_a_secure_connection;
+        } else if (RuntimeException.class.isInstance(e)) {
+            if (NoSuchAlgorithmException.class.isInstance(e.getCause())) {
+                return R.string.error_no_such_algorithm;
+            }
         } else if (KeyManagementException.class.isInstance(e)) {
             return R.string.error_key_management;
         } else if (SocketTimeoutException.class.isInstance(e)) {

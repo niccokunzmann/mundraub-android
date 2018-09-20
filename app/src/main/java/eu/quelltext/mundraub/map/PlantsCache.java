@@ -38,6 +38,7 @@ public class PlantsCache extends ErrorAware {
     private static final int MAXIMUM_MARKER_COUNT_TO_SERVE = 100;
     private static final int API_ID_MUNDRAUB = 1;
     private static final int API_ID_NA_OVOCE = 2;
+    private static final int API_ID_FRUITMAP = 3;
 
     static {
         Initialization.provideActivityFor(new Initialization.ActivityInitialized() {
@@ -181,8 +182,6 @@ public class PlantsCache extends ErrorAware {
     public static Progress getUpdateProgressOrNull() {
         return updateProgress;
     }
-
-
 
     public static class Marker implements BaseColumns {
         public static final String TABLE_NAME = "marker";
@@ -391,7 +390,7 @@ public class PlantsCache extends ErrorAware {
                     writer.addMarker(
                             markerJSON.getDouble(JSON_NA_OVOCE_LONGITUDE),
                             markerJSON.getDouble(JSON_NA_OVOCE_LATITUDE),
-                            PlantCategory.fromNaOvoceAPIField(Integer.parseInt(markerJSON.getString(JSON_NA_OVOCE_KIND), 16)),
+                            PlantCategory.fromNaOvoceAPIField(markerJSON.getString(JSON_NA_OVOCE_KIND)),
                             Integer.parseInt(markerJSON.getString(JSON_NA_OVOCE_ID)),
                             API_ID_NA_OVOCE
                     );
@@ -409,6 +408,60 @@ public class PlantsCache extends ErrorAware {
             return;
         }
     }
+
+    private static final String JSON_FRUITMAP_FRUIT = "fruit";
+    private static final String JSON_FRUITMAP_LONGITUDE = "y";
+    private static final String JSON_FRUITMAP_LATITUDE = "x";
+    private static final String JSON_FRUITMAP_USER = "user";
+    private static final String JSON_FRUITMAP_ID = "id";
+    private static final String JSON_FRUITMAP_TYPE = "nazov";
+
+    public static void updateFruitMapPlantMarkers(JSONObject json, Progressable fraction) throws API.ErrorWithExplanation {
+        // example from
+        // {"count":46,"fruit":[{"id":"92","tree":"11","x":"48.7345100000","y":"19.1145800000","user":"1","image":"","status":"1","deleted_reason":null,"meta_ref_id":"27698","created_at":"1274542713","updated_at":"1274542713","nazov":"Red ribes"},{"id":"170","tree":" ...
+        try {
+            JSONArray markers = json.getJSONArray(JSON_FRUITMAP_FRUIT);
+            JSONObject invalidMarker = null;
+            // see the api for the response
+            // https://github.com/niccokunzmann/mundraub-android/blob/master/docs/api.md#markers
+            BulkWriter writer = new BulkWriter(getWritableDatabase(), fraction, markers.length());
+            try {
+                for (int i = 0; i < markers.length(); i++) {
+                    JSONObject markerJSON = markers.getJSONObject(i);
+                    if (    !markerJSON.has(JSON_FRUITMAP_LONGITUDE) ||
+                            !markerJSON.has(JSON_FRUITMAP_LATITUDE) ||
+                            !markerJSON.has(JSON_FRUITMAP_USER) ||
+                            !markerJSON.has(JSON_FRUITMAP_TYPE) ||
+                            !markerJSON.has(JSON_FRUITMAP_ID)) {
+                        invalidMarker = markerJSON;
+                        continue;
+                    }
+                    String user = markerJSON.getString(JSON_FRUITMAP_USER);
+                    if (!user.equals("301" /*301 = na ovoce*/)) {
+                        writer.addMarker(
+                                markerJSON.getDouble(JSON_FRUITMAP_LONGITUDE),
+                                markerJSON.getDouble(JSON_FRUITMAP_LATITUDE),
+                                PlantCategory.fromFruitMapAPIField(markerJSON.getString(JSON_FRUITMAP_TYPE)),
+                                Integer.parseInt(markerJSON.getString(JSON_FRUITMAP_ID)),
+                                API_ID_FRUITMAP
+                        );
+                    }
+                }
+                writer.success();
+            } finally {
+                writer.close();
+            }
+            if (invalidMarker != null) {
+                log.e("invalidMarker", invalidMarker.toString());
+            }
+        } catch (JSONException e) {
+            log.printStackTrace(e);
+            API.abortOperation(R.string.error_invalid_json_for_markers);
+            return;
+        }
+    }
+
+
 
     private static class BulkWriter {
 

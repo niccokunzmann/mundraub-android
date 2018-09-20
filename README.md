@@ -49,6 +49,7 @@ App components:
 - For publishing the found plants and markers on the map:
     - [Mundraub.org] (German)
     - [Na-Ovoce.cz] (Czech)
+    - www.quelltext.eu in case the insecure connections for old Androids are enabled.
 - [OpenLayers] for refining te position
 - [openstreetmap] for rendering OpenStreetMap
 - [World Imagery] for rendering a satellite map
