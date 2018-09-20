@@ -21,6 +21,7 @@ import eu.quelltext.mundraub.api.API;
 import eu.quelltext.mundraub.api.progress.JoinedProgress;
 import eu.quelltext.mundraub.api.progress.Progress;
 import eu.quelltext.mundraub.api.progress.Progressable;
+import eu.quelltext.mundraub.common.Helper;
 import eu.quelltext.mundraub.error.ErrorAware;
 import eu.quelltext.mundraub.error.Logger;
 import eu.quelltext.mundraub.initialization.Initialization;
@@ -36,6 +37,7 @@ public class PlantsCache extends ErrorAware {
     private static Logger.Log log = Logger.newFor("PlantsCache");
     private static JoinedProgress updateProgress;
     private static final int MAXIMUM_MARKER_COUNT_TO_SERVE = 100;
+    private static final int API_ID_EXAMPLE = 0;
     private static final int API_ID_MUNDRAUB = 1;
     private static final int API_ID_NA_OVOCE = 2;
     private static final int API_ID_FRUITMAP = 3;
@@ -65,6 +67,15 @@ public class PlantsCache extends ErrorAware {
     }
 
     public static JSONArray getPlantsInBoundingBox(double minLon, double minLat, double maxLon, double maxLat) throws JSONException {
+        List<Marker> markers = getMarkersInBoundingBox(minLon, minLat, maxLon, maxLat);
+        JSONArray result = new JSONArray();
+        for (Marker marker: markers) {
+            result.put(marker.toJSON());
+        }
+        return result;
+    }
+
+    public static List<Marker> getMarkersInBoundingBox(double minLon, double minLat, double maxLon, double maxLat) {
         minLon = getLongitude(minLon);
         minLat = getLatitude(minLat);
         maxLon = getLongitude(maxLon);
@@ -126,12 +137,12 @@ public class PlantsCache extends ErrorAware {
                     null        // don't sort
             );
             log.d("getPlantsInBoundingBox", "The total cursor count is " + cursor.getCount());
-            JSONArray result = new JSONArray();
+            List<Marker> result = new ArrayList<>();
             int max = cursor.getCount();
             for (int i = 0; i < max && i < MAXIMUM_MARKER_COUNT_TO_SERVE; i++) {
                 cursor.moveToPosition(i);
                 Marker marker = Marker.fromCursor(cursor);
-                result.put(marker.toJSON());
+                result.add(marker);
             }
             return result;
         } finally {
@@ -183,6 +194,21 @@ public class PlantsCache extends ErrorAware {
         return updateProgress;
     }
 
+    public static List<Marker> getMarkersInRangeMeters(double longitude, double latitude, double distanceInMeters) {
+        double deltaRadian = Helper.metersToRadian(distanceInMeters);
+        List<Marker> markers = getMarkersInBoundingBox(
+                longitude - deltaRadian,
+                latitude - deltaRadian,
+                longitude + deltaRadian,
+                latitude + deltaRadian);
+        for (int i = markers.size() - 1; i >= 0; i--) {
+            if (markers.get(i).distanceInMetersTo(longitude, latitude) > distanceInMeters) {
+                markers.remove(i);
+            }
+        }
+        return markers;
+    }
+
     public static class Marker implements BaseColumns {
         public static final String TABLE_NAME = "marker";
         public static final String COLUMN_LONGITUDE = "longitude";
@@ -217,8 +243,8 @@ public class PlantsCache extends ErrorAware {
         private final int apiId;
 
         private Marker(double longitude, double latitude, PlantCategory category, int markerIdInAPI, int apiId) {
-            this.longitude = getLongitude(longitude);
-            this.latitude = getLatitude(latitude);
+            this.longitude = PlantsCache.getLongitude(longitude);
+            this.latitude = PlantsCache.getLatitude(latitude);
             this.category = category;
             this.markerIdInAPI = markerIdInAPI;
             this.apiId = apiId;
@@ -274,6 +300,44 @@ public class PlantsCache extends ErrorAware {
             properties.put(JSON_MUNDRAUB_NODE_ID, markerIdInAPI);
             json.put(JSON_MUNDRAUB_PROPERTIES, properties);
             return json;
+        }
+
+        public double distanceInMetersTo(double longitude, double latitude) {
+            return Helper.distanceInMetersBetween(this.longitude, this.latitude, longitude, latitude);
+        }
+
+        @Override
+        public int hashCode() {
+            return this.apiId ^ this.markerIdInAPI;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (!(obj instanceof Marker)) {
+                return super.equals(obj);
+            }
+            Marker other = (Marker) obj;
+            return other.apiId == this.apiId && other.markerIdInAPI == this.markerIdInAPI;
+        }
+
+        public double getLongitude() {
+            return longitude;
+        }
+
+        public double getLatitude() {
+            return latitude;
+        }
+
+        public int getNotificationIcon() {
+            return R.mipmap.ic_launcher_round;
+        }
+
+        public int getResourceId() {
+            return category.getResourceId();
+        }
+
+        public static Marker example() {
+            return new Marker(0,0, PlantCategory.EXAMPLE, 1, API_ID_EXAMPLE);
         }
     }
 

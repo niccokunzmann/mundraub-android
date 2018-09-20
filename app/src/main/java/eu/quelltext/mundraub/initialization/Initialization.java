@@ -10,6 +10,15 @@ public class Initialization {
     private static final List<ActivityInitialized> initializers = new ArrayList<ActivityInitialized>();
     private static Activity activity = null;
 
+    static {
+        initializers.add(new ActivityInitialized() {
+            @Override
+            public void setActivity(Activity context) {
+                FruitRadarNotification.initialize();
+            }
+        });
+    }
+
     public static Activity getActivity() {
         return activity;
     }

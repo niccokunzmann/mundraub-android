@@ -38,6 +38,7 @@ public class PlantCategory {
     private Map<String, PlantCategory> apiIdToCategory = new HashMap<String, PlantCategory>();
 
     public static final PlantCategory NULL = new NullCategory();
+    public static PlantCategory EXAMPLE = NULL;
     private static Map<String, PlantCategory> idToPlantCategory = new HashMap<String, PlantCategory>();
     private static Map<String, Map<String, PlantCategory>> apiIdToFieldToPlantCategory = new HashMap<>();
     private static List<PlantCategory> sortedCategories = new ArrayList<PlantCategory>();
@@ -180,6 +181,7 @@ public class PlantCategory {
 
     PlantCategory(String id) {
         this.id = id;
+        EXAMPLE = this;
     }
 
     // ------- construct the plant category from different representations -------
