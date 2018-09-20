@@ -189,14 +189,6 @@ div.olControlAttribution {
     padding: 7px;
 }
 
-#OpenLayers_Control_LayerSwitcher_323_layersDiv {
-    background: rgba(0, 60, 136, 0.7);
-    border: rgba(255,255,255,0.4);
-    border-width: 3px;
-    border-style: solid;
-    border-radius: 4px;
-}
-
 .gps-button {
     line-height: 34px;
     height: 50px;
