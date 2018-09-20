@@ -287,6 +287,9 @@ public class Settings {
     }
 
     public static OkHttpClient getOkHttpClient() {
+        return getOkHttpClient("SSL");
+    }
+    public static OkHttpClient getOkHttpClient(String SSLInstanceName) {
         // from https://stackoverflow.com/a/25992879/1320237
         try {
 
@@ -311,7 +314,7 @@ public class Settings {
                 };
 
                 // Install the all-trusting trust manager
-                final SSLContext sslContext = SSLContext.getInstance("SSL");
+                final SSLContext sslContext = SSLContext.getInstance(SSLInstanceName);
                 sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
                 // Create an ssl socket factory with our all-trusting manager
                 final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();

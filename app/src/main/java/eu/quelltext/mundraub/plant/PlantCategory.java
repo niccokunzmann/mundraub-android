@@ -197,8 +197,12 @@ public class PlantCategory {
         return fromAPIField(API_ID_MUNDRAUB, Integer.toString(field));
     }
 
-    public static PlantCategory fromNaOvoceAPIField(int field) {
-        return fromAPIField(API_ID_NA_OVOCE, Integer.toHexString(field));
+    public static PlantCategory fromNaOvoceAPIField(String field) {
+        return fromAPIField(API_ID_NA_OVOCE, field);
+    }
+
+    public static PlantCategory fromFruitMapAPIField(String field) {
+        return fromAPIField(API_ID_FRUITMAP, field);
     }
 
     public static PlantCategory fromDatabaseId(int field) {
