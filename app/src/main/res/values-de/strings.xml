@@ -25,6 +25,7 @@
     <string name="other_fruit_trees">Andere Obstbäume</string>
     <string name="blackberry">Brombeere</string>
     <string name="blueberry">Blaubeere</string>
+    <string name="bilberry">Heidelbeere</string>
     <string name="raspberry">Himbeere</string>
     <string name="elder">Holunder</string>
     <string name="rose_hip">Hagebutte</string>
@@ -58,6 +59,25 @@
     <string name="gooseberry">Stachelbeere</string>
     <string name="peach">Pfirsich</string>
     <string name="silverberry">Ölweide</string>
+    <string name="tangerine">Mandarine</string>
+    <string name="grapefruit">Grapefruit</string>
+    <string name="red_ribes">Rote Johannisbeere</string>
+    <string name="black_ribes">Schwarze Johannisbeere</string>
+    <string name="strawberry">Erdbeere</string>
+    <string name="jostaberry">Jostabeere</string>
+    <string name="greengage">Edelpflaume</string>
+    <string name="grape">Weintraube</string>
+    <string name="orange">Orange</string>
+    <string name="dogwood">Hartriegel</string>
+    <string name="lemon">Zitrone</string>
+    <!-- https://en.wikipedia.org/wiki/Briar_(thicket) -->
+    <string name="briar">Dornstrauch</string>
+    <string name="fig">Feige</string>
+    <string name="horse_chestnut">Rosskastanie</string>
+    <string name="reason_plant_categories_could_not_load">Die Pflanzenkategorien konnten nicht geladen werden. Das bedeutet, dass alle editierten Pflanzen keine Kategorie haben.</string>
+    <string name="plant_categories_could_not_load_ask_close">Möchtest Du die App schließen, um Informationsverlust an den eignenen Pflanzen durch Editieren zu vermeiden?</string>
+    <string name="fruit_resource_id_not_found">Fehler: Füge diese Pflanzenkategorie in der strings.xml-Datei hinzu.</string>
+
 
     <!-- Login -->
     <string name="title_activity_login">Einloggen</string>
@@ -76,6 +96,8 @@
     <string name="login_api_name_mundraub">Mundraub.org</string>
     <string name="login_api_name_na_ovoce">Na-Ovoce.cz</string>
     <string name="login_api_name_dummy">Lokale Test-API</string>
+    <string name="login_api_name_fruitmap">FruitMap.org</string>
+
 
     <!-- view plant details -->
     <string name="title_plant_detail">Pflanzenbeschreibung</string>
@@ -94,7 +116,6 @@
     <string name="no">Nein</string>
     <string name="yes">Ja</string>
     <string name="edit">Ändern</string>
-
     <!-- Dialogs -->
     <string name="error">Fehler</string>
     <string name="success">Erfolg!</string>
@@ -130,9 +151,10 @@
     <string name="error_timeout">Die Verbindung zum Server hat zu lange nicht geklappt.</string>
     <string name="error_could_not_sign_up_na_ovoce">Du konntest nicht bei Na-Ovoce.cz angemeldet werden. Der Server hat keine Nutzer-ID geliefert.</string>
     <string name="error_could_not_log_in_na_ovoce">Du konntest nicht bei Na-Ovoce.cz angemeldet werden. Der Server hat keinen Authentifizierungsschlüssel gesendet. Bitte überprüfe den Nutzernamen und das Passwort und versuche es erneut.</string>
-    <string name="error_invalid_category_na_ovoce">Diese Kategorie Pflanze wird nicht von Na-Ovoce.cz unterstützt. Ich kann die Pflanze nicht veröffentlichen. Bitte wähle eine andere Kategorie oder veröffentliche die Pflanze irgendwo anders.</string>
+    <string name="error_invalid_category_for_api">Diese Kategorie Pflanze gibt es nicht auf dieser Plattform. Bitte wähle eine andere Kategorie oder lade die Pflanze woanders hoch.</string>
     <string name="error_plant_position_is_invalid">Die Position der Pflanze ist nicht gesetzt. Deswegen kann die Pflanze nicht veröffentlicht werden.</string>
     <string name="error_plant_category_is_not_set">Bitte wähle eine Kategorie für die Pflanze, um sie hochzuladen.</string>
+    <string name="error_could_not_establish_a_secure_connection">Es gab einen Fehler während eine sichere Verbindung zum Server hergestellt wurde.</string>
 
     <!-- map to choose plant position -->
     <string name="title_choose_map_position">Pflanzen-Position Wählen</string>
@@ -179,7 +201,8 @@
     <string name="title_settings">App-Einstellungen</string>
     <string name="settings_use_mundraub_api">Wenn das eingeschaltet ist, publiziert die App die Pflanzen auf Mundraub.org.</string>
     <string name="settings_use_na_ovoce">Wenn das eingeschaltet ist, publiziert die App die Pflanzen auf Na-Ovoce.cz.</string>
-    <string name="settings_use_dummy">Wenn das eingeschaltet ist, publiziert die App keine Pflanzen sondern nutzt einen lokale API zum Testen.</string>
+    <string name="settings_use_fruitmap">Wenn das eingeschaltet ist, publiziert die App die Pflanzen auf FruitMap.org.</string>
+    <string name="settings_use_dummy">Wenn das eingeschaltet ist, publiziert die App keine Pflanzen sondern nutzt eine lokale API zum Testen.</string>
     <string name="setting_use_secure_connection">Wenn das eingeschaltet ist, wird den Verbindungen zu Mundraub.org und anderen Servern von den Zertifikatsautoritäten vertraut. Das kann Probleme auf älteren Androids geben, die nicht in der Lage sind, die neueren Zertifikate zu verwenden.</string>
     <string name="settings_use_cache">Wenn das eingeschaltet ist, verwendet die App das Cacheverzeichnis für die Pflanzen. Du kannst sie löschen, wenn nötig. Wenn das aus ist, nutzt die App den externen Speicher, sodass Du die Pflanzen synchronisieren und kopieren kannst.</string>
     <string name="error_could_not_move_plants">Die Pflanzendaten konnten nicht in das gewünschte Verzeichnis verschoben werden.</string>
@@ -208,6 +231,11 @@
     <string name="success_offline_data_was_downloaded">Alle Daten, um offline zu gehen, wurden erfolgreich runtergeladen.</string>
     <string name="error_debug_api_can_not_download_offline_data">Die Debug-API kann keine Daten runterladen. Bitte benutze die Mundraub-API unten in den Einstellungen zu diesem Zweck.</string>
     <string name="settings_create_public_api_for_debug">Wenn das eingeschaltet ist, stellt die App die Mundraub-API im lokalen Netzwerk frei. Das ist nicht schlimm, da die API nur Lesen erlaubt und kein Verändern.</string>
+    <string name="settings_markers">Wähle Deine Pflanzenkategorien</string>
+    <string name="settings_use_markers_mundraub">Wenn das eingeschaltet ist, kannst Du die Pflanzenkategorien von Mundraub.org verwenden.</string>
+    <string name="settings_use_markers_na_ovoce">Wenn das eingeschaltet ist, kannst Du die Pflanzenkategorien von Na-Ovoce.cz verwenden.</string>
+    <string name="settings_use_markers_fruitmap">Wenn das eingeschaltet ist, kannst Du die Pflanzenkategorien von FruitMap.org verwenden.</string>
+    <string name="settings_use_markers_community">Wenn das eingeschaltet ist, kannst du die Kategorien von Pflanzen verwenden, die nur in der App existieren und durch die Gemeinschaft begetragen wurden.</string>
 
     <!-- Mundraub rules https://mundraub.org/mundraeuber-regeln -->
     <string name="title_codex">Mundräuberregeln</string>

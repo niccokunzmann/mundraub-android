@@ -9,7 +9,7 @@ Fonctionnalités :
 <li>Réunissez des données sur les plantes en mode hors-ligne</li>
 <li>Carte intégrée pour trouver des plantes</li>
 <li>Les marqueurs de plantes sont visibles même hors-ligne</li>
-<li>Mundraub.org publishing</li>
+    <li>Mundraub.org and Na-Ovoce.cz publishing</li>
 </ul>
 
 Autorisations nécessaires :
