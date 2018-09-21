@@ -35,6 +35,7 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.error.ErrorAware;
 
 public final class Helper extends ErrorAware {
@@ -104,6 +105,22 @@ public final class Helper extends ErrorAware {
 
     public static double metersToDegrees(double distanceInMeters) {
         return distanceInMeters / EARTH_RADIUS_METERS / DEG_TO_RAD;
+    }
+
+    private static int[] DIRECTIONS = new int[]{
+            R.string.direction_north, R.string.direction_north_east, R.string.direction_east,
+            R.string.direction_south_east, R.string.direction_south, R.string.direction_south_west,
+            R.string.direction_west, R.string.direction_north_west
+    };
+    /*
+     * Return the direction from one position to another.
+     * This assumes that both are very close to each other and thus form an euclidian planar.
+     */
+    public static int directionFromPositionToPositionAsResourceId(
+            double fromLongitude, double fromLatitude, double toLongitude, double toLatitude) {
+        double alpha = Math.atan2(toLongitude - fromLongitude, toLatitude - fromLatitude) / Math.PI / 2 * DIRECTIONS.length;
+        int i = (int)Math.floor(alpha + 0.5 + DIRECTIONS.length) % DIRECTIONS.length;
+        return DIRECTIONS[i];
     }
 
     private static double DEG_TO_RAD = Math.PI / 180;
