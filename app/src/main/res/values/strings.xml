@@ -283,5 +283,6 @@
     <string name="direction_south_west">South West</string>
     <string name="direction_west">West</string>
     <string name="direction_north_west">North West</string>
+    <string name="direction_too_close">close</string>
 
 </resources>

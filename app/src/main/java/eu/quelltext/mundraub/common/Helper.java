@@ -118,6 +118,9 @@ public final class Helper extends ErrorAware {
      */
     public static int directionFromPositionToPositionAsResourceId(
             double fromLongitude, double fromLatitude, double toLongitude, double toLatitude) {
+        if (fromLatitude == toLatitude && fromLongitude == toLongitude) {
+            return R.string.direction_too_close;
+        }
         double alpha = Math.atan2(toLongitude - fromLongitude, toLatitude - fromLatitude) / Math.PI / 2 * DIRECTIONS.length;
         int i = (int)Math.floor(alpha + 0.5 + DIRECTIONS.length) % DIRECTIONS.length;
         return DIRECTIONS[i];
