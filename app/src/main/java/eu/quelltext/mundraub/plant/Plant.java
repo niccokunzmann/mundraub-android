@@ -46,6 +46,14 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
     public static List<Plant> all() {
         return getPlants().all();
     }
+    public static Position getAPositionNearAPlantForTheMap() {
+        List<Plant> plants = Plant.all();
+        if (plants.size() > 0) {
+            Plant plant = plants.get(0);
+           return plant.getBestPositionForMap();
+        }
+        return Position.NULL;
+    }
 
     public static Plant withId(String id) {
         return getPlants().withId(id);
@@ -400,10 +408,11 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
     }
 
     static public class Position {
-        public static final Position NULL = new Position(0, 0);
+        public static final Position NULL = new NullPosition();
         protected static final String JSON_POSITION_TYPE = "type";
         protected static final String JSON_POSITION_TYPE_GPS = "gps";
         protected static final String JSON_POSITION_TYPE_UNKNOWN = "unknown";
+        protected static final String JSON_POSITION_TYPE_NULL = "not set";
         protected static final String JSON_POSITION_TYPE_MAP = "map";
 
         private static final double MAP_IMAGE_BOUNDARY = 0.002;
@@ -479,17 +488,14 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
             return new MapPosition(Double.parseDouble(longitude), Double.parseDouble(latitude));
         }
 
-        public String getMapURLWithMarker() {
-            // from https://stackoverflow.com/a/5749641/1320237
-            return "file:///android_asset/map/examples/fullScreen.html?" + getLongitude() + "," + getLatitude();
-        }
-
         public static Position from(JSONObject json) throws JSONException {
             String type = json.getString(JSON_POSITION_TYPE);
             if (type.equals(JSON_POSITION_TYPE_MAP)) {
                 return MapPosition.fromJSON(json);
             } else if (type.equals(JSON_POSITION_TYPE_GPS)) {
                 return GPSPosition.fromJSON(json);
+            } else if (type.equals(JSON_POSITION_TYPE_NULL)) {
+                return NULL;
             }
             return fromJSON(json);
         }
@@ -513,6 +519,30 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
         public int getRepositionReason() {
             return R.string.reason_reposition_unknown_position;
         }
+
+        public double[] toArray() {
+            return new double[]{getLongitude(), getLatitude()};
+        }
+    }
+
+    static private class NullPosition extends Position {
+
+        private NullPosition() {
+            super(8.559300000000329, 51.97691767671171);
+        }
+
+        @Override
+        public boolean isValid() {
+            return false;
+        }
+
+        @Override
+        public JSONObject toJSON() throws JSONException {
+            JSONObject json = super.toJSON();
+            json.put(JSON_POSITION_TYPE, JSON_POSITION_TYPE_NULL);
+            return json;
+        }
+
     }
 
     static private class MapPosition extends Position {

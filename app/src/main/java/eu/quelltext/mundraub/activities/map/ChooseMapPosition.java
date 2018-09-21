@@ -55,10 +55,7 @@ public class ChooseMapPosition extends MapBaseActivity {
         if (position != plant.getPosition()) {
             alertAboutPositionGuess();
         }
-        String url = position.getMapURLWithMarker();
-        log.d("ChooseMapPosition", "set url to " + url);
-        webView.loadUrl(url);
-        webView.reload();
+        openMapAtPosition(position);
     }
 
     private void alertAboutPositionGuess() {

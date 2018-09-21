@@ -186,12 +186,6 @@ public class Permissions {
         void onDenied(Permission permission);
     }
 
-    public void checkAllPermissions() {
-        for (Permission permission : allPermissions) {
-            permission.check();
-        }
-    }
-
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         for (Permission permission : allPermissions) {
             permission.onRequestPermissionsResult(requestCode, permissions, grantResults);

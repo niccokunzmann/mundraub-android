@@ -336,8 +336,8 @@ public class PlantsCache extends ErrorAware {
             return category.getResourceId();
         }
 
-        public static Marker example() {
-            return new Marker(0,0, PlantCategory.EXAMPLE, 1, API_ID_EXAMPLE);
+        public static Marker example(double[] position) {
+            return new Marker(position[0],position[1], PlantCategory.EXAMPLE, 1, API_ID_EXAMPLE);
         }
     }
 

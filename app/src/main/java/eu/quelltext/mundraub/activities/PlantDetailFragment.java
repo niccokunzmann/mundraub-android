@@ -118,8 +118,16 @@ public class PlantDetailFragment extends Fragment {
         ((TextView) rootView.findViewById(R.id.text_plant_category)).setText(plant.getCategory().getResourceId());
         ((TextView) rootView.findViewById(R.id.text_count)).setText(Integer.toString(plant.getCount()));
         ((TextView) rootView.findViewById(R.id.text_description)).setText(plant.getDescription());
-        ((TextView) rootView.findViewById(R.id.text_latitude)).setText(Double.toString(plant.getLatitude()));
-        ((TextView) rootView.findViewById(R.id.text_longitude)).setText(Double.toString(plant.getLongitude()));
+        Plant.Position position = plant.getPosition();
+        TextView textLongitude = ((TextView) rootView.findViewById(R.id.text_longitude));
+        TextView textLatitude = ((TextView) rootView.findViewById(R.id.text_latitude));
+        if (position.isValid()) {
+            textLongitude.setText(Double.toString(plant.getLongitude()));
+            textLatitude.setText(Double.toString(plant.getLatitude()));
+        } else {
+            textLongitude.setText(R.string.position_not_set);
+            textLatitude.setText(R.string.position_not_set);
+        }
         // map
         final ImageView mapView = (ImageView) rootView.findViewById(R.id.image_plant_map);
         //final LinearLayout mapElements = (LinearLayout) rootView.findViewById(R.id.plant_map);

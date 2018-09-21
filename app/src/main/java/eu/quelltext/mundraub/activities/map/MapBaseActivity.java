@@ -1,6 +1,11 @@
 package eu.quelltext.mundraub.activities.map;
 
+import android.annotation.SuppressLint;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.webkit.ConsoleMessage;
 import android.webkit.GeolocationPermissions;
 import android.webkit.WebChromeClient;
@@ -14,11 +19,14 @@ import java.util.Locale;
 import eu.quelltext.mundraub.activities.MundraubBaseActivity;
 import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.map.MundraubProxy;
+import eu.quelltext.mundraub.plant.Plant;
 
 public class MapBaseActivity extends MundraubBaseActivity {
 
     protected WebView webView = null;
     private MundraubProxy apiProxy;
+
+    private static final long MAXIMUM_TIME_TO_WAIT_FOR_GPS_TO_POSITION_THE_MAP = 1000000 * 5;
 
     protected void initializeWebView(int webViewId) {
         webView = (WebView) findViewById(webViewId);
@@ -89,8 +97,55 @@ public class MapBaseActivity extends MundraubBaseActivity {
         apiProxy.stop();
     }
 
-    @Override
-    protected void openMap() {
-        webView.reload();
+    protected void openMapAtPosition(Plant.Position position) {
+        openMapAtPosition(position.getLongitude(), position.getLatitude());
     }
+
+    protected void openMapAtPosition(double[] position) {
+        openMapAtPosition(position[0], position[1]);
+    }
+
+    protected void openMapAtPosition(double longitude, double latitude) {
+        String url = "file:///android_asset/map/examples/fullScreen.html?" + longitude + "," + latitude;
+        log.d("open map at position", url);
+        webView.loadUrl(url);
+    }
+
+    @SuppressLint("MissingPermission")
+    protected void openMapAtGPSPositionOrLastPlantOrDefault() {
+        openMapAtLastPlantOrDefault();
+        final LocationManager locationManager = createLocationManager();
+        if (locationManager == null) {
+            return;
+        }
+        final long start = System.nanoTime();
+        locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER, 5000, 50, new LocationListener() {
+                    @Override
+                    public void onLocationChanged(Location location) {
+                        locationManager.removeUpdates(this);
+                        if (System.nanoTime() - start < MAXIMUM_TIME_TO_WAIT_FOR_GPS_TO_POSITION_THE_MAP) {
+                            openMapAtPosition(location.getLongitude(), location.getLatitude());
+                        }
+                    }
+
+                    @Override
+                    public void onStatusChanged(String provider, int status, Bundle extras) {
+                    }
+
+                    @Override
+                    public void onProviderEnabled(String provider) {
+                    }
+
+                    @Override
+                    public void onProviderDisabled(String provider) {
+                    }
+                }
+        );
+    }
+
+    protected void openMapAtLastPlantOrDefault() {
+        openMapAtPosition(Plant.getAPositionNearAPlantForTheMap());
+    }
+
 }

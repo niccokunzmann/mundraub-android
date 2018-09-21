@@ -25,6 +25,7 @@ import eu.quelltext.mundraub.common.Helper;
 import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.error.ErrorAware;
 import eu.quelltext.mundraub.map.PlantsCache;
+import eu.quelltext.mundraub.plant.Plant;
 
 public class FruitRadarNotification extends ErrorAware {
 
@@ -33,6 +34,7 @@ public class FruitRadarNotification extends ErrorAware {
     private static final String CHANNEL_ID_PLANTS_NEABY = "PLANTS_NEARBY";
     private static int lastCreatedNotificationId = 0;
     private Vibrator vibrator;
+    private double[] lastPosition = new double[]{0, 0};
 
     static void initialize() {
         Initialization.provideActivityFor(new Initialization.ActivityInitialized() {
@@ -145,6 +147,7 @@ public class FruitRadarNotification extends ErrorAware {
 
     private void onLocationChanged(double longitude, double latitude) {
         boolean vibrated = false;
+        lastPosition = new double[]{longitude, latitude};
         List<PlantsCache.Marker> markers = PlantsCache.getMarkersInRangeMeters(
                 longitude, latitude, Settings.getRadarPlantRangeMeters());
         Map<PlantsCache.Marker, Notification> oldMarkerToNotification = markerToNotification;
@@ -181,8 +184,9 @@ public class FruitRadarNotification extends ErrorAware {
     }
 
     private void showExampleNotification() {
-        PlantsCache.Marker marker = PlantsCache.Marker.example();
-        new Notification(marker, marker.getLongitude(), marker.getLatitude());
+        lastPosition = Plant.getAPositionNearAPlantForTheMap().toArray();
+        PlantsCache.Marker marker = PlantsCache.Marker.example(lastPosition);
+        new Notification(marker, lastPosition[0], lastPosition[1]);
         vibrate();
     }
 
@@ -209,6 +213,7 @@ public class FruitRadarNotification extends ErrorAware {
         private void notifyUser() {
             Intent intent = new Intent(activity, ShowPlantsActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.putExtra(ShowPlantsActivity.ARG_POSITION, lastPosition);
             PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, intent, 0);
 
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(activity)

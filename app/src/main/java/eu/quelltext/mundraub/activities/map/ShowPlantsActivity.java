@@ -8,9 +8,10 @@ import android.view.View;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.activities.NewPlantActivity;
-import eu.quelltext.mundraub.initialization.Permissions;
 
 public class ShowPlantsActivity extends MapBaseActivity {
+
+    public static final String ARG_POSITION = "position_longitude_latitude";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,23 +31,18 @@ public class ShowPlantsActivity extends MapBaseActivity {
             }
         });
         initializeWebView(R.id.web_view);
-        setMapToBestPosition();
+        openMapAtBestPosition();
     }
 
-    private void setMapToGPSPosition() {
-
+    private void openMapAtBestPosition() {
+        Bundle extras = getIntent().getExtras();
+        if (extras != null && extras.containsKey(ARG_POSITION)) {
+            openMapAtPosition(extras.getDoubleArray(ARG_POSITION));
+        } else if (getPermissions().ACCESS_FINE_LOCATION.askIfNotGranted()) {
+            openMapAtGPSPositionOrLastPlantOrDefault();
+        } else {
+            openMapAtLastPlantOrDefault();
+        }
     }
 
-    private void setMapToBestPosition() {
-        webView.loadUrl("file:///android_asset/map/examples/fullScreen.html?8.559300000000329,51.97691767671171");
-        getPermissions().ACCESS_FINE_LOCATION.askIfNotGranted(new Permissions.PermissionChange() {
-            @Override
-            public void onGranted(Permissions.Permission permission) {
-                setMapToGPSPosition();
-            }
-
-            @Override
-            public void onDenied(Permissions.Permission permission) {}
-        });
-    }
 }
