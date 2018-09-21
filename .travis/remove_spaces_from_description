@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+# Remove spaces from the app description on F-Droid.
+#
+
+set -e
+
+cd "`dirname \"$0\"`"
+# credits to https://stackoverflow.com/a/1252191/1320237
+sed -i -e ':a' -e 'N' -e '$!ba' -e 's/\n\(\s*\)/ \1/g' ../fastlane/metadata/android/**/full_description.txt
+

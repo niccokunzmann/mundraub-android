@@ -1,5 +1,7 @@
 #!/bin/bash
-
+#
+# Create a new release of the app.
+#
 
 set -e
 
@@ -22,6 +24,7 @@ git commit -m"$version: set gradle version"
 echo "update the translations"
 git stash || true
 tx pull --all --force --no-interactive
+./remove_spaces_from_description
 (
   cd ..
   git add app/src/main/res/values*
