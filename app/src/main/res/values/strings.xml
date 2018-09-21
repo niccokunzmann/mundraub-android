@@ -275,5 +275,13 @@
     <!-- Notifications -->
     <string name="channel_name">Plants Nearby</string>
     <string name="notification_text_with_distance" formatted="false"><xliff:g example="10" id="distance">%1$d</xliff:g> meters away</string>
+    <string name="direction_north">North</string>
+    <string name="direction_north_east">North East</string>
+    <string name="direction_east">East</string>
+    <string name="direction_south_east">South East</string>
+    <string name="direction_south">South</string>
+    <string name="direction_south_west">South West</string>
+    <string name="direction_west">West</string>
+    <string name="direction_north_west">North West</string>
 
 </resources>
