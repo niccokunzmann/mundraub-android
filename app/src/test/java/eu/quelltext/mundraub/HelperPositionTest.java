@@ -19,6 +19,11 @@ public class HelperPositionTest {
     }
 
     @Test
+    public void testGetDirectionClose() {
+        assertDirectionMatches(0, 0, 0, 0, R.string.direction_too_close);
+    }
+
+    @Test
     public void testGetDirectionEast() {
         assertDirectionMatches(0, 0, 1, 0, R.string.direction_east);
     }

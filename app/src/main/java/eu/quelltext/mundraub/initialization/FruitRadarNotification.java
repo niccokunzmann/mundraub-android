@@ -233,7 +233,15 @@ public class FruitRadarNotification extends ErrorAware {
         private String getText() {
             return String.format(
                     activity.getString(R.string.notification_text_with_distance),
-                    Math.round(distanceInMeters));
+                    Math.round(distanceInMeters),
+                    getDirectionText());
+        }
+
+        private String getDirectionText() {
+            return activity.getString(Helper.directionFromPositionToPositionAsResourceId(
+                    currentPosition[0], currentPosition[1],
+                    marker.getLongitude(), marker.getLatitude())
+            );
         }
 
         private double distanceInMetersTo(double longitude, double latitude) {
