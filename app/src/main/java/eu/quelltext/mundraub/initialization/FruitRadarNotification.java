@@ -3,11 +3,14 @@ package eu.quelltext.mundraub.initialization;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 
@@ -29,6 +32,7 @@ public class FruitRadarNotification extends ErrorAware {
     private static FruitRadarNotification instance;
     private static final String CHANNEL_ID_PLANTS_NEABY = "PLANTS_NEARBY";
     private static int lastCreatedNotificationId = 0;
+    private Vibrator vibrator;
 
     static void initialize() {
         Initialization.provideActivityFor(new Initialization.ActivityInitialized() {
@@ -71,6 +75,26 @@ public class FruitRadarNotification extends ErrorAware {
         }
         if (getLocationManager() != null) {
             startGPSUpdates();
+        }
+    }
+
+    private void vibrate() {
+        if (!Settings.vibrateWhenPlantIsInRange()) {
+            return;
+        }
+        // for vibration, see https://stackoverflow.com/a/13950364/1320237
+        if (vibrator == null) {
+            vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
+        }
+        if (vibrator != null) {
+            // TODO: vibration is deprecated like this from Build.VERSION.SDK_INT >= 26
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                if (vibrator.hasVibrator()) {
+                    vibrator.vibrate(Settings.vibrationMillisecondsForPlantInRange());
+                }
+            } else {
+                vibrator.vibrate(Settings.vibrationMillisecondsForPlantInRange());
+            }
         }
     }
 
@@ -120,6 +144,7 @@ public class FruitRadarNotification extends ErrorAware {
     }
 
     private void onLocationChanged(double longitude, double latitude) {
+        boolean vibrated = false;
         List<PlantsCache.Marker> markers = PlantsCache.getMarkersInRangeMeters(
                 longitude, latitude, Settings.getRadarPlantRangeMeters());
         Map<PlantsCache.Marker, Notification> oldMarkerToNotification = markerToNotification;
@@ -128,6 +153,10 @@ public class FruitRadarNotification extends ErrorAware {
             Notification notification = oldMarkerToNotification.get(marker);
             if (notification == null) {
                 notification = new Notification(marker, longitude, latitude);
+                if (!vibrated) {
+                    vibrate();
+                    vibrated = true;
+                }
             } else {
                 notification.updateLocation(longitude, latitude);
             }
@@ -154,6 +183,7 @@ public class FruitRadarNotification extends ErrorAware {
     private void showExampleNotification() {
         PlantsCache.Marker marker = PlantsCache.Marker.example();
         new Notification(marker, marker.getLongitude(), marker.getLatitude());
+        vibrate();
     }
 
     /*

@@ -84,6 +84,7 @@ public class Settings {
     private static boolean useErrorReport = true;
     private static boolean useOfflineMapAPI = false;
     private static boolean debugMundraubMapAPI = false;
+    private static boolean vibrateWhenPlantIsInRange = false;
     private static Set<String> showCategories = new HashSet<>(Arrays.asList(API_ID_MUNDRAUB)); // https://stackoverflow.com/a/2041810/1320237
     private static boolean useFruitRadarNotifications = false;
     private static int radarPlantRangeMeters = 50;
@@ -116,6 +117,7 @@ public class Settings {
         log.d("useErrorReport", useErrorReport);
         log.d("useOfflineMapAPI", useOfflineMapAPI);
         log.d("debugMundraubMapAPI", debugMundraubMapAPI);
+        log.d("vibrateWhenPlantIsInRange", vibrateWhenPlantIsInRange);
         log.d("useFruitRadarNotifications", useFruitRadarNotifications);
         log.d("radarPlantRangeMeters", radarPlantRangeMeters);
         log.d("showCategories", showCategoriesString());
@@ -135,6 +137,7 @@ public class Settings {
         useErrorReport = preferences.getBoolean("useErrorReport", useErrorReport);
         useOfflineMapAPI = preferences.getBoolean("useOfflineMapAPI", useOfflineMapAPI);
         debugMundraubMapAPI = preferences.getBoolean("debugMundraubMapAPI", debugMundraubMapAPI);
+        vibrateWhenPlantIsInRange = preferences.getBoolean("vibrateWhenPlantIsInRange", vibrateWhenPlantIsInRange);
         useFruitRadarNotifications = preferences.getBoolean("useFruitRadarNotifications", useFruitRadarNotifications);
         radarPlantRangeMeters = preferences.getInt("radarPlantRangeMeters", radarPlantRangeMeters);
         String s = preferences.getString("showCategories", showCategoriesString());
@@ -169,6 +172,7 @@ public class Settings {
             editor.putBoolean("useErrorReport", useErrorReport);
             editor.putBoolean("useOfflineMapAPI", useOfflineMapAPI);
             editor.putBoolean("debugMundraubMapAPI", debugMundraubMapAPI);
+            editor.putBoolean("vibrateWhenPlantIsInRange", vibrateWhenPlantIsInRange);
             editor.putBoolean("useFruitRadarNotifications", useFruitRadarNotifications);
             editor.putInt("radarPlantRangeMeters", radarPlantRangeMeters);
             editor.putString("showCategories", showCategoriesString());
@@ -271,6 +275,15 @@ public class Settings {
         return commit();
     }
 
+    public static boolean vibrateWhenPlantIsInRange() {
+        return vibrateWhenPlantIsInRange;
+    }
+
+    public static int vibrateWhenPlantIsInRange(boolean isChecked) {
+        vibrateWhenPlantIsInRange = isChecked;
+        return commit();
+    }
+
     public static boolean useCacheForPlants() {
         return useCacheForPlants;
     }
@@ -369,6 +382,10 @@ public class Settings {
     public static int setRadarPlantRangeMeters(int meters) {
         radarPlantRangeMeters = meters;
         return commit();
+    }
+
+    public static long vibrationMillisecondsForPlantInRange() {
+        return 500;
     }
 
     public interface ChangeListener {

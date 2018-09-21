@@ -211,6 +211,7 @@
     <string name="permission_purpose_external_storage">The app needs permission to write the found plants to the device storage so they can be seen when the app is closed and opened again.</string>
     <string name="permission_purpose_internet">The app needs permission to access the Internet in order to allow you to upload plants to the Internet.</string>
     <string name="permission_denied_consequences">The permission is not given, so the app cannot do that.</string>
+    <string name="permission_purpose_vibrate">When there is a plant in range, the phone can vibrate for a short while to notify you. Even if you give permission, you can switch vibration on and off in the settings.</string>
 
     <!-- settings -->
     <string name="title_settings">App Settings</string>
@@ -258,6 +259,7 @@
     <string name="settings_show_example_notification">show example notification</string>
     <string name="reason_radar_only_works_in_offline_mode">The fruit radar only works in offline mode because it needs the markers downloaded.</string>
     <string name="ask_switch_on_offline_mode">Would you like to enter the offline mode now?</string>
+    <string name="settings_enable_fruit_radar_vibration">If this is enabled and a plant appears on the fruit radar, this phone vibrates.</string>
 
     <!-- Mundraub rules https://mundraub.org/mundraeuber-regeln -->
     <string name="title_codex">Community Codex</string>

@@ -22,6 +22,7 @@ public class Permissions {
     private static SharedPermissionState STATE_CAMERA = new SharedPermissionState(Manifest.permission.CAMERA, R.string.permission_purpose_camera);
     private static SharedPermissionState STATE_WRITE_EXTERNAL_STORAGE = new SharedPermissionState(Manifest.permission.WRITE_EXTERNAL_STORAGE, R.string.permission_purpose_external_storage);
     private static SharedPermissionState STATE_INTERNET = new SharedPermissionState(Manifest.permission.INTERNET, R.string.permission_purpose_internet);
+    private static SharedPermissionState STATE_VIBRATE = new SharedPermissionState(Manifest.permission.VIBRATE, R.string.permission_purpose_vibrate);
 
 
     private final Activity activity;
@@ -29,6 +30,7 @@ public class Permissions {
     public final Permission CAMERA;
     public final Permission WRITE_EXTERNAL_STORAGE;
     public final Permission INTERNET;
+    public final Permission VIBRATE;
 
     public static Permissions of(Activity activity) {
         return new Permissions(activity);
@@ -40,6 +42,7 @@ public class Permissions {
         this.CAMERA = new Permission(STATE_CAMERA);
         this.WRITE_EXTERNAL_STORAGE = new Permission(STATE_WRITE_EXTERNAL_STORAGE);
         this.INTERNET = new Permission(STATE_INTERNET);
+        this.VIBRATE = new Permission(STATE_VIBRATE);
     }
 
     /* All permissions share a common state about whether they were asked or not. */

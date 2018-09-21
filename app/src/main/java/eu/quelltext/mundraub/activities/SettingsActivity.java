@@ -281,7 +281,31 @@ public class SettingsActivity extends MundraubBaseActivity {
                 return Settings.useFruitRadarNotifications();
             }
         });
+        synchronizeCheckbutton(R.id.checkBox_fruit_radar_vibrate, new Toggled() {
+            @Override
+            public int onToggle(boolean checked) {
+                if (checked) {
+                    getPermissions().VIBRATE.askIfNotGranted(new Permissions.PermissionChange() {
+                        @Override
+                        public void onGranted(Permissions.Permission permission) {
+                            feedbackAboutSettingsChange(Settings.vibrateWhenPlantIsInRange(true));
+                        }
 
+                        @Override
+                        public void onDenied(Permissions.Permission permission) {
+                        }
+                    });
+                } else {
+                    return Settings.vibrateWhenPlantIsInRange(false);
+                }
+                return Settings.COMMIT_SUCCESSFUL;
+            }
+
+            @Override
+            public boolean isChecked() {
+                return Settings.vibrateWhenPlantIsInRange();
+            }
+        });
     }
 
     private void askDownloadOfflineMapData() {

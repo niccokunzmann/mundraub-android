@@ -115,6 +115,13 @@
                     android:singleLine="true" />
             </LinearLayout>
 
+            <CheckBox
+                android:id="@+id/checkBox_fruit_radar_vibrate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="@string/settings_enable_fruit_radar_vibration" />
+
             <View
                 android:id="@+id/divider12"
                 android:layout_width="match_parent"
