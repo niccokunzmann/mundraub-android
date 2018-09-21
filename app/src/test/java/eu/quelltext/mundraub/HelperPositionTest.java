@@ -40,7 +40,7 @@ public class HelperPositionTest {
 
     @Test
     public void testGetDirectionWest() {
-        assertDirectionMatches(100, 100, 30, 80, R.string.direction_west);
+        assertDirectionMatches(100, 100, 30, 80, R.string.direction_north);
     }
 
     @Test
