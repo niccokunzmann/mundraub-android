@@ -274,15 +274,16 @@
 
     <!-- Notifications -->
     <string name="channel_name">Plants Nearby</string>
-    <string name="notification_text_with_distance" formatted="false"><xliff:g example="10" id="distance">%1$d</xliff:g> meters away</string>
-    <string name="direction_north">North</string>
-    <string name="direction_north_east">North East</string>
-    <string name="direction_east">East</string>
-    <string name="direction_south_east">South East</string>
-    <string name="direction_south">South</string>
-    <string name="direction_south_west">South West</string>
-    <string name="direction_west">West</string>
-    <string name="direction_north_west">North West</string>
-    <string name="direction_too_close">close</string>
+    <!-- %1$d is the distance in meters i.e. "10" and %2$s is the direction i.e. "north of you". You can order these as you like in your language. You can shorten meters to "m" to avoid plural problems. -->
+    <string name="notification_text_with_distance" formatted="false"><xliff:g example="10" id="distance">%1$d</xliff:g> meters <xliff:g example="north of you" id="direction">%2$s</xliff:g></string>
+    <string name="direction_north">north of you</string>
+    <string name="direction_north_east">north east of you</string>
+    <string name="direction_east">east of you</string>
+    <string name="direction_south_east">south east of you</string>
+    <string name="direction_south">south of you</string>
+    <string name="direction_south_west">south west of you</string>
+    <string name="direction_west">west of you</string>
+    <string name="direction_north_west">north west of you</string>
+    <string name="direction_too_close">away from you</string>
 
 </resources>

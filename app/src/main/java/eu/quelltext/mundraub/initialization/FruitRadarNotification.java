@@ -11,6 +11,7 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 
@@ -231,12 +232,14 @@ public class FruitRadarNotification extends ErrorAware {
 
         @SuppressLint("StringFormatInvalid")
         private String getText() {
+            long meters = Math.round(distanceInMeters);
             return String.format(
                     activity.getString(R.string.notification_text_with_distance),
-                    Math.round(distanceInMeters),
-                    getDirectionText());
+                    meters,
+                    meters > 1 ? getDirectionText() : activity.getString(R.string.direction_too_close));
         }
 
+        @NonNull
         private String getDirectionText() {
             return activity.getString(Helper.directionFromPositionToPositionAsResourceId(
                     currentPosition[0], currentPosition[1],
