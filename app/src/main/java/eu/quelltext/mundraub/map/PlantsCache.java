@@ -195,14 +195,16 @@ public class PlantsCache extends ErrorAware {
     }
 
     public static List<Marker> getMarkersInRangeMeters(double longitude, double latitude, double distanceInMeters) {
-        double deltaRadian = Helper.metersToRadian(distanceInMeters);
+        double deltaDegrees = Helper.metersToDegrees(distanceInMeters);
         List<Marker> markers = getMarkersInBoundingBox(
-                longitude - deltaRadian,
-                latitude - deltaRadian,
-                longitude + deltaRadian,
-                latitude + deltaRadian);
+                longitude - deltaDegrees,
+                latitude - deltaDegrees,
+                longitude + deltaDegrees,
+                latitude + deltaDegrees);
         for (int i = markers.size() - 1; i >= 0; i--) {
-            if (markers.get(i).distanceInMetersTo(longitude, latitude) > distanceInMeters) {
+            Marker marker = markers.get(i);
+            double markerDistanceInMeters = marker.distanceInMetersTo(longitude, latitude);
+            if (markerDistanceInMeters > distanceInMeters) {
                 markers.remove(i);
             }
         }

@@ -102,8 +102,8 @@ public final class Helper extends ErrorAware {
         return true;
     }
 
-    public static double metersToRadian(double distanceInMeters) {
-        return distanceInMeters / EARTH_RADIUS_METERS;
+    public static double metersToDegrees(double distanceInMeters) {
+        return distanceInMeters / EARTH_RADIUS_METERS / DEG_TO_RAD;
     }
 
     private static double DEG_TO_RAD = Math.PI / 180;
