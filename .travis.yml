@@ -42,7 +42,7 @@ before_script:
 
 script:
 # build and test
-- gradle build check --stacktrace --debug
+- gradle build check
 - ./scripts/runHTTPProxy.sh --compile
 # use the build
 - "find | grep '\\.apk'"
