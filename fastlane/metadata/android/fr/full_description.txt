@@ -1,4 +1,4 @@
-Trouvez des plantes comestibles et uploadez-les sur Mundraub.org ! (Application non officielle)
+Find plants and share them online!
 
 Vous avez votre GSM avec vous tout le temps.
 Lorsque vous trouvez une plante comestible que vous aimeriez partager avec d'autres, vous pouvez enregistrer sa localisation, son type, et même une photo.
@@ -8,8 +8,9 @@ Fonctionnalités :
 <ul>
 <li>Réunissez des données sur les plantes en mode hors-ligne</li>
 <li>Carte intégrée pour trouver des plantes</li>
+    <li>Notifications when plants are nearby</li>
 <li>Les marqueurs de plantes sont visibles même hors-ligne</li>
-<li>Mundraub.org publishing</li>
+    <li>Mundraub.org and Na-Ovoce.cz publishing</li>
 </ul>
 
 Autorisations nécessaires :
@@ -23,4 +24,5 @@ Autorisations nécessaires :
 <li>sauvegarder le rapport de crash pour que vous puissiez mieux aider quand l'application se plante</li>
 </ul>
 </li>
+    <li>VIBRATE (optional) to be notified about plants nearby</li>
 </ul>

@@ -1,4 +1,4 @@
-Finde Pflanzen und teile sie auf Mundraub.org!
+Find plants and share them online!
 
 Du hast Dein Telefon die ganze Zeit dabei.
 Wenn Du eine essbare Pflanze findest, die du mit anderen teilen möchtest, kannst Du ihre Position, die Art und ein Photo aufnehmen.
@@ -8,8 +8,9 @@ Features:
 <ul>
 <li>Alle Pflanzendaten können offline eingetragen werden</li>
 <li>Eingebaute Karte, um Pflanzen zu finden</li>
+    <li>Notifications when plants are nearby</li>
 <li>Die Fundorte können runter geladen werden und sind offline verfügbar</li>
-<li>Eigene Fundorte können auf Mundraub.org publiziert werden</li>
+Pflanzen können auf Mundraub.org und Na-Ovoce.cz publiziert werden.
 </ul>
 
 Zugriffsrechte:
@@ -23,4 +24,5 @@ Zugriffsrechte:
 <li>die App-Ausgaben als Logdatei zu speichern, damit Du uns helfen kannst, die Fehler zu beheben.</li>
 </ul>
 </li>
+    <li>VIBRATE (optional) to be notified about plants nearby</li>
 </ul>
