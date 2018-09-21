@@ -41,8 +41,8 @@ before_script:
 - .travis/prepare-transifex.sh
 
 script:
-# build
-- gradle build
+# build and test
+- gradle build check
 - ./scripts/runHTTPProxy.sh --compile
 # use the build
 - "find | grep '\\.apk'"
