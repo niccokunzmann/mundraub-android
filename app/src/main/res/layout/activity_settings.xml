@@ -84,13 +84,6 @@
                 android:layout_weight="4"
                 android:text="@string/settings_enable_fruit_radar" />
 
-            <Button
-                android:id="@+id/button_show_example_notification"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="@string/settings_show_example_notification" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -549,6 +542,13 @@
                     android:paddingBottom="@dimen/activity_horizontal_margin"
                     android:text="@string/settings_create_public_api_for_debug" />
             </LinearLayout>
+            
+            <Button
+                android:id="@+id/button_show_example_notification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="@string/settings_test_fruit_radar" />
 
         </LinearLayout>
     </ScrollView>

@@ -1,6 +1,7 @@
 package eu.quelltext.mundraub.activities;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -18,11 +19,11 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import eu.quelltext.mundraub.R;
+import eu.quelltext.mundraub.activities.map.TestFruitRadarActivity;
 import eu.quelltext.mundraub.api.API;
 import eu.quelltext.mundraub.api.progress.Progress;
 import eu.quelltext.mundraub.common.Dialog;
 import eu.quelltext.mundraub.common.Settings;
-import eu.quelltext.mundraub.initialization.FruitRadarNotification;
 import eu.quelltext.mundraub.initialization.Permissions;
 import eu.quelltext.mundraub.map.PlantsCache;
 
@@ -88,7 +89,8 @@ public class SettingsActivity extends MundraubBaseActivity {
         buttonTestNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FruitRadarNotification.showExample();
+                Intent intent = new Intent(SettingsActivity.this, TestFruitRadarActivity.class);
+                startActivity(intent);
             }
         });
 

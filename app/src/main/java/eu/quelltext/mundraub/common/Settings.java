@@ -87,7 +87,7 @@ public class Settings {
     private static boolean vibrateWhenPlantIsInRange = false;
     private static Set<String> showCategories = new HashSet<>(Arrays.asList(API_ID_MUNDRAUB)); // https://stackoverflow.com/a/2041810/1320237
     private static boolean useFruitRadarNotifications = false;
-    private static int radarPlantRangeMeters = 50;
+    private static int radarPlantRangeMeters = 150;
 
 
     static {
@@ -375,8 +375,11 @@ public class Settings {
         return getRadarPlantRangeMeters() / 2;
     }
 
+    /*
+     * Prevent markers from showing up and being removed all the time.
+     */
     public static double getRadarPlantMaximumRangeMeters() {
-        return getRadarPlantRangeMeters() * 2;
+        return getRadarPlantRangeMeters() + Settings.getRadarGPSPrecisionMeters() * 2;
     }
 
     public static int setRadarPlantRangeMeters(int meters) {

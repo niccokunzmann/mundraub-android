@@ -80,10 +80,10 @@ public class PlantsCache extends ErrorAware {
         minLat = getLatitude(minLat);
         maxLon = getLongitude(maxLon);
         maxLat = getLatitude(maxLat);
-        log.d("minLon", minLon);
-        log.d("minLat", minLat);
-        log.d("maxLon", maxLon);
-        log.d("maxLat", maxLat);
+        //log.d("minLon", minLon);
+        //log.d("minLat", minLat);
+        //log.d("maxLon", maxLon);
+        //log.d("maxLat", maxLat);
         SQLiteDatabase database = getReadableDatabase();
         try {
             //log.d("number of plants in database", Marker.getCount(database));

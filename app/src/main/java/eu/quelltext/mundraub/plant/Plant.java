@@ -12,18 +12,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-import eu.quelltext.mundraub.common.Helper;
 import eu.quelltext.mundraub.R;
+import eu.quelltext.mundraub.common.Helper;
 import eu.quelltext.mundraub.error.ErrorAware;
 import eu.quelltext.mundraub.map.MapCache;
+import eu.quelltext.mundraub.map.MapUrl;
 
 
 public class Plant extends ErrorAware implements Comparable<Plant> {
@@ -360,11 +359,9 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
         return collection.contains(getId());
     }
 
-    public void setPositionFromMapUrl(String url) {
-        try {
+    public void setPositionFromMapUrl(MapUrl url) {
+        if (url.isValid()) {
             setPosition(Position.fromMapWithMarker(url));
-        } catch (MalformedURLException e) {
-            log.printStackTrace(e);
         }
     }
 
@@ -478,14 +475,9 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
             return asId();
         }
 
-        private static Position fromMapWithMarker(String url_) throws MalformedURLException {
-            Log.d("POSITION FROM URL", url_);
-            URL url = new URL(url_); // examples/fullScreen.html#11.523992844180245,47.30569859911609
-            String ref = url.getRef(); // 11.523992844180245,47.30569859911609
-            String[] parts = ref.split(","); // from http://stackoverflow.com/questions/3481828/ddg#3481842
-            String longitude = parts[0]; // 11.523992844180245
-            String latitude = parts[1];  // 47.30569859911609
-            return new MapPosition(Double.parseDouble(longitude), Double.parseDouble(latitude));
+        private static Position fromMapWithMarker(MapUrl url) {
+            Log.d("POSITION FROM URL", url.toString());
+            return new MapPosition(url.getLongitude(), url.getLatitude());
         }
 
         public static Position from(JSONObject json) throws JSONException {

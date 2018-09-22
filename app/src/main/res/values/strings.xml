@@ -257,7 +257,7 @@
     <string name="settings_fruit_radar">Fruit Radar</string>
     <string name="settings_enable_fruit_radar">If this is enabled, the app notifies you about edible plants nearby.</string>
     <string name="settings_distance_in_meters" formatted="false">When the plant is <xliff:g example="10" id="distance">%1$d</xliff:g> meters away, you receive a notification.</string>
-    <string name="settings_show_example_notification">show example notification</string>
+    <string name="settings_test_fruit_radar">test radar notifications on the map</string>
     <string name="reason_radar_only_works_in_offline_mode">The fruit radar only works in offline mode because it needs the markers downloaded.</string>
     <string name="ask_switch_on_offline_mode">Would you like to enter the offline mode now?</string>
     <string name="settings_enable_fruit_radar_vibration">If this is enabled and a plant appears on the fruit radar, this phone vibrates.</string>
@@ -273,6 +273,7 @@
     <string name="rules_url">https://mundraub.org/mundraeuber-regeln</string>
 
     <!-- Notifications -->
+    <string name="title_fruit_radar_test">Fruit Radar Test</string>
     <string name="channel_name">Plants Nearby</string>
     <!-- %1$d is the distance in meters i.e. "10" and %2$s is the direction i.e. "north of you". You can order these as you like in your language. You can shorten meters to "m" to avoid plural problems. -->
     <string name="notification_text_with_distance" formatted="false"><xliff:g example="10" id="distance">%1$d</xliff:g> meters <xliff:g example="north of you" id="direction">%2$s</xliff:g></string>

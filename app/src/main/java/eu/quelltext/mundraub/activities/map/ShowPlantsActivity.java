@@ -17,6 +17,7 @@ public class ShowPlantsActivity extends MapBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_plants);
+        initializeWebView(R.id.web_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -30,14 +31,14 @@ public class ShowPlantsActivity extends MapBaseActivity {
                 startActivity(intent);
             }
         });
-        initializeWebView(R.id.web_view);
         openMapAtBestPosition();
     }
 
     private void openMapAtBestPosition() {
         Bundle extras = getIntent().getExtras();
         if (extras != null && extras.containsKey(ARG_POSITION)) {
-            openMapAtPosition(extras.getDoubleArray(ARG_POSITION));
+            double[] position = extras.getDoubleArray(ARG_POSITION);
+            openMapAtPosition(position);
         } else if (getPermissions().ACCESS_FINE_LOCATION.askIfNotGranted()) {
             openMapAtGPSPositionOrLastPlantOrDefault();
         } else {

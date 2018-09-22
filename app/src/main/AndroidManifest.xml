@@ -48,6 +48,9 @@
             android:name=".activities.map.ChooseMapPosition"
             android:label="@string/title_choose_map_position"/>
         <activity
+            android:name=".activities.map.TestFruitRadarActivity"
+            android:label="@string/title_fruit_radar_test"/>
+        <activity
             android:name=".activities.AboutActivity"
             android:label="@string/title_about"/>
         <activity

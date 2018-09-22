@@ -18,6 +18,7 @@ import java.util.Locale;
 
 import eu.quelltext.mundraub.activities.MundraubBaseActivity;
 import eu.quelltext.mundraub.common.Settings;
+import eu.quelltext.mundraub.map.MapUrl;
 import eu.quelltext.mundraub.map.MundraubProxy;
 import eu.quelltext.mundraub.plant.Plant;
 
@@ -106,9 +107,13 @@ public class MapBaseActivity extends MundraubBaseActivity {
     }
 
     protected void openMapAtPosition(double longitude, double latitude) {
-        String url = "file:///android_asset/map/examples/fullScreen.html?" + longitude + "," + latitude;
-        log.d("open map at position", url);
-        webView.loadUrl(url);
+        MapUrl url = new MapUrl(longitude, latitude);
+        log.d("open map at position", url.toString());
+        webView.loadUrl(url.getUrl());
+    }
+
+    public MapUrl getUrl() {
+        return new MapUrl(webView.getUrl());
     }
 
     @SuppressLint("MissingPermission")

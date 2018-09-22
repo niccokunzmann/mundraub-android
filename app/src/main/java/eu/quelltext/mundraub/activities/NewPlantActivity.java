@@ -25,6 +25,7 @@ import java.io.IOException;
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.activities.map.ChooseMapPosition;
 import eu.quelltext.mundraub.map.MapCache;
+import eu.quelltext.mundraub.map.MapUrl;
 import eu.quelltext.mundraub.plant.Plant;
 import eu.quelltext.mundraub.plant.PlantCategory;
 
@@ -77,7 +78,7 @@ public class NewPlantActivity extends MundraubBaseActivity {
             plant.save();
             if (extras != null && extras.containsKey(ARG_PLANT_LOCATION_MAP_URL)) {
                 String url = extras.getString(ARG_PLANT_LOCATION_MAP_URL);
-                plant.setPositionFromMapUrl(url); // load plant location from map url
+                plant.setPositionFromMapUrl(new MapUrl(url)); // load plant location from map url
             } else {
                 autoFillGPSLocation(); // load GPS location for new plants automatically
             }

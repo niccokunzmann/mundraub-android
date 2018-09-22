@@ -41,8 +41,7 @@ public class ChooseMapPosition extends MapBaseActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = webView.getUrl();
-                plant.setPositionFromMapUrl(url);
+                plant.setPositionFromMapUrl(getUrl());
                 finish();
             }
         });

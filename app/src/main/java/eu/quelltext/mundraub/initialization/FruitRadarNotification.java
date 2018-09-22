@@ -26,7 +26,6 @@ import eu.quelltext.mundraub.common.Helper;
 import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.error.ErrorAware;
 import eu.quelltext.mundraub.map.PlantsCache;
-import eu.quelltext.mundraub.plant.Plant;
 
 public class FruitRadarNotification extends ErrorAware {
 
@@ -34,6 +33,7 @@ public class FruitRadarNotification extends ErrorAware {
     private static FruitRadarNotification instance;
     private static final String CHANNEL_ID_PLANTS_NEABY = "PLANTS_NEARBY";
     private static int lastCreatedNotificationId = 0;
+    private static int lastCreatedIntentId = 0;
     private Vibrator vibrator;
     private double[] currentPosition = new double[]{0, 0};
 
@@ -146,6 +146,10 @@ public class FruitRadarNotification extends ErrorAware {
         log.d("GPS", "started");
     }
 
+    public static void testLocation(double longitude, double latitude) {
+        instance().onLocationChanged(longitude, latitude);
+    }
+
     private void onLocationChanged(double longitude, double latitude) {
         boolean vibrated = false;
         currentPosition = new double[]{longitude, latitude};
@@ -156,39 +160,32 @@ public class FruitRadarNotification extends ErrorAware {
         for (PlantsCache.Marker marker : markers) {
             Notification notification = oldMarkerToNotification.get(marker);
             if (notification == null) {
-                notification = new Notification(marker, longitude, latitude);
+                notification = new Notification(marker);
                 if (!vibrated) {
                     vibrate();
                     vibrated = true;
                 }
             } else {
-                notification.updateLocation(longitude, latitude);
+                notification.updateLocation();
             }
             newMarkerToNotification.put(marker, notification);
             oldMarkerToNotification.remove(marker);
         }
+        double maximumDistance = Settings.getRadarPlantMaximumRangeMeters();
         for (Notification notification : oldMarkerToNotification.values()) {
-            if (notification.getDistanceInMeters() > Settings.getRadarPlantMaximumRangeMeters() * 1.5) {
+            double distance = notification.distanceInMetersToCurrentPosition();
+            if (distance > maximumDistance) {
                 notification.delete();
             } else {
+                notification.updateLocation();
                 newMarkerToNotification.put(notification.getMarker(), notification);
             }
         }
+        markerToNotification = newMarkerToNotification;
     }
 
     private FruitRadarNotification() {
         notificationManager = NotificationManagerCompat.from(activity);
-    }
-
-    public static void showExample() {
-        instance().showExampleNotification();
-    }
-
-    private void showExampleNotification() {
-        currentPosition = Plant.getAPositionNearAPlantForTheMap().toArray();
-        PlantsCache.Marker marker = PlantsCache.Marker.example(currentPosition);
-        new Notification(marker, currentPosition[0], currentPosition[1]);
-        vibrate();
     }
 
     /*
@@ -201,11 +198,9 @@ public class FruitRadarNotification extends ErrorAware {
 
         private final PlantsCache.Marker marker;
         private final int id;
-        private double distanceInMeters;
 
-        public Notification(PlantsCache.Marker marker, double longitude, double latitude) {
+        public Notification(PlantsCache.Marker marker) {
             this.marker = marker;
-            distanceInMeters = distanceInMetersTo(longitude, latitude);
             id = ++lastCreatedNotificationId;
 
             notifyUser();
@@ -215,7 +210,7 @@ public class FruitRadarNotification extends ErrorAware {
             Intent intent = new Intent(activity, ShowPlantsActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.putExtra(ShowPlantsActivity.ARG_POSITION, currentPosition);
-            PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, intent, 0);
+            PendingIntent pendingIntent = PendingIntent.getActivity(activity, ++lastCreatedIntentId, intent, 0);
 
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(activity)
                     .setSmallIcon(marker.getNotificationIcon())
@@ -232,7 +227,7 @@ public class FruitRadarNotification extends ErrorAware {
 
         @SuppressLint("StringFormatInvalid")
         private String getText() {
-            long meters = Math.round(distanceInMeters);
+            long meters = Math.round(distanceInMetersToCurrentPosition());
             return String.format(
                     activity.getString(R.string.notification_text_with_distance),
                     meters,
@@ -247,26 +242,21 @@ public class FruitRadarNotification extends ErrorAware {
             );
         }
 
-        private double distanceInMetersTo(double longitude, double latitude) {
+        private double distanceInMetersToCurrentPosition() {
             return Helper.distanceInMetersBetween(
                     marker.getLongitude(),
                     marker.getLatitude(),
-                    longitude,
-                    latitude);
+                    currentPosition[0],
+                    currentPosition[1]);
         }
 
         /* called when the location changed */
-        public void updateLocation(double longitude, double latitude) {
-            distanceInMeters = distanceInMetersTo(longitude, latitude);
+        public void updateLocation() {
             notifyUser();
         }
 
         public void delete() {
             notificationManager.cancel(id);
-        }
-
-        public double getDistanceInMeters() {
-            return distanceInMeters;
         }
 
         public PlantsCache.Marker getMarker() {
