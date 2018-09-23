@@ -3,7 +3,7 @@
          Open this link to translate the app to your language:
          https://www.transifex.com/mundraub-android/mundraub-android-app/
       -->
-    <!-- Universal app name. If you translate it, also translati it in the title. -->
+    <!-- Universal app name. If you translate it, also translate it in the title.txt file. -->
     <string name="app_name">Fruit Radar</string>
 
     <!-- ==============  Edit and add a plant  ============== -->

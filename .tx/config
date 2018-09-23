@@ -29,3 +29,9 @@ source_file = app/src/main/assets/map/translations/en.js
 source_lang = en
 type = REQUIREJS
 
+[mundraub-android-app.fdroid-title-txt]
+file_filter = fastlane/metadata/android/<lang>/title.txt
+minimum_perc = 100
+source_file = fastlane/metadata/android/en/title.txt
+source_lang = en
+type = TXT
