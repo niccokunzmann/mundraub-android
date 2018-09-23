@@ -9,5 +9,6 @@ These are sources of plants on the planet which we could integrate:
 - possible source
   - https://fallingfruit.org/ (https://github.com/falling-fruit/falling-fruit-mobile)
   - http://fruitcity.co.uk/the-fruit-map/
+    - other initiatives: http://fruitcity.co.uk/links-to-communities/
   - https://www.concrete-jungle.org/food-map/
   - https://ernte-teilen.org/map#/
