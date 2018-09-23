@@ -17,16 +17,11 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.NewPlantActivity"
-            android:label="@string/title_edit_plant"/>
+            android:label="@string/title_edit_plant" />
         <activity
             android:name=".activities.PlantListActivity"
             android:label="@string/title_my_plants"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activities.PlantDetailActivity"
@@ -46,17 +41,16 @@
             android:label="@string/title_activity_login" />
         <activity
             android:name=".activities.map.ChooseMapPosition"
-            android:label="@string/title_choose_map_position"/>
+            android:label="@string/title_choose_map_position" />
         <activity
             android:name=".activities.map.TestFruitRadarActivity"
-            android:label="@string/title_fruit_radar_test"/>
+            android:label="@string/title_fruit_radar_test" />
         <activity
             android:name=".activities.AboutActivity"
-            android:label="@string/title_about"/>
+            android:label="@string/title_about" />
         <activity
             android:name=".activities.SettingsActivity"
-            android:label="@string/title_settings"
-            />
+            android:label="@string/title_settings" />
         <activity
             android:name=".activities.map.ShowPlantsActivity"
             android:label="@string/title_activity_show_plants"
@@ -64,6 +58,13 @@
         <activity
             android:name=".activities.CodexActivity"
             android:label="@string/title_codex" />
+        <activity android:name=".activities.StartupActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -531,4 +531,10 @@
     <!-- Fruit Radar Notifications: Part of the notification message. When the plant is too close to really tell the direction e.g. because GPS is too imprecise. -->
     <string name="direction_too_close">away from you</string>
 
+    <!-- ==============  Startup  ============== -->
+    <!-- Startup: Activity title. This will be displayed during loading -->
+    <string name="title_startup">Fruit Radar Starting ...</string>
+    <!-- Startup: loading plants takes some time if there are many -->
+    <string name="startup_loading_plants">Loading all plants ...</string>
+
 </resources>

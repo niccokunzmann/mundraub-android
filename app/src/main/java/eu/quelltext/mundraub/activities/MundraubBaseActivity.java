@@ -37,10 +37,14 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Initialization.provideActivity(this);
+        initializeApp();
         log = Logger.newFor(this);
         isCreated = true;
         log.d("activity life cycle", "onCreate");
+    }
+
+    protected void initializeApp() {
+        Initialization.provideActivity(this);
     }
 
     @Override

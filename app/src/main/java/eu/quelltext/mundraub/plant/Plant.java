@@ -110,6 +110,10 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
         }
     }
 
+    public static void loadAll() {
+        getPlants();
+    }
+
     private static PlantCollection getPlants() {
         if (plants == null) {
             plants = new PersistentPlantCollection();
