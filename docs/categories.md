@@ -154,7 +154,7 @@ https://github.com/jsmesami/naovoce/blob/master/src/fruit/fixtures/kinds.json
 
 https://github.com/niccokunzmann/mundraub-android/issues/108
 
-    'Briar',
+    'Briar', https://en.wikipedia.org/wiki/Briar_(thicket)
     'Hawthorn',
     'Tangerine',
     'Grapefruit',
@@ -209,7 +209,7 @@ does not contain all categories.
     {"id":"5","name":"Cherry tree","color":"#FF0098","count":"1255"},
     {"id":"4","name":"Plum tree","color":"#67CCCC","count":"800"},
     {"id":"2","name":"Pear tree","color":"#FAF402","count":"626"},
-    {"id":"23","name":"Briar","color":"#FF4200","count":"498"},
+    {"id":"23","name":"Briar","color":"#FF4200","count":"498"}, // https://en.wikipedia.org/wiki/Briar_(thicket)
     {"id":"17","name":"Elderberry","color":"#FFFFD3","count":"391"},
     {"id":"38","name":"Yellow Plum","color":"#FFD800","count":"385"},
     {"id":"9","name":"Hazelnut","color":"#34CC01","count":"325"},
