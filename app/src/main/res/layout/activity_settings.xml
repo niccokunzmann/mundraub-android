@@ -448,7 +448,7 @@
                         android:id="@+id/toggle_location"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                         />
+                        />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -476,7 +476,46 @@
                         android:id="@+id/toggle_location_ask"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                         />
+                        />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ToggleButton
+                        android:id="@+id/toggle_vibration"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingLeft="@dimen/text_margin"
+                        android:paddingRight="@dimen/text_margin">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_permission_vibration_title"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/activity_horizontal_margin"
+                            android:text="@string/settings_permission_vibration_text" />
+                    </LinearLayout>
+
+                    <ToggleButton
+                        android:id="@+id/toggle_vibration_ask"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        />
                 </TableRow>
 
             </TableLayout>
@@ -542,7 +581,7 @@
                     android:paddingBottom="@dimen/activity_horizontal_margin"
                     android:text="@string/settings_create_public_api_for_debug" />
             </LinearLayout>
-            
+
             <Button
                 android:id="@+id/button_show_example_notification"
                 android:layout_width="match_parent"

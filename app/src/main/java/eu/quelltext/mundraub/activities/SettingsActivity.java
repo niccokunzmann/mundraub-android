@@ -228,6 +228,7 @@ public class SettingsActivity extends MundraubBaseActivity {
         synchronizePermissionSetting(R.id.toggle_location, R.id.toggle_location_ask, getPermissions().ACCESS_FINE_LOCATION);
         synchronizePermissionSetting(R.id.toggle_internet, R.id.toggle_internet_ask, getPermissions().INTERNET);
         synchronizePermissionSetting(R.id.toggle_storage, R.id.toggle_storage_ask, getPermissions().WRITE_EXTERNAL_STORAGE);
+        synchronizePermissionSetting(R.id.toggle_vibration, R.id.toggle_vibration_ask, getPermissions().VIBRATE);
         synchronizeCategoryCheckbutton(R.id.checkBox_markers_mundraub, Settings.API_ID_MUNDRAUB);
         synchronizeCategoryCheckbutton(R.id.checkBox_markers_na_ovoce, Settings.API_ID_NA_OVOCE);
         synchronizeCategoryCheckbutton(R.id.checkBox_markers_fruitmap, Settings.API_ID_FRUITMAP);
