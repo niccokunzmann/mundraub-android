@@ -10,6 +10,7 @@ import eu.quelltext.mundraub.activities.MundraubBaseActivity;
 public class Dialog {
 
     private final MundraubBaseActivity activity;
+    private boolean closed = false;
 
     public Dialog(Activity activity) {
         /* Pattern: Destroyed activity check
@@ -52,16 +53,35 @@ public class Dialog {
         if (!canCreateDialog()) return;
         // from https://stackoverflow.com/a/2115770/1320237
         AlertDialog.Builder builder = Helper.getAlertBuilder(activity);
-        builder.setTitle(title)
+        android.app.Dialog dialog = builder.setTitle(title)
                 .setMessage(message)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        onClose();
                         cb.onClosed();
                     }
                 })
                 .setIcon(icon)
                 .show();
+        handleOnCancel(dialog);
+        activity.onDialogOpened(this);
+    }
 
+    private void handleOnCancel(android.app.Dialog dialog) {
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                onClose();
+            }
+        });
+    }
+
+    private void onClose() {
+        if (closed) {
+            return;
+        }
+        closed = true;
+        activity.onDialogClosed(this);
     }
 
     public interface ClosedCallback {
@@ -90,11 +110,11 @@ public class Dialog {
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                onClose();
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
                         callback.yes();
                         break;
-
                     case DialogInterface.BUTTON_NEGATIVE:
                         callback.no();
                         break;
@@ -102,9 +122,11 @@ public class Dialog {
             }
         };
         AlertDialog.Builder builder = Helper.getAlertBuilder(activity);;
-        builder .setMessage(reason + "\n" + activity.getResources().getString(question))
+        android.app.Dialog dialog = builder.setMessage(reason + "\n" + activity.getResources().getString(question))
                 .setNegativeButton(R.string.no, dialogClickListener)
                 .setPositiveButton(R.string.yes, dialogClickListener)
                 .show();
+        handleOnCancel(dialog);
+        activity.onDialogOpened(this);
     }
 }

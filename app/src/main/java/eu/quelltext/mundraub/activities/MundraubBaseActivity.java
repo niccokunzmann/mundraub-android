@@ -15,6 +15,7 @@ import android.view.MenuItem;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.activities.map.ShowPlantsActivity;
+import eu.quelltext.mundraub.common.Dialog;
 import eu.quelltext.mundraub.error.Logger;
 import eu.quelltext.mundraub.initialization.Initialization;
 import eu.quelltext.mundraub.initialization.Permissions;
@@ -36,10 +37,10 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        isCreated = true;
         super.onCreate(savedInstanceState);
         initializeApp();
         log = Logger.newFor(this);
-        isCreated = true;
         log.d("activity life cycle", "onCreate");
     }
 
@@ -175,5 +176,13 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
         // from https://stackoverflow.com/a/10917500
         return (LocationManager)
                 getSystemService(Context.LOCATION_SERVICE);
+    }
+
+    public void onDialogOpened(Dialog dialog) {
+
+    }
+
+    public void onDialogClosed(Dialog dialog) {
+
     }
 }
