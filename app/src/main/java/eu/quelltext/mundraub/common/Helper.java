@@ -37,6 +37,7 @@ import javax.net.ssl.X509TrustManager;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.error.ErrorAware;
+import eu.quelltext.mundraub.map.position.IPosition;
 
 public final class Helper extends ErrorAware {
     private static final double EARTH_RADIUS_METERS = 6399594.;
@@ -112,7 +113,14 @@ public final class Helper extends ErrorAware {
             R.string.direction_south_east, R.string.direction_south, R.string.direction_south_west,
             R.string.direction_west, R.string.direction_north_west
     };
-    /*
+
+    public static int directionFromPositionToPositionAsResourceId(IPosition me, IPosition other) {
+        return directionFromPositionToPositionAsResourceId(
+                me.getLongitude(), me.getLatitude(),
+                other.getLongitude(), other.getLatitude());
+    }
+
+            /*
      * Return the direction from one position to another.
      * This assumes that both are very close to each other and thus form an euclidian planar.
      */

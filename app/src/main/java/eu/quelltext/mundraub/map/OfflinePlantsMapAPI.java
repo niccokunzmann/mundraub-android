@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import eu.quelltext.mundraub.common.Helper;
+import eu.quelltext.mundraub.map.position.BoundingBox;
 
 /*
  * Use the local databse to get the markers and not the online data.
@@ -28,11 +29,9 @@ public class OfflinePlantsMapAPI extends MundraubMapAPIForApp {
         if (bbox.length != 4) {
             return "{\"error\":\"bbox parameter needs 4 floats\"}".getBytes("UTF-8"); // encoding from https://stackoverflow.com/a/5729823
         }
-        double minLon = Double.parseDouble(bbox[0]); // see map/requests.js
-        double minLat = Double.parseDouble(bbox[1]);
-        double maxLon = Double.parseDouble(bbox[2]);
-        double maxLat = Double.parseDouble(bbox[3]);
-        JSONArray markers = PlantsCache.getPlantsInBoundingBox(minLon, minLat, maxLon, maxLat);
+        // example: https://mundraub.org/cluster/plant?bbox=4.801025390625001,50.28231945008158,18.072509765625004,51.74743863117572
+        BoundingBox bBox = BoundingBox.fromWestSouthEastNorthArray(bbox); // see map/requests.js
+        JSONArray markers = PlantsCache.getPlantsInBoundingBox(bBox);
         JSONObject result = new JSONObject();
         result.put(JSON_FEATURES, markers);
         return result.toString().getBytes("UTF-8"); // encoding from https://stackoverflow.com/a/5729823

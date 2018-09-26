@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +24,8 @@ import eu.quelltext.mundraub.common.Helper;
 import eu.quelltext.mundraub.error.ErrorAware;
 import eu.quelltext.mundraub.error.Logger;
 import eu.quelltext.mundraub.initialization.Initialization;
+import eu.quelltext.mundraub.map.position.BoundingBox;
+import eu.quelltext.mundraub.map.position.IPosition;
 import eu.quelltext.mundraub.plant.PlantCategory;
 
 /*
@@ -51,23 +52,8 @@ public class PlantsCache extends ErrorAware {
         });
     }
 
-    static double getLongitude(double longitude) {
-        longitude = (longitude + 180) % 360 - 180;
-        while (longitude < -180) {
-            longitude += 360;
-        }
-        return longitude;
-    }
-
-    static double getLatitude(double latitude) {
-        if (latitude > 90 || latitude < -90) {
-            log.e("Invalid latitude", latitude + "");
-        }
-        return latitude;
-    }
-
-    public static JSONArray getPlantsInBoundingBox(double minLon, double minLat, double maxLon, double maxLat) throws JSONException {
-        List<Marker> markers = getMarkersInBoundingBox(minLon, minLat, maxLon, maxLat);
+    public static JSONArray getPlantsInBoundingBox(BoundingBox bbox) throws JSONException {
+        List<Marker> markers = getMarkersInBoundingBox(bbox);
         JSONArray result = new JSONArray();
         for (Marker marker: markers) {
             result.put(marker.toJSON());
@@ -75,56 +61,15 @@ public class PlantsCache extends ErrorAware {
         return result;
     }
 
-    public static List<Marker> getMarkersInBoundingBox(double minLon, double minLat, double maxLon, double maxLat) {
-        minLon = getLongitude(minLon);
-        minLat = getLatitude(minLat);
-        maxLon = getLongitude(maxLon);
-        maxLat = getLatitude(maxLat);
-        //log.d("minLon", minLon);
-        //log.d("minLat", minLat);
-        //log.d("maxLon", maxLon);
-        //log.d("maxLat", maxLat);
+    public static List<Marker> getMarkersInBoundingBox(BoundingBox bbox) {
         SQLiteDatabase database = getReadableDatabase();
         try {
             //log.d("number of plants in database", Marker.getCount(database));
             String[] projection = Marker.PROJECTION;
 
-            String selection = "";
-            if (minLon < maxLon) {
-                selection +=
-                        Marker.COLUMN_LONGITUDE + " > " + minLon + " and " +
-                                Marker.COLUMN_LONGITUDE + " < " + maxLon;
-            } else {
-                selection +=
-                        Marker.COLUMN_LONGITUDE + " < " + minLon + " and " +
-                                Marker.COLUMN_LONGITUDE + " > " + maxLon;
-                Log.d("rare case", "minLon " + minLon + " > maxLon" + maxLon);
-            }
-            if (minLat < maxLat) {
-                selection += " and " +
-                        Marker.COLUMN_LATITUDE + " > " + minLat + " and " +
-                        Marker.COLUMN_LATITUDE + " < " + maxLat;
-            } else {
-                selection += " and " +
-                        Marker.COLUMN_LATITUDE + " < " + minLat + " and " +
-                        Marker.COLUMN_LATITUDE + " > " + maxLat;
-                Log.d("rare case", "minLat " + minLat + " > maxLat" + maxLat);
-            }
-            //selection = /*" and " +*/ Marker.COLUMN_TYPE_ID + " = 6";
-        /*selection =
-                Marker.COLUMN_LONGITUDE + " > ? and " +
-                        Marker.COLUMN_LONGITUDE + " < ? and " +
-                        Marker.COLUMN_LATITUDE + " > ? and " +
-                        Marker.COLUMN_LATITUDE + " < ?" +
-                "";*/
+            String selection = bbox.asSqlQueryString(Marker.COLUMN_LONGITUDE, Marker.COLUMN_LATITUDE);
 
-            String[] selectionArgs = {
-                    Double.toString(minLon),
-                    Double.toString(maxLon),
-                    Double.toString(minLat),
-                    Double.toString(maxLat)
-            };
-            selectionArgs = null;
+            String[] selectionArgs = null;
             //selection = null;
 
             Cursor cursor = database.query(
@@ -144,7 +89,7 @@ public class PlantsCache extends ErrorAware {
                 Marker marker = Marker.fromCursor(cursor);
                 result.add(marker);
             }
-            return result;
+            return bbox.selectPositionsInsideAfterSQLQuery(result);
         } finally {
             database.close();
         }
@@ -194,24 +139,7 @@ public class PlantsCache extends ErrorAware {
         return updateProgress;
     }
 
-    public static List<Marker> getMarkersInRangeMeters(double longitude, double latitude, double distanceInMeters) {
-        double deltaDegrees = Helper.metersToDegrees(distanceInMeters);
-        List<Marker> markers = getMarkersInBoundingBox(
-                longitude - deltaDegrees,
-                latitude - deltaDegrees,
-                longitude + deltaDegrees,
-                latitude + deltaDegrees);
-        for (int i = markers.size() - 1; i >= 0; i--) {
-            Marker marker = markers.get(i);
-            double markerDistanceInMeters = marker.distanceInMetersTo(longitude, latitude);
-            if (markerDistanceInMeters > distanceInMeters) {
-                markers.remove(i);
-            }
-        }
-        return markers;
-    }
-
-    public static class Marker implements BaseColumns {
+    public static class Marker implements BaseColumns, IPosition {
         public static final String TABLE_NAME = "marker";
         public static final String COLUMN_LONGITUDE = "longitude";
         public static final String COLUMN_LATITUDE = "latitude";
@@ -245,8 +173,8 @@ public class PlantsCache extends ErrorAware {
         private final int apiId;
 
         private Marker(double longitude, double latitude, PlantCategory category, int markerIdInAPI, int apiId) {
-            this.longitude = PlantsCache.getLongitude(longitude);
-            this.latitude = PlantsCache.getLatitude(latitude);
+            this.longitude = BoundingBox.getLongitude(longitude);
+            this.latitude = BoundingBox.getLatitude(latitude);
             this.category = category;
             this.markerIdInAPI = markerIdInAPI;
             this.apiId = apiId;

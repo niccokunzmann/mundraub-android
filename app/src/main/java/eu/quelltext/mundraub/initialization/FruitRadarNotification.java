@@ -26,6 +26,9 @@ import eu.quelltext.mundraub.common.Helper;
 import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.error.ErrorAware;
 import eu.quelltext.mundraub.map.PlantsCache;
+import eu.quelltext.mundraub.map.position.BoundingBox;
+import eu.quelltext.mundraub.map.position.IPosition;
+import eu.quelltext.mundraub.map.position.Position;
 
 public class FruitRadarNotification extends ErrorAware {
 
@@ -35,7 +38,7 @@ public class FruitRadarNotification extends ErrorAware {
     private static int lastCreatedNotificationId = 0;
     private static int lastCreatedIntentId = 0;
     private Vibrator vibrator;
-    private double[] currentPosition = new double[]{0, 0};
+    private IPosition currentPosition = new Position(0, 0);
 
     static void initialize() {
         Initialization.provideActivityFor(new Initialization.ActivityInitialized() {
@@ -152,14 +155,14 @@ public class FruitRadarNotification extends ErrorAware {
     }
 
     private void onLocationChanged(double longitude, double latitude) {
-        currentPosition = new double[]{longitude, latitude};
+        currentPosition = new Position(longitude, latitude);
         updateNotifications();
     }
 
     public void updateNotifications() {
         boolean vibrated = false;
-        List<PlantsCache.Marker> markers = PlantsCache.getMarkersInRangeMeters(
-                currentPosition[0], currentPosition[1], Settings.getRadarPlantRangeMeters());
+        BoundingBox bbox = BoundingBox.fromPositionAndRadius(currentPosition, Settings.getRadarPlantRangeMeters());
+        List<PlantsCache.Marker> markers = PlantsCache.getMarkersInBoundingBox(bbox);
         Map<PlantsCache.Marker, Notification> oldMarkerToNotification = markerToNotification;
         Map<PlantsCache.Marker, Notification> newMarkerToNotification = new HashMap<>();
         for (PlantsCache.Marker marker : markers) {
@@ -176,7 +179,7 @@ public class FruitRadarNotification extends ErrorAware {
             newMarkerToNotification.put(marker, notification);
             oldMarkerToNotification.remove(marker);
         }
-        double maximumDistance = Settings.getRadarPlantMaximumRangeMeters();
+        double maximumDistance = Settings.getRadarPlantMaximumRangeMeters(); // TODO: getRadarPlantMaximumRangeMeters is ambiguous and should be removed. Acting on a multiplication of user data is NOT the settings responsibility but that of the algorithm. Bad Code Smell!
         for (Notification notification : oldMarkerToNotification.values()) {
             double distance = notification.distanceInMetersToCurrentPosition();
             if (distance > maximumDistance) {
@@ -214,7 +217,7 @@ public class FruitRadarNotification extends ErrorAware {
         private void notifyUser() {
             Intent intent = new Intent(activity, ShowPlantsActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            intent.putExtra(ShowPlantsActivity.ARG_POSITION, currentPosition);
+            intent.putExtra(ShowPlantsActivity.ARG_POSITION, new double[]{currentPosition.getLongitude(), currentPosition.getLatitude()});
             PendingIntent pendingIntent = PendingIntent.getActivity(activity, ++lastCreatedIntentId, intent, 0);
 
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(activity)
@@ -241,18 +244,11 @@ public class FruitRadarNotification extends ErrorAware {
 
         @NonNull
         private String getDirectionText() {
-            return activity.getString(Helper.directionFromPositionToPositionAsResourceId(
-                    currentPosition[0], currentPosition[1],
-                    marker.getLongitude(), marker.getLatitude())
-            );
+            return activity.getString(Helper.directionFromPositionToPositionAsResourceId(currentPosition, marker));
         }
 
         private double distanceInMetersToCurrentPosition() {
-            return Helper.distanceInMetersBetween(
-                    marker.getLongitude(),
-                    marker.getLatitude(),
-                    currentPosition[0],
-                    currentPosition[1]);
+            return BoundingBox.distanceInMetersBetween(marker, currentPosition);
         }
 
         /* called when the location changed */
