@@ -53,6 +53,7 @@ public class FruitRadarNotification extends ErrorAware {
                         } else {
                             instance().stop();
                         }
+                        instance().updateNotifications();
                         return Settings.COMMIT_SUCCESSFUL;
                     }
                 });
@@ -151,10 +152,14 @@ public class FruitRadarNotification extends ErrorAware {
     }
 
     private void onLocationChanged(double longitude, double latitude) {
-        boolean vibrated = false;
         currentPosition = new double[]{longitude, latitude};
+        updateNotifications();
+    }
+
+    public void updateNotifications() {
+        boolean vibrated = false;
         List<PlantsCache.Marker> markers = PlantsCache.getMarkersInRangeMeters(
-                longitude, latitude, Settings.getRadarPlantRangeMeters());
+                currentPosition[0], currentPosition[1], Settings.getRadarPlantRangeMeters());
         Map<PlantsCache.Marker, Notification> oldMarkerToNotification = markerToNotification;
         Map<PlantsCache.Marker, Notification> newMarkerToNotification = new HashMap<>();
         for (PlantsCache.Marker marker : markers) {
