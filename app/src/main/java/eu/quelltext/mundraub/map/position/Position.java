@@ -6,8 +6,8 @@ public class Position implements IPosition {
     private final double latitude;
 
     public Position(double longitude, double latitude) {
-        this.longitude = longitude;
-        this.latitude = latitude;
+        this.longitude = BoundingBox.getLongitude(longitude);
+        this.latitude = BoundingBox.getLatitude(latitude);
     }
 
     @Override
