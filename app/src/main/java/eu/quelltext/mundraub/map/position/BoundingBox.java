@@ -3,13 +3,9 @@ package eu.quelltext.mundraub.map.position;
 import java.util.List;
 
 import eu.quelltext.mundraub.common.Helper;
-import eu.quelltext.mundraub.error.Logger;
 import eu.quelltext.mundraub.map.PlantsCache;
 
 public class BoundingBox {
-
-    protected static Logger.Log log = Logger.newFor("BoundingBox");
-
     private final double north;
     private final double south;
     private final double east;
@@ -43,8 +39,11 @@ public class BoundingBox {
     }
 
     public static double getLatitude(double latitude) {
-        if (latitude > 90 || latitude < -90) {
-            log.e("Invalid latitude", latitude + "");
+        if (latitude > 90) {
+            return 90;
+        }
+        if (latitude < -90) {
+            return -90;
         }
         return latitude;
     }
@@ -61,5 +60,18 @@ public class BoundingBox {
 
     public static double distanceInMetersBetween(IPosition p1, IPosition p2) {
         return Helper.distanceInMetersBetween(p1.getLongitude(), p1.getLatitude(), p2.getLongitude(), p2.getLatitude());
+    }
+
+    public static BoundingBox fromNESW(int n, int e, int s, int w) {
+        return new BoundingBox(n, e, s, w);
+    }
+
+    public boolean contains(Position position) {
+        double lon = position.getLongitude();
+        double lat = position.getLatitude();
+        // this should be equivalent to the `asSqlQueryString()`
+        boolean v1 = (lon < east);
+        boolean v2 = (lon > west);
+        return (east < west ? v1 || v2 : v1 && v2) && (lat > south && lat < north);
     }
 }
