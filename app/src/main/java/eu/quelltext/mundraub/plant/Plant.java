@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.common.Helper;
@@ -46,9 +47,10 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
         return getPlants().all();
     }
     public static Position getAPositionNearAPlantForTheMap() {
-        List<Plant> plants = Plant.all();
+        List<Plant> plants = all();
         if (plants.size() > 0) {
-            Plant plant = plants.get(0);
+            int index = new Random().nextInt(plants.size());
+            Plant plant = plants.get(index);
            return plant.getBestPositionForMap();
         }
         return Position.NULL;

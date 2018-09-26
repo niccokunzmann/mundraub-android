@@ -30,6 +30,7 @@ public class ChooseMapPosition extends MapBaseActivity {
             log.e("ChooseMapPosition","No plant was specified.");
             finish();
         }
+        log.e("Plant Id", plant.getId());
         saveButton = (Button) findViewById(R.id.button_ok);
         cancelButton = (Button) findViewById(R.id.button_cancel);
         cancelButton.setOnClickListener(new View.OnClickListener() {

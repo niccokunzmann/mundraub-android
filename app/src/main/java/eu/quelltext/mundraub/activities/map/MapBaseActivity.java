@@ -150,7 +150,8 @@ public class MapBaseActivity extends MundraubBaseActivity {
     }
 
     protected void openMapAtLastPlantOrDefault() {
-        openMapAtPosition(Plant.getAPositionNearAPlantForTheMap());
+        Plant.Position position = Plant.getAPositionNearAPlantForTheMap();
+        openMapAtPosition(position);
     }
 
 }
