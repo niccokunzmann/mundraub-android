@@ -64,6 +64,8 @@ function translate(key) {
 
 function _notifyThatTheTranslationsAreLoaded0() {
     console.log("All translations are loaded.");
+    clearTimeout(translationsLoadingTimeout); // see https://stackoverflow.com/a/2578642
+    translationsLoadingTimeout = null; // so we can check in the console
 }
 var toNotifyAboutLoad = [_notifyThatTheTranslationsAreLoaded0];
 function _notifyThatTheTranslationsAreLoaded() {
@@ -73,12 +75,18 @@ function _notifyThatTheTranslationsAreLoaded() {
     toNotifyAboutLoad = [];
 }
 
-function onNotifyThatTheTranslationsAreLoaded(func) {
-    toNotifyAboutLoad.push(func);
+function onNotifyThatTheTranslationsAreLoaded(callback) {
+    if (toNotifyAboutLoad.length == 0) {
+        // after loading took place
+        callback();
+    } else {
+        // before loading took place
+        toNotifyAboutLoad.push(callback);
+    }
 }
 
 // notify about translations even if they do not exist.
-setTimeout(function() {
+var translationsLoadingTimeout = setTimeout(function() {
         _notifyThatTheTranslationsAreLoaded();
         console.log("Loading translations timed out.");
     }, 1000);
