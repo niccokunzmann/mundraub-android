@@ -58,6 +58,7 @@ App components:
 - [okhttp] for making requests
 - [commons-lang3] for useful functions everywhere
 - [nanohttpd] for providing an API to the map
+- [jdeferred] for callbacks and asynchronous processing
 
 Services:
 
@@ -97,4 +98,4 @@ Languages:
 [Microsoft Translate]: https://portal.azure.com/#@niccokunzmannlive.onmicrosoft.com/resource/subscriptions/7ad79494-1d19-43e4-8f0c-59d1a34c5711/resourcegroups/Mundraub-Android-Resource-Group/providers/Microsoft.CognitiveServices/accounts/Mundraub-Android-Translations/quickstart
 [Na-Ovoce.cz]: https://na-ovoce.cz/
 [FruitMap.org]: https://www.fruitmap.org/
-
+[jdeferred]: https://github.com/jdeferred/jdeferred/
