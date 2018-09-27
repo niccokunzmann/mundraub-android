@@ -158,6 +158,7 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
 
     protected void openURLInBrowser(String url) {
         // from https://stackoverflow.com/a/3004542/1320237
+        log.d("openURLInBrowser", url);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(url));
         startActivity(intent);

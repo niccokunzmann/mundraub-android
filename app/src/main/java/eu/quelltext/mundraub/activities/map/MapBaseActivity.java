@@ -45,6 +45,7 @@ public class MapBaseActivity extends MundraubBaseActivity {
         webSettings.setAppCacheEnabled(true); // https://stackoverflow.com/a/8921072
         webSettings.setDatabaseEnabled(true); // https://stackoverflow.com/a/8921072
         webSettings.setDomStorageEnabled(true); // https://stackoverflow.com/a/8921072
+        webSettings.setGeolocationEnabled(true); // from https://stackoverflow.com/a/43384409/1320237
         webSettings.setUserAgentString(webSettings.getUserAgentString() + " | language: " + Locale.getDefault().getLanguage()); // passthe user language from https://stackoverflow.com/a/9380140/1320237
 
         webView.setWebChromeClient(new WebChromeClient() {
@@ -59,7 +60,7 @@ public class MapBaseActivity extends MundraubBaseActivity {
             @Override
             public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
                 getPermissions().ACCESS_FINE_LOCATION.askIfNotGranted();
-                callback.invoke(origin, true, false); // from https://stackoverflow.com/a/5423026
+                callback.invoke(origin, true, true); // from https://stackoverflow.com/a/5423026
             }
         });
         webView.setWebViewClient(new WebViewClient() {
@@ -68,6 +69,13 @@ public class MapBaseActivity extends MundraubBaseActivity {
                     // CookieSyncManager is deprecated since API level 21 https://stackoverflow.com/a/47913011
                     android.webkit.CookieSyncManager.getInstance().sync(); // from https://stackoverflow.com/a/8390280
                 }
+            }
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                // When user clicks a hyperlink, load in the existing WebView
+                // from https://stackoverflow.com/a/43384409/1320237
+                openURLInBrowser(url);
+                return true;
             }
         });
         apiProxy = Settings.getMundraubMapProxy();
