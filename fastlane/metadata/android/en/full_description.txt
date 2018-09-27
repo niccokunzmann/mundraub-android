@@ -1,29 +1,4 @@
-Find plants and share them online!
-
-You have your phone with you all the time.
-When you find an edible plant, you like to share with others, you can record location, type and a photo.
-Later, when you have Internet, you can upload it to the map of free plants to eat: Mundraub.org.
-
-Features:
-<ul>
-    <li>Collect all plant data offline</li>
-    <li>Integrated map to find plants</li>
-    <li>Notifications when plants are nearby</li>
-    <li>Plant markers can be downloaded offline</li>
-    <li>Mundraub.org and Na-Ovoce.cz publishing</li>
-</ul>
-
-Permissions:
-<ul>
-    <li>CAMERA to take a photo of the plant</li>
-    <li>GPS to auto-fill the location</li>
-    <li>INTERNET to upload the plant and display a map</li>
-    <li>STORAGE (optional) to
-        <ul>
-            <li>save the plants as JSON in an exportable format</li>
-            <li>save the app log so you can help us when the app crashes</li>
-        </ul>
-    </li>
-    <li>VIBRATE (optional) to be notified about plants nearby</li>
-</ul>
-
+Find plants and share them online! 
+You have your phone with you all the time. When you find an edible plant, you like to share with others, you can record location, type and a photo. Later, when you have Internet, you can upload it to the map of free plants to eat: Mundraub.org. 
+Features: <ul>     <li>Collect all plant data offline</li>     <li>Integrated map to find plants</li>     <li>Notifications when plants are nearby</li>     <li>Plant markers can be downloaded offline</li>     <li>Mundraub.org and Na-Ovoce.cz publishing</li> </ul> 
+Permissions: <ul>     <li>CAMERA to take a photo of the plant</li>     <li>GPS to auto-fill the location</li>     <li>INTERNET to upload the plant and display a map</li>     <li>STORAGE (optional) to         <ul>             <li>save the plants as JSON in an exportable format</li>             <li>save the app log so you can help us when the app crashes</li>         </ul>     </li>     <li>VIBRATE (optional) to be notified about plants nearby</li> </ul> 

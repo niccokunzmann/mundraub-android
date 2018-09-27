@@ -1,6 +1,10 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Community Codex: rule 1 -->
     <string name="mundraub_rule_1">Primárně zjišťujeme, zda sběrem plodů neporušujeme žádná vlastnická práva.</string>
+    <!-- Community Codex: rule 2 -->
     <string name="mundraub_rule_2">Pečujeme nejen o stromy, ale i okolní přírodu a zvířata, která v ní žijí.</string>
+    <!-- Community Codex: rule 3 -->
     <string name="mundraub_rule_3">O své objevy se dělíme s ostatními uživateli.</string>
+    <!-- Community Codex: rule 4 -->
     <string name="mundraub_rule_4"> Zapojujeme se do údržby a výsadby nových ovocných stromů.</string>
     </resources>
