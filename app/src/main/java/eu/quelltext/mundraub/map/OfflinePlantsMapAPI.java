@@ -11,7 +11,7 @@ import eu.quelltext.mundraub.common.Helper;
 import eu.quelltext.mundraub.map.position.BoundingBox;
 
 /*
- * Use the local databse to get the markers and not the online data.
+ * Use the local database to get the markers and not the online data.
  */
 public class OfflinePlantsMapAPI extends MundraubMapAPIForApp {
 
