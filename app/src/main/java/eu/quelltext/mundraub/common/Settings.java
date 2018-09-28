@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Environment;
-import android.support.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -70,6 +69,48 @@ public class Settings {
     private static List<ChangeListener> listeners = new ArrayList<ChangeListener>();
     private static Activity activity = null;
 
+    private static class SynchronizedStringSet {
+
+        private final String name;
+        private Set<String> strings;
+
+        public SynchronizedStringSet(String name, List<String> strings) {
+            this.name = name;
+            this.strings = new HashSet<String>(strings);
+        }
+
+        @Override
+        public String toString() {
+            return StringUtils.join(strings.toArray(), ",");
+        }
+
+        public void load() {
+            String s = preferences.getString(key(), toString());
+            String[] l = StringUtils.split(s, ",");
+            strings = new HashSet<String>(Arrays.asList(l));
+        }
+
+        private String key() {
+            return name;
+        }
+
+        public void saveTo(SharedPreferences.Editor editor) {
+            editor.putString(key(), toString());
+        }
+
+        public void add(String string) {
+            strings.add(string);
+        }
+
+        public void remove(String string) {
+            strings.remove(string);
+        }
+
+        public boolean contains(String string) {
+            return string.contains(string);
+        }
+    }
+
     /* persistent variables for the settings
      * If you like to add new settings, please see useInsecureConnections
      * as an example for where these are used.
@@ -85,10 +126,10 @@ public class Settings {
     private static boolean useOfflineMapAPI = false;
     private static boolean debugMundraubMapAPI = false;
     private static boolean vibrateWhenPlantIsInRange = false;
-    private static Set<String> showCategories = new HashSet<>(Arrays.asList(API_ID_MUNDRAUB)); // https://stackoverflow.com/a/2041810/1320237
+    private static SynchronizedStringSet showCategories =
+            new SynchronizedStringSet("showCategories", Arrays.asList(API_ID_MUNDRAUB)); // array as list https://stackoverflow.com/a/2041810/1320237
     private static boolean useFruitRadarNotifications = false;
     private static int radarPlantRangeMeters = 150;
-
 
     static {
         Initialization.provideActivityFor(new Initialization.ActivityInitialized() {
@@ -120,7 +161,7 @@ public class Settings {
         log.d("vibrateWhenPlantIsInRange", vibrateWhenPlantIsInRange);
         log.d("useFruitRadarNotifications", useFruitRadarNotifications);
         log.d("radarPlantRangeMeters", radarPlantRangeMeters);
-        log.d("showCategories", showCategoriesString());
+        log.d("showCategories", showCategories.toString());
         if (!useCacheForPlants) {
             log.d("persistentPathForPlants", persistentPathForPlants.toString());
         }
@@ -140,9 +181,7 @@ public class Settings {
         vibrateWhenPlantIsInRange = preferences.getBoolean("vibrateWhenPlantIsInRange", vibrateWhenPlantIsInRange);
         useFruitRadarNotifications = preferences.getBoolean("useFruitRadarNotifications", useFruitRadarNotifications);
         radarPlantRangeMeters = preferences.getInt("radarPlantRangeMeters", radarPlantRangeMeters);
-        String s = preferences.getString("showCategories", showCategoriesString());
-        String[] l = StringUtils.split(s, ",");
-        showCategories = new HashSet<String>(Arrays.asList(l));
+        showCategories.load();
         // load the permission questions
         permissionQuestion.clear();
         for (String key : preferences.getAll().keySet()) {
@@ -155,11 +194,6 @@ public class Settings {
             listener.settingsChanged();
         }
         print();
-    }
-
-    @Nullable
-    private static String showCategoriesString() {
-        return StringUtils.join(showCategories.toArray(), ",");
     }
 
     private static int commit() {
@@ -175,7 +209,7 @@ public class Settings {
             editor.putBoolean("vibrateWhenPlantIsInRange", vibrateWhenPlantIsInRange);
             editor.putBoolean("useFruitRadarNotifications", useFruitRadarNotifications);
             editor.putInt("radarPlantRangeMeters", radarPlantRangeMeters);
-            editor.putString("showCategories", showCategoriesString());
+            showCategories.saveTo(editor);
             for (String key: permissionQuestion.keySet()) {
                 editor.putBoolean(key, permissionQuestion.get(key));
             }
