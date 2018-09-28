@@ -34,10 +34,13 @@ Contributions are welcome.
   If you like to have your language included, please open an issue and translate yourself :)
 - We use [Android Studio] to develop the app. If you like, you can start development with [small issues. ![][first-issues-image]][first-issues]
 - Feedback is welcome, please open an [issue][issues].
-  - Crash: You can report a debug log file if you gave EXTERNAL_STORAGE permissions or use logcat to retrieve the log.
-    If you gave permissions, you should be able to find it under `eu.quelltext.mundraub.log.txt`
-    or `eu.quelltext.mundraub.error.txt`.
-    The app (if starting) should point you to the file.
+  - Crash: 
+    - You can report a debug log file if you gave EXTERNAL_STORAGE permissions or use logcat to retrieve the log.
+      If you gave permissions, you should be able to find it under `eu.quelltext.mundraub.log.txt`
+      or `eu.quelltext.mundraub.error.txt`.
+      The app (if starting) should point you to the file.
+    - You can use [MatLog Libre] to retrieve the app log before and after a crash.
+    
 
 You can view the [Setup Guide][setup] and [Contribution Guidelines].
 
@@ -97,4 +100,4 @@ Languages:
 [Microsoft Translate]: https://portal.azure.com/#@niccokunzmannlive.onmicrosoft.com/resource/subscriptions/7ad79494-1d19-43e4-8f0c-59d1a34c5711/resourcegroups/Mundraub-Android-Resource-Group/providers/Microsoft.CognitiveServices/accounts/Mundraub-Android-Translations/quickstart
 [Na-Ovoce.cz]: https://na-ovoce.cz/
 [FruitMap.org]: https://www.fruitmap.org/
-
+[MatLog Libre]: https://f-droid.org/en/packages/com.pluscubed.matloglibre/
