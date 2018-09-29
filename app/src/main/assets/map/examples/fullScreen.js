@@ -45,12 +45,17 @@ function setMarkerToPosition(lonlat) {
         printError(e);
     }
     marker = new OpenLayers.Marker(lonLatToMarkerPosition(lonlat));
+    while (markers.markers.length > 0) {
+        markers.removeMarker(markers.markers[0]);
+    }
     markers.addMarker(marker);
 }
 
 function setPositionInURL(lonlat) {
     console.log("setPositionInURL", lonlat);
-    document.location.hash = "#" + lonlat.lon + "," + lonlat.lat;
+    center.lon = lonlat.lon;
+    center.lat = lonlat.lat;
+    setConfigurationInURL();
 }
 
 function lonLatToMarkerPosition(lonLat) {
@@ -77,7 +82,7 @@ function setPosition(doNotPrint) {
 }
 
 var center = {lon: 78.8718, lat:21.7679};
-var zoom = 10;
+var zoom = 16;
 
 // projection from https://wiki.openstreetmap.org/wiki/OpenLayers_Simple_Example#Add_Markers
 var fromProjection;
@@ -90,23 +95,7 @@ var map;
 function onload() {
     console.log("Loading map ...");
     try{
-
-
         var click = new OpenLayers.Control.Click();
-
-        var settingsString = document.location.hash.length != 0 ? document.location.hash : document.location.search;
-
-        console.log("settingString=" + settingsString);
-
-        var startLocation = settingsString.substr(1, settingsString.length).split(",");
-        if (startLocation.length == 2) {
-            zoom = 16;
-            center = {lon: parseFloat(startLocation[0]), lat: parseFloat(startLocation[1])};
-        }
-        
-        setPositionInURL(center);
-
-
 
         // projection from https://wiki.openstreetmap.org/wiki/OpenLayers_Simple_Example#Add_Markers
         fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
@@ -193,21 +182,21 @@ function onload() {
 
         click.activate();
 
-        try {
-            setPosition(true);
-        } catch(error) {
+        //try {
+        //    setPosition(true);
+        //} catch(error) {
             // size is sometimes null. https://github.com/openlayers/ol2/issues/669
             //map.size = {"w": document.body.clientWidth, "h": document.body.clientHeight} // could be a solution
-            setTimeout(setPosition, 100);
-        }
+        setTimeout(configurationOnLoad, 100);
+        //}
         rememberWhichLayerIsShown();
 
         map.events.register("moveend", map, function(e){
             // see https://gis.stackexchange.com/a/26619
             updatePlants();
+            setConfigurationInURL();
         });
         
-
     } catch(error) {
         printError(error)
         throw error;

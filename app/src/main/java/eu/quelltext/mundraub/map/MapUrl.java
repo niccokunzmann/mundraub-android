@@ -44,14 +44,14 @@ public class MapUrl extends ErrorAware {
     }
 
     public String getUrl() {
-        return "file:///android_asset/map/examples/fullScreen.html?" + longitude + "," + latitude;
+        return "file:///android_asset/map/examples/fullScreen.html?lon=" + longitude + "&lat=" + latitude;
     }
 
     @Override
     public String toString() {
         return getUrl();
     }
-
+    
     public double getLatitude() {
         return latitude;
     }
