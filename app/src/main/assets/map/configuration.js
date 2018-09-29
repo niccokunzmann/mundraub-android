@@ -8,6 +8,14 @@ setMarkerToCenter = function() {
     setMarkerToPosition(center);
 }
 
+function layerUrlConfiguration(layerId) {
+    return {
+        "set": function(url) { mapLayersById[layerId].url = url; },
+        "get": function(url) { return mapLayersById[layerId].url; },
+        "onchange": [function(url) { mapLayersById[layerId].redraw(); }],
+    };
+}
+
 var queryHandlers = {
     "lon": {
         "set": function(lon) { center.lon = parseFloat(lon); },
@@ -24,6 +32,8 @@ var queryHandlers = {
         "get": function() { return map ? map.zoom : zoom; },
         "onchange": [onChangeSetPosition],
     },
+    "mapnikUrl": layerUrlConfiguration("osm"),
+    "earthUrl": layerUrlConfiguration("earth"),
 };
 
 function getConfigurationFromURL() {
@@ -82,7 +92,7 @@ function configurationOnLoad() {
         document.getElementsByClassName("olControlZoomOut")[0],
     ];
     zoomButtons.forEach(function(button) {
-        button.removeAttribute("href"); // delete attribute from 
+        button.removeAttribute("href"); // delete attribute from http://www.java2s.com/Tutorial/JavaScript/0420__HTML-Tags/RemoveattributebycallingtheremoveAttributefunction.htm
     });
 }
 
