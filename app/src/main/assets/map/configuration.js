@@ -16,6 +16,10 @@ function layerUrlConfiguration(layerId) {
     };
 }
 
+var configuration = {
+    "useBrowserGPS": true,
+};
+
 var queryHandlers = {
     "lon": {
         "set": function(lon) { center.lon = parseFloat(lon); },
@@ -34,7 +38,13 @@ var queryHandlers = {
     },
     "mapnikUrl": layerUrlConfiguration("osm"),
     "earthUrl": layerUrlConfiguration("earth"),
+    "browserGPS": {
+        "set": function(use) { CONFIGURATION_USE_BROWSER_GPS = use == "true"; },
+        "get": function() { return CONFIGURATION_USE_BROWSER_GPS ? "true" : "false"; },
+    },
 };
+
+
 
 function getConfigurationFromURL() {
     // from http://stackoverflow.com/a/1099670/1320237
@@ -52,7 +62,7 @@ function getConfigurationFromURL() {
             var valueBefore = handler.get();
             handler.set(content);
             var valueAfter = handler.get();
-            if (valueBefore != valueAfter) {
+            if (valueBefore != valueAfter && handler.onchange) {
                 handler.onchange.forEach(function (onchange) {
                     if (!updates.includes(onchange)) {
                         updates.push(onchange);

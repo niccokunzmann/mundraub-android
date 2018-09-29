@@ -1,4 +1,6 @@
 
+var CONFIGURATION_USE_BROWSER_GPS = true;
+
 function getGPSButton() {
     // from https://gis.stackexchange.com/a/165009
 
