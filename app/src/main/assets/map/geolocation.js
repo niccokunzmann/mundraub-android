@@ -9,7 +9,12 @@ function getGPSButton() {
     button.className = 'gps-button';
 
     var handleGPSButtonClick = function(e) {
-        setGPSHandler(setViewToGPSPosition);
+        if (CONFIGURATION_USE_BROWSER_GPS) {
+            setGPSHandler(setViewToGPSPosition);
+        } else {
+            app.setToGPSPosition();
+            startGPSActivity();
+        }
     };
     
     function setViewToGPSPosition(position) {

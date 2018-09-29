@@ -51,4 +51,10 @@ public class MapUrlTest {
     public void testMapUrlWithoutParameterIsInvalid() {
         assertFalse(new MapUrl("").isValid());
     }
+
+    @Test
+    public void testMatUrlUsesAppGPSAsDefault() {
+        assertEquals(new MapUrl("").getString("browserGPS"), "false");
+        assertEquals(new MapUrl(0, 0).getString("browserGPS"), "false");
+    }
 }

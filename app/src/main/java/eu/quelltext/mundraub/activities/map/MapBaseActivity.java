@@ -74,7 +74,11 @@ public class MapBaseActivity extends MundraubBaseActivity {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 // When user clicks a hyperlink, load in the existing WebView
                 // from https://stackoverflow.com/a/43384409/1320237
-                openURLInBrowser(url);
+                if (url.startsWith("app://")) {
+                    openInAppUrl(url);
+                } else {
+                    openURLInBrowser(url);
+                }
                 return true;
             }
         });
@@ -88,6 +92,14 @@ public class MapBaseActivity extends MundraubBaseActivity {
             }
         });
         getPermissions().INTERNET.askIfNotGranted();
+    }
+
+    private void openInAppUrl(String url) {
+        // this method handles the other side of appInteraction.js
+        log.d("openInAppUrl", url);
+        if (url.equals("app://gps")) {
+            openMapAtGPSPosition();
+        }
     }
 
     @Override
@@ -124,9 +136,12 @@ public class MapBaseActivity extends MundraubBaseActivity {
         return new MapUrl(webView.getUrl());
     }
 
-    @SuppressLint("MissingPermission")
     protected void openMapAtGPSPositionOrLastPlantOrDefault() {
         openMapAtLastPlantOrDefault();
+    }
+
+    @SuppressLint("MissingPermission")
+    protected void openMapAtGPSPosition() {
         final LocationManager locationManager = createLocationManager();
         if (locationManager == null) {
             return;

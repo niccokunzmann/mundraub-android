@@ -17,12 +17,16 @@ public class MapUrl {
     private Map<String, String> configuration = new HashMap<String, String>();
 
     public MapUrl(double longitude, double latitude) {
+        commonConfiguration();
         configuration.put("lon", Double.toString(longitude));
         configuration.put("lat", Double.toString(latitude));
     }
 
+    private void commonConfiguration() {
+        configuration.put("browserGPS", "false");
+    }
+
     public MapUrl(String url) {
-        super();
         String configuration = "";
         if (url.contains("#")) {
             configuration = url.substring(url.lastIndexOf("#") + 1);
@@ -37,6 +41,7 @@ public class MapUrl {
             }
             this.configuration.put(URLDecoder.decode(splitValue[0]), URLDecoder.decode(splitValue[1]));
         }
+        commonConfiguration();
     }
 
     public String getUrl() {
