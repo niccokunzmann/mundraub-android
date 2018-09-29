@@ -46,4 +46,9 @@ public class MapUrlTest {
         assertFalse(new MapUrl("?lat=2&test=4").isValid());
         assertTrue(new MapUrl("?lat=2&lon=4").isValid());
     }
+
+    @Test
+    public void testMapUrlWithoutParameterIsInvalid() {
+        assertFalse(new MapUrl("").isValid());
+    }
 }
