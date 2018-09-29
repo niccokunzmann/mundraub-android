@@ -85,4 +85,9 @@ public class DummyAPI extends API {
     public int nameResourceId() {
         return R.string.login_api_name_dummy;
     }
+
+    @Override
+    public boolean wantsToProvideMarkers() {
+        return false;
+    }
 }

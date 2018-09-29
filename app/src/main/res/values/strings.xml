@@ -450,7 +450,7 @@
     <!-- settings: section title -->
     <string name="settings_offline">Offline Settings</string>
     <!-- settings:  -->
-    <string name="settings_use_offline_mode">If this is enabled, the map will use the downloaded local data to fill the map. If disabled, an up-to-date version is used from Mundraub.org.</string>
+    <string name="settings_use_offline_mode">If this is enabled, the map is filled with the downloaded plant markers. If disabled, an up-to-date version is used from Mundraub.org.</string>
     <!-- settings: dialog reason: download offline data -->
     <string name="reason_offline_data_needs_to_be_downloaded">In order to have something off-line, we need to download the data. You can also use what is already on the phone.</string>
     <!-- settings: dialog question: download offline data -->
@@ -485,6 +485,12 @@
     <string name="ask_switch_on_offline_mode">Would you like to enter the offline mode now?</string>
     <!-- settings:  -->
     <string name="settings_enable_fruit_radar_vibration">If this is enabled and a plant appears on the fruit radar, this phone vibrates.</string>
+    <!-- settings: Checkbutton to choose which sources to download markers from -->
+    <string name="settings_download_mundraub_markers">If this is enabled, the app downloads all plant markers from Mundraub.org.</string>
+    <!-- settings: Checkbutton to choose which sources to download markers from -->
+    <string name="settings_download_na_ovoce_markers">If this is enabled, the app downloads all plant markers from Na-Ovoce.cz.</string>
+    <!-- settings: Checkbutton to choose which sources to download markers from -->
+    <string name="settings_download_fruitmap_markers">If this is enabled, the app downloads all plant markers from FruitMap.org.</string>
 
     <!-- ==============  Community Codex  ============== -->
     <!-- https://mundraub.org/mundraeuber-regeln -->

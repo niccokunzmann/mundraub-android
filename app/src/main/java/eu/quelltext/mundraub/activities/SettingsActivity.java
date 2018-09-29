@@ -233,6 +233,9 @@ public class SettingsActivity extends MundraubBaseActivity {
         synchronizeCategoryCheckbutton(R.id.checkBox_markers_na_ovoce, Settings.API_ID_NA_OVOCE);
         synchronizeCategoryCheckbutton(R.id.checkBox_markers_fruitmap, Settings.API_ID_FRUITMAP);
         synchronizeCategoryCheckbutton(R.id.checkBox_markers_community, Settings.API_ID_COMMUNITY);
+        synchronizeMarkerDownloadCheckbutton(R.id.checkBox_download_mundraub_markers, Settings.API_ID_MUNDRAUB);
+        synchronizeMarkerDownloadCheckbutton(R.id.checkBox_download_na_ovoce_markers, Settings.API_ID_NA_OVOCE);
+        synchronizeMarkerDownloadCheckbutton(R.id.checkBox_download_fruitmap_markers, Settings.API_ID_FRUITMAP);
 
         synchronizeCheckbutton(R.id.checkBox_fruit_radar, new Toggled() {
             @Override
@@ -307,6 +310,20 @@ public class SettingsActivity extends MundraubBaseActivity {
             @Override
             public boolean isChecked() {
                 return Settings.vibrateWhenPlantIsInRange();
+            }
+        });
+    }
+
+    private void synchronizeMarkerDownloadCheckbutton(int checkboxId, final String apiId) {
+        synchronizeCheckbutton(checkboxId, new Toggled() {
+            @Override
+            public int onToggle(boolean checked) {
+                return Settings.downloadMarkersFromAPI(apiId, checked);
+            }
+
+            @Override
+            public boolean isChecked() {
+                return Settings.downloadMarkersFromAPI(apiId);
             }
         });
     }

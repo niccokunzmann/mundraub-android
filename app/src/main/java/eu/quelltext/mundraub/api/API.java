@@ -11,6 +11,8 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.net.ssl.SSLHandshakeException;
@@ -38,7 +40,7 @@ public abstract class API extends ErrorAware {
     private boolean isLoggedIn;
 
     public static API[] all() {
-        return new API[]{DUMMY, MUNDRAUB, NA_OVOCE};
+        return new API[]{DUMMY, MUNDRAUB, FRUITMAP, NA_OVOCE};
     }
     
     public static API instance() {
@@ -66,12 +68,18 @@ public abstract class API extends ErrorAware {
         return isLoggedIn;
     }
 
-    public static API[] getMarkerAPIs() {
-        return new API[]{
-                MUNDRAUB,
-                NA_OVOCE,
-                FRUITMAP
-        }; // TODO: settings
+    public static List<API> getMarkerAPIs() {
+        List<API> result = new ArrayList<>();
+        for (API api: all()) {
+            if (api.wantsToProvideMarkers()) {
+                result.add(api);
+            }
+        }
+        return result;
+    }
+
+    public boolean wantsToProvideMarkers() {
+        return Settings.downloadMarkersFromAPI(id());
     }
 
     public Progress signup(final String email, final String username, final String password, Callback callback) {

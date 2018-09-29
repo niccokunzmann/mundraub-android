@@ -63,6 +63,30 @@
 
             </LinearLayout>
 
+            <CheckBox
+                android:id="@+id/checkBox_download_mundraub_markers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:checked="true"
+                android:text="@string/settings_download_mundraub_markers" />
+
+            <CheckBox
+                android:id="@+id/checkBox_download_na_ovoce_markers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:checked="true"
+                android:text="@string/settings_download_na_ovoce_markers" />
+
+            <CheckBox
+                android:id="@+id/checkBox_download_fruitmap_markers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:checked="true"
+                android:text="@string/settings_download_fruitmap_markers" />
+
             <View
                 android:id="@+id/divider1"
                 android:layout_width="match_parent"
@@ -213,6 +237,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:checked="true"
                 android:text="@string/settings_use_markers_mundraub" />
 
             <CheckBox

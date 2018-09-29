@@ -126,8 +126,8 @@ public class Settings {
     private static boolean useOfflineMapAPI = false;
     private static boolean debugMundraubMapAPI = false;
     private static boolean vibrateWhenPlantIsInRange = false;
-    private static SynchronizedStringSet showCategories =
-            new SynchronizedStringSet("showCategories", Arrays.asList(API_ID_MUNDRAUB)); // array as list https://stackoverflow.com/a/2041810/1320237
+    private static SynchronizedStringSet showCategories = new SynchronizedStringSet("showCategories", Arrays.asList(API_ID_MUNDRAUB)); // array as list https://stackoverflow.com/a/2041810/1320237
+    private static SynchronizedStringSet downloadMarkersFromAPI = new SynchronizedStringSet("downloadMarkersFromAPI", Arrays.asList(API_ID_MUNDRAUB, API_ID_NA_OVOCE, API_ID_FRUITMAP)); // array as list https://stackoverflow.com/a/2041810/1320237
     private static boolean useFruitRadarNotifications = false;
     private static int radarPlantRangeMeters = 150;
 
@@ -162,6 +162,7 @@ public class Settings {
         log.d("useFruitRadarNotifications", useFruitRadarNotifications);
         log.d("radarPlantRangeMeters", radarPlantRangeMeters);
         log.d("showCategories", showCategories.toString());
+        log.d("downloadMarkersFromAPI", downloadMarkersFromAPI.toString());
         if (!useCacheForPlants) {
             log.d("persistentPathForPlants", persistentPathForPlants.toString());
         }
@@ -182,6 +183,7 @@ public class Settings {
         useFruitRadarNotifications = preferences.getBoolean("useFruitRadarNotifications", useFruitRadarNotifications);
         radarPlantRangeMeters = preferences.getInt("radarPlantRangeMeters", radarPlantRangeMeters);
         showCategories.load();
+        downloadMarkersFromAPI.load();
         // load the permission questions
         permissionQuestion.clear();
         for (String key : preferences.getAll().keySet()) {
@@ -210,6 +212,7 @@ public class Settings {
             editor.putBoolean("useFruitRadarNotifications", useFruitRadarNotifications);
             editor.putInt("radarPlantRangeMeters", radarPlantRangeMeters);
             showCategories.saveTo(editor);
+            downloadMarkersFromAPI.saveTo(editor);
             for (String key: permissionQuestion.keySet()) {
                 editor.putBoolean(key, permissionQuestion.get(key));
             }
@@ -453,6 +456,19 @@ public class Settings {
 
     public static boolean showCategory(String apiId) {
         return showCategories.contains(apiId);
+    }
+
+    public static int downloadMarkersFromAPI(String apiId, boolean checked) {
+        if (checked) {
+            downloadMarkersFromAPI.add(apiId);
+        } else {
+            downloadMarkersFromAPI.remove(apiId);
+        }
+        return commit();
+    }
+
+    public static boolean downloadMarkersFromAPI(String apiId) {
+        return downloadMarkersFromAPI.contains(apiId);
     }
 
 }

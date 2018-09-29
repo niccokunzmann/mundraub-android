@@ -107,16 +107,16 @@ public class PlantsCache extends ErrorAware {
     public static Progress update(API.Callback callback) {
         if (updateProgress == null || updateProgress.isDone()) {
             clear();
-            final API[] apis = API.getMarkerAPIs();
-            updateProgress = new JoinedProgress(callback, apis.length);
+            final List<API> apis = API.getMarkerAPIs();
+            updateProgress = new JoinedProgress(callback, apis.size());
             final List<API.Callback> callbacks = new ArrayList<API.Callback>();
-            for (int i = 0; i < apis.length; i++) {
+            for (int i = 0; i < apis.size(); i++) {
                 final int index = i;
                 final int nextIndex = i + 1;
                 callbacks.add(new API.Callback() {
                     @Override
                     public void onSuccess() {
-                        API api = apis[index];
+                        API api = apis.get(index);
                         API.Callback nextCallback = callbacks.get(nextIndex);
                         updateProgress.addProgressable(api.updateAllPlantMarkers(nextCallback));
                     }
