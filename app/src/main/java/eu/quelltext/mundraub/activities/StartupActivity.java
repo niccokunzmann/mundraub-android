@@ -51,7 +51,7 @@ public class StartupActivity extends MundraubBaseActivity {
             progressBar.setVisibility(View.INVISIBLE); // from https://stackoverflow.com/a/38472059
             if (dialogs == 0 && !nextActivityOpened) {
                 nextActivityOpened = true;
-                openMap();
+                menuOpenMap();
             }
         }
     }

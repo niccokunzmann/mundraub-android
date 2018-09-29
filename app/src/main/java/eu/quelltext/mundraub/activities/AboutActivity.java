@@ -125,7 +125,7 @@ public class AboutActivity extends MundraubBaseActivity {
     }
 
     @Override
-    protected void openAbout() {
+    protected void menuOpenAbout() {
         // do nothing
     }
 }

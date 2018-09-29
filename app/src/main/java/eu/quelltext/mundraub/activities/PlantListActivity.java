@@ -240,7 +240,7 @@ public class PlantListActivity extends MundraubBaseActivity {
     }
 
     @Override
-    protected void openMyPlants() {
+    protected void menuOpenMyPlants() {
         recyclerView.scrollToPosition(0);
     }
 }

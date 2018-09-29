@@ -112,41 +112,41 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
         // from https://www.javatpoint.com/android-option-menu-example
         switch (item.getItemId()){
             case R.id.item_about:
-                openAbout();
+                menuOpenAbout();
                 return true;
             case R.id.item_map:
-                openMap();
+                menuOpenMap();
                 return true;
             case R.id.item_settings:
-                openSettings();
+                menuOpenSettings();
                 return true;
             case R.id.item_my_plants:
-                openMyPlants();
+                menuOpenMyPlants();
                 return true;
             case R.id.item_rules:
-                openMundraubRules();
+                menuOpenCommunityCodex();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    protected void openMyPlants() {
+    protected void menuOpenMyPlants() {
         Intent intent = new Intent(this, PlantListActivity.class);
         this.startActivity(intent);
     }
 
-    protected void openSettings() {
+    protected void menuOpenSettings() {
         Intent intent = new Intent(this, SettingsActivity.class);
         this.startActivity(intent);
     }
 
-    protected void openAbout() {
+    protected void menuOpenAbout() {
         Intent intent = new Intent(this, AboutActivity.class);
         this.startActivity(intent);
     }
 
-    protected void openMap() {
+    protected void menuOpenMap() {
         Intent intent = new Intent(this, ShowPlantsActivity.class);
         this.startActivity(intent);
     }
@@ -164,7 +164,7 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
         startActivity(intent);
     }
 
-    protected void openMundraubRules() {
+    protected void menuOpenCommunityCodex() {
         Intent intent = new Intent(this, CodexActivity.class);
         startActivity(intent);
     }

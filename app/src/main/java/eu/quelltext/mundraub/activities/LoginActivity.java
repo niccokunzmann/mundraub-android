@@ -284,7 +284,7 @@ public class LoginActivity extends MundraubBaseActivity {
 
     private void loginSuccessful() {
         savePassword();
-        openMundraubRules();
+        menuOpenCommunityCodex();
         finish();
     }
 

@@ -162,4 +162,8 @@ public class MapBaseActivity extends MundraubBaseActivity {
         openMapAtPosition(position);
     }
 
+    @Override
+    protected void menuOpenMap() {
+        webView.reload();
+    }
 }

@@ -454,7 +454,7 @@ public class SettingsActivity extends MundraubBaseActivity {
     }
 
     @Override
-    protected void openSettings() {
+    protected void menuOpenSettings() {
         // do nothing
     }
 }
