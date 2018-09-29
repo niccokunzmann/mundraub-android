@@ -39,8 +39,6 @@ public class ShowPlantsActivity extends MapBaseActivity {
         if (extras != null && extras.containsKey(ARG_POSITION)) {
             double[] position = extras.getDoubleArray(ARG_POSITION);
             openMapAtPosition(position);
-        } else if (getPermissions().ACCESS_FINE_LOCATION.askIfNotGranted()) {
-            openMapAtGPSPositionOrLastPlantOrDefault();
         } else {
             openMapAtLastPlantOrDefault();
         }

@@ -27,8 +27,6 @@ public class MapBaseActivity extends MundraubBaseActivity {
     protected WebView webView = null;
     private MundraubProxy apiProxy;
 
-    private static final long MAXIMUM_TIME_TO_WAIT_FOR_GPS_TO_POSITION_THE_MAP = 1000000 * 5;
-
     protected void initializeWebView(int webViewId) {
         webView = (WebView) findViewById(webViewId);
 
@@ -136,25 +134,18 @@ public class MapBaseActivity extends MundraubBaseActivity {
         return new MapUrl(webView.getUrl());
     }
 
-    protected void openMapAtGPSPositionOrLastPlantOrDefault() {
-        openMapAtLastPlantOrDefault();
-    }
-
     @SuppressLint("MissingPermission")
     protected void openMapAtGPSPosition() {
         final LocationManager locationManager = createLocationManager();
         if (locationManager == null) {
             return;
         }
-        final long start = System.nanoTime();
         locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER, 5000, 50, new LocationListener() {
                     @Override
                     public void onLocationChanged(Location location) {
                         locationManager.removeUpdates(this);
-                        if (System.nanoTime() - start < MAXIMUM_TIME_TO_WAIT_FOR_GPS_TO_POSITION_THE_MAP) {
-                            openMapAtPosition(location.getLongitude(), location.getLatitude());
-                        }
+                        openMapAtPosition(location.getLongitude(), location.getLatitude());
                     }
 
                     @Override
