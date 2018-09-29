@@ -73,7 +73,9 @@ public class Logger implements UncaughtExceptionHandler, Initialization.Activity
                 makeErrorReport();
             }
         }
-        defaultExceptionHandler.uncaughtException(t, e);
+        if (defaultExceptionHandler != null) {
+            defaultExceptionHandler.uncaughtException(t, e);
+        }
     }
 
     private void makeErrorReport() {

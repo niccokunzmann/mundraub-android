@@ -43,5 +43,4 @@ public class ShowPlantsActivity extends MapBaseActivity {
             openMapAtLastPlantOrDefault();
         }
     }
-
 }
