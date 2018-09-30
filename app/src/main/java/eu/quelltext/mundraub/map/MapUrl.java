@@ -76,4 +76,10 @@ public class MapUrl {
     public boolean isValid() {
         return configuration.containsKey("lon") && configuration.containsKey("lat");
     }
+
+    public MapUrl serveTilesFromLocalhost(int port) {
+        configuration.put("earthUrl", "http://localhost:" + port + "/tiles/ArcGIS/${z}/${y}/${x}");
+        configuration.put("mapnikUrl", "http://localhost:" + port + "/tiles/osm/${z}/${y}/${x}");
+        return this;
+    }
 }

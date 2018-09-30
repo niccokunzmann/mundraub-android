@@ -54,7 +54,27 @@ public class MapUrlTest {
 
     @Test
     public void testMatUrlUsesAppGPSAsDefault() {
-        assertEquals(new MapUrl("").getString("browserGPS"), "false");
-        assertEquals(new MapUrl(0, 0).getString("browserGPS"), "false");
+        assertEquals("false", new MapUrl("").getString("browserGPS"));
+        assertEquals("false", new MapUrl(0, 0).getString("browserGPS"));
+    }
+
+    @Test
+    public void testMapUrlDoesNotRedirectTilesByDefault() {
+        MapUrl mapUrl = new MapUrl("?test=2#test=4");
+        assertEquals(null, mapUrl.getString("mapnikUrl"));
+        assertEquals(null, mapUrl.getString("earthUrl"));
+    }
+
+    @Test
+    public void testMapUrlDoesCanRedirectToLocalhost() {
+        for (int port = 4; port < 2000; port += 300) {
+            MapUrl mapUrl = new MapUrl("?test=2#test=4").serveTilesFromLocalhost(port);
+            assertEquals(
+                    "http://localhost:" + port + "/tiles/ArcGIS/${z}/${y}/${x}",
+                    mapUrl.getString("earthUrl"));
+            assertEquals(
+                    "http://localhost:" + port + "/tiles/osm/${z}/${y}/${x}",
+                    mapUrl.getString("mapnikUrl"));
+        }
     }
 }
