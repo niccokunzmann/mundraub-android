@@ -79,7 +79,7 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
 
         @Override
         public Response handle(IHTTPSession input) {
-            if (this.shouldServe(input)) {
+            if (wantsToServe(input)) {
                 try {
                     return respondTo(input);
                 } catch (Exception e) {
@@ -93,7 +93,7 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
             return null;
         }
 
-        public boolean shouldServe(IHTTPSession input) {
+        public boolean wantsToServe(IHTTPSession input) {
             return wantsToHandleMethod(input.getMethod()) &&
                     wantsToServeURI(input.getUri());
         }
@@ -111,6 +111,10 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
             String msg = "<html><body><h1>500 Internal server errir</h1>\n" +
                     "<pre>" + ExceptionUtils.getStackTrace(e) + "</pre></body></html>";
             return Response.newFixedLengthResponse(Status.INTERNAL_ERROR, NanoHTTPD.MIME_HTML, msg);
+        }
+
+        protected String baseUri() {
+            return uri;
         }
     }
 

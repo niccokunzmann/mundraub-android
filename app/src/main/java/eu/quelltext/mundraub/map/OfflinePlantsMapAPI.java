@@ -18,6 +18,10 @@ public class OfflinePlantsMapAPI extends MundraubMapAPIForApp {
     private static final String JSON_BBOX = "bbox";
     private static final String JSON_FEATURES = "features";
 
+    public OfflinePlantsMapAPI() {
+        super();
+    }
+
 
     @Override
     protected byte[] getResponseBytesFromPlantMarkerQuery(String queryParameterString) throws IOException, Exception /*JSONException*/ {
