@@ -7,6 +7,7 @@ import org.junit.rules.TemporaryFolder;
 import java.io.IOException;
 
 import eu.quelltext.mundraub.map.TilesCache;
+import eu.quelltext.mundraub.map.position.Position;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
@@ -23,7 +24,7 @@ public class TilesCacheTest {
         return cache(TilesCache.ContentType.PNG);
     }
 
-    private TilesCache cache(TilesCache.ContentType contentType) {
+    private TilesCache cache(TilesCache.ContentType contentType, String url) {
         if (!temporaryFolderIsCreated) {
             try {
                 temporaryFolder.create();
@@ -32,7 +33,15 @@ public class TilesCacheTest {
             }
             temporaryFolderIsCreated = true;
         }
-        return new TilesCache(temporaryFolder.getRoot(), contentType);
+        return new TilesCache(temporaryFolder.getRoot(), url, contentType);
+    }
+
+    private TilesCache cache(String url) {
+        return cache(TilesCache.ContentType.JPG, url);
+    }
+
+    private TilesCache cache(TilesCache.ContentType contentType) {
+        return cache(contentType, "http://a.b/${x}/${y}/${z}");
     }
 
 
@@ -105,10 +114,29 @@ public class TilesCacheTest {
         assertEquals("123", new String(tile.bytes()));
     }
 
-    // TODO:
-    // test file path
-    // test url for tile
-    // test getting tiles at position and zoom
+    @Test
+    public void testUrlForTileFillsTemplate() {
+        assertEquals("https://a.b/tiles/1/2/3.x", cache("https://a.b/tiles/${x}/${y}/${z}.x").getTileAt(1, 2,  3).url());
+        assertEquals("http://a.c/tiles/11/22/33", cache("http://a.c/tiles/${z}/${y}/${x}").getTileAt(33, 22,  11).url());
+    }
+
+    @Test
+    public void testGetTileAtPositionAndZoom11() {
+        assertPosition(78.8718, 21.707686082885235, 11, 1472, 897);
+    }
+
+    @Test
+    public void testGetTileAtPositionAndZoom8() {
+        assertPosition(85.07083564452995, 23.962892067343013, 8, 188, 110);
+    }
+
+    private void assertPosition(double longitude, double latitude, int zoom, int x, int y) {
+        String url = "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}/"; // 11/897/1472/
+        TilesCache.Tile tile = cache(url).getTileAt(new Position(longitude, latitude), zoom);
+        assertEquals(tile.x(), x);
+        assertEquals(tile.y(), y);
+        assertEquals(tile.zoom(), zoom);
+    }
     // test getting tiles in range of point
 
 }
