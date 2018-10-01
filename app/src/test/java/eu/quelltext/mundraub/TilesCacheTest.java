@@ -153,6 +153,10 @@ public class TilesCacheTest {
         assertFalse(cache().getTileAt(1, 2, 31).equals(cache().getTileAt(1, 2, 3)));
         assertFalse(cache("http://x.x/${x}/${y}/${z}").getTileAt(1, 2, 31).equals(cache().getTileAt(1, 2, 3)));
     }
-    // test getting tiles in range of point
+
+    @Test
+    public void testGetTileAtPositionWithBBox() {
+
+    }
 
 }

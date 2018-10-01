@@ -19,4 +19,18 @@ public class Position implements IPosition {
     public double getLatitude() {
         return latitude;
     }
+
+    @Override
+    public int hashCode() {
+        return (int)(Math.round(longitude * 10000) ^ Math.round(latitude * 10000));
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!getClass().isInstance(obj)) {
+            return super.equals(obj);
+        }
+        Position other = (Position) obj;
+        return getLongitude() == other.getLongitude() && getLatitude() == other.getLatitude();
+    }
 }

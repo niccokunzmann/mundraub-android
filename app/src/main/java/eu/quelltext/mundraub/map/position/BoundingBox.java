@@ -74,4 +74,8 @@ public class BoundingBox {
         boolean v2 = (lon > west);
         return (east < west ? v1 || v2 : v1 && v2) && (lat > south && lat < north);
     }
+
+    public Position middle() {
+        return new Position((north + south) / 2, (east + west) / 2);
+    }
 }

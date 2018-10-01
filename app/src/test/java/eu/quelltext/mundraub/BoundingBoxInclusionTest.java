@@ -5,6 +5,7 @@ import org.junit.Test;
 import eu.quelltext.mundraub.map.position.BoundingBox;
 import eu.quelltext.mundraub.map.position.Position;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
@@ -22,5 +23,11 @@ public class BoundingBoxInclusionTest {
             assertFalse(bbox.contains(new Position(i + 2, 0)));
             assertFalse(bbox.contains(new Position(i - 2, 0)));
         }
+    }
+
+    @Test
+    public void testMiddle() {
+        assertEquals(new Position(0, 0), BoundingBox.fromNESW(1, 1, -1, -1).middle());
+        assertEquals(new Position(3, 3), BoundingBox.fromNESW(7, 4, -1, 2).middle());
     }
 }
