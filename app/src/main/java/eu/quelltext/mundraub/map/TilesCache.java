@@ -39,6 +39,7 @@ public class TilesCache {
     public class Tile {
 
         private final TilePosition position;
+        private String url = null;
 
         public Tile(TilePosition position) {
             this.position = position;
@@ -74,14 +75,31 @@ public class TilesCache {
         }
 
         public String url() {
-            return urlTemplate
-                    .replaceFirst("\\$\\{x\\}", Integer.toString(position.x()))
-                    .replaceFirst("\\$\\{y\\}", Integer.toString(position.y()))
-                    .replaceFirst("\\$\\{z\\}", Integer.toString(position.zoom()));
+            if (url == null) {
+                url = urlTemplate
+                        .replaceFirst("\\$\\{x\\}", Integer.toString(position.x()))
+                        .replaceFirst("\\$\\{y\\}", Integer.toString(position.y()))
+                        .replaceFirst("\\$\\{z\\}", Integer.toString(position.zoom()));
+            }
+            return url;
         }
 
         public TilePosition getPosition() {
             return position;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (!getClass().isInstance(obj)) {
+                return super.equals(obj);
+            }
+            Tile other = (Tile) obj;
+            return url().equals(other.url());
+        }
+
+        @Override
+        public int hashCode() {
+            return url().hashCode();
         }
     }
 

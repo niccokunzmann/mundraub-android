@@ -138,7 +138,21 @@ public class TilesCacheTest {
         assertEquals(tile.getPosition().zoom(), zoom);
     }
 
+    @Test
+    public void testTwoTilesAreEqual() {
+        assertEquals(cache().getTileAt(1, 2, 3), cache().getTileAt(1, 2, 3));
+        assertEquals(cache().getTileAt(1, 2, 3).hashCode(), cache().getTileAt(1, 2, 3).hashCode());
+        assertEquals(cache().getTileAt(11, 211, 31), cache().getTileAt(11, 211, 31));
+        assertEquals(cache().getTileAt(11, 211, 31).hashCode(), cache().getTileAt(11, 211, 31).hashCode());
+    }
 
+    @Test
+    public void testTwoTilesAreNotEqual() {
+        assertFalse(cache().getTileAt(11, 2, 3).equals(cache().getTileAt(1, 2, 3)));
+        assertFalse(cache().getTileAt(1, 21, 3).equals(cache().getTileAt(1, 2, 3)));
+        assertFalse(cache().getTileAt(1, 2, 31).equals(cache().getTileAt(1, 2, 3)));
+        assertFalse(cache("http://x.x/${x}/${y}/${z}").getTileAt(1, 2, 31).equals(cache().getTileAt(1, 2, 3)));
+    }
     // test getting tiles in range of point
 
 }
