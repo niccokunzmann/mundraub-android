@@ -133,10 +133,12 @@ public class TilesCacheTest {
     private void assertPosition(double longitude, double latitude, int zoom, int x, int y) {
         String url = "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}/"; // 11/897/1472/
         TilesCache.Tile tile = cache(url).getTileAt(new Position(longitude, latitude), zoom);
-        assertEquals(tile.x(), x);
-        assertEquals(tile.y(), y);
-        assertEquals(tile.zoom(), zoom);
+        assertEquals(tile.getPosition().x(), x);
+        assertEquals(tile.getPosition().y(), y);
+        assertEquals(tile.getPosition().zoom(), zoom);
     }
+
+
     // test getting tiles in range of point
 
 }
