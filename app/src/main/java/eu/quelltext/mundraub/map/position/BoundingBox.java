@@ -62,8 +62,8 @@ public class BoundingBox {
         return Helper.distanceInMetersBetween(p1.getLongitude(), p1.getLatitude(), p2.getLongitude(), p2.getLatitude());
     }
 
-    public static BoundingBox fromNESW(int n, int e, int s, int w) {
-        return new BoundingBox(n, e, s, w);
+    public static BoundingBox fromNESW(double north, double east, double south, double west) {
+        return new BoundingBox(north, east, south, west);
     }
 
     public boolean contains(Position position) {
@@ -76,6 +76,6 @@ public class BoundingBox {
     }
 
     public Position middle() {
-        return new Position((north + south) / 2, (east + west) / 2);
+        return new Position((east + west) / 2, (north + south) / 2);
     }
 }

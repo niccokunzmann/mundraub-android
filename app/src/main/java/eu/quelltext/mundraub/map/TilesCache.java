@@ -4,7 +4,10 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import eu.quelltext.mundraub.map.position.BoundingBox;
 import eu.quelltext.mundraub.map.position.Position;
 import eu.quelltext.mundraub.map.position.TilePosition;
 
@@ -28,12 +31,18 @@ public class TilesCache {
         return null;
     }
 
-    public Tile getTileAt(int x, int y, int z) {
-        return new Tile(new TilePosition(x, y, z));
+    public Tile getTileAt(int x, int y, int zoom) {
+        return new Tile(new TilePosition(x, y, zoom));
     }
 
     public Tile getTileAt(Position position, int zoom) {
         return new Tile(new TilePosition(position, zoom));
+    }
+
+    public List<Tile> getTilesIn(BoundingBox bbox, int zoom) {
+        ArrayList<Tile> tiles = new ArrayList<Tile>();
+        tiles.add(getTileAt(bbox.middle(), zoom));
+        return tiles;
     }
 
     public class Tile {
@@ -100,6 +109,11 @@ public class TilesCache {
         @Override
         public int hashCode() {
             return url().hashCode();
+        }
+
+        @Override
+        public String toString() {
+            return getClass().getSimpleName() + "(" + getPosition().x() + ", " + getPosition().y() + ", " + getPosition().zoom() + ")";
         }
     }
 

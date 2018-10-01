@@ -5,8 +5,10 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import java.io.IOException;
+import java.util.List;
 
 import eu.quelltext.mundraub.map.TilesCache;
+import eu.quelltext.mundraub.map.position.BoundingBox;
 import eu.quelltext.mundraub.map.position.Position;
 
 import static junit.framework.Assert.assertEquals;
@@ -155,8 +157,28 @@ public class TilesCacheTest {
     }
 
     @Test
-    public void testGetTileAtPositionWithBBox() {
-
+    public void testBBoxWithZeroWidthHasOneTile() {
+        for (int zoom = 1; zoom < 18; zoom++) {
+            BoundingBox bbox = BoundingBox.fromNESW(1, 1, 1, 1);
+            assertEquals(1, cache().getTilesIn(bbox, zoom).size());
+        }
     }
 
+    @Test
+    public void testBBoxWithZeroWidthHasTileAtMiddle1() {
+        assertMiddlePosition(78.8718, 21.707686082885235, 11, 1472, 897);
+    }
+
+    @Test
+    public void testBBoxWithZeroWidthHasTileAtMiddle2() {
+        assertMiddlePosition(85.07083564452995, 23.962892067343013, 8, 188, 110);
+    }
+
+    private void assertMiddlePosition(double longitude, double latitude, int zoom, int x, int y) {
+        BoundingBox bbox = BoundingBox.fromNESW(latitude, longitude, latitude, longitude);
+        List<TilesCache.Tile> tiles = cache().getTilesIn(bbox, zoom);
+        assertEquals(1, tiles.size());
+        TilesCache.Tile tile = tiles.get(0);
+        assertEquals(cache().getTileAt(x, y, zoom), tile);
+    }
 }
