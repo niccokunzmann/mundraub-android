@@ -39,4 +39,10 @@ public class RadiusBoundingBox extends BoundingBox {
         }
         return positions;
     }
+
+    @Override
+    public boolean contains(Position position) {
+        // TODO: test
+        return super.contains(position) && distanceInMetersBetween(position, center) < radiusInMeters;
+    }
 }
