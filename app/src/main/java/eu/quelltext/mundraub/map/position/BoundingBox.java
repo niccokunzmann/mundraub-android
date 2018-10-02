@@ -1,5 +1,8 @@
 package eu.quelltext.mundraub.map.position;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 import eu.quelltext.mundraub.common.Helper;
@@ -124,5 +127,49 @@ public class BoundingBox {
 
     public Position northEastCorner() {
         return new Position(east, north);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!getClass().isInstance(obj)) {
+            return super.equals(obj);
+        }
+        BoundingBox other = (BoundingBox) obj;
+        return other.northEastCorner().equals(this.northEastCorner()) && other.southWestCorner().equals(this.southWestCorner());
+    }
+
+    @Override
+    public int hashCode() {
+        return northEastCorner().hashCode() ^ southWestCorner().hashCode();
+    }
+
+    public JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("south", southBorderLatitude());
+            json.put("north", northBorderLatitude());
+            json.put("east", eastBorderLongitude());
+            json.put("west", westBorderLongitude());
+        } catch (JSONException e) {
+            e.printStackTrace(); // will never happen I suppose
+        }
+        return json;
+    }
+
+    private double westBorderLongitude() {
+        return west;
+    }
+
+    private double eastBorderLongitude() {
+        return east;
+    }
+
+    public static BoundingBox fromJSON(JSONObject json) throws JSONException {
+        return fromNESW(
+                json.getDouble("north"),
+                json.getDouble("east"),
+                json.getDouble("south"),
+                json.getDouble("west")
+        );
     }
 }

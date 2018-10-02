@@ -2,7 +2,12 @@ package eu.quelltext.mundraub;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import eu.quelltext.mundraub.map.MapUrl;
+import eu.quelltext.mundraub.map.position.BoundingBox;
 
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
@@ -66,7 +71,7 @@ public class MapUrlTest {
     }
 
     @Test
-    public void testMapUrlDoesCanRedirectToLocalhost() {
+    public void testMapUrlDoesRedirectToLocalhost() {
         for (int port = 4; port < 2000; port += 300) {
             MapUrl mapUrl = new MapUrl("?test=2#test=4").serveTilesFromLocalhost(port);
             assertEquals(
@@ -77,4 +82,25 @@ public class MapUrlTest {
                     mapUrl.getString("mapnikUrl"));
         }
     }
+
+    @Test
+    public void testMapUrlCanIncludeBoundingBox() {
+        List<BoundingBox> bboxes = new ArrayList<>(Arrays.asList(BoundingBox.fromNESW(1,2, 3, 4)));
+        MapUrl mapUrl = new MapUrl("?").setOfflineAreaBoundingBoxes(bboxes);
+        assertEquals(bboxes, mapUrl.getOfflineAreaBoundingBoxes());
+    }
+
+    @Test
+    public void testMapUrlIncludesBoundingBoxInUrl() {
+        List<BoundingBox> bboxes = new ArrayList<>(Arrays.asList(BoundingBox.fromNESW(1,2, 3, 4), BoundingBox.fromNESW(21,23, 344, 24)));
+        MapUrl mapUrl = new MapUrl(new MapUrl("?").setOfflineAreaBoundingBoxes(bboxes).getUrl());
+        assertEquals(bboxes, mapUrl.getOfflineAreaBoundingBoxes());
+    }
+
+    @Test
+    public void testMapUrlHasNoBoundingBoxByDefault() {
+        MapUrl mapUrl = new MapUrl("?");
+        assertEquals(0, mapUrl.getOfflineAreaBoundingBoxes().size());
+    }
+
 }

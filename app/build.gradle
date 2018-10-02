@@ -40,4 +40,6 @@ dependencies {
     // from https://stackoverflow.com/a/31372941/1320237
     implementation files('libs/commons-lang3-3.7.jar')
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'//files('libs/okhttp-3.11.0.jar')
+
+    testImplementation 'org.json:json:20180130' // from https://stackoverflow.com/a/41398830/1320237
 }
