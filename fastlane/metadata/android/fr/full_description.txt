@@ -1,28 +1,4 @@
-Trouvez des plantes et partagez-les en ligne !
-
-Vous avez votre GSM avec vous tout le temps.
-Lorsque vous trouvez une plante comestible que vous aimeriez partager avec d'autres, vous pouvez enregistrer sa localisation, son type, et même une photo.
-Plus tard, lorsque vous serez connecté à internet, vous pouvez l'uploader sur la carte des plantes  sauvages comestibles : Mundraub.org.
-
-Fonctionnalités :
-<ul>
-<li>Réunissez des données sur les plantes en mode hors-ligne</li>
-<li>Carte intégrée pour trouver des plantes</li>
-<li>Notification quand les plantes sont proches</li>
-<li>Les marqueurs de plantes sont visibles même hors-ligne</li>
-<li>publication sur Mundraub.org et Na-Ovoce.cz</li>
-</ul>
-
-Autorisations nécessaires :
-<ul>
-<li>APPAREIL PHOTO pour prendre une photo de la plante</li>
-<li>GPS pour auto-compléter la localisation de la plante </li>
-<li>RÉSEAU pour synchroniser les plantes et afficher la carte</li>
-<li>STOCKAGE (optionnel) pour
-<ul>
-<li>sauvegarder vos plantes dans un format exportable ( en JSON )</li>
-<li>sauvegarder le rapport de crash pour que vous puissiez mieux aider quand l'application se plante</li>
-</ul>
-</li>
-<li>VIBRER (optionnel) pour vous notifier lorsque des plantes sont à proximité</li>
-</ul>
+Trouvez des plantes et partagez-les en ligne ! 
+Vous avez votre GSM avec vous tout le temps. Lorsque vous trouvez une plante comestible que vous aimeriez partager avec d'autres, vous pouvez enregistrer sa localisation, son type, et même une photo. Plus tard, lorsque vous serez connecté à internet, vous pouvez l'uploader sur la carte des plantes  sauvages comestibles : Mundraub.org. 
+Fonctionnalités : <ul> <li>Réunissez des données sur les plantes en mode hors-ligne</li> <li>Carte intégrée pour trouver des plantes</li> <li>Notification quand les plantes sont proches</li> <li>Les marqueurs de plantes sont visibles même hors-ligne</li> <li>publication sur Mundraub.org et Na-Ovoce.cz</li> </ul> 
+Autorisations nécessaires : <ul> <li>APPAREIL PHOTO pour prendre une photo de la plante</li> <li>GPS pour auto-compléter la localisation de la plante </li> <li>RÉSEAU pour synchroniser les plantes et afficher la carte</li> <li>STOCKAGE (optionnel) pour <ul> <li>sauvegarder vos plantes dans un format exportable ( en JSON )</li> <li>sauvegarder le rapport de crash pour que vous puissiez mieux aider quand l'application se plante</li> </ul> </li> <li>VIBRER (optionnel) pour vous notifier lorsque des plantes sont à proximité</li> </ul>
