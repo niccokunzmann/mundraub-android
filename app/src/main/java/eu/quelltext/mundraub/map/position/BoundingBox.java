@@ -19,12 +19,16 @@ public class BoundingBox {
     }
 
     public static BoundingBox fromWestSouthEastNorthArray(String[] bbox) {
-        return new BoundingBox(
-                Double.parseDouble(bbox[3]),
-                Double.parseDouble(bbox[2]),
+        return fromWSEN(
+                Double.parseDouble(bbox[0]),
                 Double.parseDouble(bbox[1]),
-                Double.parseDouble(bbox[0]));
+                Double.parseDouble(bbox[2]),
+                Double.parseDouble(bbox[3]));
     }
+    public static BoundingBox fromWSEN(double west, double south, double east, double north) {
+        return new BoundingBox(north, east, south, west);
+    }
+
 
     public static BoundingBox fromPositionAndRadius(IPosition position, double distanceInMeters) {
         return RadiusBoundingBox.fromPositionAndRadius(position, distanceInMeters);
@@ -77,5 +81,48 @@ public class BoundingBox {
 
     public Position middle() {
         return new Position((east + west) / 2, (north + south) / 2);
+    }
+
+    public static BoundingBox ofTileAt(TilePosition position) {
+        return new BoundingBox(
+                tile2lat(position.y(), position.zoom()),
+                tile2lon(position.x() + 1, position.zoom()),
+                tile2lat(position.y() + 1, position.zoom()),
+                tile2lon(position.x(), position.zoom()));
+    }
+
+    static double tile2lon(int x, int z) {
+        // from https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Java
+        return x / Math.pow(2.0, z) * 360.0 - 180;
+    }
+
+    static double tile2lat(int y, int z) {
+        // from https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Java
+        double n = Math.PI - (2.0 * Math.PI * y) / Math.pow(2.0, z);
+        return Math.toDegrees(Math.atan(Math.sinh(n)));
+    }
+
+    public double southBorderLatitude() {
+        return south;
+    }
+
+    public double northBorderLatitude() {
+        return north;
+    }
+
+    public Position southWestCorner() {
+        return new Position(west, south);
+    }
+
+    public Position southEastCorner() {
+        return new Position(east, south);
+    }
+
+    public Position northWestCorner() {
+        return new Position(west, north);
+    }
+
+    public Position northEastCorner() {
+        return new Position(east, north);
     }
 }

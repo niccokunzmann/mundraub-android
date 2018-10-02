@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Set;
 
 import eu.quelltext.mundraub.map.TilesCache;
 import eu.quelltext.mundraub.map.position.BoundingBox;
@@ -176,9 +176,29 @@ public class TilesCacheTest {
 
     private void assertMiddlePosition(double longitude, double latitude, int zoom, int x, int y) {
         BoundingBox bbox = BoundingBox.fromNESW(latitude, longitude, latitude, longitude);
-        List<TilesCache.Tile> tiles = cache().getTilesIn(bbox, zoom);
+        Set<TilesCache.Tile> tiles = cache().getTilesIn(bbox, zoom);
         assertEquals(1, tiles.size());
-        TilesCache.Tile tile = tiles.get(0);
-        assertEquals(cache().getTileAt(x, y, zoom), tile);
+        assertTrue(tiles.contains(cache().getTileAt(x, y, zoom)));
+    }
+
+    @Test
+    public void testTilesInBoundingBox1() {
+        assertTilesInBBox(BoundingBox.fromWSEN(3.4277343750002305,45.2052634561631,29.794921875000252,49.717376404935926), 7, 65, 43, 74, 45);
+    }
+
+    @Test
+    public void testTilesInBoundingBox2() {
+        assertTilesInBBox(BoundingBox.fromWSEN(13.351135253906426,48.03034580796611,16.647033691406662,48.585692256886375), 10, 549, 353, 559, 355);
+    }
+
+    private void assertTilesInBBox(BoundingBox boundingBox, int zoom, int minX, int minY, int maxX, int maxY) {
+        TilesCache cache = cache();
+        Set<TilesCache.Tile> boundingBoxTiles = cache.getTilesIn(boundingBox, zoom);
+        for (int x = minX; x <= maxX; x++) {
+            for (int y = minY; y <= maxY; y++) {
+                assertTrue(boundingBoxTiles.contains(cache.getTileAt(x, y, zoom)));
+            }
+        }
+        assertEquals((maxX - minX + 1) * (maxY - minY + 1), boundingBoxTiles.size());
     }
 }

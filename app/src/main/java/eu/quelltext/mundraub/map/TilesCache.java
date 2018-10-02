@@ -5,7 +5,9 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import eu.quelltext.mundraub.map.position.BoundingBox;
 import eu.quelltext.mundraub.map.position.Position;
@@ -39,9 +41,42 @@ public class TilesCache {
         return new Tile(new TilePosition(position, zoom));
     }
 
-    public List<Tile> getTilesIn(BoundingBox bbox, int zoom) {
-        ArrayList<Tile> tiles = new ArrayList<Tile>();
-        tiles.add(getTileAt(bbox.middle(), zoom));
+    public Set<Tile> getTilesIn(BoundingBox bbox, int zoom) {
+        Set<Tile> tiles = new HashSet<>();
+        List<Tile> tilesInMiddleNorth = new ArrayList<>();
+        List<Tile> tilesInMiddleSouth = new ArrayList<>();
+        Tile centerTile = getTileAt(bbox.middle(), zoom);
+        tiles.add(centerTile);
+        // expand center to north
+        for (Tile tile = centerTile; tile != null && tile.bbox().southBorderLatitude() < bbox.northBorderLatitude(); tile = tile.inTheNorth()) {
+            tilesInMiddleNorth.add(tile);
+            tiles.add(tile);
+        }
+        // expand center to south
+        for (Tile tile = centerTile; tile != null && tile.bbox().northBorderLatitude() > bbox.southBorderLatitude(); tile = tile.inTheSouth()) {
+            tilesInMiddleSouth.add(tile);
+            tiles.add(tile);
+        }
+        for (Tile middleNorthTile : tilesInMiddleNorth) {
+            // expand north middle to east
+            for (Tile tile = middleNorthTile; bbox.contains(tile.bbox().southWestCorner()); tile = tile.inTheEast()) {
+                tiles.add(tile);
+            }
+            // expand north middle to west
+            for (Tile tile = middleNorthTile; bbox.contains(tile.bbox().southEastCorner()); tile = tile.inTheWest()) {
+                tiles.add(tile);
+            }
+        }
+        for (Tile middleSouthTile : tilesInMiddleSouth) {
+            // expand north middle to east
+            for (Tile tile = middleSouthTile; bbox.contains(tile.bbox().northWestCorner()); tile = tile.inTheEast()) {
+                tiles.add(tile);
+            }
+            // expand north middle to west
+            for (Tile tile = middleSouthTile; bbox.contains(tile.bbox().northEastCorner()); tile = tile.inTheWest()) {
+                tiles.add(tile);
+            }
+        }
         return tiles;
     }
 
@@ -114,6 +149,34 @@ public class TilesCache {
         @Override
         public String toString() {
             return getClass().getSimpleName() + "(" + getPosition().x() + ", " + getPosition().y() + ", " + getPosition().zoom() + ")";
+        }
+
+        public BoundingBox bbox() {
+            return BoundingBox.ofTileAt(position);
+        }
+
+        public Tile inTheNorth() {
+            TilePosition northPosition = getPosition().oneNorth();
+            if (northPosition == null) {
+                return null;
+            }
+            return new Tile(northPosition);
+        }
+
+        public Tile inTheSouth() {
+            TilePosition southPosition = getPosition().oneSouth();
+            if (southPosition == null) {
+                return null;
+            }
+            return new Tile(southPosition);
+        }
+
+        public Tile inTheWest() {
+            return new Tile(getPosition().oneWest());
+        }
+
+        public Tile inTheEast() {
+            return new Tile(getPosition().oneEast());
         }
     }
 
