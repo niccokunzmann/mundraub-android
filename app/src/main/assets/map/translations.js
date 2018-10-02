@@ -56,7 +56,7 @@ function translate(key) {
         }
         var errorMessage = lookupChain[i][1];
         if (errorMessage) {
-            console.log();
+            console.log(errorMessage);
         }
     }
     return key;

@@ -28,7 +28,8 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 
     trigger: function(e) {
         var lonlat = getLonLatFromPixel(e.xy);
-        setMarkerToPosition(lonlat)
+        setMarkerToPosition(lonlat);
+        notifyBoxesAboutClick(lonlat);
     }
 });
 
@@ -200,6 +201,8 @@ function onload() {
             updatePlants();
             setConfigurationInURL();
         });
+        
+        addBoxesToMap();
         
     } catch(error) {
         printError(error)

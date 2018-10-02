@@ -8,12 +8,23 @@ setMarkerToCenter = function() {
     setMarkerToPosition(center);
 }
 
+function onChangeRedrawAllBoundingBoxes() {
+    // defer lookup until function is loaded.
+    redrawAllBoundingBoxes();
+}
+
 function layerUrlConfiguration(layerId) {
     return {
         "set": function(url) { mapLayersById[layerId].url = url; },
         "get": function(url) { return mapLayersById[layerId].url; },
         "onchange": [function(url) { mapLayersById[layerId].redraw(); }],
     };
+}
+
+function updateShowBoxes() {
+    if (CREATE_NEW_BOXES) {
+        boxesLayer.setVisibility(true);
+    }
 }
 
 var configuration = {
@@ -41,6 +52,16 @@ var queryHandlers = {
     "browserGPS": {
         "set": function(use) { CONFIGURATION_USE_BROWSER_GPS = use == "true"; },
         "get": function() { return CONFIGURATION_USE_BROWSER_GPS ? "true" : "false"; },
+    },
+    "createBoxes": {
+        "set": function(use) { CREATE_NEW_BOXES = use == "true"; },
+        "get": function() { return CREATE_NEW_BOXES ? "true" : "false"; },
+        "onchange": [updateShowBoxes]
+    },
+    "boxes": {
+        "set": function(boxesJSON) { boundingBoxes = JSON.parse(boxesJSON); },
+        "get": function() { return JSON.stringify(boundingBoxes); },
+        "onchange": [onChangeRedrawAllBoundingBoxes]
     },
 };
 
