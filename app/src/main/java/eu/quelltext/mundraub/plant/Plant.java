@@ -526,7 +526,7 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
     static private class NullPosition extends Position {
 
         private NullPosition() {
-            super(8.559300000000329, 51.97691767671171);
+            super(0, 0);
         }
 
         @Override
