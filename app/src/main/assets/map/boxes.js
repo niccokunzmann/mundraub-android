@@ -72,7 +72,7 @@ function addBoundingBox(bbox) {
     var point2 = lonLatToMarkerPosition({lon: bbox.east, lat: bbox.north});
     var bounds = new OpenLayers.Bounds(point1.lon, point1.lat, point2.lon, point2.lat);
 
-    var box = new OpenLayers.Marker.Box(bounds);
+    var box = new OpenLayers.Marker.Box(bounds, "#cc1111", 3); // http://dev.openlayers.org/docs/files/OpenLayers/Marker/Box-js.html
     boxesLayer.addMarker(box);
     box.events.register("click", box, function (e) { // from http://dev.openlayers.org/examples/boxes.html
         if (lastClickLonLat == null) {
@@ -88,6 +88,7 @@ function addBoundingBox(bbox) {
         }
     });
     setConfigurationInURL();
+    box.div.style.background = "rgba(1, 1, 1, 0.1)";
 }
 
 function redrawAllBoundingBoxes() {
