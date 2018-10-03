@@ -160,7 +160,9 @@ public class SettingsActivity extends MundraubBaseActivity {
     @SuppressLint("StringFormatInvalid")
     private void setOfflineMapStatisticsText() {
         String template = getString(R.string.settings_offline_map_statistics);
-        String text = String.format(template, Settings.getOfflineAreaBoundingBoxes().size(), "??mb");
+        BoundingBoxCollection bboxes = Settings.getOfflineAreaBoundingBoxes();
+        String bytes = bboxes.byteCountToHumanReadableString(bboxes.estimateTileBytesIn(Settings.getDownloadMaps(), Settings.getDownloadZoomLevels()));
+        String text = String.format(template, bboxes.size(), bytes);
         offlineStatisticsText.setText(text);
     }
 
@@ -349,11 +351,13 @@ public class SettingsActivity extends MundraubBaseActivity {
 
     }
 
-    private void synchronizeOfflineMapCheckbutton(int resourceId, final String mapId) {
+    private void synchronizeOfflineMapCheckbutton(final int resourceId, final String mapId) {
         synchronizeCheckbutton(resourceId, new Toggled() {
             @Override
             public int onToggle(boolean checked) {
-                return Settings.setDownloadMap(mapId, checked);
+                int result = Settings.setDownloadMap(mapId, checked);
+                setOfflineMapStatisticsText();
+                return result;
             }
             @Override
             public boolean isChecked() {
