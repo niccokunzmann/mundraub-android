@@ -5,6 +5,7 @@ When you find an edible plant, you like to share with others, you can record loc
 Later, when you have Internet, you can upload it to the map of free plants to eat: Mundraub.org.
 
 Features:
+
 <ul>
     <li>Collect all plant data offline</li>
     <li>Integrated map to find plants</li>
@@ -15,6 +16,7 @@ Features:
 </ul>
 
 Permissions:
+
 <ul>
     <li>CAMERA to take a photo of the plant</li>
     <li>GPS to auto-fill the location</li>
