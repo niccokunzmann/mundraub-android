@@ -16,9 +16,8 @@ import eu.quelltext.mundraub.map.position.TilePosition;
 public class TilesCache {
 
     private static TilesCache SATELLITE = null;
-    private static TilesCache OSM = null;
-    private static final String DEFAULT_ROOT = "tiles";
     private final ContentType contentType;
+    private static TilesCache OSM = null;
     private final File root;
     private final String urlTemplate;
 
@@ -29,8 +28,8 @@ public class TilesCache {
     }
 
     public static void initializeCachesOnDirectory(File directory) {
-        SATELLITE = new TilesCache(new File(directory, DEFAULT_ROOT + "/sat"), "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}/", ContentType.JPG);
-        OSM = new TilesCache(new File(directory, DEFAULT_ROOT + "/osm"), "http://a.tile.openstreetmap.org/${z}/${x}/${y}.png", ContentType.PNG);
+        SATELLITE = new TilesCache(new File(directory, "sat"), "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}/", ContentType.JPG);
+        OSM = new TilesCache(new File(directory, "osm"), "http://a.tile.openstreetmap.org/${z}/${x}/${y}.png", ContentType.PNG);
     }
 
     public static TilesCache forSatellite() {

@@ -1,6 +1,7 @@
 package eu.quelltext.mundraub.common;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Environment;
@@ -72,6 +73,10 @@ public class Settings {
     private static SharedPreferences preferences = null;
     private static List<ChangeListener> listeners = new ArrayList<ChangeListener>();
     private static Activity activity = null;
+
+    public static File mapTilesCacheDirectory(Context context) {
+        return new File(context.getCacheDir(), "tiles");
+    }
 
     private static class SynchronizedStringSet { // TODO: test
 

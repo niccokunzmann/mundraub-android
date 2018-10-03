@@ -117,6 +117,13 @@
                 android:layout_weight="4"
                 android:text="@string/settings_offline_map_explanation" />
 
+            <ProgressBar
+                android:id="@+id/update_progress_map"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4" />
+
             <Button
                 android:id="@+id/button_mark_offline_areas"
                 android:layout_width="match_parent"
@@ -146,7 +153,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/button_delete_offline_data"
+                    android:id="@+id/button_start_map_download"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

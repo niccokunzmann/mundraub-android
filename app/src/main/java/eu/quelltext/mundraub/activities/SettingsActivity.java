@@ -18,22 +18,38 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.activities.map.SelectOfflineMapPartsActivity;
 import eu.quelltext.mundraub.activities.map.TestFruitRadarActivity;
 import eu.quelltext.mundraub.api.API;
+import eu.quelltext.mundraub.api.AsyncNetworkInteraction;
+import eu.quelltext.mundraub.api.BackgroundDownloadTask;
 import eu.quelltext.mundraub.api.progress.Progress;
+import eu.quelltext.mundraub.api.progress.Progressable;
 import eu.quelltext.mundraub.common.Dialog;
+import eu.quelltext.mundraub.common.Helper;
 import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.initialization.Permissions;
 import eu.quelltext.mundraub.map.PlantsCache;
+import eu.quelltext.mundraub.map.TilesCache;
+import eu.quelltext.mundraub.map.position.BoundingBox;
 import eu.quelltext.mundraub.map.position.BoundingBoxCollection;
+import okhttp3.ResponseBody;
+import okio.BufferedSink;
+import okio.Okio;
 
 public class SettingsActivity extends MundraubBaseActivity {
 
+    private static BackgroundDownloadTask mapDownload = null;
+
     private ProgressBar updateProgress;
     final Handler handler = new Handler();
-    ProgressUpdate progressAutoUpdate;
+    ProgressUpdate plantProgressAutoUpdate;
     private RadioGroup apiRadioGroup;
     private TextView textFruitRadarDistanceExplanation;
     private EditText textFruitRadarDistance;
@@ -41,8 +57,18 @@ public class SettingsActivity extends MundraubBaseActivity {
     private Button buttonOpenOfflineAreaChoice;
     private Button buttonRemoveAreas;
     private TextView offlineStatisticsText;
+    private Button buttonDownloadMap;
+    private ProgressBar updateProgressMap;
+    private ProgressUpdate mapProgressAutoUpdate;
 
-    class ProgressUpdate implements Runnable {
+    abstract class ProgressUpdate implements Runnable {
+
+        private final ProgressBar progressBar;
+
+        private ProgressUpdate(ProgressBar bar) {
+            this.progressBar = bar;
+        }
+
         boolean stopped = false;
         @Override
         public void run() {
@@ -58,6 +84,27 @@ public class SettingsActivity extends MundraubBaseActivity {
         public void stop() {
             stopped = true;
         }
+
+        private void updateOrHideUpdateProgress() {
+            Progress progress = getProgressOrNull();
+            if (progress == null) {
+                progressBar.setVisibility(View.GONE);
+            } else {
+                int max = 100;
+                int newProgress = (int) Math.round(max * progress.getProgress());
+                if (newProgress != progressBar.getProgress()) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    progressBar.setProgress(newProgress);
+                    // update color from https://stackoverflow.com/a/15809803
+                    Drawable progressDrawable = progressBar.getProgressDrawable().mutate();
+                    int color = progress.isDoneAndError() ? Color.RED : Color.GREEN;
+                    progressDrawable.setColorFilter(color, android.graphics.PorterDuff.Mode.MULTIPLY);
+                    progressBar.setProgressDrawable(progressDrawable);
+                }
+            }
+        }
+
+        protected abstract Progress getProgressOrNull();
     }
 
     @Override
@@ -114,9 +161,96 @@ public class SettingsActivity extends MundraubBaseActivity {
             public void onClick(View v) {
                 Settings.setOfflineAreaBoundingBoxes(BoundingBoxCollection.empty());
                 setOfflineMapStatisticsText();
+                new Dialog(SettingsActivity.this).askYesNo(
+                        R.string.settings_reason_delete_offline_tiles,
+                        R.string.settings_ask_delete_downloaded_tiles,
+                        new Dialog.YesNoCallback() {
+                            @Override
+                            public void yes() {
+                                Helper.deleteDir(Settings.mapTilesCacheDirectory(SettingsActivity.this));
+                                setOfflineMapStatisticsText();
+                            }
+
+                            @Override
+                            public void no() {
+                            }
+                        });
             }
         });
         offlineStatisticsText = (TextView) findViewById(R.id.text_offline_map_statistics);
+
+        buttonDownloadMap = (Button) findViewById(R.id.button_start_map_download);
+        buttonDownloadMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isDownloadingMap()) {
+                    downloadMap();
+                }
+            }
+        });
+        updateProgressMap = (ProgressBar) findViewById(R.id.update_progress_map);
+        updateMapOfflineButtons();
+    }
+
+    private void downloadMap() {
+        mapDownload = new BackgroundDownloadTask();
+        for (final TilesCache cache : Settings.getDownloadMaps()) {
+            for (int zoom : Settings.getDownloadZoomLevels()) {
+                for (BoundingBox bbox : Settings.getOfflineAreaBoundingBoxes().asSet()) {
+                    for (final TilesCache.Tile tile : cache.getTilesIn(bbox, zoom)) {
+                        mapDownload.collectDownloadsFrom(new BackgroundDownloadTask.DownloadProvider() {
+                            @Override
+                            public Set<String> getDownloadUrls() {
+                                return new HashSet<>(Arrays.asList(tile.url()));
+                            }
+
+                            @Override
+                            public void handleContent(ResponseBody body, Progressable fraction) throws IOException {
+                                tile.file().getParentFile().mkdirs();
+                                BufferedSink sink = Okio.buffer(Okio.sink(tile.file()));
+                                sink.writeAll(body.source());
+                                sink.close();
+                                fraction.setProgress(1);
+                            }
+
+                            @Override
+                            public double getDownloadFraction() {
+                                return 0.8;
+                            }
+                        });
+                    }
+                }
+            }
+        }
+        mapDownload.downloadInBackground(AsyncNetworkInteraction.Callback.NULL);
+        updateMapOfflineButtons();
+    }
+
+    private void updateMapOfflineButtons() {
+        buttonDownloadMap.setEnabled(!isDownloadingMap());
+        buttonRemoveAreas.setEnabled(!isDownloadingMap());
+        if (isDownloadingMap()) {
+            mapDownload.getProgress().addCallback(new AsyncNetworkInteraction.Callback() {
+
+                private void onDone() {
+                    buttonDownloadMap.setEnabled(true);
+                    buttonRemoveAreas.setEnabled(true);
+                    setOfflineMapStatisticsText();
+                }
+                @Override
+                public void onSuccess() {
+                    onDone();
+                }
+                @Override
+                public void onFailure(int errorResourceString) {
+                    onDone();
+                }
+            });
+        }
+    }
+
+    private boolean isDownloadingMap() {
+        return mapDownload != null && !mapDownload.getProgress().isDone();
     }
 
     @SuppressLint("StringFormatInvalid")
@@ -127,49 +261,51 @@ public class SettingsActivity extends MundraubBaseActivity {
                         Settings.getRadarPlantRangeMeters()));
     }
 
-    private void updateOrHideUpdateProgress() {
-        Progress progress = PlantsCache.getUpdateProgressOrNull();
-        if (progress == null) {
-            updateProgress.setVisibility(View.GONE);
-        } else {
-            int max = 100;
-            int newProgress = (int) Math.round(max * progress.getProgress());
-            if (newProgress != updateProgress.getProgress()) {
-                updateProgress.setVisibility(View.VISIBLE);
-                updateProgress.setProgress(newProgress);
-                // update color from https://stackoverflow.com/a/15809803
-                Drawable progressDrawable = updateProgress.getProgressDrawable().mutate();
-                int color = progress.isDoneAndError() ? Color.RED : Color.GREEN;
-                progressDrawable.setColorFilter(color, android.graphics.PorterDuff.Mode.MULTIPLY);
-                updateProgress.setProgressDrawable(progressDrawable);
-            }
-        }
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
         update();
-        progressAutoUpdate = new ProgressUpdate();
-        progressAutoUpdate.run();
+        resumeProgressBars();
         setFruitradarDistanceText();
         textFruitRadarDistance.setText(Integer.toString(Settings.getRadarPlantRangeMeters()));
         setOfflineMapStatisticsText();
+    }
+
+    private void resumeProgressBars() {
+        plantProgressAutoUpdate = new ProgressUpdate(updateProgress) {
+            @Override
+            protected Progress getProgressOrNull() {
+                return PlantsCache.getUpdateProgressOrNull();
+            }
+        };
+        plantProgressAutoUpdate.run();
+        mapProgressAutoUpdate = new ProgressUpdate(updateProgressMap) {
+            @Override
+            protected Progress getProgressOrNull() {
+                if (mapDownload == null) {
+                    return null;
+                }
+                return mapDownload.getProgress();
+            }
+        };
+        mapProgressAutoUpdate.run();
     }
 
     @SuppressLint("StringFormatInvalid")
     private void setOfflineMapStatisticsText() {
         String template = getString(R.string.settings_offline_map_statistics);
         BoundingBoxCollection bboxes = Settings.getOfflineAreaBoundingBoxes();
-        String bytes = bboxes.byteCountToHumanReadableString(bboxes.estimateTileBytesIn(Settings.getDownloadMaps(), Settings.getDownloadZoomLevels()));
-        String text = String.format(template, bboxes.size(), bytes);
+        String estimatedBytes = bboxes.byteCountToHumanReadableString(bboxes.estimateTileBytesIn(Settings.getDownloadMaps(), Settings.getDownloadZoomLevels()));
+        String usedBytes = bboxes.byteCountToHumanReadableString(Helper.folderSize(Settings.mapTilesCacheDirectory(this)));
+        String text = String.format(template, bboxes.size(), estimatedBytes, usedBytes);
         offlineStatisticsText.setText(text);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        progressAutoUpdate.stop();
+        plantProgressAutoUpdate.stop();
+        mapProgressAutoUpdate.stop();
     }
 
     private void update() {

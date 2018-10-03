@@ -506,11 +506,15 @@
     <!-- settings: -->
     <string name="settings_offline_markers_explanation">This app works best in offline mode when all plants from different platforms are downloaded. In online-mode, you can only use Mundraub.org because they allow getting plants in a certain range.</string>
     <!-- settings: offline map statistics -->
-    <string name="settings_offline_map_statistics" formatted="false">You want to have <xliff:g example="3" id="areas">%1$d</xliff:g> areas offline. About <xliff:g example="30mb" id="areas">%2$s</xliff:g> should be the size of all map tile images on your phone.</string>
+    <string name="settings_offline_map_statistics" formatted="false">You want to have <xliff:g example="3" id="areas">%1$d</xliff:g> areas offline. About <xliff:g example="30mb" id="estimated">%2$s</xliff:g> should be the size of all map tile images on your phone. Currently, <xliff:g example="40mb" id="used">%3$s</xliff:g> are in use.</string>
     <!-- settings: button text -->
     <string name="settings_remove_offline_map_areas">Remove all offline areas</string>
     <!-- settings: button text -->
     <string name="settings_download_tiles">Download Map</string>
+    <!-- settings: dialog when you delete all offline areas -->
+    <string name="settings_reason_delete_offline_tiles">You deleted all offline areas but the downloaded parts are still using up space.</string>
+    <!-- settings: dialog when you delete all offline areas -->
+    <string name="settings_ask_delete_downloaded_tiles">Would you like to delete all offline tiles?</string>
 
     <!-- ==============  Community Codex  ============== -->
     <!-- https://mundraub.org/mundraeuber-regeln -->

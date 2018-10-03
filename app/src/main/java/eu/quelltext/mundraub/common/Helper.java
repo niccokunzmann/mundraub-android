@@ -55,6 +55,21 @@ public final class Helper extends ErrorAware {
         file.delete();
     }
 
+    public static long folderSize(File directory) {
+        // from https://stackoverflow.com/a/2149807
+        long length = 0;
+        File[] content = directory.listFiles();
+        if (content != null) {
+            for (File file : content) {
+                if (file.isFile())
+                    length += file.length();
+                else
+                    length += folderSize(file);
+            }
+        }
+        return length;
+    }
+
     public static String getResultString(HttpURLConnection http) throws IOException {
         InputStream is = http.getInputStream();
         BufferedReader rd = new BufferedReader(new InputStreamReader(is));

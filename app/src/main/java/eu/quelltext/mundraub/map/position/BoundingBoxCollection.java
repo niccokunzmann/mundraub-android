@@ -64,7 +64,7 @@ public class BoundingBoxCollection {
         return other.asSet().equals(asSet());
     }
 
-    private Set<BoundingBox> asSet() {
+    public Set<BoundingBox> asSet() {
         return boxes;
     }
 
