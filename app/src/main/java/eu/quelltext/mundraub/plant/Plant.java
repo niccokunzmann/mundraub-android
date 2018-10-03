@@ -464,6 +464,7 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
             // http://staticmap.openstreetmap.de/staticmap.php?markers=47.303785900000000,11.521939200000000,lightblue1&center=47.303785900000000,11.521939200000000&zoom=18&size=200x200&maptype=mapnik
             String lon = Helper.doubleTo15DigitString(getLongitude());
             String lat = Helper.doubleTo15DigitString(getLatitude());
+            // github.com/dfacts/staticmaplite
             return "http://staticmap.openstreetmap.de/staticmap.php?markers=" + lat + "," + lon + ",lightblue1&center=" + lat + "," + lon + "&zoom=18&size=200x200&maptype=outdoors";
         }
 

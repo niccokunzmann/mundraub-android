@@ -8,8 +8,6 @@ import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.widget.ImageView;
 
-import org.apache.commons.io.FileUtils;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +15,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.URL;
 import java.net.URLDecoder;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -38,6 +35,11 @@ import javax.net.ssl.X509TrustManager;
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.error.ErrorAware;
 import eu.quelltext.mundraub.map.position.IPosition;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okio.BufferedSink;
+import okio.Okio;
 
 public final class Helper extends ErrorAware {
     private static final double EARTH_RADIUS_METERS = 6399594.;
@@ -66,8 +68,17 @@ public final class Helper extends ErrorAware {
         return response.toString();
     }
 
-    public static boolean saveUrlToFile(String url_, File file) throws IOException {
-        FileUtils.copyURLToFile(new URL(url_), file); // from https://stackoverflow.com/a/7156178
+    public static boolean saveUrlToFile(String url, File file) throws IOException {
+        OkHttpClient client = Settings.getOkHttpClient();
+        Request request = new Request.Builder().url(url)
+                .addHeader("Referer", "http://app.mundraub.quelltext.eu/")
+                .build();
+        Response response = client.newCall(request).execute();
+        BufferedSink sink = Okio.buffer(Okio.sink(file));
+        sink.writeAll(response.body().source());
+        sink.close();
+        // this is elegant but we need a referer header
+        // FileUtils.copyURLToFile(new URL(url_), file); // from https://stackoverflow.com/a/7156178
         return true;
     }
 
