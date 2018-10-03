@@ -74,7 +74,7 @@ function getConfigurationFromURL() {
     var tokens, re = /[?&]?([^=]+)=([^&]*)/g;
     qs = qs.split("+").join(" ");
 
-    var updates = [];
+    var updates = [onChangeSetPosition];
     while (tokens = re.exec(qs)) {
         var id = decodeURIComponent(tokens[1]);
         var content = decodeURIComponent(tokens[2]);
