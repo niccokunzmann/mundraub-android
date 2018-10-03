@@ -6,6 +6,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.webkit.ConsoleMessage;
 import android.webkit.GeolocationPermissions;
 import android.webkit.WebChromeClient;
@@ -125,9 +126,14 @@ public class MapBaseActivity extends MundraubBaseActivity {
     }
 
     protected void openMapAtPosition(double longitude, double latitude) {
-        MapUrl url = new MapUrl(longitude, latitude);
+        MapUrl url = createMapUrl(longitude, latitude);
         log.d("open map at position", url.toString());
         webView.loadUrl(url.getUrl());
+    }
+
+    @NonNull
+    protected MapUrl createMapUrl(double longitude, double latitude) {
+        return new MapUrl(longitude, latitude);
     }
 
     public MapUrl getUrl() {

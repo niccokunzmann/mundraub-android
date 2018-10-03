@@ -8,14 +8,16 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:descendantFocusability="beforeDescendants"
-            android:focusableInTouchMode="true" >
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
 
             <View
                 android:id="@+id/divider7"
@@ -28,7 +30,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
-                android:text="@string/settings_offline" />
+                android:text="@string/settings_offline"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="@string/settings_offline_markers_explanation" />
 
             <ProgressBar
                 android:id="@+id/update_progress"
@@ -88,6 +97,77 @@
                 android:text="@string/settings_download_fruitmap_markers" />
 
             <View
+                android:id="@+id/divider12"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_weight="4"
+                android:background="@color/colorPrimary" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="@string/settings_offline_map"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="@string/settings_offline_map_explanation" />
+
+            <Button
+                android:id="@+id/button_mark_offline_areas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="@string/settings_create_offline_areas" />
+
+            <CheckBox
+                android:id="@+id/checkBox_offline_mapnik"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:checked="true"
+                android:text="@string/settings_offline_mapnik" />
+
+            <CheckBox
+                android:id="@+id/checkBox_offline_satellite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="@string/settings_offline_satellite" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button_delete_offline_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_download_tiles" />
+
+                <Button
+                    android:id="@+id/button_remove_areas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_remove_offline_map_areas" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/text_offline_map_statistics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="@string/settings_offline_map_statistics" />
+
+            <View
                 android:id="@+id/divider1"
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
@@ -99,7 +179,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
-                android:text="@string/settings_fruit_radar" />
+                android:text="@string/settings_fruit_radar"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <CheckBox
                 android:id="@+id/checkBox_fruit_radar"
@@ -141,19 +222,20 @@
                 android:text="@string/settings_enable_fruit_radar_vibration" />
 
             <View
-                android:id="@+id/divider12"
+                android:id="@+id/divider13"
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_weight="4"
                 android:background="@color/colorPrimary" />
 
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
-                android:text="@string/settings_connection" />
-
+                android:text="@string/settings_connection"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <RadioGroup
                 android:id="@+id/api_choice"
@@ -196,7 +278,7 @@
                 android:id="@+id/layout_connection"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                
+
                 android:layout_weight="4"
                 android:orientation="horizontal">
 
@@ -223,15 +305,16 @@
                 android:id="@+id/divider8"
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
-                android:layout_weight="4"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_weight="4"
                 android:background="@color/colorPrimary" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
-                android:text="@string/settings_markers" />
+                android:text="@string/settings_markers"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <CheckBox
                 android:id="@+id/checkBox_markers_mundraub"
@@ -275,7 +358,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
-                android:text="@string/settings_storage" />
+                android:text="@string/settings_storage"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <LinearLayout
                 android:id="@+id/layout_storage"
@@ -306,15 +390,16 @@
                 android:id="@+id/divider9"
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
-                android:layout_weight="4"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_weight="4"
                 android:background="@color/colorPrimary" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
-                android:text="@string/settings_permissions" />
+                android:text="@string/settings_permissions"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -356,8 +441,7 @@
                     <ToggleButton
                         android:id="@+id/toggle_camera"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                         />
+                        android:layout_height="match_parent" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -384,8 +468,7 @@
                     <ToggleButton
                         android:id="@+id/toggle_camera_ask"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                         />
+                        android:layout_height="match_parent" />
                 </TableRow>
 
                 <TableRow
@@ -395,8 +478,7 @@
                     <ToggleButton
                         android:id="@+id/toggle_internet"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                         />
+                        android:layout_height="match_parent" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -423,8 +505,7 @@
                     <ToggleButton
                         android:id="@+id/toggle_internet_ask"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                         />
+                        android:layout_height="match_parent" />
                 </TableRow>
 
                 <TableRow
@@ -434,8 +515,7 @@
                     <ToggleButton
                         android:id="@+id/toggle_storage"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                         />
+                        android:layout_height="match_parent" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -462,8 +542,7 @@
                     <ToggleButton
                         android:id="@+id/toggle_storage_ask"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                         />
+                        android:layout_height="match_parent" />
                 </TableRow>
 
                 <TableRow
@@ -473,8 +552,7 @@
                     <ToggleButton
                         android:id="@+id/toggle_location"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        />
+                        android:layout_height="match_parent" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -501,8 +579,7 @@
                     <ToggleButton
                         android:id="@+id/toggle_location_ask"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        />
+                        android:layout_height="match_parent" />
                 </TableRow>
 
                 <TableRow
@@ -512,8 +589,7 @@
                     <ToggleButton
                         android:id="@+id/toggle_vibration"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        />
+                        android:layout_height="match_parent" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -540,8 +616,7 @@
                     <ToggleButton
                         android:id="@+id/toggle_vibration_ask"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        />
+                        android:layout_height="match_parent" />
                 </TableRow>
 
             </TableLayout>
@@ -550,15 +625,16 @@
                 android:id="@+id/divider10"
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
-                android:layout_weight="4"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_weight="4"
                 android:background="@color/colorPrimary" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
-                android:text="@string/settings_debug" />
+                android:text="@string/settings_debug"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <LinearLayout
                 android:id="@+id/layout_error_report"

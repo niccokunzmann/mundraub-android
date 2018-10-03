@@ -18,7 +18,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import java.util.ArrayList;
+
 import eu.quelltext.mundraub.R;
+import eu.quelltext.mundraub.activities.map.SelectOfflineMapPartsActivity;
 import eu.quelltext.mundraub.activities.map.TestFruitRadarActivity;
 import eu.quelltext.mundraub.api.API;
 import eu.quelltext.mundraub.api.progress.Progress;
@@ -26,6 +29,7 @@ import eu.quelltext.mundraub.common.Dialog;
 import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.initialization.Permissions;
 import eu.quelltext.mundraub.map.PlantsCache;
+import eu.quelltext.mundraub.map.position.BoundingBox;
 
 public class SettingsActivity extends MundraubBaseActivity {
 
@@ -36,6 +40,9 @@ public class SettingsActivity extends MundraubBaseActivity {
     private TextView textFruitRadarDistanceExplanation;
     private EditText textFruitRadarDistance;
     private Button buttonTestNotification;
+    private Button buttonOpenOfflineAreaChoice;
+    private Button buttonRemoveAreas;
+    private TextView offlineStatisticsText;
 
     class ProgressUpdate implements Runnable {
         boolean stopped = false;
@@ -94,6 +101,24 @@ public class SettingsActivity extends MundraubBaseActivity {
             }
         });
 
+        buttonOpenOfflineAreaChoice = (Button) findViewById(R.id.button_mark_offline_areas);
+        buttonOpenOfflineAreaChoice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingsActivity.this, SelectOfflineMapPartsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        buttonRemoveAreas = (Button) findViewById(R.id.button_remove_areas);
+        buttonRemoveAreas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Settings.setOfflineAreaBoundingBoxes(new ArrayList<BoundingBox>());
+                setOfflineMapStatisticsText();
+            }
+        });
+        offlineStatisticsText = (TextView) findViewById(R.id.text_offline_map_statistics);
     }
 
     @SuppressLint("StringFormatInvalid")
@@ -131,6 +156,14 @@ public class SettingsActivity extends MundraubBaseActivity {
         progressAutoUpdate.run();
         setFruitradarDistanceText();
         textFruitRadarDistance.setText(Integer.toString(Settings.getRadarPlantRangeMeters()));
+        setOfflineMapStatisticsText();
+    }
+
+    @SuppressLint("StringFormatInvalid")
+    private void setOfflineMapStatisticsText() {
+        String template = getString(R.string.settings_offline_map_statistics);
+        String text = String.format(template, Settings.getOfflineAreaBoundingBoxes().size(), "??mb");
+        offlineStatisticsText.setText(text);
     }
 
     @Override
@@ -144,7 +177,7 @@ public class SettingsActivity extends MundraubBaseActivity {
         apiRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                for (API api: API.all()) {
+                for (API api : API.all()) {
                     if (checkedId == api.radioButtonId()) {
                         feedbackAboutSettingsChange(Settings.useAPI(api));
                     }
@@ -310,6 +343,23 @@ public class SettingsActivity extends MundraubBaseActivity {
             @Override
             public boolean isChecked() {
                 return Settings.vibrateWhenPlantIsInRange();
+            }
+        });
+
+        synchronizeOfflineMapCheckbutton(R.id.checkBox_offline_mapnik, Settings.TILES_OSM);
+        synchronizeOfflineMapCheckbutton(R.id.checkBox_offline_satellite, Settings.TILES_SATELLITE);
+
+    }
+
+    private void synchronizeOfflineMapCheckbutton(int resourceId, final String mapId) {
+        synchronizeCheckbutton(resourceId, new Toggled() {
+            @Override
+            public int onToggle(boolean checked) {
+                return Settings.setDownloadMap(mapId, checked);
+            }
+            @Override
+            public boolean isChecked() {
+                return Settings.getDownloadMap(mapId);
             }
         });
     }

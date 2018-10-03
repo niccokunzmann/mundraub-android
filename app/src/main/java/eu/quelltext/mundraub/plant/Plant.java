@@ -17,7 +17,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.common.Helper;
@@ -49,11 +48,15 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
     public static Position getAPositionNearAPlantForTheMap() {
         List<Plant> plants = all();
         if (plants.size() > 0) {
-            int index = new Random().nextInt(plants.size());
-            Plant plant = plants.get(index);
-           return plant.getBestPositionForMap();
+            Plant lastPlant = plants.get(0);
+            for (Plant plant: plants) {
+                if (plant.createdAtLong() > lastPlant.createdAtLong()) {
+                    lastPlant = plant;
+                }
+            }
+            return lastPlant.getBestPositionForMap();
         }
-        return Position.NULL;
+        return Position.DEFAULT;
     }
 
     public static Plant withId(String id) {
@@ -411,7 +414,7 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
     }
 
     static public class Position {
-        public static final Position NULL = new NullPosition();
+        public static final Position NULL = new NullPosition(0, 0);
         protected static final String JSON_POSITION_TYPE = "type";
         protected static final String JSON_POSITION_TYPE_GPS = "gps";
         protected static final String JSON_POSITION_TYPE_UNKNOWN = "unknown";
@@ -420,6 +423,7 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
 
         private static final double MAP_IMAGE_BOUNDARY = 0.002;
         private static final int MAP_IMAGE_SCALE = 200000;
+        public static final Position DEFAULT = new NullPosition(6.968046426773072, 50.82075362541587);
 
         private final double longitude;
         private final double latitude;
@@ -525,8 +529,8 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
 
     static private class NullPosition extends Position {
 
-        private NullPosition() {
-            super(0, 0);
+        private NullPosition(double longitude, double latitude) {
+            super(longitude, latitude);
         }
 
         @Override

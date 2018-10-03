@@ -412,6 +412,8 @@
     <!-- settings: section title -->
     <string name="settings_storage">Storage Settings</string>
     <!-- settings: section title -->
+    <string name="settings_offline_map">Offline Map Settings</string>
+    <!-- settings: section title -->
     <string name="settings_debug">Debug Settings</string>
     <!-- settings: section title -->
     <string name="settings_permissions">Permission Settings</string>
@@ -491,6 +493,22 @@
     <string name="settings_download_na_ovoce_markers">If this is enabled, the app downloads all plant markers from Na-Ovoce.cz.</string>
     <!-- settings: Checkbutton to choose which sources to download markers from -->
     <string name="settings_download_fruitmap_markers">If this is enabled, the app downloads all plant markers from FruitMap.org.</string>
+    <!-- settings: Button text to open the map an choose areas to take offline -->
+    <string name="settings_create_offline_areas">Choose which parts of the map to take offline.</string>
+    <!-- settings: Checkbutton to choose which sources to download map tiles from -->
+    <string name="settings_offline_mapnik">Download OpenStreetMap tiles.</string>
+    <!-- settings: Checkbutton to choose which sources to download map tiles from -->
+    <string name="settings_offline_satellite">Download Earth image tiles.</string>
+    <!-- settings: -->
+    <string name="settings_offline_map_explanation">Taking the map offline reduces Internet communication and allows you to view the map when you do not have an Internet connection which helps finding plants.</string>
+    <!-- settings: -->
+    <string name="settings_offline_markers_explanation">This app works best in offline mode when all plants from different platforms are downloaded. In online-mode, you can only use Mundraub.org because they allow getting plants in a certain range.</string>
+    <!-- settings: offline map statistics -->
+    <string name="settings_offline_map_statistics" formatted="false">You want to have <xliff:g example="3" id="areas">%1$d</xliff:g> areas offline. <xliff:g example="30mb" id="areas">%2$s</xliff:g> of map tile images are on your phone.</string>
+    <!-- settings: button text -->
+    <string name="settings_remove_offline_map_areas">Remove all offline areas</string>
+    <!-- settings: button text -->
+    <string name="settings_download_tiles">Download Map</string>
 
     <!-- ==============  Community Codex  ============== -->
     <!-- https://mundraub.org/mundraeuber-regeln -->
@@ -542,5 +560,6 @@
     <string name="title_startup">Fruit Radar Starting ...</string>
     <!-- Startup: loading plants takes some time if there are many -->
     <string name="startup_loading_plants">Loading all plants ...</string>
+    <string name="title_select_offline_areas">Choose Offline Map Areas</string>
 
 </resources>

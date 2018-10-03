@@ -6,6 +6,8 @@ import android.os.Build;
 import android.os.Environment;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ import eu.quelltext.mundraub.initialization.Permissions;
 import eu.quelltext.mundraub.map.MundraubMapAPIForApp;
 import eu.quelltext.mundraub.map.MundraubProxy;
 import eu.quelltext.mundraub.map.OfflinePlantsMapAPI;
+import eu.quelltext.mundraub.map.position.BoundingBox;
 import okhttp3.OkHttpClient;
 
 import static eu.quelltext.mundraub.common.Settings.ChangeListener.SETTINGS_CAN_CHANGE;
@@ -49,6 +52,8 @@ public class Settings {
     public static final String API_ID_FRUITMAP = "fruitmap";
     public static final String API_ID_COMMUNITY = "community"; // only for markers
 
+    public static final String TILES_OSM = "osm";
+    public static final String TILES_SATELLITE = "satellite";
 
     private static final String PLANT_STORAGE_DIRECTORY_NAME = "eu.quelltext.mundraub";
     public static final String INVALID_HASH = "0000000000000000000000000000000000000000";
@@ -69,7 +74,7 @@ public class Settings {
     private static List<ChangeListener> listeners = new ArrayList<ChangeListener>();
     private static Activity activity = null;
 
-    private static class SynchronizedStringSet {
+    private static class SynchronizedStringSet { // TODO: test
 
         private final String name;
         private Set<String> strings;
@@ -107,7 +112,15 @@ public class Settings {
         }
 
         public boolean contains(String string) {
-            return string.contains(string);
+            return strings.contains(string);
+        }
+
+        public void setChecked(String apiId, boolean checked) {
+            if (checked) {
+                strings.add(apiId);
+            } else {
+                strings.remove(apiId);
+            }
         }
     }
 
@@ -128,8 +141,10 @@ public class Settings {
     private static boolean vibrateWhenPlantIsInRange = false;
     private static SynchronizedStringSet showCategories = new SynchronizedStringSet("showCategories", Arrays.asList(API_ID_MUNDRAUB)); // array as list https://stackoverflow.com/a/2041810/1320237
     private static SynchronizedStringSet downloadMarkersFromAPI = new SynchronizedStringSet("downloadMarkersFromAPI", Arrays.asList(API_ID_MUNDRAUB, API_ID_NA_OVOCE, API_ID_FRUITMAP)); // array as list https://stackoverflow.com/a/2041810/1320237
+    private static SynchronizedStringSet tilesToDownload = new SynchronizedStringSet("tilesToDownload", Arrays.asList(TILES_OSM));
     private static boolean useFruitRadarNotifications = false;
     private static int radarPlantRangeMeters = 150;
+    private static String offlineMapAreaBoundingBoxes = "[]";
 
     static {
         Initialization.provideActivityFor(new Initialization.ActivityInitialized() {
@@ -161,8 +176,10 @@ public class Settings {
         log.d("vibrateWhenPlantIsInRange", vibrateWhenPlantIsInRange);
         log.d("useFruitRadarNotifications", useFruitRadarNotifications);
         log.d("radarPlantRangeMeters", radarPlantRangeMeters);
+        log.d("offlineMapAreaBoundingBoxes", offlineMapAreaBoundingBoxes);
         log.d("showCategories", showCategories.toString());
         log.d("downloadMarkersFromAPI", downloadMarkersFromAPI.toString());
+        log.d("tilesToDownload", tilesToDownload.toString());
         if (!useCacheForPlants) {
             log.d("persistentPathForPlants", persistentPathForPlants.toString());
         }
@@ -182,8 +199,10 @@ public class Settings {
         vibrateWhenPlantIsInRange = preferences.getBoolean("vibrateWhenPlantIsInRange", vibrateWhenPlantIsInRange);
         useFruitRadarNotifications = preferences.getBoolean("useFruitRadarNotifications", useFruitRadarNotifications);
         radarPlantRangeMeters = preferences.getInt("radarPlantRangeMeters", radarPlantRangeMeters);
+        offlineMapAreaBoundingBoxes = preferences.getString("offlineMapAreaBoundingBoxes", offlineMapAreaBoundingBoxes);
         showCategories.load();
         downloadMarkersFromAPI.load();
+        tilesToDownload.load();
         // load the permission questions
         permissionQuestion.clear();
         for (String key : preferences.getAll().keySet()) {
@@ -211,8 +230,10 @@ public class Settings {
             editor.putBoolean("vibrateWhenPlantIsInRange", vibrateWhenPlantIsInRange);
             editor.putBoolean("useFruitRadarNotifications", useFruitRadarNotifications);
             editor.putInt("radarPlantRangeMeters", radarPlantRangeMeters);
+            editor.putString("offlineMapAreaBoundingBoxes", offlineMapAreaBoundingBoxes);
             showCategories.saveTo(editor);
             downloadMarkersFromAPI.saveTo(editor);
+            tilesToDownload.saveTo(editor);
             for (String key: permissionQuestion.keySet()) {
                 editor.putBoolean(key, permissionQuestion.get(key));
             }
@@ -459,16 +480,45 @@ public class Settings {
     }
 
     public static int downloadMarkersFromAPI(String apiId, boolean checked) {
-        if (checked) {
-            downloadMarkersFromAPI.add(apiId);
-        } else {
-            downloadMarkersFromAPI.remove(apiId);
-        }
+        downloadMarkersFromAPI.setChecked(apiId, checked);
         return commit();
     }
 
     public static boolean downloadMarkersFromAPI(String apiId) {
         return downloadMarkersFromAPI.contains(apiId);
+    }
+
+    public static int setDownloadMap(String mapId, boolean checked) {
+        tilesToDownload.setChecked(mapId, checked);
+        return commit();
+    }
+
+    public static boolean getDownloadMap(String mapId) {
+        return tilesToDownload.contains(mapId);
+    }
+
+    public static int setOfflineAreaBoundingBoxes(List<BoundingBox> offlineAreaBoundingBoxes) {
+        JSONArray json = new JSONArray();
+        for (BoundingBox bbox: offlineAreaBoundingBoxes) {
+            json.put(bbox.toJSON());
+        }
+        offlineMapAreaBoundingBoxes = json.toString();
+        return commit();
+    }
+
+    public static List<BoundingBox> getOfflineAreaBoundingBoxes() {
+        List<BoundingBox> offlineAreaBoundingBoxes = new ArrayList<>();
+        JSONArray json = null;
+        try {
+            json = new JSONArray(offlineMapAreaBoundingBoxes);
+            for (int i = 0; i < json.length(); i++) {
+                offlineAreaBoundingBoxes.add(BoundingBox.fromJSON(json.getJSONObject(i)));
+            }
+        } catch (JSONException e) {
+            log.printStackTrace(e);
+        }
+        offlineMapAreaBoundingBoxes = json.toString();
+        return offlineAreaBoundingBoxes;
     }
 
 }

@@ -24,6 +24,7 @@ public class MapUrl {
     public static final String CONFIG_LAT = "lat";
     public static final String CONFIG_LON = "lon";
     public static final String CONFIG_BROWSER_GPS = "browserGPS";
+    public static final String CONFIG_CREATE_BOXES = "createBoxes";
     private Map<String, String> configuration = new HashMap<String, String>();
 
     public MapUrl(double longitude, double latitude) {
@@ -115,5 +116,10 @@ public class MapUrl {
             }
         }
         return bboxes;
+    }
+
+    public MapUrl createBoxes() {
+        configuration.put(CONFIG_CREATE_BOXES, "true");
+        return this;
     }
 }

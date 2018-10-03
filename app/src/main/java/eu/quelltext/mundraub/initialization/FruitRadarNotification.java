@@ -32,13 +32,14 @@ import eu.quelltext.mundraub.map.position.Position;
 
 public class FruitRadarNotification extends ErrorAware {
 
+    public static final Position INVALID_POSITION = new Position(0, 0);
     private static MundraubBaseActivity activity;
     private static FruitRadarNotification instance;
     private static final String CHANNEL_ID_PLANTS_NEABY = "PLANTS_NEARBY";
     private static int lastCreatedNotificationId = 0;
     private static int lastCreatedIntentId = 0;
     private Vibrator vibrator;
-    private IPosition currentPosition = new Position(0, 0);
+    private IPosition currentPosition = INVALID_POSITION;
 
     static void initialize() {
         Initialization.provideActivityFor(new Initialization.ActivityInitialized() {
@@ -160,6 +161,9 @@ public class FruitRadarNotification extends ErrorAware {
     }
 
     public void updateNotifications() {
+        if (currentPosition.equals(INVALID_POSITION)) {
+            return ;
+        }
         boolean vibrated = false;
         BoundingBox bbox = BoundingBox.fromPositionAndRadius(currentPosition, Settings.getRadarPlantRangeMeters());
         List<PlantsCache.Marker> markers = PlantsCache.getMarkersInBoundingBox(bbox);

@@ -58,6 +58,9 @@
         <activity
             android:name=".activities.CodexActivity"
             android:label="@string/title_codex" />
+        <activity
+            android:name=".activities.map.SelectOfflineMapPartsActivity"
+            android:label="@string/title_select_offline_areas" />
         <activity android:name=".activities.StartupActivity"
             android:label="@string/app_name">
             <intent-filter>
