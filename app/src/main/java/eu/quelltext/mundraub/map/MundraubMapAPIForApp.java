@@ -20,17 +20,13 @@ import okhttp3.OkHttpClient;
 
 public class MundraubMapAPIForApp extends MundraubMapAPI {
 
-
-    private static final String PATH_SATELLITE = "/tiles/ArcGIS/";
-    private static final String PATH_OSM = "/tiles/osm/";
-    private static MundraubMapAPI instance;
     private final Logger.Log log;
 
     public MundraubMapAPIForApp() {
         super(Settings.hostForMundraubAPI());
         log = Logger.newFor(this);
-        addHTTPInterceptor(new TilesHandler(PATH_SATELLITE, TilesCache.forSatellite()));
-        addHTTPInterceptor(new TilesHandler(PATH_OSM, TilesCache.forOSM()));
+        addHTTPInterceptor(new TilesHandler(MapUrl.PATH_SATELITE, TilesCache.forSatellite()));
+        addHTTPInterceptor(new TilesHandler(MapUrl.PATH_OSM, TilesCache.forOSM()));
     }
 
     @Override
@@ -98,10 +94,14 @@ public class MundraubMapAPIForApp extends MundraubMapAPI {
             TilesCache.Tile tile = cache.getTileAt(x, y, z);
             if (tile.isCached()) {
                 log.d("handle tile", 200 + ": " + z + "/" + y + "/" + x);
-                return Response.newFixedLengthResponse(Status.OK, tile.contentType(), tile.bytes());
+                Response response = Response.newFixedLengthResponse(Status.OK, tile.contentType(), tile.bytes());
+                response.addHeader("Cache-Control", "no-store, must-revalidate"); // no cache from https://stackoverflow.com/a/2068407
+                return response;
             } else {
-                log.d("handle tile", 404 + ": " + z + "/" + y + "/" + x);
-                return Response.newFixedLengthResponse(Status.NOT_FOUND, MIME_PLAINTEXT, "Image not found.");
+                log.d("handle tile", 307 + ": " + z + "/" + y + "/" + x);
+                Response response = Response.newFixedLengthResponse(Status.TEMPORARY_REDIRECT, MIME_PLAINTEXT, "Image not found.");
+                response.addHeader("Location", tile.url());
+                return response;
             }
         }
     }

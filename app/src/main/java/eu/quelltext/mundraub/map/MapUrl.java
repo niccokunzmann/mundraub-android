@@ -16,13 +16,16 @@ import eu.quelltext.mundraub.map.position.BoundingBoxCollection;
  */
 public class MapUrl {
 
-    public static final String CONFIG_BOXES = "boxes";
-    public static final String CONFIG_EARTH_URL = "earthUrl";
-    public static final String CONFIG_MAPNIK_URL = "mapnikUrl";
-    public static final String CONFIG_LAT = "lat";
-    public static final String CONFIG_LON = "lon";
-    public static final String CONFIG_BROWSER_GPS = "browserGPS";
-    public static final String CONFIG_CREATE_BOXES = "createBoxes";
+    public  static final String PATH_SATELITE = "/tiles/ArcGIS/";
+    public  static final String PATH_OSM = "/tiles/osm/";
+
+    private static final String CONFIG_BOXES = "boxes";
+    private static final String CONFIG_EARTH_URL = "earthUrl";
+    private static final String CONFIG_MAPNIK_URL = "mapnikUrl";
+    private static final String CONFIG_LAT = "lat";
+    private static final String CONFIG_LON = "lon";
+    private static final String CONFIG_BROWSER_GPS = "browserGPS";
+    private static final String CONFIG_CREATE_BOXES = "createBoxes";
     private Map<String, String> configuration = new HashMap<String, String>();
 
     public MapUrl(double longitude, double latitude) {
@@ -87,8 +90,8 @@ public class MapUrl {
     }
 
     public MapUrl serveTilesFromLocalhost(int port) {
-        configuration.put(CONFIG_EARTH_URL, "http://localhost:" + port + "/tiles/ArcGIS/${z}/${y}/${x}");
-        configuration.put(CONFIG_MAPNIK_URL, "http://localhost:" + port + "/tiles/osm/${z}/${y}/${x}");
+        configuration.put(CONFIG_EARTH_URL, "http://localhost:" + port + PATH_SATELITE + "${z}/${y}/${x}");
+        configuration.put(CONFIG_MAPNIK_URL, "http://localhost:" + port + PATH_OSM + "${z}/${y}/${x}");
         return this;
     }
 

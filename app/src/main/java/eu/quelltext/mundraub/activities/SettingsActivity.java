@@ -198,6 +198,9 @@ public class SettingsActivity extends MundraubBaseActivity {
             for (int zoom : Settings.getDownloadZoomLevels()) {
                 for (BoundingBox bbox : Settings.getOfflineAreaBoundingBoxes().asSet()) {
                     for (final TilesCache.Tile tile : cache.getTilesIn(bbox, zoom)) {
+                        if (tile.isCached()) {
+                            continue;
+                        }
                         mapDownload.collectDownloadsFrom(new BackgroundDownloadTask.DownloadProvider() {
                             @Override
                             public Set<String> getDownloadUrls() {
