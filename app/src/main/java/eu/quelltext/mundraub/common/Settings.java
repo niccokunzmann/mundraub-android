@@ -32,6 +32,7 @@ import eu.quelltext.mundraub.initialization.Permissions;
 import eu.quelltext.mundraub.map.MundraubMapAPIForApp;
 import eu.quelltext.mundraub.map.MundraubProxy;
 import eu.quelltext.mundraub.map.OfflinePlantsMapAPI;
+import eu.quelltext.mundraub.map.TilesCache;
 import eu.quelltext.mundraub.map.position.BoundingBoxCollection;
 import okhttp3.OkHttpClient;
 
@@ -143,6 +144,7 @@ public class Settings {
     private static boolean useFruitRadarNotifications = false;
     private static int radarPlantRangeMeters = 150;
     private static BoundingBoxCollection offlineMapAreaBoundingBoxes = BoundingBoxCollection.empty();
+    private static int[] downloadZoomLevels = new int[]{16};
 
     static {
         Initialization.provideActivityFor(new Initialization.ActivityInitialized() {
@@ -503,5 +505,21 @@ public class Settings {
     public static BoundingBoxCollection getOfflineAreaBoundingBoxes() {
         return offlineMapAreaBoundingBoxes;
     }
+
+    public static List<TilesCache> getDownloadMaps() {
+        List<TilesCache> caches = new ArrayList<>();
+        if (getDownloadMap(TILES_OSM)) {
+            caches.add(TilesCache.forOSM());
+        }
+        if (getDownloadMap(TILES_SATELLITE)) {
+            caches.add(TilesCache.forSatellite());
+        }
+        return caches;
+    }
+
+    public static int[] getDownloadZoomLevels() {
+        return downloadZoomLevels;
+    }
+
 
 }

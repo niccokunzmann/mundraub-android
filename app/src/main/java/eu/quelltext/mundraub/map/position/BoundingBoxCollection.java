@@ -4,7 +4,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import eu.quelltext.mundraub.map.TilesCache;
 
 public class BoundingBoxCollection {
 
@@ -68,5 +71,36 @@ public class BoundingBoxCollection {
     @Override
     public int hashCode() {
         return asSet().hashCode();
+    }
+
+    public long estimateTileBytesIn(List<TilesCache> caches, int[] zooms) {
+        long sum = 0;
+        for (TilesCache cache: caches) {
+            for (int zoom : zooms) {
+                sum += estimateTileBytesIn(cache, zoom);
+            }
+        }
+        return sum;
+    }
+
+    public long estimateTileBytesIn(TilesCache cache, int zoom) {
+        long sum = 0;
+        for(BoundingBox bbox: boxes) {
+            sum += cache.estimateTileBytesIn(bbox, zoom);
+        }
+        return sum;
+    }
+
+    public static String byteCountToHumanReadableString(long bytes) {
+        String[] units = new String[]{"b", "kb", "mb", "gb", "tb", "eb"};
+        int i = 0;
+        while (bytes > 1000 && i < units.length) {
+            if (bytes % 1000 > 500) {
+                bytes += 1000;
+            }
+            bytes /= 1000;
+            i++;
+        }
+        return bytes + units[i];
     }
 }

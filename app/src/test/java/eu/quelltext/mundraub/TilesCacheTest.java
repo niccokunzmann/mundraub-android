@@ -9,6 +9,7 @@ import java.util.Set;
 
 import eu.quelltext.mundraub.map.TilesCache;
 import eu.quelltext.mundraub.map.position.BoundingBox;
+import eu.quelltext.mundraub.map.position.BoundingBoxCollection;
 import eu.quelltext.mundraub.map.position.Position;
 
 import static junit.framework.Assert.assertEquals;
@@ -212,8 +213,21 @@ public class TilesCacheTest {
     @Test
     public void testEstimateSizeOfTiles() {
         for (TilesCache.ContentType contentType: contentTypes) {
-            assertEquals(30 * contentType.bytesOfOneTile(), cache(contentType).estimateTileBytesIn(bbox1, 7));
-            assertEquals(33 * contentType.bytesOfOneTile(), cache(contentType).estimateTileBytesIn(bbox2, 10));
+            long size1 = 30 * contentType.bytesOfOneTile();
+            long size2 = 33 * contentType.bytesOfOneTile();
+            assertEquals(size1, BoundingBoxCollection.with(bbox1).estimateTileBytesIn(cache(contentType), 7));
+            assertEquals(size2, BoundingBoxCollection.with(bbox2).estimateTileBytesIn(cache(contentType), 10));
         }
+    }
+
+    @Test
+    public void testEstimateBytes() {
+        assertEquals("0b", BoundingBoxCollection.byteCountToHumanReadableString(0l));
+        assertEquals("23b", BoundingBoxCollection.byteCountToHumanReadableString(23l));
+        assertEquals("23kb", BoundingBoxCollection.byteCountToHumanReadableString(23123l));
+        assertEquals("55kb", BoundingBoxCollection.byteCountToHumanReadableString(54600l)); // rounding
+        assertEquals("100mb", BoundingBoxCollection.byteCountToHumanReadableString(100000000l));
+        assertEquals("3gb", BoundingBoxCollection.byteCountToHumanReadableString(3000000000l));
+        assertEquals("43tb", BoundingBoxCollection.byteCountToHumanReadableString(43000000000000l));
     }
 }

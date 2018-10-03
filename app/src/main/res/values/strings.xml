@@ -496,7 +496,7 @@
     <!-- settings: Checkbutton to choose which sources to download markers from -->
     <string name="settings_download_fruitmap_markers">If this is enabled, the app downloads all plant markers from FruitMap.org.</string>
     <!-- settings: Button text to open the map an choose areas to take offline -->
-    <string name="settings_create_offline_areas">Choose which parts of the map to take offline.</string>
+    <string name="settings_create_offline_areas">Choose which areas of the map to take offline.</string>
     <!-- settings: Checkbutton to choose which sources to download map tiles from -->
     <string name="settings_offline_mapnik">Download OpenStreetMap tiles.</string>
     <!-- settings: Checkbutton to choose which sources to download map tiles from -->
@@ -506,7 +506,7 @@
     <!-- settings: -->
     <string name="settings_offline_markers_explanation">This app works best in offline mode when all plants from different platforms are downloaded. In online-mode, you can only use Mundraub.org because they allow getting plants in a certain range.</string>
     <!-- settings: offline map statistics -->
-    <string name="settings_offline_map_statistics" formatted="false">You want to have <xliff:g example="3" id="areas">%1$d</xliff:g> areas offline. <xliff:g example="30mb" id="areas">%2$s</xliff:g> of map tile images are on your phone.</string>
+    <string name="settings_offline_map_statistics" formatted="false">You want to have <xliff:g example="3" id="areas">%1$d</xliff:g> areas offline. About <xliff:g example="30mb" id="areas">%2$s</xliff:g> should be the size of all map tile images on your phone.</string>
     <!-- settings: button text -->
     <string name="settings_remove_offline_map_areas">Remove all offline areas</string>
     <!-- settings: button text -->

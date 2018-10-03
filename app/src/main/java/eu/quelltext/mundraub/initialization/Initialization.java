@@ -5,6 +5,8 @@ import android.app.Activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import eu.quelltext.mundraub.map.TilesCache;
+
 public class Initialization {
 
     private static final List<ActivityInitialized> initializers = new ArrayList<ActivityInitialized>();
@@ -15,6 +17,7 @@ public class Initialization {
             @Override
             public void setActivity(Activity context) {
                 FruitRadarNotification.initialize();
+                TilesCache.initializeCachesOnDirectory(context.getCacheDir());
             }
         });
     }

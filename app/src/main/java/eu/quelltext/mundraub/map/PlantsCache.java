@@ -17,7 +17,7 @@ import java.util.List;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.api.API;
-import eu.quelltext.mundraub.api.progress.JoinedProgress;
+import eu.quelltext.mundraub.api.BackgroundDownloadTask;
 import eu.quelltext.mundraub.api.progress.Progress;
 import eu.quelltext.mundraub.api.progress.Progressable;
 import eu.quelltext.mundraub.common.Helper;
@@ -36,7 +36,7 @@ public class PlantsCache extends ErrorAware {
 
     private static Context context;
     private static Logger.Log log = Logger.newFor("PlantsCache");
-    private static JoinedProgress updateProgress;
+    private static Progress updateProgress;
     private static final int MAXIMUM_MARKER_COUNT_TO_SERVE = 100;
     private static final int API_ID_EXAMPLE = 0;
     private static final int API_ID_MUNDRAUB = 1;
@@ -107,28 +107,12 @@ public class PlantsCache extends ErrorAware {
     public static Progress update(API.Callback callback) {
         if (updateProgress == null || updateProgress.isDone()) {
             clear();
-            final List<API> apis = API.getMarkerAPIs();
-            updateProgress = new JoinedProgress(callback, apis.size());
-            final List<API.Callback> callbacks = new ArrayList<API.Callback>();
-            for (int i = 0; i < apis.size(); i++) {
-                final int index = i;
-                final int nextIndex = i + 1;
-                callbacks.add(new API.Callback() {
-                    @Override
-                    public void onSuccess() {
-                        API api = apis.get(index);
-                        API.Callback nextCallback = callbacks.get(nextIndex);
-                        updateProgress.addProgressable(api.updateAllPlantMarkers(nextCallback));
-                    }
-
-                    @Override
-                    public void onFailure(int errorResourceString) {
-                        onSuccess();
-                    }
-                });
+            BackgroundDownloadTask task = new BackgroundDownloadTask();
+            for (API api :API.getMarkerAPIs()) {
+                task.collectDownloadsFrom(api);
             }
-            callbacks.add(API.Callback.NULL);
-            callbacks.get(0).onSuccess();
+            task.downloadInBackground(callback);
+            updateProgress = task.getProgress();
         } else {
             updateProgress.addCallback(callback);
         }
