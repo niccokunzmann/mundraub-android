@@ -173,7 +173,7 @@ public class SettingsActivity extends MundraubBaseActivity {
                             public void no() {
                                 deleteAreas();
                             }
-                            
+
                             private void deleteAreas() {
                                 Settings.setOfflineAreaBoundingBoxes(BoundingBoxCollection.empty());
                                 setOfflineMapStatisticsText();

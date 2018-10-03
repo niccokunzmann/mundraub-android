@@ -133,7 +133,9 @@ public class MapBaseActivity extends MundraubBaseActivity {
 
     @NonNull
     protected MapUrl createMapUrl(double longitude, double latitude) {
-        return new MapUrl(longitude, latitude).serveTilesFromLocalhost(apiProxy.getPort());
+        return new MapUrl(longitude, latitude)
+                .serveTilesFromLocalhost(apiProxy.getPort())
+                .setOfflineAreaBoundingBoxes(Settings.getOfflineAreaBoundingBoxes());
     }
 
     public MapUrl getUrl() {

@@ -40,6 +40,6 @@ public class SelectOfflineMapPartsActivity extends MapBaseActivity {
     @NonNull
     @Override
     protected MapUrl createMapUrl(double longitude, double latitude) {
-        return super.createMapUrl(longitude, latitude).createBoxes().setOfflineAreaBoundingBoxes(Settings.getOfflineAreaBoundingBoxes());
+        return super.createMapUrl(longitude, latitude).createBoxes();
     }
 }
