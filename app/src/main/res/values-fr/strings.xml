@@ -86,6 +86,8 @@
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="thyme">Thym</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="other_herbs">Autre herbe</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="juniper">Genévrier</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="woodruff">Aspérule</string>
