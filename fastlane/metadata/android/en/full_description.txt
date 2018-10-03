@@ -22,10 +22,8 @@ Permissions:
     <li>GPS to auto-fill the location</li>
     <li>INTERNET to upload the plant and display a map</li>
     <li>STORAGE (optional) to
-        <ul>
-            <li>save the plants as JSON in an exportable format</li>
-            <li>save the app log so you can help us when the app crashes</li>
-        </ul>
+        save the plants as JSON in an exportable format
+        and save the app log so you can help us when the app crashes
     </li>
     <li>VIBRATE (optional) to be notified about plants nearby</li>
 </ul>
