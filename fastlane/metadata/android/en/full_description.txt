@@ -10,7 +10,8 @@ Features:
     <li>Integrated map to find plants</li>
     <li>Notifications when plants are nearby</li>
     <li>Plant markers can be downloaded offline</li>
-    <li>Mundraub.org and Na-Ovoce.cz publishing</li>
+    <li>Plant sources: FruitMap.org, Mundraub.org, Na-Ovoce.cz</li>
+    <li>Publish plants to Mundraub.org and Na-Ovoce.cz</li>
 </ul>
 
 Permissions:
