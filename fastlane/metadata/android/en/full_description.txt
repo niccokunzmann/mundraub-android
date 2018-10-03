@@ -10,7 +10,7 @@ Features:
     <li>Collect all plant data offline</li>
     <li>Integrated map to find plants</li>
     <li>Notifications when plants are nearby</li>
-    <li>Plant markers can be downloaded offline</li>
+    <li>Plants and map in offline mode</li>
     <li>Plant sources: FruitMap.org, Mundraub.org, Na-Ovoce.cz</li>
     <li>Publish plants to Mundraub.org and Na-Ovoce.cz</li>
 </ul>
