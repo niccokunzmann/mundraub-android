@@ -1,8 +1,6 @@
 package eu.quelltext.mundraub.map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -11,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import eu.quelltext.mundraub.map.position.BoundingBox;
+import eu.quelltext.mundraub.map.position.BoundingBoxCollection;
 
 /*
  * This class is used for the interaction with the map trough the URL.
@@ -94,28 +92,19 @@ public class MapUrl {
         return this;
     }
 
-    public MapUrl setOfflineAreaBoundingBoxes(List<BoundingBox> bboxes) {
-        JSONArray bboxesJSON = new JSONArray();
-        for (BoundingBox bbox : bboxes) {
-            bboxesJSON.put(bbox.toJSON());
-        }
-        configuration.put(CONFIG_BOXES, bboxesJSON.toString());
+    public MapUrl setOfflineAreaBoundingBoxes(BoundingBoxCollection bboxes) {
+        configuration.put(CONFIG_BOXES, bboxes.toJSONString());
         return this;
     }
 
-    public List<BoundingBox> getOfflineAreaBoundingBoxes() {
-        List<BoundingBox> bboxes = new ArrayList<>();
+    public BoundingBoxCollection getOfflineAreaBoundingBoxes() {
         if (configuration.containsKey(CONFIG_BOXES)) {
-            try {
-                JSONArray bboxesJSON = new JSONArray(configuration.get(CONFIG_BOXES));
-                for (int i = 0; i < bboxesJSON.length(); i++) {
-                        bboxes.add(BoundingBox.fromJSON(bboxesJSON.getJSONObject(i)));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace(); // will never happen I suppose
-            }
+            return BoundingBoxCollection.fromJSONString(configuration.get(CONFIG_BOXES));
         }
-        return bboxes;
+        else {
+            return BoundingBoxCollection.empty();
+        }
+
     }
 
     public MapUrl createBoxes() {

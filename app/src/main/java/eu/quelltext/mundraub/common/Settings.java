@@ -6,8 +6,6 @@ import android.os.Build;
 import android.os.Environment;
 
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -34,7 +32,7 @@ import eu.quelltext.mundraub.initialization.Permissions;
 import eu.quelltext.mundraub.map.MundraubMapAPIForApp;
 import eu.quelltext.mundraub.map.MundraubProxy;
 import eu.quelltext.mundraub.map.OfflinePlantsMapAPI;
-import eu.quelltext.mundraub.map.position.BoundingBox;
+import eu.quelltext.mundraub.map.position.BoundingBoxCollection;
 import okhttp3.OkHttpClient;
 
 import static eu.quelltext.mundraub.common.Settings.ChangeListener.SETTINGS_CAN_CHANGE;
@@ -144,7 +142,7 @@ public class Settings {
     private static SynchronizedStringSet tilesToDownload = new SynchronizedStringSet("tilesToDownload", Arrays.asList(TILES_OSM));
     private static boolean useFruitRadarNotifications = false;
     private static int radarPlantRangeMeters = 150;
-    private static String offlineMapAreaBoundingBoxes = "[]";
+    private static BoundingBoxCollection offlineMapAreaBoundingBoxes = BoundingBoxCollection.empty();
 
     static {
         Initialization.provideActivityFor(new Initialization.ActivityInitialized() {
@@ -176,7 +174,7 @@ public class Settings {
         log.d("vibrateWhenPlantIsInRange", vibrateWhenPlantIsInRange);
         log.d("useFruitRadarNotifications", useFruitRadarNotifications);
         log.d("radarPlantRangeMeters", radarPlantRangeMeters);
-        log.d("offlineMapAreaBoundingBoxes", offlineMapAreaBoundingBoxes);
+        log.d("offlineMapAreaBoundingBoxes", offlineMapAreaBoundingBoxes.toJSONString());
         log.d("showCategories", showCategories.toString());
         log.d("downloadMarkersFromAPI", downloadMarkersFromAPI.toString());
         log.d("tilesToDownload", tilesToDownload.toString());
@@ -199,7 +197,7 @@ public class Settings {
         vibrateWhenPlantIsInRange = preferences.getBoolean("vibrateWhenPlantIsInRange", vibrateWhenPlantIsInRange);
         useFruitRadarNotifications = preferences.getBoolean("useFruitRadarNotifications", useFruitRadarNotifications);
         radarPlantRangeMeters = preferences.getInt("radarPlantRangeMeters", radarPlantRangeMeters);
-        offlineMapAreaBoundingBoxes = preferences.getString("offlineMapAreaBoundingBoxes", offlineMapAreaBoundingBoxes);
+        offlineMapAreaBoundingBoxes = BoundingBoxCollection.fromJSONString(preferences.getString("offlineMapAreaBoundingBoxes", offlineMapAreaBoundingBoxes.toJSONString()));
         showCategories.load();
         downloadMarkersFromAPI.load();
         tilesToDownload.load();
@@ -230,7 +228,7 @@ public class Settings {
             editor.putBoolean("vibrateWhenPlantIsInRange", vibrateWhenPlantIsInRange);
             editor.putBoolean("useFruitRadarNotifications", useFruitRadarNotifications);
             editor.putInt("radarPlantRangeMeters", radarPlantRangeMeters);
-            editor.putString("offlineMapAreaBoundingBoxes", offlineMapAreaBoundingBoxes);
+            editor.putString("offlineMapAreaBoundingBoxes", offlineMapAreaBoundingBoxes.toJSONString());
             showCategories.saveTo(editor);
             downloadMarkersFromAPI.saveTo(editor);
             tilesToDownload.saveTo(editor);
@@ -497,28 +495,13 @@ public class Settings {
         return tilesToDownload.contains(mapId);
     }
 
-    public static int setOfflineAreaBoundingBoxes(List<BoundingBox> offlineAreaBoundingBoxes) {
-        JSONArray json = new JSONArray();
-        for (BoundingBox bbox: offlineAreaBoundingBoxes) {
-            json.put(bbox.toJSON());
-        }
-        offlineMapAreaBoundingBoxes = json.toString();
+    public static int setOfflineAreaBoundingBoxes(BoundingBoxCollection offlineAreaBoundingBoxes) {
+        offlineMapAreaBoundingBoxes = offlineAreaBoundingBoxes;
         return commit();
     }
 
-    public static List<BoundingBox> getOfflineAreaBoundingBoxes() {
-        List<BoundingBox> offlineAreaBoundingBoxes = new ArrayList<>();
-        JSONArray json = null;
-        try {
-            json = new JSONArray(offlineMapAreaBoundingBoxes);
-            for (int i = 0; i < json.length(); i++) {
-                offlineAreaBoundingBoxes.add(BoundingBox.fromJSON(json.getJSONObject(i)));
-            }
-        } catch (JSONException e) {
-            log.printStackTrace(e);
-        }
-        offlineMapAreaBoundingBoxes = json.toString();
-        return offlineAreaBoundingBoxes;
+    public static BoundingBoxCollection getOfflineAreaBoundingBoxes() {
+        return offlineMapAreaBoundingBoxes;
     }
 
 }

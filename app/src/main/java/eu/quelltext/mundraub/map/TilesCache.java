@@ -80,6 +80,14 @@ public class TilesCache {
         return tiles;
     }
 
+    public long estimateTileBytesIn(BoundingBox bbox, int zoom) {
+        Tile southEastTile = getTileAt(bbox.southEastCorner(), zoom);
+        Tile northWestTile = getTileAt(bbox.northWestCorner(), zoom);
+        int dy = southEastTile.getPosition().y() - northWestTile.getPosition().y() + 1;
+        int dx = southEastTile.getPosition().x() - northWestTile.getPosition().x() + 1;
+        return dx * dy * contentType.bytesOfOneTile();
+    }
+
     public class Tile {
 
         private final TilePosition position;
@@ -181,14 +189,16 @@ public class TilesCache {
     }
 
     public static class ContentType {
-        public static ContentType PNG = new ContentType(".png", "image/png");
-        public static ContentType JPG = new ContentType(".jpg", "image/jpeg");
+        public static ContentType PNG = new ContentType(".png", "image/png", 31247); // example https://a.tile.openstreetmap.org/12/2198/1345.png
+        public static ContentType JPG = new ContentType(".jpg", "image/jpeg", 14956); // example https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/13/2691/4402/
         private final String extension;
         private final String contentType;
+        private final long bytesOfOneTile;
 
-        public ContentType(String extension, String contentType) {
+        private ContentType(String extension, String contentType, long bytesOfOneTile) {
             this.extension = extension;
             this.contentType = contentType;
+            this.bytesOfOneTile = bytesOfOneTile;
         }
 
         public String extension() {
@@ -197,6 +207,10 @@ public class TilesCache {
 
         public String contentType() {
             return contentType;
+        }
+
+        public long bytesOfOneTile() {
+            return bytesOfOneTile;
         }
     }
 }

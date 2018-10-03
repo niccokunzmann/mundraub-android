@@ -2,12 +2,9 @@ package eu.quelltext.mundraub;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import eu.quelltext.mundraub.map.MapUrl;
 import eu.quelltext.mundraub.map.position.BoundingBox;
+import eu.quelltext.mundraub.map.position.BoundingBoxCollection;
 
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
@@ -85,16 +82,17 @@ public class MapUrlTest {
 
     @Test
     public void testMapUrlCanIncludeBoundingBox() {
-        List<BoundingBox> bboxes = new ArrayList<>(Arrays.asList(BoundingBox.fromNESW(1,2, 3, 4)));
+        BoundingBoxCollection bboxes = BoundingBoxCollection.with(BoundingBox.fromNESW(1,2, 3, 4));
         MapUrl mapUrl = new MapUrl("?").setOfflineAreaBoundingBoxes(bboxes);
         assertEquals(bboxes, mapUrl.getOfflineAreaBoundingBoxes());
     }
 
     @Test
     public void testMapUrlIncludesBoundingBoxInUrl() {
-        List<BoundingBox> bboxes = new ArrayList<>(Arrays.asList(BoundingBox.fromNESW(1,2, 3, 4), BoundingBox.fromNESW(21,23, 344, 24)));
+        BoundingBoxCollection bboxes = BoundingBoxCollection.with(BoundingBox.fromNESW(1,2, 3, 4), BoundingBox.fromNESW(21,23, 344, 24));
         MapUrl mapUrl = new MapUrl(new MapUrl("?").setOfflineAreaBoundingBoxes(bboxes).getUrl());
-        assertEquals(bboxes, mapUrl.getOfflineAreaBoundingBoxes());
+        BoundingBoxCollection other = mapUrl.getOfflineAreaBoundingBoxes();
+        assertEquals(bboxes, other);
     }
 
     @Test

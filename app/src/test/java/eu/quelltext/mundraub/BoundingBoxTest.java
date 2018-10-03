@@ -53,4 +53,25 @@ public class BoundingBoxTest {
             assertEquals(bbox, BoundingBox.fromJSON(bbox.toJSON()));
         }
     }
+
+    @Test
+    public void testAround180Lon1() {
+        BoundingBox bbox = BoundingBox.fromNESW(1, -170, 0, 170);
+        assertEquals(20., bbox.deltaLongitude(), 0.001);
+        assertTrue(bbox.crosses180());
+    }
+
+    @Test
+    public void testAround180Lon2() {
+        BoundingBox bbox = BoundingBox.fromNESW(10, -179, -30, 178);
+        assertEquals(3., bbox.deltaLongitude(), 0.001);
+        assertTrue(bbox.crosses180());
+    }
+
+    @Test
+    public void testAround180Lon3() {
+        BoundingBox bbox = BoundingBox.fromNESW(10, 179, -30, -178);
+        assertEquals(357, bbox.deltaLongitude(), 0.001);
+        assertFalse(bbox.crosses180());
+    }
 }

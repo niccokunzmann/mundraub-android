@@ -18,8 +18,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import java.util.ArrayList;
-
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.activities.map.SelectOfflineMapPartsActivity;
 import eu.quelltext.mundraub.activities.map.TestFruitRadarActivity;
@@ -29,7 +27,7 @@ import eu.quelltext.mundraub.common.Dialog;
 import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.initialization.Permissions;
 import eu.quelltext.mundraub.map.PlantsCache;
-import eu.quelltext.mundraub.map.position.BoundingBox;
+import eu.quelltext.mundraub.map.position.BoundingBoxCollection;
 
 public class SettingsActivity extends MundraubBaseActivity {
 
@@ -114,7 +112,7 @@ public class SettingsActivity extends MundraubBaseActivity {
         buttonRemoveAreas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Settings.setOfflineAreaBoundingBoxes(new ArrayList<BoundingBox>());
+                Settings.setOfflineAreaBoundingBoxes(BoundingBoxCollection.empty());
                 setOfflineMapStatisticsText();
             }
         });

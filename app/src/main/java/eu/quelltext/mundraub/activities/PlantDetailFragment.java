@@ -70,7 +70,6 @@ public class PlantDetailFragment extends Fragment {
             if (appBarLayout != null) {
                 appBarLayout.setTitle(plant.getDetailsTitle());
             }
-
         }
     }
 

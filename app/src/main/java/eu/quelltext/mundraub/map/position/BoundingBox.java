@@ -172,4 +172,15 @@ public class BoundingBox {
                 json.getDouble("west")
         );
     }
+
+    public double deltaLongitude() {
+        if (crosses180()) {
+            return 360 + east - west;
+        }
+        return east - west;
+    }
+
+    public boolean crosses180() {
+        return east < west;
+    }
 }

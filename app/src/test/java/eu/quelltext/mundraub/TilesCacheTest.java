@@ -21,6 +21,12 @@ public class TilesCacheTest {
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
     private boolean temporaryFolderIsCreated = false;
+    private static final BoundingBox bbox1 = BoundingBox.fromWSEN(3.4277343750002305,45.2052634561631,29.794921875000252,49.717376404935926);
+    private static final BoundingBox bbox2 = BoundingBox.fromWSEN(13.351135253906426,48.03034580796611,16.647033691406662,48.585692256886375);
+    private static final TilesCache.ContentType[] contentTypes = new TilesCache.ContentType[]{
+            TilesCache.ContentType.PNG,
+            TilesCache.ContentType.JPG
+    };
 
     private TilesCache cache() {
         return cache(TilesCache.ContentType.PNG);
@@ -98,10 +104,6 @@ public class TilesCacheTest {
 
     @Test
     public void testContentTypeGoesToTiles() {
-        TilesCache.ContentType[] contentTypes = new TilesCache.ContentType[]{
-                TilesCache.ContentType.PNG,
-                TilesCache.ContentType.JPG
-        };
         for (TilesCache.ContentType contentType : contentTypes) {
             assertEquals(contentType.contentType(), cache(contentType).getTileAt(0, 0, 0).contentType());
             assertTrue(cache(contentType).getTileAt(0, 0, 0).path().endsWith(contentType.extension()));
@@ -183,12 +185,12 @@ public class TilesCacheTest {
 
     @Test
     public void testTilesInBoundingBox1() {
-        assertTilesInBBox(BoundingBox.fromWSEN(3.4277343750002305,45.2052634561631,29.794921875000252,49.717376404935926), 7, 65, 43, 74, 45);
+        assertTilesInBBox(bbox1, 7, 65, 43, 74, 45);
     }
 
     @Test
     public void testTilesInBoundingBox2() {
-        assertTilesInBBox(BoundingBox.fromWSEN(13.351135253906426,48.03034580796611,16.647033691406662,48.585692256886375), 10, 549, 353, 559, 355);
+        assertTilesInBBox(bbox2, 10, 549, 353, 559, 355);
     }
 
     private void assertTilesInBBox(BoundingBox boundingBox, int zoom, int minX, int minY, int maxX, int maxY) {
@@ -200,5 +202,18 @@ public class TilesCacheTest {
             }
         }
         assertEquals((maxX - minX + 1) * (maxY - minY + 1), boundingBoxTiles.size());
+    }
+
+    @Test
+    public void testContentTypeHasSize() {
+        assertTrue(TilesCache.ContentType.JPG.bytesOfOneTile() != TilesCache.ContentType.PNG.bytesOfOneTile());
+    }
+
+    @Test
+    public void testEstimateSizeOfTiles() {
+        for (TilesCache.ContentType contentType: contentTypes) {
+            assertEquals(30 * contentType.bytesOfOneTile(), cache(contentType).estimateTileBytesIn(bbox1, 7));
+            assertEquals(33 * contentType.bytesOfOneTile(), cache(contentType).estimateTileBytesIn(bbox2, 10));
+        }
     }
 }
