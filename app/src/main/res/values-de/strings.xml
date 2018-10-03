@@ -86,6 +86,8 @@
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="thyme">Thymian</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="other_herbs">Andere Kräuter</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="juniper">Wacholder</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="woodruff">Waldmeister</string>
@@ -518,5 +520,4 @@
     <string name="title_startup">Frucht Radar startet ...</string>
     <!-- Startup: loading plants takes some time if there are many -->
     <string name="startup_loading_plants">Lade alle Pflanzen ...</string>
-
-</resources>
+    </resources>
