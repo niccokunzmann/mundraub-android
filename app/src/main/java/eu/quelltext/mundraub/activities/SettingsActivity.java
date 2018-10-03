@@ -159,8 +159,6 @@ public class SettingsActivity extends MundraubBaseActivity {
         buttonRemoveAreas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Settings.setOfflineAreaBoundingBoxes(BoundingBoxCollection.empty());
-                setOfflineMapStatisticsText();
                 new Dialog(SettingsActivity.this).askYesNo(
                         R.string.settings_reason_delete_offline_tiles,
                         R.string.settings_ask_delete_downloaded_tiles,
@@ -168,13 +166,19 @@ public class SettingsActivity extends MundraubBaseActivity {
                             @Override
                             public void yes() {
                                 Helper.deleteDir(Settings.mapTilesCacheDirectory(SettingsActivity.this));
-                                setOfflineMapStatisticsText();
+                                deleteAreas();
                             }
 
                             @Override
                             public void no() {
+                                deleteAreas();
                             }
-                        });
+                            
+                            private void deleteAreas() {
+                                Settings.setOfflineAreaBoundingBoxes(BoundingBoxCollection.empty());
+                                setOfflineMapStatisticsText();
+                            }
+                });
             }
         });
         offlineStatisticsText = (TextView) findViewById(R.id.text_offline_map_statistics);
