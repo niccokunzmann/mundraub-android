@@ -51,7 +51,8 @@ public class Logger implements UncaughtExceptionHandler, Initialization.Activity
             System.setOut(log1);
             System.setErr(log1);
         } catch (FileNotFoundException e) {
-            this.printStackTrace(TAG, e);
+            printStackTrace(TAG, e);
+            d(TAG, "A FileNotFoundException usually happens when the user did not give permission to log the output to EXTERNAL_STORAGE. Nothing to worry about.");
             log1 = null;
         }
         logStream = log1;
