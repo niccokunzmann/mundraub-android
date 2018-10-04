@@ -12,6 +12,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.activities.map.ShowPlantsActivity;
@@ -185,5 +186,13 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
 
     public void onDialogClosed(Dialog dialog) {
 
+    }
+
+    /* Perform a crash of the app.
+     * This method is used to test that the app really includes crash reporing in the error report.
+     */
+    public void crash() {
+        Button b = null;
+        b.setEnabled(true);
     }
 }
