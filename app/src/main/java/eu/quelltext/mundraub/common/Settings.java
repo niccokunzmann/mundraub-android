@@ -148,8 +148,9 @@ public class Settings {
     private static SynchronizedStringSet tilesToDownload = new SynchronizedStringSet("tilesToDownload", Arrays.asList(TILES_OSM));
     private static boolean useFruitRadarNotifications = false;
     private static int radarPlantRangeMeters = 150;
+    private static int maximumZoomLevelForOfflineMap = 16;
+    private static boolean downloadMapTilesForZoomLevelsLowerThanMaximum = true;
     private static BoundingBoxCollection offlineMapAreaBoundingBoxes = BoundingBoxCollection.empty();
-    private static int[] downloadZoomLevels = new int[]{16};
 
     static {
         Initialization.provideActivityFor(new Initialization.ActivityInitialized() {
@@ -181,6 +182,8 @@ public class Settings {
         log.d("vibrateWhenPlantIsInRange", vibrateWhenPlantIsInRange);
         log.d("useFruitRadarNotifications", useFruitRadarNotifications);
         log.d("radarPlantRangeMeters", radarPlantRangeMeters);
+        log.d("maximumZoomLevelForOfflineMap", maximumZoomLevelForOfflineMap);
+        log.d("downloadMapTilesForZoomLevelsLowerThanMaximum", downloadMapTilesForZoomLevelsLowerThanMaximum);
         log.d("offlineMapAreaBoundingBoxes", offlineMapAreaBoundingBoxes.toJSONString());
         log.d("showCategories", showCategories.toString());
         log.d("downloadMarkersFromAPI", downloadMarkersFromAPI.toString());
@@ -204,6 +207,8 @@ public class Settings {
         vibrateWhenPlantIsInRange = preferences.getBoolean("vibrateWhenPlantIsInRange", vibrateWhenPlantIsInRange);
         useFruitRadarNotifications = preferences.getBoolean("useFruitRadarNotifications", useFruitRadarNotifications);
         radarPlantRangeMeters = preferences.getInt("radarPlantRangeMeters", radarPlantRangeMeters);
+        maximumZoomLevelForOfflineMap = preferences.getInt("maximumZoomLevelForOfflineMap", maximumZoomLevelForOfflineMap);
+        downloadMapTilesForZoomLevelsLowerThanMaximum = preferences.getBoolean("downloadMapTilesForZoomLevelsLowerThanMaximum", downloadMapTilesForZoomLevelsLowerThanMaximum);
         offlineMapAreaBoundingBoxes = BoundingBoxCollection.fromJSONString(preferences.getString("offlineMapAreaBoundingBoxes", offlineMapAreaBoundingBoxes.toJSONString()));
         showCategories.load();
         downloadMarkersFromAPI.load();
@@ -235,6 +240,8 @@ public class Settings {
             editor.putBoolean("vibrateWhenPlantIsInRange", vibrateWhenPlantIsInRange);
             editor.putBoolean("useFruitRadarNotifications", useFruitRadarNotifications);
             editor.putInt("radarPlantRangeMeters", radarPlantRangeMeters);
+            editor.putInt("maximumZoomLevelForOfflineMap", maximumZoomLevelForOfflineMap);
+            editor.putBoolean("downloadMapTilesForZoomLevelsLowerThanMaximum", downloadMapTilesForZoomLevelsLowerThanMaximum);
             editor.putString("offlineMapAreaBoundingBoxes", offlineMapAreaBoundingBoxes.toJSONString());
             showCategories.saveTo(editor);
             downloadMarkersFromAPI.saveTo(editor);
@@ -523,8 +530,23 @@ public class Settings {
     }
 
     public static int[] getDownloadZoomLevels() {
-        return downloadZoomLevels;
+        if (downloadMapTilesForZoomLevelsLowerThanMaximum()) {
+            int[] levels = new int[maximumZoomLevelForOfflineMap + 1];
+            for (int i = 0; i < levels.length; i++) {
+                levels[i] = i;
+            }
+            return levels;
+        }
+        return new int[]{maximumZoomLevelForOfflineMap};
     }
 
+    public static int downloadMapTilesForZoomLevelsLowerThanMaximum(boolean checked) {
+        downloadMapTilesForZoomLevelsLowerThanMaximum = checked;
+        return commit();
+    }
+
+    public static boolean downloadMapTilesForZoomLevelsLowerThanMaximum() {
+        return downloadMapTilesForZoomLevelsLowerThanMaximum;
+    }
 
 }

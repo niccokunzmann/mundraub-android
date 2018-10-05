@@ -515,6 +515,8 @@
     <string name="settings_reason_delete_offline_tiles">You deleted all offline areas but the downloaded parts are still using up space.</string>
     <!-- settings: dialog when you delete all offline areas -->
     <string name="settings_ask_delete_downloaded_tiles">Would you like to delete all offline tiles?</string>
+    <!-- settings: checkbox to configure download of map tiles -->
+    <string name="settings_download_all_zoom_levels">I would like to be able to zoom out in offline mode. This also downloads the map tiles to zoom out and requires about one third of additional space.</string>
 
     <!-- ==============  Community Codex  ============== -->
     <!-- https://mundraub.org/mundraeuber-regeln -->

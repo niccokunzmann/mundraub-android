@@ -194,6 +194,7 @@ public class SettingsActivity extends MundraubBaseActivity {
         });
         updateProgressMap = (ProgressBar) findViewById(R.id.update_progress_map);
         updateMapOfflineButtons();
+
     }
 
     private void downloadMap() {
@@ -492,6 +493,17 @@ public class SettingsActivity extends MundraubBaseActivity {
         synchronizeOfflineMapCheckbutton(R.id.checkBox_offline_mapnik, Settings.TILES_OSM);
         synchronizeOfflineMapCheckbutton(R.id.checkBox_offline_satellite, Settings.TILES_SATELLITE);
 
+        synchronizeCheckbutton(R.id.checkBox_offline_download_all_zoom_levels, new Toggled() {
+            @Override
+            public int onToggle(boolean checked) {
+                return Settings.downloadMapTilesForZoomLevelsLowerThanMaximum(checked);
+            }
+
+            @Override
+            public boolean isChecked() {
+                return Settings.downloadMapTilesForZoomLevelsLowerThanMaximum();
+            }
+        });
     }
 
     private void synchronizeOfflineMapCheckbutton(final int resourceId, final String mapId) {
