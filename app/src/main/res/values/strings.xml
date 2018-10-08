@@ -239,6 +239,8 @@
     <string name="success">Success!</string>
     <!-- Dialogs: Dialog title -->
     <string name="attention">Attention</string>
+    <!-- Dialogs: Dialog message -->
+    <string name="delete_question">Are you sure you want to delete?</string>
     <!-- Dialogs: Dialog button -->
     <string name="no">no</string>
     <!-- Dialogs: Dialog button -->

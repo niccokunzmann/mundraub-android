@@ -2,11 +2,13 @@ package eu.quelltext.mundraub.activities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,6 +80,39 @@ public class PlantDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.plant_detail, container, false);
         context = container.getContext();
+
+        Button btn_edit = (Button) rootView.findViewById(R.id.btn_edit);
+        Button btn_delete = (Button) rootView.findViewById(R.id.btn_delete);
+
+        btn_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, NewPlantActivity.class);
+                intent.putExtra(NewPlantActivity.ARG_PLANT_ID, plant.getId());
+                context.startActivity(intent);
+            }
+        });
+        btn_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                alert.setTitle(getString(R.string.delete));
+                alert.setMessage(getString(R.string.delete_question));
+                alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        plant.delete();
+                        getActivity().finish();
+                    }
+                });
+                alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                alert.show();
+            }
+        });
+
         updateViewFromPlant();
         if (savedInstanceState != null) {
             doublePane = savedInstanceState.getBoolean("doublePane", true);
@@ -177,16 +212,16 @@ public class PlantDetailFragment extends Fragment {
                             plant.getRepositionReason(),
                             R.string.ask_open_the_map,
                             new Dialog.YesNoCallback() {
-                        @Override
-                        public void yes() {
-                            chooseMapPosition();
-                        }
+                                @Override
+                                public void yes() {
+                                    chooseMapPosition();
+                                }
 
-                        @Override
-                        public void no() {
-                            createPlant();
-                        }
-                    });
+                                @Override
+                                public void no() {
+                                    createPlant();
+                                }
+                            });
                 } else {
                     createPlant();
                 }
@@ -236,13 +271,13 @@ public class PlantDetailFragment extends Fragment {
                         R.string.delete_plant_information,
                         R.string.ask_delete_plant,
                         new Dialog.YesNoCallback() {
-                    @Override
-                    public void yes() {
-                        plant.online().delete(updateOrShowError(R.string.success_plant_deleted));
-                    }
-                    @Override
-                    public void no() {}
-                });
+                            @Override
+                            public void yes() {
+                                plant.online().delete(updateOrShowError(R.string.success_plant_deleted));
+                            }
+                            @Override
+                            public void no() {}
+                        });
             }
         });
 
