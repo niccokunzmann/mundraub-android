@@ -31,17 +31,8 @@ public class PlantDetailActivity extends MundraubBaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         plantId = getIntent().getStringExtra(ARG_PLANT_ID);
         final Context context = this;
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, NewPlantActivity.class);
-                intent.putExtra(NewPlantActivity.ARG_PLANT_ID, plantId);
-                context.startActivity(intent);
-            }
-        });
 
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
