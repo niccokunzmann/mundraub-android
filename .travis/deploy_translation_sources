@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+cd "`dirname \"$0\"`"
+
+./prepare-transifex.sh
+(
+  cd ..
+  tx push --source
+)
+
