@@ -1,0 +1,6 @@
+Наидти ростения и дели их онлайн! 
+У тебя есть мобильник с собой всегда. Если ты наидёшь пищевое ростение, который ты хочешь делить, ты можешь снимать положение, тип и фото. Позже со связем с интернетом, ты можешь закачать оно на карту фруктов. 
+Функции: 
+<ul> <li>Собирать все информации автономно.</li> <li>Встроенная карта чтобый найдти ростения</li> <li>Извещения если фрукты рядом</li> <li>Ростения и карта в афтономном модусе</li> <li>Первоисто́чники: FruitMap.org, Mundraub.org, Na-Ovoce.cz</li>     <li>Publish plants to Mundraub.org and Na-Ovoce.cz</li> </ul> 
+Permissions: 
+<ul>     <li>CAMERA to take a photo of the plant</li>     <li>GPS to auto-fill the location</li>     <li>INTERNET to upload the plant and display a map</li>     <li>STORAGE (optional) to         save the plants as JSON in an exportable format         and save the app log so you can help us when the app crashes     </li>     <li>VIBRATE (optional) to be notified about plants nearby</li> </ul>
