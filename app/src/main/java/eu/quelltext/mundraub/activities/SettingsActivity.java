@@ -2,8 +2,6 @@ package eu.quelltext.mundraub.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -90,16 +88,16 @@ public class SettingsActivity extends MundraubBaseActivity {
             if (progress == null) {
                 progressBar.setVisibility(View.GONE);
             } else {
+                progressBar.setVisibility(View.VISIBLE);
                 int max = 100;
                 int newProgress = (int) Math.round(max * progress.getProgress());
                 if (newProgress != progressBar.getProgress()) {
-                    progressBar.setVisibility(View.VISIBLE);
                     progressBar.setProgress(newProgress);
                     // update color from https://stackoverflow.com/a/15809803
-                    Drawable progressDrawable = progressBar.getProgressDrawable().mutate();
-                    int color = progress.isDoneAndError() ? Color.RED : Color.GREEN;
-                    progressDrawable.setColorFilter(color, android.graphics.PorterDuff.Mode.MULTIPLY);
-                    progressBar.setProgressDrawable(progressDrawable);
+                    //Drawable progressDrawable = progressBar.getProgressDrawable().mutate();
+                    //int color = progress.isDoneAndError() ? Color.RED : Color.GREEN;
+                    //progressDrawable.setColorFilter(color, android.graphics.PorterDuff.Mode.MULTIPLY);
+                    //progressBar.setProgressDrawable(progressDrawable);
                 }
             }
         }
