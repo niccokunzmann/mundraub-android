@@ -24,6 +24,7 @@ import java.io.IOException;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.activities.map.ChooseMapPosition;
+import eu.quelltext.mundraub.common.Dialog;
 import eu.quelltext.mundraub.map.MapCache;
 import eu.quelltext.mundraub.map.MapUrl;
 import eu.quelltext.mundraub.plant.Plant;
@@ -133,13 +134,10 @@ public class NewPlantActivity extends MundraubBaseActivity {
                 finish();
             }
         });
-        //buttonCancel = null; // TEST ERROR REPORTER
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                stopGPSUpdates();
-                plant.delete();
-                finish();
+                new Dialog(NewPlantActivity.this).askAndDeleteThePlantAndFinishTheActivity(plant);
             }
         });
         // from https://stackoverflow.com/a/20824665/1320237
@@ -220,6 +218,14 @@ public class NewPlantActivity extends MundraubBaseActivity {
     protected void onResume() {
         super.onResume();
         loadViewFromPlant();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (!plant.exists()) {
+            stopGPSUpdates();
+        }
     }
 
     private void loadViewFromPlant() {
