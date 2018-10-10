@@ -573,6 +573,9 @@
     <string name="title_startup">Fruit Radar Starting ...</string>
     <!-- Startup: loading plants takes some time if there are many -->
     <string name="startup_loading_plants">Loading all plants ...</string>
+
+    <!-- ==============  Choose Offline Areas  ============== -->
+    <!-- Choose Offline Areas: Activity title. This is displayed when choosing offline areas. -->
     <string name="title_select_offline_areas">Choose Offline Map Areas</string>
 
 </resources>
