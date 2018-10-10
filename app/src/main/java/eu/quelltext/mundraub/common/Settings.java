@@ -78,6 +78,10 @@ public class Settings {
         return new File(context.getCacheDir(), "tiles");
     }
 
+    public static double getRadiusInMetersForCloseAndEqualPlantsNearby() {
+        return 30;
+    }
+
     private static class SynchronizedStringSet { // TODO: test
 
         private final String name;

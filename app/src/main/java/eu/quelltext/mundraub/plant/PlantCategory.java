@@ -232,6 +232,13 @@ public class PlantCategory {
         return NULL;
     }
 
+    /*
+     * This checks if two categories are in a way closely related.
+     */
+    public boolean isCloselyRelatedTo(PlantCategory other) {
+        return this.equals(other);
+    }
+
     public static class NullCategory extends PlantCategory {
 
         NullCategory() {

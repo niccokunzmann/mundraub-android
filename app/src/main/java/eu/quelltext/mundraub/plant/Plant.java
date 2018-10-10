@@ -20,9 +20,13 @@ import java.util.List;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.common.Helper;
+import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.error.ErrorAware;
 import eu.quelltext.mundraub.map.MapCache;
 import eu.quelltext.mundraub.map.MapUrl;
+import eu.quelltext.mundraub.map.PlantsCache;
+import eu.quelltext.mundraub.map.position.BoundingBox;
+import eu.quelltext.mundraub.map.position.IPosition;
 
 
 public class Plant extends ErrorAware implements Comparable<Plant> {
@@ -413,7 +417,18 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
         return this;
     }
 
-    static public class Position {
+    public boolean hasOtherPlantLikeThisNearby() {
+        BoundingBox bbox = BoundingBox.fromPositionAndRadius(getPosition(), Settings.getRadiusInMetersForCloseAndEqualPlantsNearby());
+        List<PlantsCache.Marker> markers = PlantsCache.getMarkersInBoundingBox(bbox);
+        for (PlantsCache.Marker marker: markers) {
+            if (marker.getCategory().isCloselyRelatedTo(getCategory()) || getCategory().isCloselyRelatedTo(marker.getCategory())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static public class Position implements IPosition {
         public static final Position NULL = new NullPosition(0, 0);
         protected static final String JSON_POSITION_TYPE = "type";
         protected static final String JSON_POSITION_TYPE_GPS = "gps";

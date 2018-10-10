@@ -253,6 +253,10 @@ public class PlantsCache extends ErrorAware {
         public static Marker example(double[] position) {
             return new Marker(position[0],position[1], PlantCategory.EXAMPLE, 1, API_ID_EXAMPLE);
         }
+
+        public PlantCategory getCategory() {
+            return category;
+        }
     }
 
     public static class MarkerDBSQLiteHelper extends SQLiteOpenHelper {

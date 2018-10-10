@@ -212,16 +212,35 @@ public class PlantDetailFragment extends Fragment {
             }
 
             private void createPlant() {
-                askForUploadIfCategoryChanges(new Dialog.YesNoCallback() {
+                final Dialog.YesNoCallback callback = new Dialog.YesNoCallback() {
                     @Override
                     public void yes() {
                         plant.online().create(updateOrShowError(R.string.success_plant_uploaded));
                     }
+
                     @Override
                     public void no() {
 
                     }
-                });
+                };
+                if (plant.hasOtherPlantLikeThisNearby()) {
+                    new Dialog(getContext()).askYesNo(
+                            R.string.reason_plant_has_other_plant_nearby,
+                            R.string.ask_open_map_before_upload,
+                            new Dialog.YesNoCallback() {
+                                @Override
+                                public void yes() {
+                                    chooseMapPosition();
+                                }
+
+                                @Override
+                                public void no() {
+                                    askForUploadIfCategoryChanges(callback);
+                                }
+                            });
+                } else {
+                    askForUploadIfCategoryChanges(callback);
+                }
 
             }
         });

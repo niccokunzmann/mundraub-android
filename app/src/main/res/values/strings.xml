@@ -231,6 +231,10 @@
     <string name="reason_category_changes">On \"<xliff:g example="Mundraub.org" id="platform">%1$s</xliff:g>\", the category \"<xliff:g example="Tangerine" id="source_category">%2$s</xliff:g>\" can only be uploaded as \"<xliff:g example="Other Fruit Tree" id="mapped_category">%3$s</xliff:g>\".</string>
     <!-- view plant details: displayed after "Longitude:" and "Latitude:" if the plant has no position -->
     <string name="position_not_set">unknown</string>
+    <!-- view plant details: reason for asking to check the other plants nearby -->
+    <string name="reason_plant_has_other_plant_nearby">There is another plant of a similar type close to this plant. If you upload the plant, this might be a duplicate.</string>
+    <!-- view plant details: Question whether to open the map when there is an equal plant nearby -->
+    <string name="ask_open_map_before_upload">Would you like to check the map and cancel the upload?</string>
 
     <!-- ==============  Dialogs  ============== -->
     <!-- Dialogs: Dialog title -->
