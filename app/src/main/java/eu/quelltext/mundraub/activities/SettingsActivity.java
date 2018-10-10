@@ -579,7 +579,7 @@ public class SettingsActivity extends MundraubBaseActivity {
                     public void onSuccess() {
                         feedbackAboutSettingsChange(Settings.useOfflineMapAPI(true));
                         update();
-                        new Dialog(SettingsActivity.this).alertSuccess(R.string.success_offline_data_was_downloaded);
+                        new Dialog(SettingsActivity.this).alertSuccess(R.string.success_plant_offline_data_was_downloaded);
                     }
 
                     @Override

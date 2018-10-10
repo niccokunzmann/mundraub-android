@@ -464,7 +464,7 @@
     <!-- settings: dialog question: download offline data -->
     <string name="ask_download_offline_data">Would you like to update the offline data now?</string>
     <!-- settings: dialog success: download offline data -->
-    <string name="success_offline_data_was_downloaded">All data to go offline was downloaded.</string>
+    <string name="success_plant_offline_data_was_downloaded">All selected plants markers are downloaded.</string>
     <!-- settings: dialog error: download offline data -->
     <string name="error_debug_api_can_not_download_offline_data">The debug API can not download offline data. Please use the Mundraub API at the bottom of the settings.</string>
     <!-- settings:  -->
