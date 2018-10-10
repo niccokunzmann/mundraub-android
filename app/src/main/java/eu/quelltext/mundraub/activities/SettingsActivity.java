@@ -248,10 +248,12 @@ public class SettingsActivity extends MundraubBaseActivity {
                 @Override
                 public void onSuccess() {
                     onDone();
+                    new Dialog(SettingsActivity.this).alertSuccess(R.string.settings_success_download_map);
                 }
                 @Override
                 public void onFailure(int errorResourceString) {
                     onDone();
+                    new Dialog(SettingsActivity.this).alertError(errorResourceString);
                 }
             });
         }
