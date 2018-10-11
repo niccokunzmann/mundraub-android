@@ -120,14 +120,6 @@ public class PlantDetailFragment extends Fragment {
         if (plant != null && rootView != null && context != null) {
             updateInfosFromPlant();
             updateOnlineActivities();
-            updateButton(R.id.button_edit, doublePane, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, NewPlantActivity.class);
-                    intent.putExtra(NewPlantActivity.ARG_PLANT_ID, plant.getId());
-                    context.startActivity(intent);
-                }
-            });
         }
     }
 
