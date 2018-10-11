@@ -6,8 +6,8 @@ android {
         applicationId "eu.quelltext.mundraub"
         minSdkVersion 9
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode 142
+        versionName "1.141"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
