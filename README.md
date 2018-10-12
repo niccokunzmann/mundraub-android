@@ -42,7 +42,7 @@ Contributions are welcome.
     - You can use [MatLog Libre] to retrieve the app log before and after a crash.
     
 
-You can view the [Setup Guide][setup] and [Contribution Guidelines].
+You can view the [Setup Guide][setup], [Contribution Guidelines] and the [documentation].
 
 Software Material List
 ----------------------
@@ -101,3 +101,4 @@ Languages:
 [Na-Ovoce.cz]: https://na-ovoce.cz/
 [FruitMap.org]: https://www.fruitmap.org/
 [MatLog Libre]: https://f-droid.org/en/packages/com.pluscubed.matloglibre/
+[documentation]: docs#readme
