@@ -16,6 +16,8 @@ If you think something should be documented and is not, open an issue.
     The app uses different sources for different locations in the world.
     This is because it crosses communities which are strong in one country or the other.
     Help us find communities and possible collaboration partners.
+- **[Style]**  
+    Guides you on how to apply the icon and the app colors.
 - **[Translations]**  
     This explains how we translate and how to manage translations.
 - **[Usage]**  
