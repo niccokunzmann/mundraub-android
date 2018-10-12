@@ -6,6 +6,17 @@
 set -e
 
 cd "`dirname \"$0\"`"
-# credits to https://stackoverflow.com/a/1252191/1320237
-sed -i -e ':a' -e 'N' -e '$!ba' -e 's/\n\(\s*\)/ \1/g' ../fastlane/metadata/android/**/full_description.txt
+for language_directory in ../metadata/**; do
+  if [ ! -e "$language_directory" ]; then
+    echo "ERROR: $language_directory does not exist."
+    exit 1
+  elif [ ! -L "$language_directory" ]; then
+    # credits to https://stackoverflow.com/a/1252191/1320237
+    file="$language_directory/full_description.txt"
+    if [ -f "$file" ]; then
+      echo "Prepare description for F-Droid in $file"
+      sed -i -e ':a' -e 'N' -e '$!ba' -e 's/\n\(\s*\)/ \1/g' "$file"
+    fi
+  fi
+done
 
