@@ -9,16 +9,16 @@ source_lang = en
 type = ANDROID
 
 [mundraub-android-app.fdroid-short-description-txt]
-file_filter = fastlane/metadata/android/<lang>/short_description.txt
+file_filter = metadata/<lang>/short_description.txt
 minimum_perc = 100
-source_file = fastlane/metadata/android/en/short_description.txt
+source_file = metadata/en/short_description.txt
 source_lang = en
 type = TXT
 
 [mundraub-android-app.fdroid-full-description-txt]
-file_filter = fastlane/metadata/android/<lang>/full_description.txt
+file_filter = metadata/<lang>/full_description.txt
 minimum_perc = 50
-source_file = fastlane/metadata/android/en/full_description.txt
+source_file = metadata/en/full_description.txt
 source_lang = en
 type = TXT
 
@@ -30,8 +30,8 @@ source_lang = en
 type = REQUIREJS
 
 [mundraub-android-app.fdroid-title-txt]
-file_filter = fastlane/metadata/android/<lang>/title.txt
+file_filter = metadata/<lang>/title.txt
 minimum_perc = 100
-source_file = fastlane/metadata/android/en/title.txt
+source_file = metadata/en/title.txt
 source_lang = en
 type = TXT
