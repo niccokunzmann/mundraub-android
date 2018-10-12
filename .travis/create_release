@@ -28,7 +28,7 @@ tx pull --all --force --no-interactive
 (
   cd ..
   git add app/src/main/res/values*
-  git add fastlane
+  git add metadata
   git status
   git commit -m"$version: update languages" || true
 )
