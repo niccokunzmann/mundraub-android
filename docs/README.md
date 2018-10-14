@@ -23,9 +23,10 @@ If you think something should be documented and is not, open an issue.
 - **[Usage]**  
     This explains how to use the app and what features are built in.
 
-[API]: API.md
-[Categories]: categories.md
-[Setup]: setup.md
-[Sources]: sources.md
-[Usage]: usage.md
-[Translations]: translations.md
+[API]: api.md#readme
+[Categories]: categories.md#readme
+[Setup]: setup.md#readme
+[Sources]: sources.md#readme
+[Usage]: usage.md#readme
+[Translations]: translations.md#readme
+[Style]: style.md#readme
