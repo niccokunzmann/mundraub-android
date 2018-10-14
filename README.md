@@ -91,7 +91,7 @@ Languages:
 [GitHub]: https://github.com/niccokunzmann/mundraub-android
 [World Imagery]: https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/
 [GINGERBREAD]: https://developer.android.com/guide/topics/manifest/uses-sdk-element#ApiLevels
-[map]: https://rawgit.com/niccokunzmann/mundraub-android/master/app/src/main/assets/map/examples/fullScreen.html
+[map]: https://niccokunzmann.github.io/mundraub-android/app/src/main/assets/map/examples/fullScreen.html
 [issues]: https://github.com/niccokunzmann/mundraub-android/issues
 [tx]: https://www.transifex.com/mundraub-android/mundraub-android-app/
 [setup]: docs/setup.md
