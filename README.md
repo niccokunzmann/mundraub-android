@@ -32,7 +32,13 @@ Contributions are welcome.
 
 - We use [Transifex][tx] to translate the app to your language.
   If you like to have your language included, please open an issue and translate yourself :)
-- We use [Android Studio] to develop the app. If you like, you can start development with [small issues. ![][first-issues-image]][first-issues]
+- We use [Android Studio] to develop the app. If you like, you can start development with [small issues. ![][first-issues-image]][first-issues].  
+    You do not need to ask if you can work on it. You can just start -
+    this app is free software so you can change it whenever you like.  
+    That might be helpful in the process: 
+    - If you leave a comment, others will know, can support you and no duplicate work is done.
+    - If you start a pull request as soon as possible, we can support you, read the code and Travis checks your code for free.
+        Earlier feedback, faster development.
 - Feedback is welcome, please open an [issue][issues].
   - Crash: 
     - You can report a debug log file if you gave EXTERNAL_STORAGE permissions or use logcat to retrieve the log.
