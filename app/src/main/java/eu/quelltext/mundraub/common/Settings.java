@@ -133,10 +133,10 @@ public class Settings {
     }
 
     /* persistent variables for the settings
-     * If you like to add new settings, please see useInsecureConnections
-     * as an example for where these are used.
-     * Here is an example commit ce993038e703548156f31c46b1fb30d38c9d2bc9:
-     * https://github.com/niccokunzmann/mundraub-android/commit/ce993038e703548156f31c46b1fb30d38c9d2bc9
+     * If you like to add new settings, please see vibrateWhenPlantIsInRange
+     * as an example for where to add a new variable.
+     * Here is an example commit 1d8bf40aa68d71cd35eb65e0e25986f6a8a1913e:
+     * https://github.com/niccokunzmann/mundraub-android/commit/1d8bf40aa68d71cd35eb65e0e25986f6a8a1913e#diff-6cf4fcc1ccb27f70ca10a1b54612d568
      */
     private static String useAPIId = API_ID_MUNDRAUB;
     private static boolean useInsecureConnections = false;
