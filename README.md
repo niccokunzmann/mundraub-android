@@ -30,9 +30,9 @@ Contribute
 
 Contributions are welcome.
 
-- We use [Transifex][tx] to translate the app to your language.
-  If you like to have your language included, please open an issue and translate yourself :)
-- We use [Android Studio] to develop the app. If you like, you can start development with [small issues. ![][first-issues-image]][first-issues].  
+- If you like to have your language included, you can translate the app yourself on [Transifex][tx].
+  If your language is not included, we can include it. Please let us know in an [issue][issues].
+- We use [Android Studio] to develop the app. If you like, you can start development with [small issues. ![][first-issues-image]][first-issues]  
     You do not need to ask if you can work on it. You can just start -
     this app is free software so you can change it whenever you like.  
     That might be helpful in the process: 
