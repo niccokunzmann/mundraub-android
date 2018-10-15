@@ -23,10 +23,10 @@ Permission to access device storage allows the software read, modify or delete c
 
 The software also has some other capabilities which include;
 
-- Ability to have full network access which means the app is capable of creating network sockets and can use customized network protocols. This capability does not require the software to send data to the internet.
-- Control vibration: This app can control your device vibrator.
+- **Ability to have full network access**:which means the app is capable of creating network sockets and can use customized network protocols. This capability does not require the software to send data to the internet.
+- **Control vibration**: This app can control your device vibrator.
 
-The above permissions can be revoked at any time you desire, but revoking these permissions will cause the software to cease to function. These permissions work hand-in-hand simultaneously to ensure smooth operations and utilization of the software. This is privy to only users with devices running Android 6.0 upwards. <hr>
+The above permissions can be revoked at any time you desire, but revoking some of these permissions might cause the software to crash and some services of the software will cease to function. These permissions work hand-in-hand simultaneously to ensure smooth operations and utilization of the software. This is privy to only users with devices running Android 6.0 upwards. <hr>
 
 ## Crash reports sending
 
@@ -48,8 +48,8 @@ These websites are third party websites which house the plant database or plant 
 
 [Mundraub.org](https://mundraub.org/) collects your personal information only when you submit your data during registration. Read the company's [Privacy policy](https://mundraub.org/agb_datenschutz) 
 
-[Mundraub.org](https://mundraub.org/) and [Na-Ovoce.cz](https://na-ovoce.cz/) reveals text, position, images, email, username, category and password. They are also uploading platforms, so when you tell the app to upload/login/register, more data is uploaded to this platforms. The password is saved in the app.
-
+[Mundraub.org](https://mundraub.org/) and [Na-Ovoce.cz](https://na-ovoce.cz/) reveals text, position, images, email, username, category but not your password. The password is saved in the app and on the platform.
+They are also uploading platforms, so when you tell the app to upload/login/register, more data is uploaded to this platforms. 
 Other third-party tools used are;
 
 1. [OpenStreetMaps](https://openstreetmap.org/). This service goes into operation automatically as soon as the map opens. Read the company's [Privacy Policy](https://wiki.osmfoundation.org/wiki/Privacy_Policy)
@@ -61,7 +61,7 @@ Using these map services possibly reveals your position and certainly your IP ad
 
 ## Links To Other Sites
 
-Fruit Radar contains links to other services that are not directly operated by the developer. If you click on a third party service either in the app, you will be directed to that third party's site. 
+Fruit Radar contains links to other services that are not directly operated by the developer. If you click on a third party service either in the app, you will be directed to that third party's site and app.
 The developer has no control over and assumes no responsibility for the content, privacy policies or practices of any third party sites or services. <hr>
 
 ## Transfer Of Data
