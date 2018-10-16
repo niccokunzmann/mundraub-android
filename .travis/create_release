@@ -23,7 +23,7 @@ git commit -m"$version: set gradle version"
 
 echo "update the translations"
 git stash || true
-tx pull --all --force --no-interactive
+tx pull --all --force
 ./remove_spaces_from_description
 (
   cd ..
