@@ -16,6 +16,26 @@ Solution: If it is not described in the first line
 
 Commits referencing issues will turn up in the [release history].
 
+Examples chosen from the [commits]:
+- [fix broken map link](https://github.com/niccokunzmann/mundraub-android/commit/8506ed683d779b68af7757c1a51323d4ec5037e5)
+- [Update development process](https://github.com/niccokunzmann/mundraub-android/commit/602c29079e802f6ad446899f029f33d6b6b15fa5)
+- [remove duplicate edit button](https://github.com/niccokunzmann/mundraub-android/commit/09f95acbdca137341c4eaf8bd052357921c7d490)
+
+## Replacing a commit
+
+If you have made a commit you like to improve and it is the last one on the branch,
+you can use
+
+    git reset HEAD~
+
+to keep the files but remove the commit.
+
+    git add ...
+    git commit ...
+    git push -f ...
+
+will then create a new commit with a new message and push it to your branch.
+
 ## Pull Requests
 
 You can create a pull request in the following way.
@@ -60,3 +80,4 @@ You can create a pull request in the following way.
 [fork]: https://github.com/niccokunzmann/mundraub-android/fork
 [ssh with GitHub]: https://help.github.com/articles/connecting-to-github-with-ssh/
 [release history]: https://github.com/niccokunzmann/mundraub-android/releases
+[commits]: https://github.com/niccokunzmann/mundraub-android/commits/master
