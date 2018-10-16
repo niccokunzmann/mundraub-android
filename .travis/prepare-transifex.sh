@@ -14,7 +14,12 @@ if [ -z "$TRANSIFEX_PASSWORD" ]; then
   exit 1
 fi
 
-pip3 install --user --upgrade transifex-client || tx --version
+if ! pip3 install --user --upgrade transifex-client;
+then
+  echo "transifex-client installation failed but is ignored"
+  which tx
+  tx --version
+fi
 
 (
   echo "[https://www.transifex.com]"
