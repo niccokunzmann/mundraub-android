@@ -217,7 +217,12 @@ public class PlantListActivity extends MundraubBaseActivity {
             public void fillFromPlant(Plant plant) {
                 plant.setPictureToPlant(plantImage);
                 plantCategoryText.setText(plant.getCategory().getResourceId());
-                String textWithCount = Integer.toString(plant.getCount()) + "x " + plantCategoryText.getText().toString();
+                String textWithCount;
+                if(plant.getCount() <= 0){
+                    textWithCount = plantCategoryText.getText().toString();
+                } else {
+                    textWithCount = Integer.toString(plant.getCount()) + "x " + plantCategoryText.getText().toString();
+                }
                 plantCategoryText.setText(textWithCount);
                 itemView.setTag(plant);
                 itemView.setOnClickListener(mOnClickListener);
