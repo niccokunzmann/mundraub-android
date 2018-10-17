@@ -9,24 +9,19 @@ The objective of this policy document is to provide an open environment between 
 Permissions and access are simply the device permissions the software requires to function and the access enabling this permission grants.
 To function efficiently and effectively as developed and designed, Fruit Radar will require some device permissions. The permissions are;
 
-- **Camera**
+- **Camera**  
+  The enablement of the camera permission grants the app access to your device camera to take pictures and videos. 
+- **Location**  
+  When the location permission is enabled the software has access to your precise location(GPS and network-based).
+- **Storage**  
+  Permission to access device storage allows the software read, modify or delete contents of your SD card.  
+- **Ability to have full network access**  
+  which means the app is capable of creating network sockets and can use customized network protocols.
+  This capability does not require the software to send data to the internet.
+- **Control vibration**  
+  This app can control your device vibrator.
 
-The enablement of the camera permission grants the app access to your device camera to take pictures and videos. 
-
-- **Location**
-
-When the location permission is enabled the software has access to your precise location(GPS and network-based).
-
-- **Storage**
-
-Permission to access device storage allows the software read, modify or delete contents of your SD card. 
-
-The software also has some other capabilities which include;
-
-- **Ability to have full network access**:which means the app is capable of creating network sockets and can use customized network protocols. This capability does not require the software to send data to the internet.
-- **Control vibration**: This app can control your device vibrator.
-
-The above permissions can be revoked at any time you desire, but revoking some of these permissions might cause the software to crash and some services of the software will cease to function. These permissions work hand-in-hand simultaneously to ensure smooth operations and utilization of the software. This is privy to only users with devices running Android 6.0 upwards. <hr>
+The above permissions can be revoked at any time you desire, but revoking some of these permissions should not cause the software to crash and some services of the software will cease to function. These permissions work hand-in-hand simultaneously to ensure smooth operations and utilization of the software. This is privy to only users with devices running Android 6.0 upwards. <hr>
 
 ## Crash reports sending
 
