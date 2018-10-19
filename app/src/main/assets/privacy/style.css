@@ -1,0 +1,24 @@
+h1 {
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
+
+h3 {
+    margin: 0px;
+}
+
+a {
+    color: #28c119;
+    text-decoration: none;
+}
+
+hr {
+    border-color: #197b10;
+}
+
+body {
+    max-width: 40em;
+}
