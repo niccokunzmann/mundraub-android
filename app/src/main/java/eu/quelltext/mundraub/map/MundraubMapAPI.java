@@ -80,11 +80,14 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
         @Override
         public Response handle(IHTTPSession input) {
             if (wantsToServe(input)) {
+                Response response;
                 try {
-                    return respondTo(input);
+                    response = respondTo(input);
                 } catch (Exception e) {
-                    return handleError(e);
+                    response = handleError(e);
                 }
+                response.addHeader("Access-Control-Allow-Origin", "*"); // allow JavaScript to access the content
+                return response;
             }
             return null;
         }
@@ -127,7 +130,6 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
         public Response respondTo(IHTTPSession input) throws Exception {
             byte[] bytes = getResponseBytesFromPlantMarkerQuery(input.getQueryParameterString());
             Response result = Response.newFixedLengthResponse(Status.OK, "application/json", bytes);
-            result.addHeader("Access-Control-Allow-Origin", "*"); // allow JavaScript to access the content
             result.addHeader("Content-Type", "application/json; charset=UTF-8");
             return result;
         }
