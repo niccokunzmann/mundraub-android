@@ -154,6 +154,7 @@ public class Settings {
     private static int radarPlantRangeMeters = 150;
     private static int maximumZoomLevelForOfflineMap = 16;
     private static boolean downloadMapTilesForZoomLevelsLowerThanMaximum = true;
+    private static boolean userHasReadThePrivacyPolicy = false;
     private static BoundingBoxCollection offlineMapAreaBoundingBoxes = BoundingBoxCollection.empty();
 
     static {
@@ -188,6 +189,7 @@ public class Settings {
         log.d("radarPlantRangeMeters", radarPlantRangeMeters);
         log.d("maximumZoomLevelForOfflineMap", maximumZoomLevelForOfflineMap);
         log.d("downloadMapTilesForZoomLevelsLowerThanMaximum", downloadMapTilesForZoomLevelsLowerThanMaximum);
+        log.d("userHasReadThePrivacyPolicy", userHasReadThePrivacyPolicy);
         log.d("offlineMapAreaBoundingBoxes", offlineMapAreaBoundingBoxes.toJSONString());
         log.d("showCategories", showCategories.toString());
         log.d("downloadMarkersFromAPI", downloadMarkersFromAPI.toString());
@@ -213,6 +215,7 @@ public class Settings {
         radarPlantRangeMeters = preferences.getInt("radarPlantRangeMeters", radarPlantRangeMeters);
         maximumZoomLevelForOfflineMap = preferences.getInt("maximumZoomLevelForOfflineMap", maximumZoomLevelForOfflineMap);
         downloadMapTilesForZoomLevelsLowerThanMaximum = preferences.getBoolean("downloadMapTilesForZoomLevelsLowerThanMaximum", downloadMapTilesForZoomLevelsLowerThanMaximum);
+        userHasReadThePrivacyPolicy = preferences.getBoolean("userHasReadThePrivacyPolicy", userHasReadThePrivacyPolicy);
         offlineMapAreaBoundingBoxes = BoundingBoxCollection.fromJSONString(preferences.getString("offlineMapAreaBoundingBoxes", offlineMapAreaBoundingBoxes.toJSONString()));
         showCategories.load();
         downloadMarkersFromAPI.load();
@@ -246,6 +249,7 @@ public class Settings {
             editor.putInt("radarPlantRangeMeters", radarPlantRangeMeters);
             editor.putInt("maximumZoomLevelForOfflineMap", maximumZoomLevelForOfflineMap);
             editor.putBoolean("downloadMapTilesForZoomLevelsLowerThanMaximum", downloadMapTilesForZoomLevelsLowerThanMaximum);
+            editor.putBoolean("userHasReadThePrivacyPolicy", userHasReadThePrivacyPolicy);
             editor.putString("offlineMapAreaBoundingBoxes", offlineMapAreaBoundingBoxes.toJSONString());
             showCategories.saveTo(editor);
             downloadMarkersFromAPI.saveTo(editor);
@@ -553,4 +557,9 @@ public class Settings {
         return downloadMapTilesForZoomLevelsLowerThanMaximum;
     }
 
+    public static int setUserHasReadThePrivacyPolicy() {
+        userHasReadThePrivacyPolicy = true;
+        return commit();
+    }
+    
 }
