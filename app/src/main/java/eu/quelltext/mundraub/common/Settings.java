@@ -561,5 +561,15 @@ public class Settings {
         userHasReadThePrivacyPolicy = true;
         return commit();
     }
-    
+
+    public static boolean shouldAskTheUserToOpenThePrivacyPolicy() {
+        return !userHasReadThePrivacyPolicy;
+    }
+
+    public static int userDidNotWantToViewThePolicyOnStart() {
+        return setUserHasReadThePrivacyPolicy();
+    }
+
+
+
 }

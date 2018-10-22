@@ -130,7 +130,6 @@ public class Dialog {
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                onClose();
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
                         callback.yes();
@@ -139,6 +138,7 @@ public class Dialog {
                         callback.no();
                         break;
                 }
+                onClose();
             }
         };
         AlertDialog.Builder builder = Helper.getAlertBuilder(activity);;

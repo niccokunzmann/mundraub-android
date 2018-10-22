@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import eu.quelltext.mundraub.R;
+import eu.quelltext.mundraub.activities.map.ShowPlantsActivity;
 import eu.quelltext.mundraub.common.Dialog;
+import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.plant.Plant;
 
 public class StartupActivity extends MundraubBaseActivity {
@@ -17,6 +19,7 @@ public class StartupActivity extends MundraubBaseActivity {
     private boolean loaded = false;
     private int dialogs = 0;
     private boolean nextActivityOpened = false;
+    private Class nextActivity = ShowPlantsActivity.class;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,23 @@ public class StartupActivity extends MundraubBaseActivity {
             }
         };
         task.execute();
+
+        if (Settings.shouldAskTheUserToOpenThePrivacyPolicy()) {
+            new Dialog(this).askYesNo(
+                    R.string.reason_open_privacy_policy,
+                    R.string.question_open_privacy_policy,
+                    new Dialog.YesNoCallback() {
+                        @Override
+                        public void yes() {
+                            nextActivity = PrivacyPolicyActivity.class;
+                        }
+
+                        @Override
+                        public void no() {
+                            Settings.userDidNotWantToViewThePolicyOnStart();
+                        }
+                    });
+        }
     }
 
     private void openNextActivityIfPossible() {
@@ -51,7 +71,8 @@ public class StartupActivity extends MundraubBaseActivity {
             progressBar.setVisibility(View.INVISIBLE); // from https://stackoverflow.com/a/38472059
             if (dialogs == 0 && !nextActivityOpened) {
                 nextActivityOpened = true;
-                menuOpenMap();
+                log.d("nextActivity", nextActivity.getSimpleName());
+                openActivity(nextActivity);
             }
         }
     }
