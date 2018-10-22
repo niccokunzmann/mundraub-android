@@ -19,6 +19,9 @@
         android:id="@+id/item_settings"
         android:title="@string/menu_settings" />
     <item
+        android:id="@+id/item_privacy"
+        android:title="@string/menu_privacy" />
+    <item
         android:id="@+id/item_about"
         android:title="@string/menu_about" />
 </menu>

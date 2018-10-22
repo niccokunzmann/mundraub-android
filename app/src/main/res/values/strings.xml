@@ -331,16 +331,18 @@
     <string name="title_activity_show_plants">Map of Plants</string>
 
     <!-- ==============  Menu  ============== -->
-    <!-- Menu: entry of you open the app manu -->
+    <!-- Menu: entry to open the app manu -->
     <string name="menu_about">About</string>
-    <!-- Menu: entry of you open the app manu -->
+    <!-- Menu: entry to open the app manu -->
     <string name="menu_settings">Settings</string>
-    <!-- Menu: entry of you open the app manu -->
+    <!-- Menu: entry to open the app manu -->
     <string name="menu_map">Map</string>
-    <!-- Menu: entry of you open the app manu -->
+    <!-- Menu: entry to open the app manu -->
     <string name="menu_my_plants">My Plants</string>
-    <!-- Menu: entry of you open the app manu -->
+    <!-- Menu: entry to open the app manu -->
     <string name="menu_rules">Community Codex</string>
+    <!-- Menu: entry to open the Privacy Policy -->
+    <string name="menu_privacy">Privacy Policy</string>
 
     <!-- ==============  About the app  ============== -->
     <!-- About the app: Activity title -->

@@ -21,8 +21,7 @@
         <activity
             android:name=".activities.PlantListActivity"
             android:label="@string/title_my_plants"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".activities.PlantDetailActivity"
             android:label="@string/title_plant_detail"
@@ -61,13 +60,16 @@
         <activity
             android:name=".activities.map.SelectOfflineMapPartsActivity"
             android:label="@string/title_select_offline_areas" />
-        <activity android:name=".activities.StartupActivity"
+        <activity
+            android:name=".activities.StartupActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.PrivacyPolicyActivity"></activity>
     </application>
 
 </manifest>
