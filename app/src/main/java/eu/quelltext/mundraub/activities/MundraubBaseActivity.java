@@ -135,29 +135,33 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
         }
     }
 
-    protected void menuOpenMyPlants() {
-        Intent intent = new Intent(this, PlantListActivity.class);
+    protected void openActivity(Class activity) {
+        Intent intent = new Intent(this, activity);
         this.startActivity(intent);
+    }
+
+    protected void menuOpenMyPlants() {
+        openActivity(PlantListActivity.class);
     }
 
     protected void menuOpenSettings() {
-        Intent intent = new Intent(this, SettingsActivity.class);
-        this.startActivity(intent);
+        openActivity(SettingsActivity.class);
     }
 
     protected void menuOpenAbout() {
-        Intent intent = new Intent(this, AboutActivity.class);
-        this.startActivity(intent);
+        openActivity(AboutActivity.class);
     }
 
     protected void menuOpenMap() {
-        Intent intent = new Intent(this, ShowPlantsActivity.class);
-        this.startActivity(intent);
+        openActivity(ShowPlantsActivity.class);
     }
 
     protected void menuOpenPrivacyPolicy() {
-        Intent intent = new Intent(this, PrivacyPolicyActivity.class);
-        this.startActivity(intent);
+        openActivity(PrivacyPolicyActivity.class);
+    }
+
+    protected void menuOpenCommunityCodex() {
+        openActivity(CodexActivity.class);
     }
 
     @Override
@@ -170,11 +174,6 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
         log.d("openURLInBrowser", url);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(url));
-        startActivity(intent);
-    }
-
-    protected void menuOpenCommunityCodex() {
-        Intent intent = new Intent(this, CodexActivity.class);
         startActivity(intent);
     }
 
