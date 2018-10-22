@@ -581,9 +581,17 @@
     <string name="title_startup">Fruit Radar Starting ...</string>
     <!-- Startup: loading plants takes some time if there are many -->
     <string name="startup_loading_plants">Loading all plants ...</string>
+    <!-- Startup: When the privacy policy could possibly be of interest to the user: Tell them what its purpose is. -->
+    <string name="reason_open_privacy_policy">Next, you will see the map. Data will be sent to servers on the Internet. You can view the Privacy Policy first, to make sure you know what happens then.</string>
+    <!-- Startup: When the privacy policy could possibly be of interest to the user: Ask the users if they would like to view it. -->
+    <string name="question_open_privacy_policy">Would you like to open the Privacy Policy instead of the fruit map?</string>
+
 
     <!-- ==============  Choose Offline Areas  ============== -->
     <!-- Choose Offline Areas: Activity title. This is displayed when choosing offline areas. -->
     <string name="title_select_offline_areas">Choose Offline Map Areas</string>
+
+    <!-- ==============  Privacy Policy  ============== -->
+    <!-- Privacy Policy: Activity title. This is displayed when viewing the Privact Policy. -->
 
 </resources>
