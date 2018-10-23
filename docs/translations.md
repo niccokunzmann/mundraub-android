@@ -9,8 +9,20 @@ if works like this (roughly, please correct it when you do it)
 3. After you translated, it will be automatically included in new versions.
     If you cannot wait for it to be included, please open an issue.
 
-Guidelines
-----------
+Requesting Languages and Sharing Translations
+---------------------------------------------
+
+If you request a language e.g. German, you can request German `de`, German
+for Germany `de-DE` and, German auf Austria `de-AU`.
+
+Please translate the common part (`de`, `en`, `fr`, ...)
+before the contry specific language (`de-DE`, `en-US`, `fr-FR`, ...).
+As an example, if you translate to German `de`,
+you automatically share the translations with
+German for Germany `de-DE` and German for Austria `de-AU`.
+
+Priority List
+-------------
 
 Here is a priority list for translations:
 
