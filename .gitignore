@@ -10,3 +10,5 @@
 /tmp
 *.class
 /ENV
+/mundraub-debug.apk
+/mundraub-release-unsigned.apk
