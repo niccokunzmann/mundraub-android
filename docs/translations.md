@@ -19,6 +19,7 @@ Here is a priority list for translations:
 - descriptions and text
 - dialogs
 - error messages
+- privacy policy
 
 You can choose to translate the title to your language.
 
