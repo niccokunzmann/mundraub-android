@@ -22,6 +22,8 @@ If you think something should be documented and is not, open an issue.
     This explains how we translate and how to manage translations.
 - **[Usage]**  
     This explains how to use the app and what features are built in.
+- **[Privacy Policy]**  
+    This documents which data is shared with wich service.
 
 [API]: api.md#readme
 [Categories]: categories.md#readme
@@ -30,3 +32,4 @@ If you think something should be documented and is not, open an issue.
 [Usage]: usage.md#readme
 [Translations]: translations.md#readme
 [Style]: style.md#readme
+[Privacy Policy]: https://niccokunzmann.github.io/mundraub-android/app/src/main/assets/privacy/en.html
