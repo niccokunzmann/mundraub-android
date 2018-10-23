@@ -1,0 +1,14 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- NOTE: Translations are not done here but instead online on Transifex!
+         Open this link to translate the app to your language:
+         https://www.transifex.com/mundraub-android/mundraub-android-app/
+      -->
+    <!-- Universal app name. If you translate it, also translate it in the title.txt file. -->
+    <string name="app_name">Фруктовый Радар</string>
+
+    <!-- settings: fruit radar: section title -->
+    <string name="settings_fruit_radar">Фруктовый Радар</string>
+    <!-- ==============  Privacy Policy  ============== -->
+    <!-- Privacy Policy: Activity title. This is displayed when viewing the Privact Policy. -->
+
+</resources>
