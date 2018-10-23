@@ -1,0 +1,15 @@
+#!/bin/bash
+
+cd "`dirname \"$0\"`"
+
+values_directory='../app/src/main/res'
+
+for values in `ls "$values_directory" | grep -E 'values-[a-zA-Z]+_[a-zA-Z]+'`; do
+    source="$values_directory/$values"
+    # replace in string http://stackoverflow.com/questions/13210880/ddg#13210909
+    new_name="${values/_/-r}"
+    destination="$values_directory/$new_name"
+    echo "renaming $source to $destination"
+    mv "$source" "$destination"
+done
+

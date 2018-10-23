@@ -25,6 +25,7 @@ echo "update the translations"
 git stash || true
 tx pull --all --force
 ./remove_spaces_from_description
+./prepare_transifex_country_code_for_build
 (
   cd ..
   git add .
