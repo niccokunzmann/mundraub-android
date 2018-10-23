@@ -31,7 +31,7 @@ public class WebViewBaseActivity extends MundraubBaseActivity {
         webSettings.setDatabaseEnabled(true); // https://stackoverflow.com/a/8921072
         webSettings.setDomStorageEnabled(true); // https://stackoverflow.com/a/8921072
         webSettings.setGeolocationEnabled(true); // from https://stackoverflow.com/a/43384409/1320237
-        webSettings.setUserAgentString(webSettings.getUserAgentString() + " | language: " + Locale.getDefault().getLanguage()); // passthe user language from https://stackoverflow.com/a/9380140/1320237
+        webSettings.setUserAgentString(webSettings.getUserAgentString() + " | language: " + Locale.getDefault().getLanguage()); // pass the user language from https://stackoverflow.com/a/9380140/1320237
 
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
