@@ -35,3 +35,10 @@ minimum_perc = 100
 source_file = metadata/en/title.txt
 source_lang = en
 type = TXT
+
+[mundraub-android-app.privacy-policy-html]
+file_filter = app/src/main/assets/privacy/<lang>.html
+source_file = app/src/main/assets/privacy/en.html
+source_lang = en-US
+type = HTML
+
