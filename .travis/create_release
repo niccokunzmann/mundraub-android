@@ -27,8 +27,7 @@ tx pull --all --force
 ./remove_spaces_from_description
 (
   cd ..
-  git add app/src/main/res/values*
-  git add metadata
+  git add .
   git status
   git commit -m"$version: update languages" || true
 )
