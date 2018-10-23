@@ -1,4 +1,9 @@
 #!/bin/bash
+#
+# rename translations from transifex format
+# `values-de_DE` to `values-de-rDE`
+# see https://github.com/niccokunzmann/mundraub-android/issues/212#issuecomment-432326332
+#
 
 cd "`dirname \"$0\"`"
 
