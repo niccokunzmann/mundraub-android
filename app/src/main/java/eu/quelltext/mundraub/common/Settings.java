@@ -57,7 +57,7 @@ public class Settings {
 
     private static final String PLANT_STORAGE_DIRECTORY_NAME = "eu.quelltext.mundraub";
     public static final String INVALID_HASH = "0000000000000000000000000000000000000000";
-    public static final String COMMIT_HASH = INVALID_HASH;
+    public static final String COMMIT_HASH = "99dc43b369ed104becd70d807e79b1c0d6a55152";
     private static final String PERMISSION_PREFIX = "askForPermission_";
     public static int COMMIT_SUCCESSFUL = ChangeListener.SETTINGS_CAN_CHANGE;
 
