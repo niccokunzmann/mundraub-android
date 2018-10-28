@@ -10,12 +10,20 @@ function loadTranslationLanguage(language) {
     document.head.appendChild(script);
 }
 
-function getUserLanguage() {
+function getUserLocale() {
     // example to match from the WebView of the app:
     // "Mozilla/5.0 (Linux; U; Android 2.3.5; de-de; GT-I9001 Build/GINGERBREAD) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1 | language: en"
     var languageMatch = navigator.userAgent.match(/\|\s*language:\s*(\S+)$/);
     var locale = languageMatch == null ? navigator.language : languageMatch[1];
-    return locale.split("-")[0];
+    return locale;
+}
+
+function getUserLanguage() {
+    return getUserLocale().split("-")[0];
+}
+
+function getUserCountry() {
+    return getUserLocale().split("-")[1];
 }
 
 var language = getUserLanguage();
