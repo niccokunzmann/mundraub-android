@@ -30,9 +30,13 @@ public class PrivacyPolicyActivity extends WebViewBaseActivity {
         try {
             List<String> files = Arrays.asList(getAssets().list(PRIVACY_FOLDER));
             String language = Locale.getDefault().getLanguage();
-            String translatedFileName = language + ".html";
-            if (files.contains(translatedFileName)) {
-                fileName = translatedFileName;
+            String country = Locale.getDefault().getCountry();
+            String languageFileName = language.toLowerCase() + ".html";
+            String languageAndCountryFileName = language.toLowerCase() + "_" + country.toUpperCase() + ".html";
+            if (files.contains(languageAndCountryFileName)) {
+                fileName = languageAndCountryFileName;
+            } else if (files.contains(languageFileName)) {
+                fileName = languageFileName;
             }
         } catch (IOException e) {
             log.printStackTrace(e);
