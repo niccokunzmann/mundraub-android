@@ -59,6 +59,15 @@ The configuration for the Transifex translation platform is in the [.tx] folder.
     ```
 - [Transifex Github Integration](https://docs.transifex.com/integrations/github/)
 
+Resetting Changes by tx --pull
+------------------------------
+
+If you pulled translations and you would like to revert back to what was before that
+on git, make sure you did not edit something yourself. Then, execute
+
+    .tx/reset-changes
+
+Which either checks out files or removes them.
 
 [Transifex]: https://www.transifex.com/mundraub-android/mundraub-android-app/
 [.tx]: ../.tx
