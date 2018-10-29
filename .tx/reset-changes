@@ -1,0 +1,10 @@
+#!/bin/bash
+#
+# Reset the files changed e.g. by transifex.
+# Make sure you do not have changes yourself.
+#
+
+for file in `git status | grep -E 'app|metadata' | xargs -l sh -c 'if [ -z "$1" ]; then echo $0; else echo $1; fi'`; do
+  git checkout $file || rm -rf $file
+done
+git checkout .
