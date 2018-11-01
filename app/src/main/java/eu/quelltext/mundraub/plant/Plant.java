@@ -297,6 +297,14 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
         return false;
     }
 
+    public boolean isDefault() {
+        return  count == 0 &&
+                category == PlantCategory.NULL &&
+                description.equals("") &&
+                position.equals(Position.NULL) &&
+                picture == null;
+    }
+
     private Date createdAt() {
         ensureCreationDate();
         return creationDate;
