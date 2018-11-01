@@ -322,7 +322,7 @@ div.olControlSaveFeaturesItemInactive {
 }
 
 .olControlLayerSwitcher .layersDiv {
-    background: rgba(0, 60, 136, 0.7);
+    background: rgba(254, 193, 25, 0.7);
     border: rgba(255,255,255,0.4);
     border-width: 3px;
     border-style: solid;
@@ -467,17 +467,17 @@ div.olControlZoom .olButton, div.olControlTextButtonPanel .olButton {
     text-decoration: none;
     text-align: center;
     background: #130085; /* fallback for IE - IE6 requires background shorthand*/
-    background: rgba(0, 60, 136, 0.5);
+    background: rgba(254, 193, 25, 0.5);
     filter: alpha(opacity=80);
 }
 div.olControlZoom a:hover, div.olControlTextButtonPanel .olButton:hover {
     background: #130085; /* fallback for IE */
-    background: rgba(0, 60, 136, 0.7);
+    background: rgba(254, 193, 25, 0.7);
     filter: alpha(opacity=100);
 }
 @media only screen and (max-width: 600px) {
     div.olControlZoom a:hover, div.olControlTextButtonPanel .olButton:hover {
-        background: rgba(0, 60, 136, 0.5);
+        background: rgba(254, 193, 25, 0.5);
     }
 }
 a.olControlZoomIn {
