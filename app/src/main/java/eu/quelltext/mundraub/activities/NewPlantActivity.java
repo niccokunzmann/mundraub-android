@@ -130,7 +130,12 @@ public class NewPlantActivity extends MundraubBaseActivity {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                plant.save();
+                if (plant.isDefault()) {
+                    plant.delete();
+                    stopGPSUpdates();
+                } else {
+                    plant.save();
+                }
                 finish();
             }
         });
