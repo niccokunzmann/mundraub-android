@@ -131,7 +131,10 @@ public class NewPlantActivity extends MundraubBaseActivity {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                plant.save();
+                if (plant.isDefault())
+                    deletePlant();
+                else
+                    plant.save();
                 finish();
             }
         });
@@ -139,8 +142,7 @@ public class NewPlantActivity extends MundraubBaseActivity {
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                stopGPSUpdates();
-                plant.delete();
+                deletePlant();
                 finish();
             }
         });
@@ -200,6 +202,11 @@ public class NewPlantActivity extends MundraubBaseActivity {
         });
 
         updatePlantCount();
+    }
+
+    private void deletePlant() {
+        stopGPSUpdates();
+        plant.delete();
     }
 
     private void updatePlantCount() {
