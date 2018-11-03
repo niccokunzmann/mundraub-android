@@ -4,6 +4,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import eu.quelltext.mundraub.R;
@@ -15,6 +18,7 @@ import eu.quelltext.mundraub.plant.Plant;
 public class StartupActivity extends MundraubBaseActivity {
 
     private ProgressBar progressBar;
+    private ImageView rotateImage;
     private AsyncTask<Void, Void, Void> task;
     private boolean loaded = false;
     private int dialogs = 0;
@@ -30,6 +34,10 @@ public class StartupActivity extends MundraubBaseActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setIndeterminate(true);
         progressBar.setProgress(10);
+
+        rotateImage = (ImageView) findViewById(R.id.rotatelogo);
+        Animation startRotateAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.activity_startup_rotate_animation);
+        rotateImage.startAnimation(startRotateAnimation);
 
         task = new AsyncTask<Void, Void, Void>() {
 
@@ -68,6 +76,8 @@ public class StartupActivity extends MundraubBaseActivity {
 
     private void openNextActivityIfPossible() {
         if (loaded) {
+            rotateImage.clearAnimation();
+            rotateImage.setVisibility(View.INVISIBLE);
             progressBar.setVisibility(View.INVISIBLE); // from https://stackoverflow.com/a/38472059
             if (dialogs == 0 && !nextActivityOpened) {
                 nextActivityOpened = true;
