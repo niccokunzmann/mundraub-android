@@ -7,4 +7,7 @@
     <string name="mundraub_rule_3">O své objevy se dělíme s ostatními uživateli.</string>
     <!-- Community Codex: rule 4 -->
     <string name="mundraub_rule_4"> Zapojujeme se do údržby a výsadby nových ovocných stromů.</string>
-    </resources>
+    <!-- ==============  Privacy Policy  ============== -->
+    <!-- Privacy Policy: Activity title. This is displayed when viewing the Privact Policy. -->
+
+</resources>
