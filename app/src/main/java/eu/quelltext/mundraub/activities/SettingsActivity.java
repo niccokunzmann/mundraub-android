@@ -1,9 +1,12 @@
 package eu.quelltext.mundraub.activities;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.NotificationCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -105,10 +108,17 @@ public class SettingsActivity extends MundraubBaseActivity {
         protected abstract Progress getProgressOrNull();
     }
 
+    NotificationCompat.Builder notification;
+    private static final int uniqueID= 123;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        notification = new NotificationCompat.Builder(this);
+        notification.setAutoCancel(true);
+
         updateProgress = (ProgressBar) findViewById(R.id.update_progress);
         apiRadioGroup = (RadioGroup) findViewById(R.id.api_choice);
         textFruitRadarDistanceExplanation = (TextView) findViewById(R.id.text_distance_in_meters_explanation);
@@ -187,11 +197,56 @@ public class SettingsActivity extends MundraubBaseActivity {
             public void onClick(View v) {
                 if (!isDownloadingMap()) {
                     downloadMap();
+                    buttonStartMapDownloadClicked();
                 }
             }
         });
         updateProgressMap = (ProgressBar) findViewById(R.id.update_progress_map);
         updateMapOfflineButtons();
+
+    }
+
+    private void buttonStartMapDownloadClicked(){
+        notification.setSmallIcon(R.mipmap.ic_launcher);
+        notification.setTicker("Fruit Radar");
+        notification.setWhen(System.currentTimeMillis());
+        notification.setContentTitle("Offline map updated");
+        notification.setContentText("Download in progress!");
+
+        final int max_progress = 100;
+        int current_progress = 0;
+
+        notification.setProgress(max_progress, current_progress, false );
+
+        Intent intent= new Intent(this, SettingsActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        notification.setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(uniqueID, notification.build());
+
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+                int count=0;
+                try {
+                    while (count <= 100) {
+                        count = count + 10;
+                        sleep(1000);
+                        notification.setProgress(max_progress,count, false);
+                        NotificationManager notificationManager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                        notificationManager.notify(uniqueID, notification.build());
+                    }
+
+                    notification.setContentText("Download complete");
+                    notification.setProgress(0,0,false);
+                    NotificationManager notificationManager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                    notificationManager.notify(uniqueID, notification.build());
+                }catch (InterruptedException e){}
+            }
+        };
+
+        thread.start();
 
     }
 
