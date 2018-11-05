@@ -51,6 +51,8 @@ public class SettingsActivity extends MundraubBaseActivity {
     private RadioGroup apiRadioGroup;
     private TextView textFruitRadarDistanceExplanation;
     private EditText textFruitRadarDistance;
+	private EditText textMaxNumberOfMarkers;
+	private TextView textNumberOfMarkersExplanation;
     private Button buttonTestNotification;
     private Button buttonOpenOfflineAreaChoice;
     private Button buttonRemoveAreas;
@@ -132,6 +134,32 @@ public class SettingsActivity extends MundraubBaseActivity {
                 if (meters != Settings.getRadarPlantRangeMeters()) {
                     feedbackAboutSettingsChange(Settings.setRadarPlantRangeMeters(meters));
                     setFruitradarDistanceText();
+                }
+            }
+        });
+		textNumberOfMarkersExplanation = (TextView) findViewById(R.id.text_number_of_markers_explanation);
+        textMaxNumberOfMarkers = (EditText) findViewById(R.id.number_of_markers_displayed);
+        textMaxNumberOfMarkers.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+ 
+            }
+ 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+ 
+            }
+ 
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = textMaxNumberOfMarkers.getText().toString();
+                if (text.isEmpty()) {
+                    return;
+                }
+                int maxMarkers = Integer.parseInt(text);
+                if (maxMarkers != Settings.getMaximumDisplayedMarkers()) {
+                    feedbackAboutSettingsChange(Settings.setMaximumDisplayedMarkers(maxMarkers));
+                    setMaxNumberOfMarkersText();
                 }
             }
         });
@@ -269,6 +297,14 @@ public class SettingsActivity extends MundraubBaseActivity {
                         Settings.getRadarPlantRangeMeters()));
     }
 
+	@SuppressLint("StringFormatInvalid")
+    private void setMaxNumberOfMarkersText() {
+        textNumberOfMarkersExplanation.setText(
+                String.format(
+                        getString(R.string.settings_max_num_of_markers),
+                        Settings.getMaximumDisplayedMarkers()));
+    }
+	
     @Override
     protected void onResume() {
         super.onResume();
@@ -276,6 +312,8 @@ public class SettingsActivity extends MundraubBaseActivity {
         resumeProgressBars();
         setFruitradarDistanceText();
         textFruitRadarDistance.setText(Integer.toString(Settings.getRadarPlantRangeMeters()));
+		setMaxNumberOfMarkersText();
+		textMaxNumberOfMarkers.setText(Integer.toString(Settings.getMaximumDisplayedMarkers()));
         setOfflineMapStatisticsText();
     }
 
