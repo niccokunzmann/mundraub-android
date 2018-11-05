@@ -21,6 +21,7 @@ import eu.quelltext.mundraub.api.BackgroundDownloadTask;
 import eu.quelltext.mundraub.api.progress.Progress;
 import eu.quelltext.mundraub.api.progress.Progressable;
 import eu.quelltext.mundraub.common.Helper;
+import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.error.ErrorAware;
 import eu.quelltext.mundraub.error.Logger;
 import eu.quelltext.mundraub.initialization.Initialization;
