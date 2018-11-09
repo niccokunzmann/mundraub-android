@@ -8,13 +8,13 @@ These steps should prepare you for developing the app.
    The app is developed on [Android Studio].
    Please download and install it.
 2. **Install Git**  
-   While installing Android Studio, you can get the source code on [GitHub]. 
+   While installing Android Studio, get the source code on [GitHub]. 
    [Git] is used to develop the app in a distributed way.
    Please install [Git] or the [GitHub Desktop].
 3. **[Fork]** the repository to your GitHub Account.
 4. **Get the source code**  
    The code should appear automatically in GitHub Desktop.
-   If you use the command line client, you can clone the app like this:
+   If using the command line client, clone the app with this command:
    ```
    git clone https://github.com/YOUR_USER_NAME/mundraub-android.git
    ```
