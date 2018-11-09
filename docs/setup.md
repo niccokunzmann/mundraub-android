@@ -1,39 +1,39 @@
 # Setup
 
-This should prepare you for developing the app.
+These steps should prepare you for developing the app.
 
 ## Setup App Development
 
 1. **Install Android Studio**  
-   In order to develop the app, I use [Android Studio].
-   You can download and install it.
+   The app is developed on [Android Studio].
+   Please download and install it.
 2. **Install Git**  
-   While Android Studio installs, you can get the source code.
-   It is on [GitHub]. We use [Git] to develop the app in a distributed way.
+   While installing Android Studio, you can get the source code on [GitHub]. 
+   [Git] is used to develop the app in a distributed way.
    Please install [Git] or the [GitHub Desktop].
 3. **[Fork]** the repository to your GitHub Account.
 4. **Get the source code**  
-   It should appear automatically in GitHub Desktop.
+   The code should appear automatically in GitHub Desktop.
    If you use the command line client, you can clone the app like this:
    ```
    git clone https://github.com/YOUR_USER_NAME/mundraub-android.git
    ```
    Please replace `YOUR_USER_NAME` with your GitHub username.
 5. **Open the source code**  
-   Once Android Studio is installed, you can click on File → Open and navigate to the project.
+   Once Android Studio is installed, click on File → Open and navigate to the project.
 6. Now you are **ready to go**. You can change the source code and build the app!
-   Please view the [Contribution Guidelines] if you like to share your improvements or just
+   Please view the [Contribution Guidelines] if you would like to share your improvements or just
    submit them and we will talk.
 
 ## Translations
 
-You can always translate the app from English to your preferred language online on [Transifex].
-If you like to build the app with translations included, you can use the Transifex client to
+You can translate the app from English to your preferred language using [Transifex].
+To build the app with translations included, use the Transifex client and
 download all of them at once.
 
-Before you build the app, you can download the current translations to include them in the build and test
+Before building the app, download the current translations to include them in the build and test
 different layouts e.g. in German which uses the most space.
-To download the translations, you can follow these steps:
+To download the translations, follow the steps below:
 
 1. Install [Transifex client][tx-client].
 2. Go to the repository root
@@ -56,8 +56,7 @@ To display the map, you need a web browser like Firefox.
 
 Mundraub.org does not allow JavaScript access to the map
 directly because it does not set the `Access-Control-Allow-Origin`
-header.
-Thus, we need a proxy for this map.
+header therefore we need a proxy for this map.
 The proxy can be run with the [command `scripts/runHTTPProxy.sh`][script-proxy]
 You need `java` and `javac` for this.
 
