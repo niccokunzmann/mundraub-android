@@ -33,7 +33,7 @@ to keep the files but remove the commit.
     git commit ...
     git push -f ...
 
-will then create a new commit with a new message and push it to your branch.
+The above commands will then create a new commit with a new message and push it to your branch.
 
 ## Pull Requests
 
