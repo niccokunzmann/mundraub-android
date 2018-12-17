@@ -23,9 +23,9 @@ public class ChoosePlantTypeTest {
 
     @Test
     public void ViewDeleteLounchedWindow () throws Exception {
-        String PlantCategory = "Plant Category";
-        onView(withId(R.id.button_choose_plant_type)).perform(click());
-        onView(withText(PlantCategory)).check(matches(notNullValue()));
+        String Delete = "Plant Deleted";
+        onView(withId(R.id.button_cancel)).perform(click());
+        onView(withText(Delete)).check(matches(notNullValue()));
 
     }
 }
