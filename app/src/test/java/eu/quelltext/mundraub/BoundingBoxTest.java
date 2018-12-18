@@ -74,4 +74,61 @@ public class BoundingBoxTest {
         assertEquals(357, bbox.deltaLongitude(), 0.001);
         assertFalse(bbox.crosses180());
     }
+    
+        @Test
+    public void testSQLQueryString(){
+        BoundingBox bbox = BoundingBox.fromNESW(10, 179, -30, -178);
+        assertEquals(" ( 1 < 179.0 and 1 > -178.0 )  and  ( 1 > -30.0 and 1 < 10.0)", bbox.asSqlQueryString("1", "1"));
+        BoundingBox bbox2 = BoundingBox.fromNESW(10, -179, -30, 178);
+        assertEquals(" ( 1 < -179.0 or 1 > 178.0 )  and  ( 1 > -30.0 and 1 < 10.0)", bbox2.asSqlQueryString("1", "1"));
+    }
+
+    @Test
+    public void testDistanceBetweenPositions(){
+        BoundingBox bbox = BoundingBox.fromNESW(10, 179, -30, -178);
+        assertEquals(1116939.86090874, bbox.distanceInMetersBetween(new Position(0, 0), new Position(0, 10)));
+    }
+
+    @Test
+    public void testFromWestSouthEastNorthArray(){
+        String[]  strings = {"10.4", "12", "50", "-20.1"};
+        BoundingBox bbox = BoundingBox.fromWestSouthEastNorthArray(strings);
+        assertEquals(-20.1, bbox.northBorderLatitude());
+        assertEquals(12.0, bbox.southBorderLatitude());
+    }
+
+    @Test
+    public void testRadiusContains(){
+        Position position = new Position(0, 0);
+        BoundingBox radiusBoundingBox = RadiusBoundingBox.fromPositionAndRadius(position, 20.0);
+        assertEquals(true, radiusBoundingBox.contains(new Position(0, 0)));
+        assertEquals(false, radiusBoundingBox.contains(new Position(30, 20)));
+    }
+
+
+    @Test
+    public void testRadiusSQLQueryString(){
+        Position position = new Position(20, 22);
+        BoundingBox radiusBoundingBox = RadiusBoundingBox.fromPositionAndRadius(position, 20.0);
+        assertEquals(" ( 1 < 20.00017906067015 and 1 > 19.99982093932985 )  and  ( 1 > 21.99982093932986 and 1 < 22.00017906067014)", radiusBoundingBox.asSqlQueryString("1", "1"));
+        Position position2 = new Position(-20, 22);
+        BoundingBox radiusBoundingBox2 = RadiusBoundingBox.fromPositionAndRadius(position, 20.0);
+        assertEquals(" ( 1 < 20.00017906067015 and 1 > 19.99982093932985 )  and  ( 1 > 21.99982093932986 and 1 < 22.00017906067014)", radiusBoundingBox2.asSqlQueryString("1", "1"));
+
+    }
+
+
+    @Test
+    public void testRadiusLongitude(){
+        Position position = new Position(0, 2);
+        BoundingBox radiusBoundingBox = RadiusBoundingBox.fromPositionAndRadius(position, 20.0);
+        assertEquals(2.0, radiusBoundingBox.middle().getLatitude());
+    }
+
+    @Test
+    public void testRadiusLatitude(){
+        Position position = new Position(0, 2);
+        BoundingBox radiusBoundingBox = RadiusBoundingBox.fromPositionAndRadius(position, 20.0);
+        assertEquals(0.0, radiusBoundingBox.middle().getLongitude());
+    }
 }
