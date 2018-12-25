@@ -8,6 +8,8 @@
 
 set -e
 
+cd "`dirname \"$0\"`"
+
 if [ -z "$TRANSIFEX_PASSWORD" ]; then
   echo "Set the variable TRANSIFEX_PASSWORD to your API key from https://www.transifex.com/user/settings/api/"
   echo "Otherwise your translations can not be deployed."
