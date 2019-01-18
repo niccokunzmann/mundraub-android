@@ -86,6 +86,8 @@
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="thyme">Thym</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="other_herbs">Autre herbe</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="juniper">Genévrier</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="woodruff">Aspérule</string>
@@ -260,17 +262,16 @@
     <string name="title_activity_show_plants">Carte des Plantes</string>
 
     <!-- ==============  Menu  ============== -->
-    <!-- Menu: entry of you open the app manu -->
+    <!-- Menu: entry to open the app manu -->
     <string name="menu_about">À Propos</string>
-    <!-- Menu: entry of you open the app manu -->
+    <!-- Menu: entry to open the app manu -->
     <string name="menu_settings">Paramètres</string>
-    <!-- Menu: entry of you open the app manu -->
+    <!-- Menu: entry to open the app manu -->
     <string name="menu_map">Carte</string>
-    <!-- Menu: entry of you open the app manu -->
+    <!-- Menu: entry to open the app manu -->
     <string name="menu_my_plants">Mes plantes</string>
-    <!-- Menu: entry of you open the app manu -->
+    <!-- Menu: entry to open the app manu -->
     <string name="menu_rules">Codex Communautaire</string>
-
     <!-- ==============  About the app  ============== -->
     <!-- About the app: Activity title -->
     <string name="title_about">A propos</string>
@@ -373,8 +374,6 @@
     <string name="reason_offline_data_needs_to_be_downloaded">Pour avoir quelque chose qui s\'affiche hors-ligne, nous devons télécharger des données. Vous pouvez également utiliser ce qui est déjà stocké sur le téléphone.</string>
     <!-- settings: dialog question: download offline data -->
     <string name="ask_download_offline_data">Voulez-vous mettre à jour les données hors-ligne maintenant?</string>
-    <!-- settings: dialog success: download offline data -->
-    <string name="success_offline_data_was_downloaded">Toutes les données hors-ligne sont maintenant téléchargées.</string>
     <!-- settings: dialog error: download offline data -->
     <string name="error_debug_api_can_not_download_offline_data">L\'API de débogage ne peut pas télécharger les données hors connexion. Veuillez utiliser l\'API Mundraub au bas des paramètres.</string>
     <!-- settings:  -->
@@ -400,4 +399,7 @@
     <!-- Community Codex: url to open the community rules in a given language. This may change from as different platforms have different rules. -->
     <string name="rules_url">https://mundraub.org/mundraeuber-regeln</string>
 
-    </resources>
+    <!-- ==============  Privacy Policy  ============== -->
+    <!-- Privacy Policy: Activity title. This is displayed when viewing the Privact Policy. -->
+
+</resources>
