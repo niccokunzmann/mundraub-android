@@ -56,6 +56,7 @@ public class MapUrl {
         commonConfiguration();
     }
 
+    /* Return the Url as a string. */
     public String getUrl() {
         List<String> query = new ArrayList<>();
         for (Map.Entry<String, String> entry : configuration.entrySet()) {

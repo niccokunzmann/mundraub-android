@@ -17,6 +17,7 @@ import eu.quelltext.mundraub.plant.Plant;
 
 public class MapBaseActivity extends WebViewBaseActivity {
 
+    protected static String ARG_MAP_URL = "map-url";
     private MundraubProxy apiProxy;
 
     @Override
@@ -123,5 +124,22 @@ public class MapBaseActivity extends WebViewBaseActivity {
     @Override
     protected void menuOpenMap() {
         webView.reload();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // preserving the current url to reload the map
+        MapUrl url = getUrl();
+        outState.putString(ARG_MAP_URL, url.getUrl());
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        String url = savedInstanceState.getString(ARG_MAP_URL);
+        if (url != null) {
+            webView.loadUrl(url);
+        }
     }
 }
