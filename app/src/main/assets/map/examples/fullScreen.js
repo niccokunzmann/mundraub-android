@@ -39,7 +39,6 @@ function getLonLatFromPixel(xy) {
 }
 
 function setMarkerToPosition(lonlat) {
-    setPositionInURL(lonlat);
     try {
         marker.destroy();
     } catch (e) {
@@ -50,6 +49,11 @@ function setMarkerToPosition(lonlat) {
         markers.removeMarker(markers.markers[0]);
     }
     markers.addMarker(marker);
+    setConfigurationInURL();
+}
+
+function getMarkerPosition() {
+    return markerPositionToLonLat(marker.lonlat);
 }
 
 function setPositionInURL(lonlat) {
@@ -198,6 +202,7 @@ function onload() {
 
         map.events.register("moveend", map, function(e){
             // see https://gis.stackexchange.com/a/26619
+            center = markerPositionToLonLat(map.center);
             updatePlants();
             setConfigurationInURL();
         });

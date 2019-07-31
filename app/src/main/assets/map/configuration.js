@@ -3,10 +3,6 @@ onChangeSetPosition = function() {
     // defer lookup until function is loaded.
     setPosition();
 }
-setMarkerToCenter = function() {
-    // defer lookup until function is loaded.
-    setMarkerToPosition(center);
-}
 
 function onChangeRedrawAllBoundingBoxes() {
     // defer lookup until function is loaded.
@@ -27,20 +23,32 @@ function updateShowBoxes() {
     }
 }
 
-var configuration = {
-    "useBrowserGPS": true,
-};
-
 var queryHandlers = {
-    "lon": {
+    "centerLon": {
         "set": function(lon) { center.lon = parseFloat(lon); },
         "get": function() { return center.lon; },
-        "onchange": [onChangeSetPosition, setMarkerToCenter],
+        "onchange": [onChangeSetPosition],
     },
-    "lat": {
+    "centerLat": {
         "set": function(lat) { center.lat = parseFloat(lat); },
         "get": function() { return center.lat; },
-        "onchange": [onChangeSetPosition, setMarkerToCenter],
+        "onchange": [onChangeSetPosition],
+    },
+    "markerLon": {
+        "set": function(lon) {
+            var pos = getMarkerPosition();
+            pos.lon = parseFloat(lon);
+            setMarkerToPosition(pos);
+        },
+        "get": function() { return getMarkerPosition().lon; }
+    },
+    "markerLat": {
+        "set": function(lat) {
+            var pos = getMarkerPosition();
+            pos.lat = parseFloat(lat);
+            setMarkerToPosition(pos);
+        },
+        "get": function() { return getMarkerPosition().lat; }
     },
     "zoom": {
         "set": function(zoom_) { zoom = parseInt(zoom_); },
