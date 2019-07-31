@@ -22,16 +22,20 @@ public class MapUrl {
     private static final String CONFIG_BOXES = "boxes";
     private static final String CONFIG_EARTH_URL = "earthUrl";
     private static final String CONFIG_MAPNIK_URL = "mapnikUrl";
-    private static final String CONFIG_LAT = "lat";
-    private static final String CONFIG_LON = "lon";
+    private static final String CONFIG_CENTER_LAT = "centerLat";
+    private static final String CONFIG_CENTER_LON = "centerLon";
+    private static final String CONFIG_MARKER_LAT = "markerLat";
+    private static final String CONFIG_MARKER_LON = "markerLon";
     private static final String CONFIG_BROWSER_GPS = "browserGPS";
     private static final String CONFIG_CREATE_BOXES = "createBoxes";
     private Map<String, String> configuration = new HashMap<String, String>();
 
     public MapUrl(double longitude, double latitude) {
         commonConfiguration();
-        configuration.put("lon", Double.toString(longitude));
-        configuration.put("lat", Double.toString(latitude));
+        configuration.put(CONFIG_CENTER_LON, Double.toString(longitude));
+        configuration.put(CONFIG_CENTER_LAT, Double.toString(latitude));
+        configuration.put(CONFIG_MARKER_LON, Double.toString(longitude));
+        configuration.put(CONFIG_MARKER_LAT, Double.toString(latitude));
     }
 
     private void commonConfiguration() {
@@ -71,15 +75,21 @@ public class MapUrl {
     }
 
     public double getLatitude() {
-        return getDouble(CONFIG_LAT);
+        return getDouble(CONFIG_CENTER_LAT);
     }
 
     public double getLongitude() {
-        return getDouble(CONFIG_LON);
+        return getDouble(CONFIG_CENTER_LON);
     }
 
     public double getDouble(String name) {
-        return Double.parseDouble(getString(name));
+        String value = getString(name);
+        if (value != null) {
+            try {
+                return Double.parseDouble(value);
+            } catch (NumberFormatException e) {}
+        }
+        return Double.NaN;
     }
 
     public String getString(String name) {
@@ -87,7 +97,7 @@ public class MapUrl {
     }
 
     public boolean isValid() {
-        return configuration.containsKey(CONFIG_LON) && configuration.containsKey(CONFIG_LAT);
+        return configuration.containsKey(CONFIG_CENTER_LON) && configuration.containsKey(CONFIG_CENTER_LAT);
     }
 
     public MapUrl serveTilesFromLocalhost(int port) {

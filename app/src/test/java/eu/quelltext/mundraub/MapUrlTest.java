@@ -44,9 +44,9 @@ public class MapUrlTest {
     @Test
     public void testUrlIsOnlyValidWithLongitudeAndLatitude() {
         assertFalse(new MapUrl("?test=2&test=4").isValid());
-        assertFalse(new MapUrl("?lon=2&test=4").isValid());
-        assertFalse(new MapUrl("?lat=2&test=4").isValid());
-        assertTrue(new MapUrl("?lat=2&lon=4").isValid());
+        assertFalse(new MapUrl("?centerLon=2&test=4").isValid());
+        assertFalse(new MapUrl("?centerLat=2&test=4").isValid());
+        assertTrue(new MapUrl("?centerLat=2&centerLon=4").isValid());
     }
 
     @Test
@@ -99,6 +99,20 @@ public class MapUrlTest {
     public void testMapUrlHasNoBoundingBoxByDefault() {
         MapUrl mapUrl = new MapUrl("?");
         assertEquals(0, mapUrl.getOfflineAreaBoundingBoxes().size());
+    }
+
+    @Test
+    public void testMarkerPositionIsPositionFromConstructor() {
+        MapUrl mapUrl = new MapUrl(22, 33);
+        assertEquals(mapUrl.getDouble("markerLon"), 22, 0.1);
+        assertEquals(mapUrl.getDouble("markerLat"), 33, 0.1);
+    }
+
+    @Test
+    public void testCanGetDoubleFromUnsetValue() {
+        MapUrl mapUrl = new MapUrl("?test=asd");
+        assertTrue(Double.isNaN(mapUrl.getDouble("test")));
+        assertTrue(Double.isNaN(mapUrl.getDouble("test1")));
     }
 
 }
