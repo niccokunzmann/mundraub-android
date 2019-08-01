@@ -41,6 +41,7 @@ before_script:
 
 script:
 # build and test
+- ./scripts/generate-changelog.py
 - gradle build check
 - ./scripts/runHTTPProxy.sh --compile
 # use the build
