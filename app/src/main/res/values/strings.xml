@@ -343,6 +343,9 @@
     <string name="menu_rules">Community Codex</string>
     <!-- Menu: entry to open the Privacy Policy -->
     <string name="menu_privacy">Privacy Policy</string>
+    <!-- Menu: entry to open the Changelog -->
+    <string name="menu_changelog">Changelog</string>
+
 
     <!-- ==============  About the app  ============== -->
     <!-- About the app: Activity title -->
@@ -594,5 +597,9 @@
 
     <!-- ==============  Privacy Policy  ============== -->
     <!-- Privacy Policy: Activity title. This is displayed when viewing the Privact Policy. -->
+
+    <!-- ==============  Changelog  ============== -->
+    <!-- Changelog: Activity title. This is displayed when viewing the Changelog. -->
+    <string name="title_changelog">Changes in Fruit Radar</string>
 
 </resources>
