@@ -35,7 +35,7 @@ before_script:
 # install sdkman from https://sdkman.io/
 - curl -s "https://get.sdkman.io" | bash && source /home/travis/.sdkman/bin/sdkman-init.sh
 # install gradle of a specific version, from https://gradle.org/install/#with-a-package-manager
-- sdk install gradle 4.4
+- sdk install gradle 5.1.1
 # install the licenses
 - mkdir -p "$TRAVIS_SDK_PATH" && cp .travis/licenses.zip "$TRAVIS_SDK_PATH" && ( cd "$TRAVIS_SDK_PATH" && unzip licenses.zip && rm licenses.zip )
 
