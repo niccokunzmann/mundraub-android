@@ -23,8 +23,7 @@ Examples chosen from the [commits]:
 
 ## Replacing a commit
 
-If you have made a commit you like to improve and it is the last one on the branch,
-you can use
+If you have made a commit you would like to improve and it is the last one on the branch, use
 
     git reset HEAD~
 
@@ -34,11 +33,11 @@ to keep the files but remove the commit.
     git commit ...
     git push -f ...
 
-will then create a new commit with a new message and push it to your branch.
+The above commands will then create a new commit with a new message and push it to your branch.
 
 ## Pull Requests
 
-You can create a pull request in the following way.
+You can create a pull request by following the steps below.
 
 ### First time contribution
 
@@ -49,7 +48,7 @@ You can create a pull request in the following way.
     ```bash
     git clone https://github.com/YOURUSERNAME/mundraub-android.git
     ```
-    You can also use [ssh with GitHub], if you have generated a key.
+    Alternatively, use [ssh with GitHub], if you have generated a key.
     ```bash
     git clone git@github.com:YOURUSERNAME/mundraub-android.git
     ```

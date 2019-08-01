@@ -152,6 +152,7 @@ public class Settings {
     private static SynchronizedStringSet tilesToDownload = new SynchronizedStringSet("tilesToDownload", Arrays.asList(TILES_OSM));
     private static boolean useFruitRadarNotifications = false;
     private static int radarPlantRangeMeters = 150;
+	private static int maximumDisplayedMarkers = 100;
     private static int maximumZoomLevelForOfflineMap = 16;
     private static boolean downloadMapTilesForZoomLevelsLowerThanMaximum = true;
     private static boolean userHasReadThePrivacyPolicy = false;
@@ -187,6 +188,7 @@ public class Settings {
         log.d("vibrateWhenPlantIsInRange", vibrateWhenPlantIsInRange);
         log.d("useFruitRadarNotifications", useFruitRadarNotifications);
         log.d("radarPlantRangeMeters", radarPlantRangeMeters);
+		log.d("maximumDisplayedMarkers", maximumDisplayedMarkers);
         log.d("maximumZoomLevelForOfflineMap", maximumZoomLevelForOfflineMap);
         log.d("downloadMapTilesForZoomLevelsLowerThanMaximum", downloadMapTilesForZoomLevelsLowerThanMaximum);
         log.d("userHasReadThePrivacyPolicy", userHasReadThePrivacyPolicy);
@@ -212,6 +214,7 @@ public class Settings {
         debugMundraubMapAPI = preferences.getBoolean("debugMundraubMapAPI", debugMundraubMapAPI);
         vibrateWhenPlantIsInRange = preferences.getBoolean("vibrateWhenPlantIsInRange", vibrateWhenPlantIsInRange);
         useFruitRadarNotifications = preferences.getBoolean("useFruitRadarNotifications", useFruitRadarNotifications);
+		maximumDisplayedMarkers = preferences.getInt("maximumDisplayedMarkers", maximumDisplayedMarkers);
         radarPlantRangeMeters = preferences.getInt("radarPlantRangeMeters", radarPlantRangeMeters);
         maximumZoomLevelForOfflineMap = preferences.getInt("maximumZoomLevelForOfflineMap", maximumZoomLevelForOfflineMap);
         downloadMapTilesForZoomLevelsLowerThanMaximum = preferences.getBoolean("downloadMapTilesForZoomLevelsLowerThanMaximum", downloadMapTilesForZoomLevelsLowerThanMaximum);
@@ -246,6 +249,7 @@ public class Settings {
             editor.putBoolean("debugMundraubMapAPI", debugMundraubMapAPI);
             editor.putBoolean("vibrateWhenPlantIsInRange", vibrateWhenPlantIsInRange);
             editor.putBoolean("useFruitRadarNotifications", useFruitRadarNotifications);
+			editor.putInt("maximumDisplayedMarkers", maximumDisplayedMarkers);
             editor.putInt("radarPlantRangeMeters", radarPlantRangeMeters);
             editor.putInt("maximumZoomLevelForOfflineMap", maximumZoomLevelForOfflineMap);
             editor.putBoolean("downloadMapTilesForZoomLevelsLowerThanMaximum", downloadMapTilesForZoomLevelsLowerThanMaximum);
@@ -459,6 +463,15 @@ public class Settings {
     public static double getRadarPlantMaximumRangeMeters() {
         return getRadarPlantRangeMeters() + Settings.getRadarGPSPrecisionMeters() * 2;
     }
+	
+	public static int getMaximumDisplayedMarkers(){
+		return maximumDisplayedMarkers;
+	}
+	
+	public static int setMaximumDisplayedMarkers(int maxMarkers){
+		maximumDisplayedMarkers = maxMarkers;
+		return commit();
+	}
 
     public static int setRadarPlantRangeMeters(int meters) {
         radarPlantRangeMeters = meters;

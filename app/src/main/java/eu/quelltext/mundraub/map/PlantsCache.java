@@ -21,6 +21,7 @@ import eu.quelltext.mundraub.api.BackgroundDownloadTask;
 import eu.quelltext.mundraub.api.progress.Progress;
 import eu.quelltext.mundraub.api.progress.Progressable;
 import eu.quelltext.mundraub.common.Helper;
+import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.error.ErrorAware;
 import eu.quelltext.mundraub.error.Logger;
 import eu.quelltext.mundraub.initialization.Initialization;
@@ -37,7 +38,6 @@ public class PlantsCache extends ErrorAware {
     private static Context context;
     private static Logger.Log log = Logger.newFor("PlantsCache");
     private static Progress updateProgress;
-    private static final int MAXIMUM_MARKER_COUNT_TO_SERVE = 100;
     private static final int API_ID_EXAMPLE = 0;
     private static final int API_ID_MUNDRAUB = 1;
     private static final int API_ID_NA_OVOCE = 2;
@@ -84,7 +84,8 @@ public class PlantsCache extends ErrorAware {
             log.d("getPlantsInBoundingBox", "The total cursor count is " + cursor.getCount());
             List<Marker> result = new ArrayList<>();
             int max = cursor.getCount();
-            for (int i = 0; i < max && i < MAXIMUM_MARKER_COUNT_TO_SERVE; i++) {
+			int maxDisplayed = Settings.getMaximumDisplayedMarkers();
+            for (int i = 0; i < max && i < maxDisplayed; i++) {
                 cursor.moveToPosition(i);
                 Marker marker = Marker.fromCursor(cursor);
                 result.add(marker);

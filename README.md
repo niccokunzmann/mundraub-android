@@ -11,7 +11,7 @@ Mundraub-Android
 This is the Android app for [Mundraub.org] which allows you to store the found
 plants on the phone and upload them when an Internet connection is available.
 
-The API level is 9 so it runs on old mobile phones.
+The API level is 9 so the application can run on old mobile phones.
 
 [<img src="docs/images/link-to-screenshots.png" height="120"/>][screenshots]
 [View the screenshots][screenshots]
@@ -21,7 +21,7 @@ Download
 
 [<img src="https://f-droid.org/badge/get-it-on.png" height="75">][fdroid]
 
-You can download the latest version from GitHub
+The latest version can be downloaded from GitHub
 - [Download latest release](https://niccokunzmann.github.io/download_latest/mundraub-release-unsigned.apk)
 - [Download latest debug version](https://niccokunzmann.github.io/download_latest/mundraub-release-unsigned.apk)
 
@@ -29,26 +29,26 @@ Contribute
 ----------
 
 Contributions are welcome.
-
-- If you like to have your language included, you can translate the app yourself on [Transifex][tx].
-  If your language is not included, we can include it. Please let us know in an [issue][issues].
-- We use [Android Studio] to develop the app. If you like, you can start development with [small issues. ![][first-issues-image]][first-issues]  
-    You do not need to ask if you can work on it. You can just start -
-    this app is free software so you can change it whenever you like.  
-    That might be helpful in the process: 
-    - If you leave a comment, others will know, can support you and no duplicate work is done.
-    - If you start a pull request as soon as possible, we can support you, read the code and Travis checks your code for free.
-        Earlier feedback, faster development.
+ 
+- To add another supported language, translate the app on [Transifex][tx].
+  Suggestions on new languanges to support can be submitted through an [issue][issues].
+- The app is developed on [Android Studio] . We suggest starting development with [small issues. ![][first-issues-image]][first-issues]  
+    Permission is not necessary to begin working on the app -
+    The app is free software so anyone is able to modify it. 
+    Helpful tips for the developing process:
+    - leaving a comment allows others to support you and ensures no duplicate work is done.
+    - Start a pull request as soon as possible so the community can support you and Travis can check your code.
+        Earlier feedback means faster development.
 - Feedback is welcome, please open an [issue][issues].
   - Crash: 
-    - You can report a debug log file if you gave EXTERNAL_STORAGE permissions or use logcat to retrieve the log.
+    - Report a debug log file if you gave EXTERNAL_STORAGE permissions or use logcat to retrieve the log.
       If you gave permissions, you should be able to find it under `eu.quelltext.mundraub.log.txt`
       or `eu.quelltext.mundraub.error.txt`.
       The app (if starting) should point you to the file.
-    - You can use [MatLog Libre] to retrieve the app log before and after a crash.
+    - Use [MatLog Libre] to retrieve the app log before and after a crash.
     
 
-You can view the [Setup Guide][setup], [Contribution Guidelines] and the [documentation].
+Pease read the following pages: [Setup Guide][setup], [Contribution Guidelines] and the [documentation].
 
 Software Material List
 ----------------------

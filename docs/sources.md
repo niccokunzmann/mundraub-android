@@ -13,3 +13,4 @@ These are sources of plants on the planet which we could integrate:
   - https://www.concrete-jungle.org/food-map/
   - https://ernte-teilen.org/map#/
   - https://play.google.com/store/apps/details?id=com.adarley1.fruitmap&hl=en_US
+  - https://github.com/niccokunzmann/mundraub-android/issues/155#issuecomment-455379304

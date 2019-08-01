@@ -1,9 +1,12 @@
 package eu.quelltext.mundraub.activities;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.NotificationCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -51,6 +54,8 @@ public class SettingsActivity extends MundraubBaseActivity {
     private RadioGroup apiRadioGroup;
     private TextView textFruitRadarDistanceExplanation;
     private EditText textFruitRadarDistance;
+	private EditText textMaxNumberOfMarkers;
+	private TextView textNumberOfMarkersExplanation;
     private Button buttonTestNotification;
     private Button buttonOpenOfflineAreaChoice;
     private Button buttonRemoveAreas;
@@ -105,10 +110,17 @@ public class SettingsActivity extends MundraubBaseActivity {
         protected abstract Progress getProgressOrNull();
     }
 
+    NotificationCompat.Builder notification;
+    private static final int uniqueID= 123;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        notification = new NotificationCompat.Builder(this);
+        notification.setAutoCancel(true);
+
         updateProgress = (ProgressBar) findViewById(R.id.update_progress);
         apiRadioGroup = (RadioGroup) findViewById(R.id.api_choice);
         textFruitRadarDistanceExplanation = (TextView) findViewById(R.id.text_distance_in_meters_explanation);
@@ -132,6 +144,32 @@ public class SettingsActivity extends MundraubBaseActivity {
                 if (meters != Settings.getRadarPlantRangeMeters()) {
                     feedbackAboutSettingsChange(Settings.setRadarPlantRangeMeters(meters));
                     setFruitradarDistanceText();
+                }
+            }
+        });
+		textNumberOfMarkersExplanation = (TextView) findViewById(R.id.text_number_of_markers_explanation);
+        textMaxNumberOfMarkers = (EditText) findViewById(R.id.number_of_markers_displayed);
+        textMaxNumberOfMarkers.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+ 
+            }
+ 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+ 
+            }
+ 
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = textMaxNumberOfMarkers.getText().toString();
+                if (text.isEmpty()) {
+                    return;
+                }
+                int maxMarkers = Integer.parseInt(text);
+                if (maxMarkers != Settings.getMaximumDisplayedMarkers()) {
+                    feedbackAboutSettingsChange(Settings.setMaximumDisplayedMarkers(maxMarkers));
+                    setMaxNumberOfMarkersText();
                 }
             }
         });
@@ -187,11 +225,56 @@ public class SettingsActivity extends MundraubBaseActivity {
             public void onClick(View v) {
                 if (!isDownloadingMap()) {
                     downloadMap();
+                    buttonStartMapDownloadClicked();
                 }
             }
         });
         updateProgressMap = (ProgressBar) findViewById(R.id.update_progress_map);
         updateMapOfflineButtons();
+
+    }
+
+    private void buttonStartMapDownloadClicked(){
+        notification.setSmallIcon(R.mipmap.ic_launcher);
+        notification.setTicker("Fruit Radar");
+        notification.setWhen(System.currentTimeMillis());
+        notification.setContentTitle("Offline map updated");
+        notification.setContentText("Download in progress!");
+
+        final int max_progress = 100;
+        int current_progress = 0;
+
+        notification.setProgress(max_progress, current_progress, false );
+
+        Intent intent= new Intent(this, SettingsActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        notification.setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(uniqueID, notification.build());
+
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+                int count=0;
+                try {
+                    while (count <= 100) {
+                        count = count + 10;
+                        sleep(1000);
+                        notification.setProgress(max_progress,count, false);
+                        NotificationManager notificationManager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                        notificationManager.notify(uniqueID, notification.build());
+                    }
+
+                    notification.setContentText("Download complete");
+                    notification.setProgress(0,0,false);
+                    NotificationManager notificationManager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                    notificationManager.notify(uniqueID, notification.build());
+                }catch (InterruptedException e){}
+            }
+        };
+
+        thread.start();
 
     }
 
@@ -269,6 +352,14 @@ public class SettingsActivity extends MundraubBaseActivity {
                         Settings.getRadarPlantRangeMeters()));
     }
 
+	@SuppressLint("StringFormatInvalid")
+    private void setMaxNumberOfMarkersText() {
+        textNumberOfMarkersExplanation.setText(
+                String.format(
+                        getString(R.string.settings_max_num_of_markers),
+                        Settings.getMaximumDisplayedMarkers()));
+    }
+	
     @Override
     protected void onResume() {
         super.onResume();
@@ -276,6 +367,8 @@ public class SettingsActivity extends MundraubBaseActivity {
         resumeProgressBars();
         setFruitradarDistanceText();
         textFruitRadarDistance.setText(Integer.toString(Settings.getRadarPlantRangeMeters()));
+		setMaxNumberOfMarkersText();
+		textMaxNumberOfMarkers.setText(Integer.toString(Settings.getMaximumDisplayedMarkers()));
         setOfflineMapStatisticsText();
     }
 
