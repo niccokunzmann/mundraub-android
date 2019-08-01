@@ -40,7 +40,7 @@ for commit in commits.split("\n"):
     <li>
                 <a href="https://github.com/niccokunzmann/mundraub-android/commit/{hash}"
                    class="date">{date}</a> -
-                <a class="author">{author}</a> -
+                <span class="author">{author}</span> -
                 {issues}
                 <p class="description">{description}</p>
             </li>
