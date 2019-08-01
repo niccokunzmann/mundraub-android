@@ -1,0 +1,13 @@
+{
+    "0383bca28f665c7e3f3efc6c808b247c41369e56": "Add that when the map is moved and the screen rotated, it does not go back to the marker but instead keeps the center stable."
+    ,"2a07b1a990f1cb7732f3576c0027bd1894081ac7": "Add that unused, empty plants are removed."
+    ,"47acd706316a136710432e3a15e011f8f2c4064f": "Change colors of buttons in map to fit app design."
+    ,"bcd1df609b385b3b4f891e657732ccdab878cabe": "Add country specific localization of the privacy policy."
+    ,"804d6359fb4e970532b34e7644f19a1c594885ff": "Add translations of the map."
+    ,"277897a4cafc4942ee0b177da444650a6acba78b": "Add Privacy Policy."
+    ,"898980aa3fdb00f89af54f3e8a70bdf2bf59fbad": "Add rotating icon at start."
+    ,"51582b89cc2987c10bdb7af7f55e741bdf570b30": "Add notification for download of markers."
+    ,"e2eea1f61033fe5dd0641ea544e4d70c8cfa749f": "Add maximum number of markers in Settings."
+    ,"00dfdc771b327444ed644b7b3f7aefdc2448f379": "Add changelog to app."
+}
+

@@ -35,12 +35,15 @@ before_script:
 # install sdkman from https://sdkman.io/
 - curl -s "https://get.sdkman.io" | bash && source /home/travis/.sdkman/bin/sdkman-init.sh
 # install gradle of a specific version, from https://gradle.org/install/#with-a-package-manager
-- sdk install gradle 4.4
+- sdk install gradle 5.1.1
 # install the licenses
-- mkdir -p "$TRAVIS_SDK_PATH" && cp .travis/licenses.zip "$TRAVIS_SDK_PATH" && ( cd "$TRAVIS_SDK_PATH" && unzip licenses.zip && rm licenses.zip )
+# see https://developer.android.com/studio/intro/update#download-with-gradle
+- mkdir -p "$TRAVIS_SDK_PATH"
+- printf "d56f5187479451eabf01fb78af6dfcb131a6481e\n8933bad161af4178b1185d1a37fbf41ea5269c55\n24333f8a63b6825ea9c5514f83c2829b004d1fee\n" > "$TRAVIS_SDK_PATH/android-sdk-license"
 
 script:
 # build and test
+- ./scripts/generate-changelog.py
 - gradle build check
 - ./scripts/runHTTPProxy.sh --compile
 # use the build

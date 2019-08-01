@@ -130,6 +130,9 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
             case R.id.item_privacy:
                 menuOpenPrivacyPolicy();
                 return true;
+            case R.id.item_changelog:
+                menuOpenChangelog();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -162,6 +165,10 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
 
     protected void menuOpenCommunityCodex() {
         openActivity(CodexActivity.class);
+    }
+
+    protected void menuOpenChangelog() {
+        openActivity(ChangelogActivity.class);
     }
 
     @Override
