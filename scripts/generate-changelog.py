@@ -20,6 +20,7 @@ def get_issue_links_from(commit_hash):
 command = ["git", "log", "--date=short", "--pretty=%H %ad %an"]
 commits = check_output(command)
 commits = commits.decode("UTF-8")
+current_hash = check_output(["git", "log", "--pretty=%H", "-1"]).decode("UTF-8").strip()
 
 with open(CHANGELOG_SOURCE, encoding="UTF-8") as f:
     changelog = json.load(f)
@@ -37,7 +38,8 @@ for commit in commits.split("\n"):
     if not description:
         continue
     content.append("""
-    <li>
+    <li id="{hash}" class="change">
+                <span class="new">NEW</span>
                 <a href="https://github.com/niccokunzmann/mundraub-android/commit/{hash}"
                    class="date">{date}</a> -
                 <span class="author">{author}</span> -
@@ -64,7 +66,10 @@ assert not changelog, "All descriptions in the changelog must be used."
 # generate output
 with open(CHANGELOG_OUTPUT, "w", encoding="UTF-8") as f:
     string_content = "\n        ".join(content)
-    f.write(skeleton.format(content=string_content))
+    f.write(skeleton.format(
+        content=string_content,
+        current_hash=current_hash,
+    ))
 
 print("changelog written to " + os.path.abspath(CHANGELOG_OUTPUT))
 

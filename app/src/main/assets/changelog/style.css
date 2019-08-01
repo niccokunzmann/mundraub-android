@@ -1,0 +1,12 @@
+
+.change.current .new {
+    padding: 0.3em;
+    border-radius: 1em;
+    border-color: #28c119;
+    border-style: solid;
+}
+
+.change.previous .new {
+    display: none;
+}
+
