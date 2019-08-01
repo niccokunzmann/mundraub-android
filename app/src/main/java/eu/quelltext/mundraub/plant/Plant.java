@@ -58,7 +58,10 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
                     lastPlant = plant;
                 }
             }
-            return lastPlant.getBestPositionForMap();
+            Position position = lastPlant.getBestPositionForMap();
+            if (position.isValid()) {
+                return position;
+            }
         }
         return Position.DEFAULT;
     }
