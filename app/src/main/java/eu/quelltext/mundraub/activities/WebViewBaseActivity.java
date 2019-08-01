@@ -1,7 +1,10 @@
 package eu.quelltext.mundraub.activities;
 
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.webkit.ConsoleMessage;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.GeolocationPermissions;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -52,10 +55,7 @@ public class WebViewBaseActivity extends MundraubBaseActivity {
         });
         webView.setWebViewClient(new WebViewClient() {
             public void onPageFinished(WebView view, String url) {
-                if (Build.VERSION.SDK_INT < 21) {
-                    // CookieSyncManager is deprecated since API level 21 https://stackoverflow.com/a/47913011
-                    android.webkit.CookieSyncManager.getInstance().sync(); // from https://stackoverflow.com/a/8390280
-                }
+                syncCookies();
             }
 
             @Override
@@ -70,6 +70,25 @@ public class WebViewBaseActivity extends MundraubBaseActivity {
                 return true;
             }
         });
+
+        // enable cookies for web view
+        // see https://stackoverflow.com/a/47868677/1320237
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            CookieManager.getInstance().setAcceptThirdPartyCookies(webView, true);
+        } else {
+            CookieManager.getInstance().setAcceptCookie(true);
+        }
+
+        // adding a builtin cookie manager
+        // see https://stackoverflow.com/a/18445563/1320237
+        webView.addJavascriptInterface(new LocalCookieManager(), "localCookieManager");
+    }
+
+    private void syncCookies() {
+        if (Build.VERSION.SDK_INT < 21) {
+            // CookieSyncManager is deprecated since API level 21 https://stackoverflow.com/a/47913011
+            android.webkit.CookieSyncManager.getInstance().sync(); // from https://stackoverflow.com/a/8390280
+        }
     }
 
     /* Handle the app opening an app internal url starting with app://
@@ -81,4 +100,47 @@ public class WebViewBaseActivity extends MundraubBaseActivity {
         return false;
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // see https://stackoverflow.com/a/2566660/1320237
+        CookieSyncManager.getInstance().stopSync();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // see https://stackoverflow.com/a/2566660/1320237
+        CookieSyncManager.getInstance().startSync();
+    }
+
+    public class LocalCookieManager {
+
+        @android.webkit.JavascriptInterface
+        public void setCookie(String name, String value) {
+            SharedPreferences settings = getState();
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString(name, value);
+            editor.commit();
+        }
+
+        @android.webkit.JavascriptInterface
+        public String getCookie(String name) {
+            SharedPreferences settings = getState();
+            return settings.getString(name, null);
+        }
+
+        @android.webkit.JavascriptInterface
+        public void deleteCookie(String name) {
+            SharedPreferences settings = getState();
+            SharedPreferences.Editor editor = settings.edit();
+            editor.remove(name);
+            editor.commit();
+        }
+
+        private SharedPreferences getState() {
+            return getSharedPreferences("Cookies", 0);
+        }
+
+    }
 }

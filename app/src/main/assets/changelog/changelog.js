@@ -2,28 +2,6 @@
  * See https://stackoverflow.com/a/6232366/1320237
  */
 
-function setCookie(name,value,days) {
-    // from https://stackoverflow.com/a/24103596/1320237
-    var expires = "";
-    if (days) {
-        var date = new Date();
-        date.setTime(date.getTime() + (days*24*60*60*1000));
-        expires = "; expires=" + date.toUTCString();
-    }
-    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
-}
-function getCookie(name) {
-    // from https://stackoverflow.com/a/24103596/1320237
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0;i < ca.length;i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1,c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-    }
-    return null;
-}
-
 function getAllCommits() {
     var elements = document.getElementsByClassName("change");
     var hashes = [];
@@ -50,10 +28,12 @@ function computeVersionHashes() {
     };
     if (!lastSeenVersion.id) {
         lastSeenVersion = thisVersion;
+        console.log("The changelog was never visited.");
     }
     if (thisVersion.id != lastSeenVersion.id) {
         previousVersion = lastSeenVersion;
         lastSeenVersion = thisVersion;
+        console.log("This version of the changelog was never seen.");
     }
     setCookie("lastSeenVersionId", lastSeenVersion.id);
     setCookie("lastSeenVersionHashes", lastSeenVersion.hashes);
@@ -66,11 +46,12 @@ function computeVersionHashes() {
 }
 
 window.addEventListener("load", function() {
-    hashes = computeVersionHashes();
+    var hashes = computeVersionHashes();
     hashes.current.forEach(function(currentHash) {
-        document.getElementById(currentHash).classList.add(
-            hashes.previous.includes(currentHash) ? "previous" : "current"
-        );
+        var cls = (hashes.previous && hashes.previous.includes(currentHash)) ? "previous" : "current";
+        document.getElementById(currentHash).className += " " + cls;
+        console.log(currentHash + " - " + cls);
     });
 });
+
 

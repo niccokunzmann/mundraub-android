@@ -1,12 +1,15 @@
 
-.change.current .new {
+.new {
+    display: none;
+}
+
+.current .new {
     padding: 0.3em;
     border-radius: 1em;
     border-color: #28c119;
+    color: #28c119;
     border-style: solid;
+    display: inline;
 }
 
-.change.previous .new {
-    display: none;
-}
 
