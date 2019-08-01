@@ -57,10 +57,17 @@ To display the map, you need a web browser like Firefox.
 Mundraub.org does not allow JavaScript access to the map
 directly because it does not set the `Access-Control-Allow-Origin`
 header therefore we need a proxy for this map.
-The proxy can be run with the [command `scripts/runHTTPProxy.sh`][script-proxy]
+The proxy can be run with the [command `scripts/runHTTPProxy.sh`][scripts]
 You need `java` and `javac` for this.
 
 Please the the [API] to know what the proxy provides.
+
+## Changelog
+
+The changelog resides in the [CHANGELOG] file.
+It is automatically generated to the [changelog] folder using
+the [command `scripts/generate-changelog.py`][scripts].
+You need Python 3 and the `python3` command for this.
 
 [tx-client]: https://docs.transifex.com/client/installing-the-client
 [Transifex]: https://www.transifex.com/mundraub-android/mundraub-android-app
@@ -74,4 +81,6 @@ Please the the [API] to know what the proxy provides.
 [map]: ../app/src/main/assets/map/
 [Android WebView]: https://developer.android.com/reference/android/webkit/WebView
 [API]: api.md
+[CHANGELOG]: ../CHANGELOG.json
+[changelog]: ../app/src/main/assets/changelog/
 
