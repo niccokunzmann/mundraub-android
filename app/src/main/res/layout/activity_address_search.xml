@@ -40,5 +40,13 @@
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
+        <TextView
+            android:id="@+id/text_seach_license"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:clickable="true"
+            android:text="@string/search_license" />
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

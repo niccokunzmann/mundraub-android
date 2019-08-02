@@ -609,4 +609,6 @@
     <string name="title_address_search">Find a Place</string>
     <!-- Address Search: Text of the search button. -->
     <string name="search_button">Search</string>
+    <!-- Address Search: Text displayed at the bottom containing the license of the searched data. -->
+    <string name="search_license">Data © OpenStreetMap contributors, ODbL 1.0.</string>
 </resources>
