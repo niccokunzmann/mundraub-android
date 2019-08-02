@@ -532,7 +532,7 @@
     <string name="settings_download_all_zoom_levels">I would like to be able to zoom out in offline mode. This also downloads the map tiles to zoom out and requires about one third of additional space.</string>
     <!-- settings: dialog message when all the map tiles are downloaded with success -->
     <string name="settings_success_download_map">All selected parts of the map have been downloaded and are now available offline.</string>
-	<!-- settings: max number of displayed makrers on map : text -->
+    <!-- settings: max number of displayed markers on map : text -->
     <string name="settings_max_num_of_markers" formatted="false">Maximum of <xliff:g example="100" id="maxMarkers">%1$d</xliff:g> markers will be displayed on map.</string>
 
     <!-- ==============  Community Codex  ============== -->
@@ -603,4 +603,7 @@
     <!-- Changelog: Activity title. This is displayed when viewing the Changelog. -->
     <string name="title_changelog">Changes in Fruit Radar</string>
 
+    <!-- ==============  Address Search  ============== -->
+    <!-- Address Search: Activity title. This is displayed when viewing the Address Search. -->
+    <string name="title_address_search">Find a Place</string>
 </resources>
