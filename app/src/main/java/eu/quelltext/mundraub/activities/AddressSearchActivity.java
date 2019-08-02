@@ -7,13 +7,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import eu.quelltext.mundraub.R;
-import eu.quelltext.mundraub.search.AddressSearch;
 import eu.quelltext.mundraub.search.AddressSearchResult;
 import eu.quelltext.mundraub.search.DummyAddressSearch;
+import eu.quelltext.mundraub.search.IAddressSearch;
 
 public class AddressSearchActivity extends MundraubBaseActivity implements AddressSearchResultFragment.SearchResultListener {
 
     private static final String OPEN_STREET_MAP_COPYRIGHT_URL = "https://osm.org/copyright";
+    private IAddressSearch addressSearch = new DummyAddressSearch();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +29,15 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
             }
         });
 
-        EditText searchText = (EditText) findViewById(R.id.search_address_text);
+        final EditText searchText = (EditText) findViewById(R.id.search_address_text);
         Button searchButton = (Button) findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                addressSearch.search(searchText.getText().toString());
             }
         });
+
     }
 
     @Override
@@ -44,7 +46,7 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
     }
 
     @Override
-    public void notifyAboutChanges(AddressSearch.Observer observer) {
-        new DummyAddressSearch().notifyAboutChanges(observer);
+    public void notifyAboutChanges(IAddressSearch.Observer observer) {
+        addressSearch.notifyAboutChanges(observer);
     }
 }

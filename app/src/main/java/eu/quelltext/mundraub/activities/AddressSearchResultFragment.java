@@ -10,8 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import eu.quelltext.mundraub.R;
-import eu.quelltext.mundraub.search.AddressSearch;
 import eu.quelltext.mundraub.search.AddressSearchResult;
+import eu.quelltext.mundraub.search.IAddressSearch;
 
 /**
  * A fragment representing a list of Items.
@@ -77,6 +77,6 @@ public class AddressSearchResultFragment extends Fragment {
      */
     public interface SearchResultListener {
         void onListFragmentInteraction(AddressSearchResult item);
-        void notifyAboutChanges(AddressSearch.Observer observer);
+        void notifyAboutChanges(IAddressSearch.Observer observer);
     }
 }

@@ -8,19 +8,19 @@ import android.widget.TextView;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.activities.AddressSearchResultFragment.SearchResultListener;
-import eu.quelltext.mundraub.search.AddressSearch;
 import eu.quelltext.mundraub.search.AddressSearchResult;
-import eu.quelltext.mundraub.search.EmptyAddressSearch;
+import eu.quelltext.mundraub.search.IAddressSearch;
+import eu.quelltext.mundraub.search.NullAddressSearch;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link eu.quelltext.mundraub.search.AddressSearchResult} and makes a call to the
  * specified {@link SearchResultListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class AddressSearchResultRecyclerViewAdapter extends RecyclerView.Adapter<AddressSearchResultRecyclerViewAdapter.ViewHolder> implements AddressSearch.Observer {
+public class AddressSearchResultRecyclerViewAdapter extends RecyclerView.Adapter<AddressSearchResultRecyclerViewAdapter.ViewHolder> implements IAddressSearch.Observer {
 
     private final SearchResultListener listener;
-    private AddressSearch addressSearch = new EmptyAddressSearch();
+    private IAddressSearch addressSearch = new NullAddressSearch();
 
     public AddressSearchResultRecyclerViewAdapter(SearchResultListener listener) {
         this.listener = listener;
@@ -45,7 +45,7 @@ public class AddressSearchResultRecyclerViewAdapter extends RecyclerView.Adapter
     }
 
     @Override
-    public void onNewSearchResults(AddressSearch addressSearch) {
+    public void onNewSearchResults(IAddressSearch addressSearch) {
         this.addressSearch = addressSearch;
         this.notifyDataSetChanged();
     }

@@ -1,6 +1,6 @@
 package eu.quelltext.mundraub.search;
 
-public class EmptyAddressSearch implements AddressSearch {
+public class NullAddressSearch implements IAddressSearch {
     @Override
     public void notifyAboutChanges(Observer observer) {
         observer.onNewSearchResults(this);
@@ -14,5 +14,9 @@ public class EmptyAddressSearch implements AddressSearch {
     @Override
     public int size() {
         return 0;
+    }
+
+    @Override
+    public void search(String text) {
     }
 }

@@ -1,6 +1,6 @@
 package eu.quelltext.mundraub.search;
 
-public interface AddressSearch {
+public interface IAddressSearch {
 
     void notifyAboutChanges(Observer observer);
 
@@ -8,7 +8,9 @@ public interface AddressSearch {
 
     int size();
 
+    void search(String text);
+
     interface Observer {
-        void onNewSearchResults(AddressSearch addressSearch);
+        void onNewSearchResults(IAddressSearch addressSearch);
     }
 }
