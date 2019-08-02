@@ -12,5 +12,6 @@ public interface IAddressSearch {
 
     interface Observer {
         void onNewSearchResults(IAddressSearch addressSearch);
+        void onSearchError(int errorId);
     }
 }

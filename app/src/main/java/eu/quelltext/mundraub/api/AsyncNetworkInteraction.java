@@ -21,6 +21,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.ResponseBody;
 
+/* This class is meant to be used as a subclass.
+ *
+ */
 public class AsyncNetworkInteraction extends ErrorAware {
     public final int TASK_SUCCEEDED = R.string.task_completed_successfully;
     public final int TASK_CANCELLED = R.string.task_was_cancelled;
@@ -77,7 +80,7 @@ public class AsyncNetworkInteraction extends ErrorAware {
     }
 
     protected abstract class AsyncOperation {
-        abstract int operate(Progress progress) throws ErrorWithExplanation;
+        protected abstract int operate(Progress progress) throws ErrorWithExplanation;
     }
 
     public static class ErrorWithExplanation extends Exception {

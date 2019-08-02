@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import eu.quelltext.mundraub.R;
+import eu.quelltext.mundraub.common.Dialog;
 import eu.quelltext.mundraub.search.AddressSearchResult;
 import eu.quelltext.mundraub.search.DummyAddressSearch;
 import eu.quelltext.mundraub.search.IAddressSearch;
@@ -48,5 +49,14 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
     @Override
     public void notifyAboutChanges(IAddressSearch.Observer observer) {
         addressSearch.notifyAboutChanges(observer);
+    }
+
+    @Override
+    public void onSearchError(int errorId) {
+        new Dialog(this).alertError(errorId);
+    }
+
+    @Override
+    protected void menuOpenAddressSearch() {
     }
 }

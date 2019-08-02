@@ -5,4 +5,9 @@ public class NullObserver implements IAddressSearch.Observer {
     public void onNewSearchResults(IAddressSearch addressSearch) {
 
     }
+
+    @Override
+    public void onSearchError(int errorId) {
+
+    }
 }

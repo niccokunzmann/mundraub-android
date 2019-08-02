@@ -78,5 +78,6 @@ public class AddressSearchResultFragment extends Fragment {
     public interface SearchResultListener {
         void onListFragmentInteraction(AddressSearchResult item);
         void notifyAboutChanges(IAddressSearch.Observer observer);
+        void onSearchError(int errorId);
     }
 }

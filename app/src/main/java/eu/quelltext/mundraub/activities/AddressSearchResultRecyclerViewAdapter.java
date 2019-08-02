@@ -50,6 +50,11 @@ public class AddressSearchResultRecyclerViewAdapter extends RecyclerView.Adapter
         this.notifyDataSetChanged();
     }
 
+    @Override
+    public void onSearchError(int errorId) {
+        listener.onSearchError(errorId);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mContentView;
