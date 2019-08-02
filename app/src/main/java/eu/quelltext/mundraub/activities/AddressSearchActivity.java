@@ -5,9 +5,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import eu.quelltext.mundraub.R;
-import eu.quelltext.mundraub.activities.dummy.DummyContent;
+import eu.quelltext.mundraub.search.AddressSearchResult;
 
-public class AddressSearchActivity extends MundraubBaseActivity implements AddressSearchResultFragment.OnListFragmentInteractionListener {
+public class AddressSearchActivity extends MundraubBaseActivity implements AddressSearchResultFragment.SearchResultListener {
 
     private static final String OPEN_STREET_MAP_COPYRIGHT_URL = "https://osm.org/copyright";
 
@@ -26,7 +26,7 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
     }
 
     @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+    public void onListFragmentInteraction(AddressSearchResult item) {
 
     }
 }

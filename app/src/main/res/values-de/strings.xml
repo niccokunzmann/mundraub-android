@@ -266,7 +266,7 @@
     <string name="error_no_plant_id">Der Server hat nicht mit einer Pflanzen-ID geantwortet. Schau besser selbst online, was los ist.</string>
     <!-- API errors and results: Probably no internet connection. -->
     <string name="error_unknown_hostname">Der Name des Servers konnte nicht aufgelöst werden. Deswegen konnte ich mich nicht verbinden.</string>
-    <!-- API errors and results: Mundraub also posts the address. This could also be shown on the map if we habe an addesss search there. -->
+    <!-- API errors and results: Mundraub also posts the address. This could also be shown on the map if we habe an address search there. -->
     <string name="error_could_not_parse_open_street_map_data">Ich konnte keine Adresse für die Pflanze von OpenStreetMap.org erhalten.</string>
     <!-- API errors and results: IOException in the connection when we try to see if the plant exists on Mundraub.org. -->
     <string name="error_count_not_check_plant">Ich konnte den Server nicht fragen, ob die Pflanze existiert.</string>

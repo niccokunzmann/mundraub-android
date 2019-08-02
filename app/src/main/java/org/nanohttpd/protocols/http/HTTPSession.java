@@ -504,7 +504,7 @@ public class HTTPSession implements IHTTPSession {
         int new_bytes = first_fill - boundary.length;
 
         do {
-            // Search the search_window
+            // AddressSearch the search_window
             for (int j = 0; j < new_bytes; j++) {
                 for (int i = 0; i < boundary.length; i++) {
                     if (search_window[j + i] != boundary[i])

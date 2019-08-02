@@ -283,7 +283,7 @@
     <string name="error_no_plant_id">The server did not respond with a plant id. Have a look on-line at what happened.</string>
     <!-- API errors and results: Probably no internet connection. -->
     <string name="error_unknown_hostname">Could not resolve the host name and thus could not connect to the server. Please check your Internet connection.</string>
-    <!-- API errors and results: Mundraub also posts the address. This could also be shown on the map if we habe an addesss search there. -->
+    <!-- API errors and results: Mundraub also posts the address. This could also be shown on the map if we have an address search there. -->
     <string name="error_could_not_parse_open_street_map_data">Could not get the address from OpenStreetMap.</string>
     <!-- API errors and results: IOException in the connection when we try to see if the plant exists on Mundraub.org. -->
     <string name="error_count_not_check_plant">Could not ask the server if the plant exists.</string>
@@ -604,11 +604,11 @@
     <!-- Changelog: Activity title. This is displayed when viewing the Changelog. -->
     <string name="title_changelog">Changes in Fruit Radar</string>
 
-    <!-- ==============  Address Search  ============== -->
-    <!-- Address Search: Activity title. This is displayed when viewing the Address Search. -->
+    <!-- ==============  Address AddressSearch  ============== -->
+    <!-- Address AddressSearch: Activity title. This is displayed when viewing the Address AddressSearch. -->
     <string name="title_address_search">Find a Place</string>
-    <!-- Address Search: Text of the search button. -->
+    <!-- Address AddressSearch: Text of the addressSearch button. -->
     <string name="search_button">Search</string>
-    <!-- Address Search: Text displayed at the bottom containing the license of the searched data. -->
+    <!-- Address AddressSearch: Text displayed at the bottom containing the license of the searched data. -->
     <string name="search_license">Data © OpenStreetMap contributors, ODbL 1.0.</string>
 </resources>

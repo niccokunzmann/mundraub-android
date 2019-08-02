@@ -11,13 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import eu.quelltext.mundraub.R;
-import eu.quelltext.mundraub.activities.dummy.DummyContent;
-import eu.quelltext.mundraub.activities.dummy.DummyContent.DummyItem;
+import eu.quelltext.mundraub.search.AddressSearchResult;
+import eu.quelltext.mundraub.search.DummyAddressSearch;
 
 /**
  * A fragment representing a list of Items.
  * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
+ * Activities containing this fragment MUST implement the {@link SearchResultListener}
  * interface.
  */
 public class AddressSearchResultFragment extends Fragment {
@@ -26,7 +26,7 @@ public class AddressSearchResultFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
-    private OnListFragmentInteractionListener mListener;
+    private SearchResultListener mListener;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -68,7 +68,7 @@ public class AddressSearchResultFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new AddressSearchResultRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new AddressSearchResultRecyclerViewAdapter(new DummyAddressSearch(), mListener));
         }
         return view;
     }
@@ -77,11 +77,11 @@ public class AddressSearchResultFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof SearchResultListener) {
+            mListener = (SearchResultListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
+                    + " must implement SearchResultListener");
         }
     }
 
@@ -101,8 +101,8 @@ public class AddressSearchResultFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnListFragmentInteractionListener {
+    public interface SearchResultListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(AddressSearchResult item);
     }
 }

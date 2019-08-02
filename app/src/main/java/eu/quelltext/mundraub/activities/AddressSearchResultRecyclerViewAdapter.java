@@ -6,25 +6,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.List;
-
 import eu.quelltext.mundraub.R;
-import eu.quelltext.mundraub.activities.AddressSearchResultFragment.OnListFragmentInteractionListener;
-import eu.quelltext.mundraub.activities.dummy.DummyContent.DummyItem;
+import eu.quelltext.mundraub.activities.AddressSearchResultFragment.SearchResultListener;
+import eu.quelltext.mundraub.search.AddressSearch;
+import eu.quelltext.mundraub.search.AddressSearchResult;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
+ * {@link RecyclerView.Adapter} that can display a {@link eu.quelltext.mundraub.search.AddressSearchResult} and makes a call to the
+ * specified {@link SearchResultListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class AddressSearchResultRecyclerViewAdapter extends RecyclerView.Adapter<AddressSearchResultRecyclerViewAdapter.ViewHolder> {
+public class AddressSearchResultRecyclerViewAdapter extends RecyclerView.Adapter<AddressSearchResultRecyclerViewAdapter.ViewHolder> implements AddressSearch.Observer {
 
-    private final List<DummyItem> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final AddressSearch addressSearch;
+    private final SearchResultListener mListener;
 
-    public AddressSearchResultRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
+    public AddressSearchResultRecyclerViewAdapter(AddressSearch addressSearch, SearchResultListener listener) {
+        this.addressSearch = addressSearch;
         mListener = listener;
+        addressSearch.notifyAboutChanges(this);
     }
 
     @Override
@@ -36,43 +36,49 @@ public class AddressSearchResultRecyclerViewAdapter extends RecyclerView.Adapter
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
-            }
-        });
+        holder.bind(position);
     }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return addressSearch.size();
+    }
+
+    @Override
+    public void onNewSearchResults(AddressSearch addressSearch) {
+        this.notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public AddressSearchResult mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
             mContentView = (TextView) view.findViewById(R.id.content);
         }
 
         @Override
         public String toString() {
             return super.toString() + " '" + mContentView.getText() + "'";
+        }
+
+        public void bind(int position) {
+            mItem = addressSearch.get(position);
+            mContentView.setText(mItem.getDisplayName());
+
+            mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (null != mListener) {
+                        // Notify the active callbacks interface (the activity, if the
+                        // fragment is attached to one) that an item has been selected.
+                        mListener.onListFragmentInteraction(mItem);
+                    }
+                }
+            });
         }
     }
 }

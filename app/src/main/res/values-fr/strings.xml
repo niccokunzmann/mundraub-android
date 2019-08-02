@@ -217,7 +217,7 @@
     <string name="error_could_not_post_plant">La plante n\'a pas pu être publiée car le serveur a rejeté les données.</string>
     <!-- API errors and results:  -->
     <string name="error_no_plant_id">Le serveur n\'a pas répondu une ID de plante. Vérifiez en ligne ce qu\'il s\'est passé.</string>
-    <!-- API errors and results: Mundraub also posts the address. This could also be shown on the map if we habe an addesss search there. -->
+    <!-- API errors and results: Mundraub also posts the address. This could also be shown on the map if we habe an address search there. -->
     <string name="error_could_not_parse_open_street_map_data">Impossible de récupérer l\'adresse d\' OpenStreetMap.</string>
     <!-- API errors and results: IOException in the connection when we try to see if the plant exists on Mundraub.org. -->
     <string name="error_count_not_check_plant">Impossible de demander au serveur si la plante existe.</string>
