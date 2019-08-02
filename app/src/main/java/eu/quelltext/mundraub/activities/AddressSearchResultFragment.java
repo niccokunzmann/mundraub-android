@@ -3,7 +3,6 @@ package eu.quelltext.mundraub.activities;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,8 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import eu.quelltext.mundraub.R;
+import eu.quelltext.mundraub.search.AddressSearch;
 import eu.quelltext.mundraub.search.AddressSearchResult;
-import eu.quelltext.mundraub.search.DummyAddressSearch;
 
 /**
  * A fragment representing a list of Items.
@@ -24,8 +23,6 @@ public class AddressSearchResultFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
     private SearchResultListener mListener;
 
     /**
@@ -33,25 +30,6 @@ public class AddressSearchResultFragment extends Fragment {
      * fragment (e.g. upon screen orientation changes).
      */
     public AddressSearchResultFragment() {
-    }
-
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static AddressSearchResultFragment newInstance(int columnCount) {
-        AddressSearchResultFragment fragment = new AddressSearchResultFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
     }
 
     @Override
@@ -63,12 +41,8 @@ public class AddressSearchResultFragment extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new AddressSearchResultRecyclerViewAdapter(new DummyAddressSearch(), mListener));
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            recyclerView.setAdapter(new AddressSearchResultRecyclerViewAdapter(mListener));
         }
         return view;
     }
@@ -102,7 +76,7 @@ public class AddressSearchResultFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface SearchResultListener {
-        // TODO: Update argument type and name
         void onListFragmentInteraction(AddressSearchResult item);
+        void notifyAboutChanges(AddressSearch.Observer observer);
     }
 }

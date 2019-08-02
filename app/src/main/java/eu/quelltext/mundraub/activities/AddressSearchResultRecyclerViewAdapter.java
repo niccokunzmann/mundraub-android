@@ -10,6 +10,7 @@ import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.activities.AddressSearchResultFragment.SearchResultListener;
 import eu.quelltext.mundraub.search.AddressSearch;
 import eu.quelltext.mundraub.search.AddressSearchResult;
+import eu.quelltext.mundraub.search.EmptyAddressSearch;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link eu.quelltext.mundraub.search.AddressSearchResult} and makes a call to the
@@ -18,13 +19,12 @@ import eu.quelltext.mundraub.search.AddressSearchResult;
  */
 public class AddressSearchResultRecyclerViewAdapter extends RecyclerView.Adapter<AddressSearchResultRecyclerViewAdapter.ViewHolder> implements AddressSearch.Observer {
 
-    private final AddressSearch addressSearch;
-    private final SearchResultListener mListener;
+    private final SearchResultListener listener;
+    private AddressSearch addressSearch = new EmptyAddressSearch();
 
-    public AddressSearchResultRecyclerViewAdapter(AddressSearch addressSearch, SearchResultListener listener) {
-        this.addressSearch = addressSearch;
-        mListener = listener;
-        addressSearch.notifyAboutChanges(this);
+    public AddressSearchResultRecyclerViewAdapter(SearchResultListener listener) {
+        this.listener = listener;
+        listener.notifyAboutChanges(this);
     }
 
     @Override
@@ -46,6 +46,7 @@ public class AddressSearchResultRecyclerViewAdapter extends RecyclerView.Adapter
 
     @Override
     public void onNewSearchResults(AddressSearch addressSearch) {
+        this.addressSearch = addressSearch;
         this.notifyDataSetChanged();
     }
 
@@ -72,10 +73,10 @@ public class AddressSearchResultRecyclerViewAdapter extends RecyclerView.Adapter
             mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (null != mListener) {
+                    if (null != listener) {
                         // Notify the active callbacks interface (the activity, if the
                         // fragment is attached to one) that an item has been selected.
-                        mListener.onListFragmentInteraction(mItem);
+                        listener.onListFragmentInteraction(mItem);
                     }
                 }
             });
