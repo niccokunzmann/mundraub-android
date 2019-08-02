@@ -596,7 +596,8 @@
     <string name="title_select_offline_areas">Choose Offline Map Areas</string>
 
     <!-- ==============  Privacy Policy  ============== -->
-    <!-- Privacy Policy: Activity title. This is displayed when viewing the Privact Policy. -->
+    <!-- Privacy Policy: Activity title. This is displayed when viewing the Privacy Policy. -->
+    <string name="title_privacy_policy">Privacy Policy</string>
 
     <!-- ==============  Changelog  ============== -->
     <!-- Changelog: Activity title. This is displayed when viewing the Changelog. -->

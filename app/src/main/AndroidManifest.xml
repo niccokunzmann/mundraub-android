@@ -71,7 +71,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.PrivacyPolicyActivity"></activity>
+        <activity android:name=".activities.PrivacyPolicyActivity"
+            android:label="@string/title_privacy_policy"></activity>
     </application>
 
 </manifest>
