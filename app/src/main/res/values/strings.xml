@@ -606,7 +606,7 @@
 
     <!-- ==============  Address AddressSearch  ============== -->
     <!-- Address AddressSearch: Activity title. This is displayed when viewing the Address AddressSearch. -->
-    <string name="title_address_search">Find a Place</string>
+    <string name="title_address_search">Find a place on the map</string>
     <!-- Address AddressSearch: Text of the addressSearch button. -->
     <string name="search_button">Search</string>
     <!-- Address AddressSearch: Text displayed at the bottom containing the license of the searched data. -->
