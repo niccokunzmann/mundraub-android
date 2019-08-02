@@ -331,21 +331,22 @@
     <string name="title_activity_show_plants">Map of Plants</string>
 
     <!-- ==============  Menu  ============== -->
-    <!-- Menu: entry to open the app manu -->
+    <!-- Menu: entry to open the app menu -->
     <string name="menu_about">About</string>
-    <!-- Menu: entry to open the app manu -->
+    <!-- Menu: entry to open the settings -->
     <string name="menu_settings">Settings</string>
-    <!-- Menu: entry to open the app manu -->
+    <!-- Menu: entry to open the map -->
     <string name="menu_map">Map</string>
-    <!-- Menu: entry to open the app manu -->
+    <!-- Menu: entry to open the own collected plants -->
     <string name="menu_my_plants">My Plants</string>
-    <!-- Menu: entry to open the app manu -->
+    <!-- Menu: entry to open the community codex -->
     <string name="menu_rules">Community Codex</string>
     <!-- Menu: entry to open the Privacy Policy -->
     <string name="menu_privacy">Privacy Policy</string>
     <!-- Menu: entry to open the Changelog -->
     <string name="menu_changelog">Changelog</string>
-
+    <!-- Menu: entry to open the Address Search -->
+    <string name="menu_search_address">Find Places</string>
 
     <!-- ==============  About the app  ============== -->
     <!-- About the app: Activity title -->
@@ -606,4 +607,6 @@
     <!-- ==============  Address Search  ============== -->
     <!-- Address Search: Activity title. This is displayed when viewing the Address Search. -->
     <string name="title_address_search">Find a Place</string>
+    <!-- Address Search: Text of the search button. -->
+    <string name="search_button">Search</string>
 </resources>

@@ -133,6 +133,9 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
             case R.id.item_changelog:
                 menuOpenChangelog();
                 return true;
+            case R.id.item_search_address:
+                menuOpenAddressSearch();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -169,6 +172,10 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
 
     protected void menuOpenChangelog() {
         openActivity(ChangelogActivity.class);
+    }
+
+    protected void menuOpenAddressSearch() {
+        openActivity(AddressSearchActivity.class);
     }
 
     @Override
