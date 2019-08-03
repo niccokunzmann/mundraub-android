@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.api.progress.Progress;
 
 public class NominatimAddressSearch implements IAddressSearch {
@@ -41,7 +42,12 @@ public class NominatimAddressSearch implements IAddressSearch {
         interaction.search(text, new INominatimInteraction.INominatimCallback() {
             @Override
             public void onResult(String result) {
-                loadSearchResultFrom(result, text);
+                try {
+                    loadSearchResultFrom(result, text);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    observer.onSearchError(R.string.error_could_not_parse_open_street_map_data);
+                }
             }
             @Override
             public void onError(int errorId) {
@@ -50,18 +56,13 @@ public class NominatimAddressSearch implements IAddressSearch {
         });
     }
 
-    public void loadSearchResultFrom(String resultString, String searchTerm) {
+    public void loadSearchResultFrom(String resultString, String searchTerm) throws JSONException {
         JSONArray results;
         List<AddressSearchResult> searchResults = new ArrayList<>();
-        try {
-            results = new JSONArray(resultString);
-            for (int i = 0; i < results.length(); i++) {
-                JSONObject result = results.getJSONObject(i);
-                searchResults.add(AddressSearchResult.fromNominatim(result, searchTerm));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return;
+        results = new JSONArray(resultString);
+        for (int i = 0; i < results.length(); i++) {
+            JSONObject result = results.getJSONObject(i);
+            searchResults.add(AddressSearchResult.fromNominatim(result, searchTerm));
         }
         content = searchResults;
         observer.onNewSearchResults(this);

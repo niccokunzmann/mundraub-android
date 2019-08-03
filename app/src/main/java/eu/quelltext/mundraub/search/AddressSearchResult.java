@@ -57,4 +57,8 @@ public class AddressSearchResult implements Comparable<AddressSearchResult> {
     public IPosition getPosition() {
         return position;
     }
+
+    public String getSearchTerm() {
+        return userInput;
+    }
 }
