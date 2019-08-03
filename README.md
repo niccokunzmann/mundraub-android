@@ -75,6 +75,7 @@ Services:
 - [Transifex][tx] for managing translations
     - [Microsoft Translate] with a free account for suggesting translations. 
 - [F-Droid][fdroid] for publishing the app
+- OpenStreetMap's [Nominatim] to search for places on the map
 
 Languages:
 
@@ -108,3 +109,4 @@ Languages:
 [FruitMap.org]: https://www.fruitmap.org/
 [MatLog Libre]: https://f-droid.org/en/packages/com.pluscubed.matloglibre/
 [documentation]: docs#readme
+[Nominatim]: https://nominatim.openstreetmap.org/
