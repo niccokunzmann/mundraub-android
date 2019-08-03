@@ -8,19 +8,26 @@ import eu.quelltext.mundraub.api.progress.Progress;
 public class NominatimWebInteraction extends AsyncNetworkInteraction implements INominatimInteraction {
 
     private static final String NOMINATIM_URL = "https://nominatim.openstreetmap.org/search?format=json&q=";
+    private int currentTaskId = 0;
 
     @Override
     public void search(final String searchTerm, final INominatimCallback cb) {
         final String[] content = {null};
+        currentTaskId++;
+        final int thisTaskId = currentTaskId;
         doAsynchronously(new Callback() {
             @Override
             public void onSuccess() {
-                cb.onResult(content[0]);
+                if (thisTaskId == currentTaskId) {
+                    cb.onResult(content[0]);
+                }
             }
 
             @Override
             public void onFailure(int errorResourceString) {
-                cb.onError(errorResourceString);
+                if (thisTaskId == currentTaskId) {
+                    cb.onError(errorResourceString);
+                }
             }
         }, new AsyncOperation() {
             @Override
