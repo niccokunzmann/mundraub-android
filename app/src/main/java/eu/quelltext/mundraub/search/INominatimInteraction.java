@@ -5,6 +5,6 @@ public interface INominatimInteraction {
 
     interface INominatimCallback {
         void onResult(String result);
-        void onError(int errorId);
+        void onError(int errorResourceString);
     }
 }

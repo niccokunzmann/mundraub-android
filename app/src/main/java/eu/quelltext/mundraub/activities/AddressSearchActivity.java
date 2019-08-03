@@ -9,13 +9,14 @@ import android.widget.TextView;
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.common.Dialog;
 import eu.quelltext.mundraub.search.AddressSearchResult;
-import eu.quelltext.mundraub.search.DummyAddressSearch;
 import eu.quelltext.mundraub.search.IAddressSearch;
+import eu.quelltext.mundraub.search.NominatimAddressSearch;
+import eu.quelltext.mundraub.search.NominatimWebInteraction;
 
 public class AddressSearchActivity extends MundraubBaseActivity implements AddressSearchResultFragment.SearchResultListener {
 
     private static final String OPEN_STREET_MAP_COPYRIGHT_URL = "https://osm.org/copyright";
-    private IAddressSearch addressSearch = new DummyAddressSearch();
+    private IAddressSearch addressSearch = new NominatimAddressSearch(new NominatimWebInteraction());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
