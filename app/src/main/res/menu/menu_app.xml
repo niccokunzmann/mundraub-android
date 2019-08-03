@@ -7,6 +7,9 @@
     android:layout_width="wrap_content">
 
     <item
+        android:id="@+id/item_search_address"
+        android:title="@string/menu_search_address" />
+    <item
         android:id="@+id/item_map"
         android:title="@string/menu_map" />
     <item

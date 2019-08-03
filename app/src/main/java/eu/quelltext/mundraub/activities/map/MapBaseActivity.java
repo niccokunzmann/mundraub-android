@@ -1,6 +1,7 @@
 package eu.quelltext.mundraub.activities.map;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -9,6 +10,7 @@ import android.support.annotation.NonNull;
 
 import java.io.IOException;
 
+import eu.quelltext.mundraub.activities.AddressSearchActivity;
 import eu.quelltext.mundraub.activities.WebViewBaseActivity;
 import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.map.MapUrl;
@@ -18,6 +20,8 @@ import eu.quelltext.mundraub.plant.Plant;
 public class MapBaseActivity extends WebViewBaseActivity {
 
     protected static String ARG_MAP_URL = "map-url";
+    protected static int REQUEST_CODE_ADDRESS_SEARCH = 1;
+
     private MundraubProxy apiProxy;
 
     @Override
@@ -72,7 +76,11 @@ public class MapBaseActivity extends WebViewBaseActivity {
 
     protected void openMapAtPosition(double longitude, double latitude) {
         MapUrl url = createMapUrl(longitude, latitude);
-        log.d("open map at position", url.toString());
+        openMapAt(url);
+    }
+
+    private void openMapAt(MapUrl url) {
+        log.d("open map at", url.toString());
         webView.loadUrl(url.getUrl());
     }
 
@@ -127,6 +135,17 @@ public class MapBaseActivity extends WebViewBaseActivity {
     }
 
     @Override
+    protected void menuOpenAddressSearch() {
+        Intent intent = new Intent(this, AddressSearchActivity.class);
+        startActivityForResult(intent, REQUEST_CODE_ADDRESS_SEARCH);
+    }
+
+    @Override
+    protected boolean menuHideAddressSearch() {
+        return false;
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         // preserving the current url to reload the map
@@ -140,6 +159,15 @@ public class MapBaseActivity extends WebViewBaseActivity {
         String url = savedInstanceState.getString(ARG_MAP_URL);
         if (url != null) {
             webView.loadUrl(url);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_ADDRESS_SEARCH && resultCode == RESULT_OK) {
+            String newUrl = data.getStringExtra(AddressSearchActivity.ARG_MAP_URL);
+            openMapAt(new MapUrl(newUrl));
         }
     }
 }

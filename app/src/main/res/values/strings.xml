@@ -283,7 +283,7 @@
     <string name="error_no_plant_id">The server did not respond with a plant id. Have a look on-line at what happened.</string>
     <!-- API errors and results: Probably no internet connection. -->
     <string name="error_unknown_hostname">Could not resolve the host name and thus could not connect to the server. Please check your Internet connection.</string>
-    <!-- API errors and results: Mundraub also posts the address. This could also be shown on the map if we habe an addesss search there. -->
+    <!-- API errors and results: Mundraub also posts the address. This could also be shown on the map if we have an address search there. -->
     <string name="error_could_not_parse_open_street_map_data">Could not get the address from OpenStreetMap.</string>
     <!-- API errors and results: IOException in the connection when we try to see if the plant exists on Mundraub.org. -->
     <string name="error_count_not_check_plant">Could not ask the server if the plant exists.</string>
@@ -331,21 +331,22 @@
     <string name="title_activity_show_plants">Map of Plants</string>
 
     <!-- ==============  Menu  ============== -->
-    <!-- Menu: entry to open the app manu -->
+    <!-- Menu: entry to open the app menu -->
     <string name="menu_about">About</string>
-    <!-- Menu: entry to open the app manu -->
+    <!-- Menu: entry to open the settings -->
     <string name="menu_settings">Settings</string>
-    <!-- Menu: entry to open the app manu -->
+    <!-- Menu: entry to open the map -->
     <string name="menu_map">Map</string>
-    <!-- Menu: entry to open the app manu -->
+    <!-- Menu: entry to open the own collected plants -->
     <string name="menu_my_plants">My Plants</string>
-    <!-- Menu: entry to open the app manu -->
+    <!-- Menu: entry to open the community codex -->
     <string name="menu_rules">Community Codex</string>
     <!-- Menu: entry to open the Privacy Policy -->
     <string name="menu_privacy">Privacy Policy</string>
     <!-- Menu: entry to open the Changelog -->
     <string name="menu_changelog">Changelog</string>
-
+    <!-- Menu: entry to open the Address Search -->
+    <string name="menu_search_address">Find Places</string>
 
     <!-- ==============  About the app  ============== -->
     <!-- About the app: Activity title -->
@@ -532,7 +533,7 @@
     <string name="settings_download_all_zoom_levels">I would like to be able to zoom out in offline mode. This also downloads the map tiles to zoom out and requires about one third of additional space.</string>
     <!-- settings: dialog message when all the map tiles are downloaded with success -->
     <string name="settings_success_download_map">All selected parts of the map have been downloaded and are now available offline.</string>
-	<!-- settings: max number of displayed makrers on map : text -->
+    <!-- settings: max number of displayed markers on map : text -->
     <string name="settings_max_num_of_markers" formatted="false">Maximum of <xliff:g example="100" id="maxMarkers">%1$d</xliff:g> markers will be displayed on map.</string>
 
     <!-- ==============  Community Codex  ============== -->
@@ -603,4 +604,11 @@
     <!-- Changelog: Activity title. This is displayed when viewing the Changelog. -->
     <string name="title_changelog">Changes in Fruit Radar</string>
 
+    <!-- ==============  Address AddressSearch  ============== -->
+    <!-- Address AddressSearch: Activity title. This is displayed when viewing the Address AddressSearch. -->
+    <string name="title_address_search">Find a place on the map</string>
+    <!-- Address AddressSearch: Text of the addressSearch button. -->
+    <string name="search_button">Search</string>
+    <!-- Address AddressSearch: Text displayed at the bottom containing the license of the searched data. -->
+    <string name="search_license">Data © OpenStreetMap contributors, ODbL 1.0.</string>
 </resources>
