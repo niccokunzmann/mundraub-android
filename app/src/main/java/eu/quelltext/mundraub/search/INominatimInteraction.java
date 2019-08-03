@@ -1,6 +1,6 @@
 package eu.quelltext.mundraub.search;
 
-interface INominatimInteraction {
+public interface INominatimInteraction {
     void search(String text, INominatimCallback cb);
 
     interface INominatimCallback {
