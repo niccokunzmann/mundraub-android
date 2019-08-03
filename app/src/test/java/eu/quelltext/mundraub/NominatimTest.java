@@ -3,12 +3,15 @@ package eu.quelltext.mundraub;
 import org.junit.Before;
 import org.junit.Test;
 
+import eu.quelltext.mundraub.search.AddressSearchResult;
 import eu.quelltext.mundraub.search.IAddressSearch;
 import eu.quelltext.mundraub.search.INominatimInteraction;
 import eu.quelltext.mundraub.search.NominatimAddressSearch;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class NominatimTest {
 
@@ -21,6 +24,7 @@ public class NominatimTest {
     private int searchError;
     private int observedError;
     private IAddressSearch observedSearch;
+    private IAddressSearch search;
 
     @Before
     public void setUp() {
@@ -29,6 +33,7 @@ public class NominatimTest {
         searchError = 0;
         observedSearch = null;
         observedError = 0;
+        search = createSearch();
     }
 
     private IAddressSearch createSearch() {
@@ -76,16 +81,22 @@ public class NominatimTest {
         return observedSearch;
     }
 
+    private void searchFor(String searchTerm, String nominatimResult) {
+        nextSearchResultsIn(nominatimResult);
+        search.search(searchTerm);
+    }
+
+    /* ------------------------- Tests ------------------------- */
+
     @Test
     public void testCreatedSearchIsEmpty() {
-        IAddressSearch search = createSearch();
         assertEquals(search.size(), 0);
     }
 
     @Test
     public void testObserverIsNotNotifiedOnSubscribe() {
         final boolean[] observerWasNotified = {false};
-        createSearch().notifyAboutChanges(new IAddressSearch.Observer() {
+        search.notifyAboutChanges(new IAddressSearch.Observer() {
             @Override
             public void onNewSearchResults(IAddressSearch addressSearch) {
                 observerWasNotified[0] = true;
@@ -101,7 +112,6 @@ public class NominatimTest {
 
     @Test
     public void testEmptySearchHasNoItems() {
-        IAddressSearch search = createSearch();
         nextSearchResultsIn(SEARCH_EMPTY);
         search.search("Test");
         assertEquals(0, search.size());
@@ -109,7 +119,6 @@ public class NominatimTest {
 
     @Test
     public void testEmptySearchPassesOnSearchTerm() {
-        IAddressSearch search = createSearch();
         nextSearchResultsIn(SEARCH_EMPTY);
         search.search("Test");
         assertEquals(getSearchTerm(), "Test");
@@ -117,9 +126,57 @@ public class NominatimTest {
 
     @Test
     public void testErrorCodeIsPassedOn() {
-        IAddressSearch search = createSearch();
         nextSearchResultsIn(1000);
         search.search("Test");
         assertEquals(1000, getObservedError());
+    }
+
+    @Test
+    public void testSearchNotifiesAboutResult() {
+        nextSearchResultsIn(SEARCH_EMPTY);
+        search.search("123");
+        assertEquals(search,getObservedSearch());
+    }
+
+    @Test
+    public void testPotsdamHasSearchResults() {
+        searchFor("Potsdam", SEARCH_POTSDAM);
+        assertEquals(10, search.size());
+    }
+
+    @Test
+    public void testPotsdamResultsAreNotNull() {
+        searchFor("Potsdam", SEARCH_POTSDAM);
+        for (int i = 0; i < search.size(); i++) {
+            assertNotNull(search.get(i));
+        }
+    }
+
+    @Test
+    public void testPotsdamIsOrderedByImportance() {
+        searchFor("Potsdam", SEARCH_POTSDAM);
+        for (int i = 0; i < search.size() - 1; i++) {
+            AddressSearchResult thisResult = search.get(i);
+            AddressSearchResult otherResult = search.get(i + 1);
+            assertTrue(thisResult.compareTo(otherResult) >= 0);
+        }
+    }
+
+    @Test
+    public void testFirstSearchResultsHasFieldsSet() {
+        searchFor("Potsdam", SEARCH_POTSDAM);
+        AddressSearchResult result = search.get(0);
+        assertEquals("Potsdam, Brandenburg, 14467, Germany", result.getDisplayName());
+        assertEquals(52.4009309, result.getPosition().getLatitude(), 0.00000001);
+        assertEquals(13.0591397, result.getPosition().getLongitude(), 0.00000001);
+    }
+
+    @Test
+    public void testLastSearchResultsHasFieldsSet() {
+        searchFor("Potsdam", SEARCH_POTSDAM);
+        AddressSearchResult result = search.get(9);
+        assertEquals("Potsdam, Mangga, Cubao, 3rd District, Quezon City, Metro Manila, 1102, Philippines", result.getDisplayName());
+        assertEquals(14.6270084, result.getPosition().getLatitude(), 0.00000001);
+        assertEquals(121.0613199, result.getPosition().getLongitude(), 0.00000001);
     }
 }
