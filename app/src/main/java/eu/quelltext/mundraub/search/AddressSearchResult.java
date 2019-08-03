@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import eu.quelltext.mundraub.map.MapUrl;
 import eu.quelltext.mundraub.map.position.IPosition;
 import eu.quelltext.mundraub.map.position.Position;
 
@@ -60,5 +61,9 @@ public class AddressSearchResult implements Comparable<AddressSearchResult> {
 
     public String getSearchTerm() {
         return userInput;
+    }
+
+    public MapUrl asMapUrl() {
+        return new MapUrl(getPosition().getLongitude(), getPosition().getLatitude());
     }
 }

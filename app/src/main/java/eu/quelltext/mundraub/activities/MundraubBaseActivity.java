@@ -105,6 +105,13 @@ public class MundraubBaseActivity extends AppCompatActivity implements Logger.Lo
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_app, menu);
+        if (menuHideAddressSearch()) {
+            menu.removeItem(R.id.item_search_address);
+        }
+        return true;
+    }
+
+    protected boolean menuHideAddressSearch() {
         return true;
     }
 
