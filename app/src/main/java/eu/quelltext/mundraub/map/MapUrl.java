@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import eu.quelltext.mundraub.map.position.BoundingBox;
 import eu.quelltext.mundraub.map.position.BoundingBoxCollection;
 
 /*
@@ -28,6 +29,8 @@ public class MapUrl {
     private static final String CONFIG_MARKER_LON = "markerLon";
     private static final String CONFIG_BROWSER_GPS = "browserGPS";
     private static final String CONFIG_CREATE_BOXES = "createBoxes";
+    private static final String CONFIG_ZOOM = "zoom";
+    private static final String CONFIG_EXTENT = "extent";
     private Map<String, String> configuration = new HashMap<String, String>();
 
     public MapUrl(double longitude, double latitude) {
@@ -124,5 +127,16 @@ public class MapUrl {
     public MapUrl createBoxes() {
         configuration.put(CONFIG_CREATE_BOXES, "true");
         return this;
+    }
+
+    public void setExtent(BoundingBox bbox) {
+        configuration.put(CONFIG_EXTENT, bbox.toExtentString());
+        configuration.remove(CONFIG_ZOOM);
+        configuration.remove(CONFIG_CENTER_LON);
+        configuration.remove(CONFIG_CENTER_LAT);
+    }
+
+    public void setZoomTo(int zoomLevel) {
+        configuration.put(CONFIG_ZOOM, Integer.toString(zoomLevel));
     }
 }

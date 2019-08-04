@@ -183,4 +183,11 @@ public class BoundingBox {
     public boolean crosses180() {
         return east < west;
     }
+
+    public String toExtentString() {
+        return Double.toString(west) + "," +
+                Double.toString(south) + "," +
+                Double.toString(east) + "," +
+                Double.toString(north);
+    }
 }
