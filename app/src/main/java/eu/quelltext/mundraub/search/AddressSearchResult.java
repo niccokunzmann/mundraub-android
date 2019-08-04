@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import eu.quelltext.mundraub.map.MapUrl;
+import eu.quelltext.mundraub.map.position.BoundingBox;
 import eu.quelltext.mundraub.map.position.IPosition;
 import eu.quelltext.mundraub.map.position.Position;
 
@@ -19,12 +20,13 @@ public class AddressSearchResult implements Comparable<AddressSearchResult> {
     private static final String NOMINATIM_DISPLAY_NAME = "display_name";
     private static final String NOMINATIM_LONGITUDE = "lon";
     private static final String NOMINATIM_LATITUDE = "lat";
-
+    private static final String NOMINATIM_BOUNDINGBOX = "boundingbox";
 
     private final double importance;
     private final String displayName;
     private final String userInput;
     private final IPosition position;
+    private BoundingBox boundingBox = null;
 
     public AddressSearchResult(double importance, String displayName, String userInput, IPosition position) {
         this.importance = importance;
@@ -38,12 +40,19 @@ public class AddressSearchResult implements Comparable<AddressSearchResult> {
                 Double.parseDouble(json.getString(NOMINATIM_LONGITUDE)),
                 Double.parseDouble(json.getString(NOMINATIM_LATITUDE))
         );
-        return new AddressSearchResult(
+        AddressSearchResult result = new AddressSearchResult(
                 json.getDouble(NOMINATIM_IMPORTANCE),
                 json.getString(NOMINATIM_DISPLAY_NAME),
                 searchTerm,
                 position
-            );
+        );
+        BoundingBox bbox = BoundingBox.fromNominatim(json.getJSONArray(NOMINATIM_BOUNDINGBOX));
+        result.setBoundingBox(bbox);
+        return result;
+    }
+
+    private void setBoundingBox(BoundingBox bbox) {
+        boundingBox = bbox;
     }
 
     public String getDisplayName() {
@@ -64,6 +73,10 @@ public class AddressSearchResult implements Comparable<AddressSearchResult> {
     }
 
     public MapUrl asMapUrl() {
-        return new MapUrl(getPosition().getLongitude(), getPosition().getLatitude());
+        MapUrl url = new MapUrl(getPosition().getLongitude(), getPosition().getLatitude());
+        if (boundingBox != null) {
+            url.setExtent(boundingBox);
+        }
+        return url;
     }
 }
