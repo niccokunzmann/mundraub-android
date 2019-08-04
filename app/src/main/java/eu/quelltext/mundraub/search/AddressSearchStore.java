@@ -17,12 +17,7 @@ public class AddressSearchStore implements IAddressSearch {
 
     public static AddressSearchStore fromJSON(JSONObject json) throws JSONException {
         AddressSearchStore result = new AddressSearchStore();
-        JSONArray all = json.getJSONArray(JSON_ALL);
-        for (int i = 0; i < all.length(); i++) {
-            JSONObject addressJSON = all.getJSONObject(i);
-            AddressSearchResult address = AddressSearchResult.fromJSON(addressJSON);
-            result.add(address);
-        }
+        result.loadFrom(json);
         return result;
     }
 
@@ -69,5 +64,14 @@ public class AddressSearchStore implements IAddressSearch {
         }
         result.put(JSON_ALL, all);
         return result;
+    }
+
+    public void loadFrom(JSONObject json) throws JSONException {
+        JSONArray all = json.getJSONArray(JSON_ALL);
+        for (int i = 0; i < all.length(); i++) {
+            JSONObject addressJSON = all.getJSONObject(i);
+            AddressSearchResult address = AddressSearchResult.fromJSON(addressJSON);
+            add(address);
+        }
     }
 }

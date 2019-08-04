@@ -1,6 +1,7 @@
 package eu.quelltext.mundraub.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -8,6 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.common.Dialog;
@@ -21,6 +25,7 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
 
     private static final String OPEN_STREET_MAP_COPYRIGHT_URL = "https://osm.org/copyright";
     public static final String ARG_MAP_URL = "map-url"; // used as a return value in the intent
+    public static final String STATE_SAVED_ADDRESSES = "saved-addresses";
 
     private IAddressSearch addressSearch = new NominatimAddressSearch(new NominatimWebInteraction());
     private AddressSearchStore selectedAddresses = new AddressSearchStore();
@@ -28,6 +33,7 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadSelectedAddresses();
         setContentView(R.layout.activity_address_search);
 
         TextView searchLicense = (TextView) findViewById(R.id.text_seach_license);
@@ -74,7 +80,7 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
     public void notifyAboutChanges(IAddressSearch.Observer observer) {
         addressSearch.notifyAboutChanges(observer);
         selectedAddresses.notifyAboutChanges(observer);
-        observer.onNewSearchResults(selectedAddresses);
+        selectedAddresses.search("");
     }
 
     @Override
@@ -85,4 +91,49 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
     @Override
     protected void menuOpenAddressSearch() {
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        storeSelectedAddresses();
+    }
+
+    private void storeSelectedAddresses() {
+        SharedPreferences settings = getState();
+        SharedPreferences.Editor editor = settings.edit();
+        try {
+            JSONObject savedAddressesJSON = selectedAddresses.toJSON();
+            String savedAddressesString = savedAddressesJSON.toString();
+            editor.putString(STATE_SAVED_ADDRESSES, savedAddressesString);
+            editor.commit();
+        } catch (JSONException e) {
+            log.printStackTrace(e);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadSelectedAddresses();
+    }
+
+    private void loadSelectedAddresses() {
+        SharedPreferences settings = getState();
+        String savedAddressesString = settings.getString(STATE_SAVED_ADDRESSES, null);
+        if (savedAddressesString != null) {
+            try {
+                JSONObject savedAddressesJSON = new JSONObject(savedAddressesString);
+                selectedAddresses.loadFrom(savedAddressesJSON);
+            } catch (JSONException e) {
+                log.e("saved addresses", "I could not load the old saved addresses.");
+                log.printStackTrace(e);
+            }
+        }
+    }
+
+    private SharedPreferences getState() {
+        return getSharedPreferences("AddressSearchActivity", 0);
+    }
+
+
 }
