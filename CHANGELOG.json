@@ -12,5 +12,6 @@
     ,"5d3846a879bb1bc0fcca4016b127742d74388715": "Add to the changelog: Show which changes are new since the last update."
     ,"969e1e902d285a54c2969f0a31c0e399bbb87576": "Add that users can now search for places on the map using OpenStreetMap's Nominatim service."
     ,"87aebdbbe0235e1b65a5508e21778286e31782de": "Add zoom out to big locations like cities which were searched so that the map shows them 100%."
+    ,"876f3643706b999164498cdb79f895e703662022": "Add offline storage for used addresses."
 }
 
