@@ -9,6 +9,7 @@ import eu.quelltext.mundraub.map.position.BoundingBoxCollection;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 
 public class MapUrlTest {
 
@@ -113,6 +114,27 @@ public class MapUrlTest {
         MapUrl mapUrl = new MapUrl("?test=asd");
         assertTrue(Double.isNaN(mapUrl.getDouble("test")));
         assertTrue(Double.isNaN(mapUrl.getDouble("test1")));
+    }
+
+    @Test
+    public void testSetZoom() {
+        MapUrl mapUrl = new MapUrl(0, 0);
+        for (int i = 1; i < 4; i++) {
+            mapUrl.setZoomTo(i);
+            assertEquals(Integer.toString(i), mapUrl.getString("zoom"));
+        }
+    }
+
+    @Test
+    public void testSetExtent() {
+        BoundingBox bbox = BoundingBox.fromNESW(22, 30, 12, 0);
+        MapUrl mapUrl = new MapUrl(0, 0);
+        mapUrl.setZoomTo(11);
+        mapUrl.setExtent(bbox);
+        assertEquals("0.0,12.0,30.0,22.0", mapUrl.getString("extent"));
+        assertTrue(Double.isNaN(mapUrl.getLatitude()));
+        assertTrue(Double.isNaN(mapUrl.getLongitude()));
+        assertNull(mapUrl.getString("zoom"));
     }
 
 }

@@ -1,5 +1,6 @@
 package eu.quelltext.mundraub.map.position;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,6 +33,13 @@ public class BoundingBox {
         return new BoundingBox(north, east, south, west);
     }
 
+    public static BoundingBox fromNominatim(JSONArray json) throws JSONException {
+        return fromWSEN(
+                Double.parseDouble(json.getString(2)),
+                Double.parseDouble(json.getString(0)),
+                Double.parseDouble(json.getString(3)),
+                Double.parseDouble(json.getString(1)));
+    }
 
     public static BoundingBox fromPositionAndRadius(IPosition position, double distanceInMeters) {
         return RadiusBoundingBox.fromPositionAndRadius(position, distanceInMeters);
@@ -182,5 +190,12 @@ public class BoundingBox {
 
     public boolean crosses180() {
         return east < west;
+    }
+
+    public String toExtentString() {
+        return Double.toString(west) + "," +
+                Double.toString(south) + "," +
+                Double.toString(east) + "," +
+                Double.toString(north);
     }
 }

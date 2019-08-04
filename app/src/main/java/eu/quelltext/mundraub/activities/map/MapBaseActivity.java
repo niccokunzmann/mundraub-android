@@ -92,7 +92,8 @@ public class MapBaseActivity extends WebViewBaseActivity {
     }
 
     public MapUrl getUrl() {
-        return new MapUrl(webView.getUrl());
+        String url = webView.getUrl();
+        return new MapUrl(url);
     }
 
     @SuppressLint("MissingPermission")

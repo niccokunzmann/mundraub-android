@@ -71,6 +71,21 @@ var queryHandlers = {
         "get": function() { return JSON.stringify(boundingBoxes); },
         "onchange": [onChangeRedrawAllBoundingBoxes]
     },
+    // set the extent and remove the information
+    "extent": {
+        "set": function(extentString) {
+            var extent = extentString.split(",");
+            var left = parseFloat(extent[0]);
+            var bottom = parseFloat(extent[1]);
+            var right = parseFloat(extent[2]);
+            var top = parseFloat(extent[3]);
+            var bbox = new OpenLayers.Bounds(left, bottom, right, top);
+            map.zoomToExtent(bbox.transform(fromProjection, toProjection))
+            center = markerPositionToLonLat(map.getCenter());
+            zoom = map.zoom;
+        },
+        "onchange": [onChangeSetPosition]
+    }
 };
 
 
@@ -83,20 +98,30 @@ function getConfigurationFromURL() {
     qs = qs.split("+").join(" ");
 
     var updates = [onChangeSetPosition];
+    function addUpdatesOf(handler) {
+        if (handler.onchange) {
+            handler.onchange.forEach(function (onchange) {
+                if (!updates.includes(onchange)) {
+                    updates.push(onchange);
+                }
+            });
+        }
+    }
     while (tokens = re.exec(qs)) {
         var id = decodeURIComponent(tokens[1]);
         var content = decodeURIComponent(tokens[2]);
         handler = queryHandlers[id];
         if (handler) {
-            var valueBefore = handler.get();
-            handler.set(content);
-            var valueAfter = handler.get();
-            if (valueBefore != valueAfter && handler.onchange) {
-                handler.onchange.forEach(function (onchange) {
-                    if (!updates.includes(onchange)) {
-                        updates.push(onchange);
-                    }
-                });
+            if (handler.get) {
+                var valueBefore = handler.get();
+                handler.set(content);
+                var valueAfter = handler.get();
+                if (valueBefore != valueAfter) {
+                    addUpdatesOf(handler);
+                }
+            } else {
+                handler.set(content);
+                addUpdatesOf(handler);
             }
         }
     }
@@ -107,8 +132,10 @@ function setConfigurationInURL() {
     var query = [];
     properties(queryHandlers).forEach(function(id) {
         var key = encodeURIComponent(id);
-        var value = encodeURIComponent(queryHandlers[id].get());
-        query.push(key + "=" + value);
+        if (queryHandlers[id].get) {
+            var value = encodeURIComponent(queryHandlers[id].get());
+            query.push(key + "=" + value);
+        }
     });
     document.location.hash = query.join("&");
 }
