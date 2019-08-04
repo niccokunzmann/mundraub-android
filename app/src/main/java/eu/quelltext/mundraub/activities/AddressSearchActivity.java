@@ -2,6 +2,8 @@ package eu.quelltext.mundraub.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 import eu.quelltext.mundraub.R;
 import eu.quelltext.mundraub.common.Dialog;
 import eu.quelltext.mundraub.search.AddressSearchResult;
+import eu.quelltext.mundraub.search.AddressSearchStore;
 import eu.quelltext.mundraub.search.IAddressSearch;
 import eu.quelltext.mundraub.search.NominatimAddressSearch;
 import eu.quelltext.mundraub.search.NominatimWebInteraction;
@@ -20,6 +23,7 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
     public static final String ARG_MAP_URL = "map-url"; // used as a return value in the intent
 
     private IAddressSearch addressSearch = new NominatimAddressSearch(new NominatimWebInteraction());
+    private AddressSearchStore selectedAddresses = new AddressSearchStore();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +46,22 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
                 addressSearch.search(searchText.getText().toString());
             }
         });
-
+        // search the found addresses when the text is changed.
+        searchText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) {
+                selectedAddresses.search(s.toString());
+            }
+        });
     }
 
     @Override
     public void onListFragmentInteraction(AddressSearchResult chosenAddress) {
+        selectedAddresses.add(chosenAddress);
         // create an intent and return the position to the calling activity
         // see https://stackoverflow.com/a/14785924
         Intent intent = new Intent();
@@ -58,6 +73,8 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
     @Override
     public void notifyAboutChanges(IAddressSearch.Observer observer) {
         addressSearch.notifyAboutChanges(observer);
+        selectedAddresses.notifyAboutChanges(observer);
+        observer.onNewSearchResults(selectedAddresses);
     }
 
     @Override
