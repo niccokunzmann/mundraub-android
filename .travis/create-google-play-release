@@ -19,17 +19,29 @@ else
 fi
 git checkout "$COMMIT"
 
+git pull origin google-play --ff-only || true
+
 echo "Retrieve the changes for google play."
-if !git pull origin google-play; then
+if ! git merge google-play -m "Merge google-play branch." ; then
     echo "ERROR: Merge failed. Please update the google-play branch."
     exit 1
 fi
 
+success=true
+
 if [ -n "$keystore_password" ]; then
     echo "Create release files."
+<<<<<<< Updated upstream
+=======
+    if ! gradle assembleRelease; then
+        success=false
+    fi
+>>>>>>> Stashed changes
 else
     echo "Can not sign the release, so checking the build."
-    gradle build check
+    if ! gradle build check; then
+        success=false
+    fi
 fi
 
 echo "Collect APK files"
@@ -39,3 +51,5 @@ echo "Revert changes if there are any."
 git stash || true
 git checkout "$BRANCH"
 
+echo "Build did `[ "$success" == "false" ] && echo -n not` succeed."
+[ "$success" == "true" ]
