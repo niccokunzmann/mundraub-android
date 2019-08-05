@@ -11,7 +11,7 @@ cp `.travis/debug-apk` apks/
 
 cd apks
 
-for apk in *; do
+for apk in app*; do
     new_apk="fruit-radar$SUFFIX`echo \"$apk\" | sed \"s/app//g\"`"
     if [ "$new_apk" != "$apk" ]; then
         mv "$apk" "$new_apk"
