@@ -34,6 +34,12 @@ public class WebViewBaseActivity extends MundraubBaseActivity {
         webSettings.setDatabaseEnabled(true); // https://stackoverflow.com/a/8921072
         webSettings.setDomStorageEnabled(true); // https://stackoverflow.com/a/8921072
         webSettings.setGeolocationEnabled(true); // from https://stackoverflow.com/a/43384409/1320237
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // allow mixed content as we only serve from localhost
+            // see https://developer.android.com/reference/android/webkit/WebSettings.html#setMixedContentMode(int)
+            // and https://developer.android.com/about/versions/android-5.0-changes.html#BehaviorWebView
+            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
         String language = Locale.getDefault().getLanguage();
         String country = Locale.getDefault().getCountry();
         webSettings.setUserAgentString(webSettings.getUserAgentString() + " | language: " + language + "-" + country); // pass the user language from https://stackoverflow.com/a/9380140/1320237
@@ -73,7 +79,7 @@ public class WebViewBaseActivity extends MundraubBaseActivity {
 
         // enable cookies for web view
         // see https://stackoverflow.com/a/47868677/1320237
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
+        if (Build.VERSION.SDK_INT >= 21) {
             CookieManager.getInstance().setAcceptThirdPartyCookies(webView, true);
         } else {
             CookieManager.getInstance().setAcceptCookie(true);
