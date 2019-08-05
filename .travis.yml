@@ -60,9 +60,7 @@ script:
 - .travis/debug-apk
 
 before_deploy:
-- mkdir apks
-- cp `.travis/release-apk` apks/
-- cp `.travis/debug-apk` apks/
+- .travis/collect-apks
 
 deploy:
   # push the latest strings to translate

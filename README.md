@@ -22,8 +22,8 @@ Download
 [<img src="https://f-droid.org/badge/get-it-on.png" height="75">][fdroid]
 
 The latest version can be downloaded from GitHub
-- [Download latest release](https://niccokunzmann.github.io/download_latest/mundraub-release-unsigned.apk)
-- [Download latest debug version](https://niccokunzmann.github.io/download_latest/mundraub-release-unsigned.apk)
+- [Download latest release](https://niccokunzmann.github.io/download_latest/fruit-radar-release.apk)
+- [Download latest debug version](https://niccokunzmann.github.io/download_latest/fruit-radar-debug.apk)
 
 Contribute
 ----------
