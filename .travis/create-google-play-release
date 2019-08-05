@@ -17,9 +17,9 @@ if echo "$BRANCH" | grep -q ')'; then
 else
     echo "Working with commit $COMMIT on branch $BRANCH."
 fi
-git checkout "$COMMIT"
-
 git fetch origin google-play || true
+git checkout google-play
+git checkout "$COMMIT"
 
 echo "Retrieve the changes for google play."
 if ! ( git pull --ff-only origin google-play || git merge google-play -m "Merge google-play branch." ) ; then
