@@ -1,0 +1,18 @@
+#!/bin/bash
+
+cd "`dirname \"$0\"`"
+
+# release or debug
+buildType="$1"
+
+cd ../app/build
+found=false
+for file in `find | grep "\.apk$" | grep $buildType`; do
+    echo ./app/build/$file
+    found=true
+done
+
+if [ "$found" == "false" ]; then
+    exit 1
+fi
+
