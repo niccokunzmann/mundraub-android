@@ -19,10 +19,8 @@ else
 fi
 git checkout "$COMMIT"
 
-git pull --ff-only origin google-play || true
-
 echo "Retrieve the changes for google play."
-if ! git merge google-play -m "Merge google-play branch." ; then
+if ! ( git pull --ff-only origin google-play || git merge google-play -m "Merge google-play branch." ) ; then
     echo "ERROR: Merge failed. Please update the google-play branch."
     exit 1
 fi
