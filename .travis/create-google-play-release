@@ -19,7 +19,7 @@ else
 fi
 git checkout "$COMMIT"
 
-git pull origin google-play --ff-only || true
+git pull --ff-only origin google-play || true
 
 echo "Retrieve the changes for google play."
 if ! git merge google-play -m "Merge google-play branch." ; then
