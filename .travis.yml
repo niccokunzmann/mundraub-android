@@ -52,7 +52,7 @@ script:
 # build and test
 - ./scripts/generate-changelog.py
 - gradle build check
-- gradle assembleRelease
+- if [ -n "$keystore_password" ]; then gradle assembleRelease; fi
 - ./scripts/runHTTPProxy.sh --compile
 # use the build
 - "find | grep '\\.apk'"
