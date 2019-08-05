@@ -31,6 +31,10 @@ addons:
     packages:
     - python3-pip
 
+before_install:
+# create signing key, see https://doubledot.dev/blog/2018-11-14-Continuous-Integration/
+- openssl aes-256-cbc -K $encrypted_a03063b149e2_key -iv $encrypted_a03063b149e2_iv -in .travis/key.jks.enc -out .travis/key.jks -d
+
 before_script:
 # install sdkman from https://sdkman.io/
 - curl -s "https://get.sdkman.io" | bash && source /home/travis/.sdkman/bin/sdkman-init.sh
