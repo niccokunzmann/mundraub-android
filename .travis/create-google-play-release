@@ -1,0 +1,41 @@
+#!/bin/bash
+
+cd "`dirname \"$0\"`"
+cd ..
+
+set -e
+
+COMMIT=`git log --pretty="%H" -1`
+# find out branch
+# * master
+BRANCH=`git branch --no-color | grep '\*' | grep -oE '[^ ]+$'`
+# detect detached head state
+# * (detached from 05e4d35)
+if echo "$BRANCH" | grep -q ')'; then
+    BRANCH="$COMMIT"
+    echo "Working with commit $COMMIT in detached head state."
+else
+    echo "Working with commit $COMMIT on branch $BRANCH."
+fi
+git checkout "$COMMIT"
+
+echo "Retrieve the changes for google play."
+if !git pull origin google-play; then
+    echo "ERROR: Merge failed. Please update the google-play branch."
+    exit 1
+fi
+
+if [ -n "$keystore_password" ]; then
+    echo "Create release files."
+else
+    echo "Can not sign the release, so checking the build."
+    gradle build check
+fi
+
+echo "Collect APK files"
+.travis/collect-apks "-google-play"
+
+echo "Revert changes if there are any."
+git stash || true
+git checkout "$BRANCH"
+

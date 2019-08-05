@@ -3,6 +3,8 @@
 cd "`dirname \"$0\"`"
 cd ..
 
+SUFFIX="$1"
+
 mkdir -p apks
 cp `.travis/release-apk` apks/
 cp `.travis/debug-apk` apks/
@@ -10,9 +12,9 @@ cp `.travis/debug-apk` apks/
 cd apks
 
 for apk in *; do
-    new_apk=`echo "$apk" | sed s/app/fruit-radar/g`
+    new_apk="fruit-radar$SUFFIX`echo \"$apk\" | sed \"s/app//g\"`"
     if [ "$new_apk" != "$apk" ]; then
-        mv $apk $new_apk
+        mv "$apk" "$new_apk"
         echo "$new_apk"
     fi
 done

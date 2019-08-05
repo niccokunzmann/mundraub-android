@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# Check if the compatibility with google play should be tested.
+# See https://docs-staging.travis-ci.com/user/environment-variables/
+#
+# TRAVIS_BRANCH:
+#    for push builds, or builds not triggered by a pull request, this is the name of the branch.
+#    for builds triggered by a pull request this is the name of the branch targeted by the pull request.
+#    for builds triggered by a tag, this is the same as the name of the tag (TRAVIS_TAG
+# TRAVIS_PULL_REQUEST 
+#    The pull request number if the current job is a pull request, “false” if it’s not a pull request.
+# TRAVIS_TAG
+#    If the current build is for a git tag, this variable is set to the tag’s name.
+#
+
+[ -n "$TRAVIS_TAG" ] || ( [ "$TRAVIS_BRANCH" == "master" ] && "$TRAVIS_PULL_REQUEST" == "false" )
+

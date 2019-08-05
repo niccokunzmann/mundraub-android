@@ -61,6 +61,8 @@ script:
 
 before_deploy:
 - .travis/collect-apks
+# assume that all tags are releases and release to google play
+- if .travis/check-google-play; then .travis/create-google-play-release; fi
 
 deploy:
   # push the latest strings to translate
