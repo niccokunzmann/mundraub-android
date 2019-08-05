@@ -31,12 +31,9 @@ success=true
 
 if [ -n "$keystore_password" ]; then
     echo "Create release files."
-<<<<<<< Updated upstream
-=======
     if ! gradle assembleRelease; then
         success=false
     fi
->>>>>>> Stashed changes
 else
     echo "Can not sign the release, so checking the build."
     if ! gradle build check; then
