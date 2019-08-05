@@ -86,6 +86,8 @@
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="thyme">Thymian</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="other_herbs">Andere Kräuter</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="juniper">Wacholder</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="woodruff">Waldmeister</string>
@@ -225,6 +227,10 @@
     <string name="reason_category_changes">Auf <xliff:g example="Mundraub.org" id="platform">%1$s</xliff:g> kann die Kategorie \"<xliff:g example="Tangerine" id="source_category">%2$s</xliff:g>\" nur als \"<xliff:g example="Other Fruit Tree" id="mapped_category">%3$s</xliff:g>\" hochgeladen werden.</string>
     <!-- view plant details: displayed after "Longitude:" and "Latitude:" if the plant has no position -->
     <string name="position_not_set">unbekannt</string>
+    <!-- view plant details: reason for asking to check the other plants nearby -->
+    <string name="reason_plant_has_other_plant_nearby">Es gibt eine Pflanze vergleichbaren Types neben dieser Pflanze. Wenn Du die Pflanze hochlädst, ist das vielleicht eine Dopplung.</string>
+    <!-- view plant details: Question whether to open the map when there is an equal plant nearby -->
+    <string name="ask_open_map_before_upload">Möchtest Du die Karte öffnen statt hochzuladen?</string>
 
     <!-- ==============  Dialogs  ============== -->
     <!-- Dialogs: Dialog title -->
@@ -233,6 +239,10 @@
     <string name="success">Erfolg!</string>
     <!-- Dialogs: Dialog title -->
     <string name="attention">Achtung</string>
+    <!-- Dialogs: Dialog message -->
+    <string name="delete_question">Sicher, dass Du löschen willst?</string>
+    <!-- Dialogs: Reason why we ask if the plant should be deleted. -->
+    <string name="delete_plant_reason">Wenn Du die Pflanze löschst, werden die Bilder und Daten der Pflanze vom Telefon gelöscht. Wenn Du die Pflanze hochgeladen hast, bleiben die Informationen immernoch auf der Plattform.</string>
     <!-- Dialogs: Dialog button -->
     <string name="no">Nein</string>
     <!-- Dialogs: Dialog button -->
@@ -266,7 +276,7 @@
     <string name="error_no_plant_id">Der Server hat nicht mit einer Pflanzen-ID geantwortet. Schau besser selbst online, was los ist.</string>
     <!-- API errors and results: Probably no internet connection. -->
     <string name="error_unknown_hostname">Der Name des Servers konnte nicht aufgelöst werden. Deswegen konnte ich mich nicht verbinden.</string>
-    <!-- API errors and results: Mundraub also posts the address. This could also be shown on the map if we habe an address search there. -->
+    <!-- API errors and results: Mundraub also posts the address. This could also be shown on the map if we have an address search there. -->
     <string name="error_could_not_parse_open_street_map_data">Ich konnte keine Adresse für die Pflanze von OpenStreetMap.org erhalten.</string>
     <!-- API errors and results: IOException in the connection when we try to see if the plant exists on Mundraub.org. -->
     <string name="error_count_not_check_plant">Ich konnte den Server nicht fragen, ob die Pflanze existiert.</string>
@@ -314,16 +324,22 @@
     <string name="title_activity_show_plants">Pflanzenkarte</string>
 
     <!-- ==============  Menu  ============== -->
-    <!-- Menu: entry of you open the app manu -->
+    <!-- Menu: entry to open the app menu -->
     <string name="menu_about">Über</string>
-    <!-- Menu: entry of you open the app manu -->
+    <!-- Menu: entry to open the settings -->
     <string name="menu_settings">Einstellungen</string>
-    <!-- Menu: entry of you open the app manu -->
+    <!-- Menu: entry to open the map -->
     <string name="menu_map">Karte</string>
-    <!-- Menu: entry of you open the app manu -->
+    <!-- Menu: entry to open the own collected plants -->
     <string name="menu_my_plants">Meine Pflanzen</string>
-    <!-- Menu: entry of you open the app manu -->
+    <!-- Menu: entry to open the community codex -->
     <string name="menu_rules">Mundräuberregeln</string>
+    <!-- Menu: entry to open the Privacy Policy -->
+    <string name="menu_privacy">Datenschutz</string>
+    <!-- Menu: entry to open the Changelog -->
+    <string name="menu_changelog">Updateverlauf</string>
+    <!-- Menu: entry to open the Address Search -->
+    <string name="menu_search_address">Orte Finden</string>
 
     <!-- ==============  About the app  ============== -->
     <!-- About the app: Activity title -->
@@ -397,6 +413,8 @@
     <!-- settings: section title -->
     <string name="settings_storage">Einstellungen für das Speichern</string>
     <!-- settings: section title -->
+    <string name="settings_offline_map">Offline-Karten-Einstellungen</string>
+    <!-- settings: section title -->
     <string name="settings_debug">Einstellungen zum Entwickeln</string>
     <!-- settings: section title -->
     <string name="settings_permissions">Einstellungen für Zugriffsrechte</string>
@@ -434,12 +452,14 @@
     <string name="settings_ask_for_error_report">Wenn die App startet, nachdem sie gecrasht ist: Wenn das eingeschaltet ist, fragt die App ob Du den Fehlerbericht benutzen möchtest.</string>
     <!-- settings: section title -->
     <string name="settings_offline">Offline-Einstellungen</string>
+    <!-- settings:  -->
+    <string name="settings_use_offline_mode">Wenn das eingeschaltet ist, wird die Karte mit den heruntergeladenen Pflanzenmarkierungen bestückt. Wenn das ausgeschaltet ist, dann wird eine aktuelle Version von Mundraub.org verwendet.</string>
     <!-- settings: dialog reason: download offline data -->
     <string name="reason_offline_data_needs_to_be_downloaded">Um etwas offline zu machen, müssen wir Daten runtergeladen haben. Du kannst auch das verwenden, was schon runtergeladen wurde.</string>
     <!-- settings: dialog question: download offline data -->
     <string name="ask_download_offline_data">Möchtest du die Offline-Daten jetzt aktualisieren?</string>
     <!-- settings: dialog success: download offline data -->
-    <string name="success_offline_data_was_downloaded">Alle Daten, um offline zu gehen, wurden erfolgreich runtergeladen.</string>
+    <string name="success_plant_offline_data_was_downloaded">Alle ausgewählten Pflanzenfundorte wurden heruntergelanden.</string>
     <!-- settings: dialog error: download offline data -->
     <string name="error_debug_api_can_not_download_offline_data">Die Debug-API kann keine Daten runterladen. Bitte benutze die Mundraub-API unten in den Einstellungen zu diesem Zweck.</string>
     <!-- settings:  -->
@@ -468,6 +488,39 @@
     <string name="ask_switch_on_offline_mode">Möchtest Du die App jetzt in den Offline-Modus versetzen?</string>
     <!-- settings:  -->
     <string name="settings_enable_fruit_radar_vibration">Wenn eine Pflanze auf dem Frucht-Radar erscheint, vibriert das Gerät.</string>
+    <!-- settings: Checkbutton to choose which sources to download markers from -->
+    <string name="settings_download_mundraub_markers">Wenn das eingeschaltet ist, lädt die App die Marker von Mundraub.org runter.</string>
+    <!-- settings: Checkbutton to choose which sources to download markers from -->
+    <string name="settings_download_na_ovoce_markers">Wenn das eingeschaltet ist, lädt die App die Marker von Na-Ovoce.cz runter.</string>
+    <!-- settings: Checkbutton to choose which sources to download markers from -->
+    <string name="settings_download_fruitmap_markers">Wenn das eingeschaltet ist, lädt die App die Marker von FruitMap.org runter.</string>
+    <!-- settings: Button text to open the map an choose areas to take offline -->
+    <string name="settings_create_offline_areas">Wähle Gebiete, die als offline-Karte verfügbar sein sollen.</string>
+    <!-- settings: Checkbutton to choose which sources to download map tiles from -->
+    <string name="settings_offline_mapnik">Lade OpenSteetMap-Teile herunter.</string>
+    <!-- settings: Checkbutton to choose which sources to download map tiles from -->
+    <string name="settings_offline_satellite">Lade Satellitenbilder herunter.</string>
+    <!-- settings: -->
+    <string name="settings_offline_map_explanation">Die Karte offline zu bringen, braucht weniger Internetvolumen und Du kannst die Karte ansehen, wenn Du keine Internet-Verbindung hast. Das hilft, die Pflanzen zu finden.</string>
+    <!-- settings: -->
+    <string name="settings_offline_markers_explanation">Diese App funktioniert am Besten im Offline-Modus, wenn die Pflanzen aus verschiedenen Plattformen heruntergeladen wurden. Im Online-Modus kannst Du nur Mundraub.org benutzen, weil die erlauben, die Pflanzen im Kartenausschnitt herunterzuladen.</string>
+    <!-- settings: offline map statistics -->
+    <string name="settings_offline_map_statistics" formatted="false">Du möchtest <xliff:g example="3" id="areas">%1$d</xliff:g> Gebiete offline haben. Das sollten so <xliff:g example="30mb" id="estimated">%2$s</xliff:g> an Kartenteilen sein. Momentan benutzt Du <xliff:g example="40mb" id="used">%3$s</xliff:g> für die Offline-Karte.</string>
+    <!-- settings: button text -->
+    <string name="settings_remove_offline_map_areas">Alle Offline-Gebiete löschen</string>
+    <!-- settings: button text -->
+    <string name="settings_download_tiles">Karte runterladen</string>
+    <!-- settings: dialog when you delete all offline areas -->
+    <string name="settings_reason_delete_offline_tiles">Du löschst die eingezeichneten Offline-Gebiete aber die Gebiete sind immernoch heruntergeladen.</string>
+    <!-- settings: dialog when you delete all offline areas -->
+    <string name="settings_ask_delete_downloaded_tiles">Möchtest Du auch die Kartenstücken löschen, die schon auf dem Telefon sind?</string>
+    <!-- settings: checkbox to configure download of map tiles -->
+    <string name="settings_download_all_zoom_levels">Ich möchte im Offline-Modus herauszoomen können. Das downloaded auch dieKartenteile um rauszuzoomen und braucht ca. ein Drittel mehr Speicher. </string>
+    <!-- settings: dialog message when all the map tiles are downloaded with success -->
+    <string name="settings_success_download_map">Alle ausgewählten Gebiete der Karte wurden heruntergeladen und sind nun auch offline verfügbar.</string>
+    <!-- settings: max number of displayed markers on map : text -->
+    <string name="settings_max_num_of_markers" formatted="false">Maximal<xliff:g example="100" id="maxMarkers">%1$d</xliff:g> Marker werden auf der Karte angezeigt.</string>
+
     <!-- ==============  Community Codex  ============== -->
     <!-- https://mundraub.org/mundraeuber-regeln -->
     <!-- Community Codex: Activity title -->
@@ -518,5 +571,29 @@
     <string name="title_startup">Frucht Radar startet ...</string>
     <!-- Startup: loading plants takes some time if there are many -->
     <string name="startup_loading_plants">Lade alle Pflanzen ...</string>
+    <!-- Startup: When the privacy policy could possibly be of interest to the user: Tell them what its purpose is. -->
+    <string name="reason_open_privacy_policy">Gleich wirst Du die Karte sehen. Dazu werden Daten an Server im Internet gesendet. Du kannst gern die Datenschutzerklärung vorher einsehen, um sicher zu gehen, dass Du verstehst, was passiert.</string>
+    <!-- Startup: When the privacy policy could possibly be of interest to the user: Ask the users if they would like to view it. -->
+    <string name="question_open_privacy_policy">Möchtest Du die Datenschutzerklärung öffnen?</string>
 
+
+    <!-- ==============  Choose Offline Areas  ============== -->
+    <!-- Choose Offline Areas: Activity title. This is displayed when choosing offline areas. -->
+    <string name="title_select_offline_areas">Offline-Kartengebiete auswählen</string>
+
+    <!-- ==============  Privacy Policy  ============== -->
+    <!-- Privacy Policy: Activity title. This is displayed when viewing the Privacy Policy. -->
+    <string name="title_privacy_policy">Datenschutz</string>
+
+    <!-- ==============  Changelog  ============== -->
+    <!-- Changelog: Activity title. This is displayed when viewing the Changelog. -->
+    <string name="title_changelog">Änderungen an dieser App</string>
+
+    <!-- ==============  Address AddressSearch  ============== -->
+    <!-- Address AddressSearch: Activity title. This is displayed when viewing the Address AddressSearch. -->
+    <string name="title_address_search">Finde einen Ort auf der Karte</string>
+    <!-- Address AddressSearch: Text of the addressSearch button. -->
+    <string name="search_button">Suchen</string>
+    <!-- Address AddressSearch: Text displayed at the bottom containing the license of the searched data. -->
+    <string name="search_license">Daten © OpenStreetMap Beitragende, ODbL 1.0.</string>
 </resources>
