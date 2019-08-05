@@ -18,6 +18,10 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
+// from https://stackoverflow.com/a/53409848
+git:
+  depth: false
+
 env:
   global:
   - TRAVIS_SDK_PATH=/usr/local/android-sdk/licenses
