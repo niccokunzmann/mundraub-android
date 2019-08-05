@@ -2,14 +2,5 @@
 
 cd "`dirname \"$0\"`"
 
-cd ../app/build
-found=false
-for file in `find | grep "\.apk$" | grep release`; do
-    echo ./app/build/$file
-    found=true
-done
-
-if [ "$found" == "false" ]; then
-    exit 1
-fi
+./find-apk release
 
