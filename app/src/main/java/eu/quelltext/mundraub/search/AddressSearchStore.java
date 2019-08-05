@@ -22,7 +22,8 @@ public class AddressSearchStore implements IAddressSearch {
     }
 
     public void add(AddressSearchResult newAddress) {
-        all.add(newAddress);
+        all.remove(newAddress);
+        all.add(0, newAddress);
     }
 
     @Override

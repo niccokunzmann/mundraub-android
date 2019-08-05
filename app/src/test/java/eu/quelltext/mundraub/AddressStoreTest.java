@@ -20,6 +20,7 @@ public class AddressStoreTest {
     private static IPosition POSITION = new Position(0,0);
     private static AddressSearchResult A1 = new AddressSearchResult(1, "Test1", "Te", POSITION);
     private static AddressSearchResult A2 = new AddressSearchResult(2, "Test2", "Te", POSITION);
+    private static AddressSearchResult A3 = new AddressSearchResult(2, "Test3", "Tes", POSITION);
 
     private AddressSearchStore store;
     private boolean notified;
@@ -80,15 +81,29 @@ public class AddressStoreTest {
     }
 
     @Test
-    public void testCanSerializeContent() throws JSONException {
+    public void testCanSerializeContentInCorrectOrder() throws JSONException {
         store.add(A1);
         store.add(A2);
+        store.add(A3);
         JSONObject json = store.toJSON();
         store = AddressSearchStore.fromJSON(json);
         store.search("");
-        assertEquals(2, store.size());
+        assertEquals(3, store.size());
         assertEquals(A1, store.get(0));
         assertEquals(A2, store.get(1));
+        assertEquals(A3, store.get(2));
     }
 
+    @Test
+    public void testLastChosenAddressComesFirst() {
+        store.add(A1);
+        store.add(A2);
+        store.add(A3);
+        store.add(A1);
+        store.search("");
+        assertEquals(3, store.size());
+        assertEquals(A1, store.get(0));
+        assertEquals(A3, store.get(1));
+        assertEquals(A2, store.get(2));
+    }
 }
