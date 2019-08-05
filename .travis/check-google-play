@@ -17,5 +17,5 @@ echo "TRAVIS_TAG=$TRAVIS_TAG"
 echo "TRAVIS_BRANCH=$TRAVIS_BRANCH"
 echo "TRAVIS_PULL_REQUEST=$TRAVIS_PULL_REQUEST"
 
-[ -n "$TRAVIS_TAG" ] || ( [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] )
+[ -n "$TRAVIS_TAG" ] || ( ( [ "$TRAVIS_BRANCH" == "master" ] || [ "$TRAVIS_BRANCH" == "google-play" ] ) && [ "$TRAVIS_PULL_REQUEST" == "false" ] )
 

@@ -6,8 +6,12 @@ android {
         applicationId "eu.quelltext.mundraub"
         minSdkVersion 9
         targetSdkVersion 25
+
+        // BEGIN: this is changed by the travis build
         versionCode 1
         versionName "1.0"
+        // END
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     lintOptions {
