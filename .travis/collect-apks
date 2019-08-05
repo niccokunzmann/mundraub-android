@@ -1,0 +1,19 @@
+#!/bin/bash
+
+cd "`dirname \"$0\"`"
+cd ..
+
+mkdir -p apks
+cp `.travis/release-apk` apks/
+cp `.travis/debug-apk` apks/
+
+cd apks
+
+for apk in *; do
+    new_apk=`echo "$apk" | sed s/app/fruit-radar/g`
+    if [ "$new_apk" != "$apk" ]; then
+        mv $apk $new_apk
+        echo "$new_apk"
+    fi
+done
+
