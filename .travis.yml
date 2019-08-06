@@ -41,6 +41,8 @@ addons:
 before_install:
 # create signing key, see https://doubledot.dev/blog/2018-11-14-Continuous-Integration/
 - openssl aes-256-cbc -K $encrypted_a03063b149e2_key -iv $encrypted_a03063b149e2_iv -in .travis/key.jks.enc -out .travis/key.jks -d
+# create google api service account json key file
+- openssl aes-256-cbc -K $encrypted_a03063b149e2_key -iv $encrypted_a03063b149e2_iv -in .travis/api.json.enc -out .travis/api.json -d
 
 before_script:
 # install sdkman from https://sdkman.io/
@@ -81,7 +83,7 @@ deploy:
     skip_cleanup: true
     on:
       branch: master
-  # in the release tag, upload the apks
+  # in the release tag, upload the apks to GitHub
   - provider: releases
     api_key:
       secure: bvhMN07c2vgCBTH62fiF+XwK/4Vs0n6kIwP3Fv+emWgu7TUtEgn8Ypx2Bft3nKYZCZJa2/nM5BBqJ4OanSAzhiLT5u8PT6tbPAJRxe98mUYR090aUReHEUesWKuwFVvhpjp0G1obY7p2YrnxjugJrrr/rgr8Rps382h3kKws9cTyWg1vYlbvmzH2Ks//7lObU3UiGit61La4VYffkcYOEYCo4UQQsrCScnHokYmf9sorimNTSFBQvuaLZpJF91T++Xa2Bl5IsbGnE0gQ3bGEltmKKbukkvGCsmKjxNj3WMIoPfjZfF1D6P9koiWXGMncex4dsdAU3nGGfeyAJpNlQMsCHMEu+Phu7qZsaLJHeo1LIFrkRnkBegNxOWjP8VW9+cMvAwuCfwkJMqPJZRcBUy3RoBRgoXha1jaLTb4LMxLO+WSd4Qf1X5zw437XSiKHRnXc+8noKbvSknTsc4MygyO84chuvbX/i9qNpVGiWRXfnnMCZlGStvY0O8Aov+19wohM1crvaTaA1fZezJjjOCXE004tjjPMUw2plJccn7OVjb/K4F7WkZclbF+yJujOaeX3oYxpgZEsPb7dgyuIB7pGq40kJ8tJLbZaDaHteHvSYpfsFsrbK4B3fCHt3FOgjeA9oj+U9vwpF27GDgvs2XYPCM20W9UpZdFJljYokNw=
@@ -92,4 +94,11 @@ deploy:
     on:
       tags: true
       repo: niccokunzmann/mundraub-android
-
+  # in the release tag, upload the apks to Google Play
+  - provider: script
+    script: .travis/deploy_to_play_store
+    skip_cleanup: true
+    on:
+      tags: true
+      repo: niccokunzmann/mundraub-android
+  
