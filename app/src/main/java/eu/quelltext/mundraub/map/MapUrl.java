@@ -78,11 +78,11 @@ public class MapUrl {
     }
 
     public double getLatitude() {
-        return getDouble(CONFIG_CENTER_LAT);
+        return getDouble(CONFIG_MARKER_LAT);
     }
 
     public double getLongitude() {
-        return getDouble(CONFIG_CENTER_LON);
+        return getDouble(CONFIG_MARKER_LON);
     }
 
     public double getDouble(String name) {
