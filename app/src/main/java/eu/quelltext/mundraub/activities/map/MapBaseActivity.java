@@ -79,7 +79,7 @@ public class MapBaseActivity extends WebViewBaseActivity {
         openMapAt(url);
     }
 
-    private void openMapAt(MapUrl url) {
+    protected void openMapAt(MapUrl url) {
         log.d("open map at", url.toString());
         webView.loadUrl(url.getUrl());
     }
@@ -159,7 +159,7 @@ public class MapBaseActivity extends WebViewBaseActivity {
         super.onRestoreInstanceState(savedInstanceState);
         String url = savedInstanceState.getString(ARG_MAP_URL);
         if (url != null) {
-            webView.loadUrl(url);
+            openMapAt(new MapUrl(url));
         }
     }
 
