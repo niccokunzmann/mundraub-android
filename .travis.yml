@@ -56,7 +56,7 @@ script:
 # build and test
 - ./scripts/generate-changelog.py
 - gradle build check
-- if [ -n "$keystore_password" ]; then gradle assembleRelease; fi
+- if [ -n "$keystore_password" ]; then gradle assembleRelease; gradle bundleRelease; fi
 - ./scripts/runHTTPProxy.sh --compile
 # use the build
 - "find | grep '\\.apk'"

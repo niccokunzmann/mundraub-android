@@ -7,7 +7,7 @@ buildType="$1"
 
 cd ../app/build
 found=false
-for file in `find | grep "\.apk$" | grep $buildType`; do
+for file in `find | grep -E "\.apk$|\.aab$" | grep $buildType`; do
     echo ./app/build/$file
     found=true
 done

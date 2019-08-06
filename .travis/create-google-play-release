@@ -31,7 +31,7 @@ success=true
 
 if [ -n "$keystore_password" ]; then
     echo "Create release files."
-    if ! gradle assembleRelease; then
+    if ! ( gradle assembleRelease && gradle bundleRelease ); then
         success=false
     fi
 else
