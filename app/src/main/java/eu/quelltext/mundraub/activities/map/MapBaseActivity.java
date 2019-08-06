@@ -58,7 +58,6 @@ public class MapBaseActivity extends WebViewBaseActivity {
         } catch (IOException e) {
             log.printStackTrace(e);
         }
-        reloadMap();
     }
 
     @Override
