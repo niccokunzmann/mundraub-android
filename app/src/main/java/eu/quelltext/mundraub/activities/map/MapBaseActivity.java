@@ -58,6 +58,7 @@ public class MapBaseActivity extends WebViewBaseActivity {
         } catch (IOException e) {
             log.printStackTrace(e);
         }
+        reloadMap();
     }
 
     @Override
@@ -79,20 +80,25 @@ public class MapBaseActivity extends WebViewBaseActivity {
         openMapAt(url);
     }
 
-    private void openMapAt(MapUrl url) {
-        log.d("open map at", url.toString());
-        webView.loadUrl(url.getUrl());
+    protected void openMapAt(MapUrl url) {
+        String urlString = url
+                .serveTilesFromLocalhost(apiProxy.getPort())
+                .setOfflineAreaBoundingBoxes(Settings.getOfflineAreaBoundingBoxes())
+                .getUrl();
+        log.d("open map at", urlString);
+        webView.loadUrl(urlString);
     }
 
     @NonNull
     protected MapUrl createMapUrl(double longitude, double latitude) {
-        return new MapUrl(longitude, latitude)
-                .serveTilesFromLocalhost(apiProxy.getPort())
-                .setOfflineAreaBoundingBoxes(Settings.getOfflineAreaBoundingBoxes());
+        return new MapUrl(longitude, latitude);
     }
 
     public MapUrl getUrl() {
         String url = webView.getUrl();
+        if (url == null) {
+            return null;
+        }
         return new MapUrl(url);
     }
 
@@ -132,7 +138,14 @@ public class MapBaseActivity extends WebViewBaseActivity {
 
     @Override
     protected void menuOpenMap() {
-        webView.reload();
+        reloadMap();
+    }
+
+    protected void reloadMap() {
+        MapUrl url = getUrl();
+        if (url != null) {
+            openMapAt(url);
+        }
     }
 
     @Override
@@ -159,7 +172,7 @@ public class MapBaseActivity extends WebViewBaseActivity {
         super.onRestoreInstanceState(savedInstanceState);
         String url = savedInstanceState.getString(ARG_MAP_URL);
         if (url != null) {
-            webView.loadUrl(url);
+            openMapAt(new MapUrl(url));
         }
     }
 
