@@ -98,7 +98,7 @@ deploy:
       repo: niccokunzmann/mundraub-android
   # in the release tag, upload the apks to Google Play
   - provider: script
-    script: .travis/deploy-to-play-store alpha
+    script: .travis/deploy-to-play-store beta
     skip_cleanup: true
     on:
       tags: true
