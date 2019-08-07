@@ -8,6 +8,8 @@ TRACK="$1"
 # constants
 HERE="`dirname \"$0\"`"
 APK="apks/fruit-radar-google-play-release.apk"
+METADATA_OUTPUT='/tmp/fruit-radar-metadata'
+METADATA_SOURCE='./metadata'
 
 cd "$HERE/.."
 
@@ -26,5 +28,28 @@ if ! [ -f "$APK" ]; then
     exit 1
 fi
 
-fastlane supply --track "$TRACK" --apk "$APK"
+echo "#### create metadata folder $METADATA_OUTPUT ####"
+#
+# These are all the languages compatible with Google Play
+#
+languages="de-DE en-US fr-FR ru-RU af am ar hy-AM az-AZ eu-ES bn-BD my-MM bg zh-HK zh-TW zh-CN da-DK en-IN en-SG en-ZA en-AU en-CA en-GB et fil fi-FI fr-CA gl-ES ka-GE el-GR iw-IL hi-IN id is-IS it-IT ja-JP kn-IN kk ca km-KH ky-KG ko-KR hr lo-LA lv lt ms ms-MY ml-IN mr-IN mk-MK mn-MN ne-NP nl-NL no-NO fa fa-AE fa-AF fa-IR pl-PL pt-BR pt-PT pa rm ro sv-SE sr si-LK sk sl es-419 es-ES es-US sw ta-IN te-IN th cs-CZ tr-TR uk hu-HU vi be zu "
+
+rm -rf "$METADATA_OUTPUT"
+mkdir -p "$METADATA_OUTPUT"
+for language in $languages; do
+    short_language=`echo "$language" | grep -oE '^[a-zA-Z]+'`
+    if [ "$short_language" != "$language" ] && [ -d "$METADATA_SOURCE/$short_language" ]; then
+        echo "copy $short_language into $language"
+        mkdir -p "$METADATA_OUTPUT/$language"
+        cp -r -t "$METADATA_OUTPUT/$language" "$METADATA_SOURCE/$short_language/"*
+    fi
+    if [ -d "$METADATA_SOURCE/$language" ]; then
+        echo "copy $language into $language"
+        mkdir -p "$METADATA_OUTPUT/$language"
+        cp -r -t "$METADATA_OUTPUT/$language" "$METADATA_SOURCE/$language/"*
+    fi
+done
+
+echo "#### deploy ####"
+fastlane supply --track "$TRACK" --apk "$APK" --metadata_path "$METADATA_OUTPUT"
 
