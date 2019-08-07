@@ -48,5 +48,5 @@ echo "Revert changes if there are any."
 git stash || true
 git checkout "$BRANCH"
 
-echo "Build did `[ "$success" == "false" ] && echo -n not` succeed."
+echo "Build did `[ "$success" == "false" ] && echo -n 'not '`succeed."
 [ "$success" == "true" ]
