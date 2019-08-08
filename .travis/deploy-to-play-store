@@ -4,6 +4,7 @@ set -e
 
 # arguments
 TRACK="$1"
+shift
 
 # constants
 HERE="`dirname \"$0\"`"
@@ -51,5 +52,9 @@ for language in $languages; do
 done
 
 echo "#### deploy ####"
-fastlane supply --track "$TRACK" --apk "$APK" --metadata_path "$METADATA_OUTPUT"
+fastlane supply \
+    --track "$TRACK" \
+    --apk "$APK" \
+    --metadata_path "$METADATA_OUTPUT" \
+    "$@"
 
