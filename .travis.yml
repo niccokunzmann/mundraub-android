@@ -71,7 +71,7 @@ before_deploy:
 - .travis/collect-apks
 # assume that all tags are releases and release to google play
 - if .travis/check-google-play; then .travis/create-google-play-release; fi
-- if [ -f "apks/fruit-radar-google-play-release.apk" ]; then .travis/deploy-to-play-store beta --validate_only true --skip_upload_images true --skip_upload_screenshots true; fi
+- if [ -f "apks/fruit-radar-google-play-release.apk" ]; then .travis/deploy-to-play-store beta --validate_only true --skip_upload_images true --skip_upload_screenshots true --skip_upload_apk true --skip_upload_aab true; fi
 
 deploy:
   # push the latest strings to translate
