@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -29,12 +30,16 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
 
     private IAddressSearch addressSearch = new NominatimAddressSearch(new NominatimWebInteraction());
     private AddressSearchStore selectedAddresses = new AddressSearchStore();
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadSelectedAddresses();
         setContentView(R.layout.activity_address_search);
+
+        progressBar = (ProgressBar)findViewById(R.id.search_progress);
+        stopSearch();
 
         TextView searchLicense = (TextView) findViewById(R.id.text_seach_license);
         searchLicense.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +55,7 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
             @Override
             public void onClick(View v) {
                 addressSearch.search(searchText.getText().toString());
+                startSearch();
             }
         });
         // search the found addresses when the text is changed.
@@ -65,6 +71,20 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
         });
     }
 
+    protected void startSearch() {
+        progressBar.setIndeterminate(true);
+        progressBar.setProgress(10);
+        progressBar.setMinimumWidth(progressBar.getHeight());
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    protected void stopSearch() {
+        if (progressBar != null) {
+            progressBar.setProgress(0);
+            progressBar.setVisibility(View.GONE);
+        }
+    }
+
     @Override
     public void onListFragmentInteraction(AddressSearchResult chosenAddress) {
         selectedAddresses.add(chosenAddress);
@@ -78,6 +98,7 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
 
     @Override
     public void notifyAboutChanges(IAddressSearch.Observer observer) {
+        stopSearch();
         addressSearch.notifyAboutChanges(observer);
         selectedAddresses.notifyAboutChanges(observer);
         selectedAddresses.search("");
@@ -86,6 +107,7 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
     @Override
     public void onSearchError(int errorId) {
         new Dialog(this).alertError(errorId);
+        stopSearch();
     }
 
     @Override
