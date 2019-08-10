@@ -14,5 +14,6 @@
     ,"87aebdbbe0235e1b65a5508e21778286e31782de": "Add zoom out to big locations like cities which were searched so that the map shows them 100%."
     ,"876f3643706b999164498cdb79f895e703662022": "Add offline storage for used addresses."
     ,"49ee98cf1acc59441b01a2b9505cbdee367ff317": "Update Privacy Policy to include Nominatim and ArcGIS World Imagery."
+    ,"c370065a08cf78836e5e052912bdd331d634f143": "Add progress circle when the search is running so users know when it is done."
 }
 
