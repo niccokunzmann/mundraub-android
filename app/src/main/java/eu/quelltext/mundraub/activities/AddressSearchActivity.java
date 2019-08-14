@@ -69,6 +69,8 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
                 selectedAddresses.search(s.toString());
             }
         });
+
+        onSearchResult(selectedAddresses);
     }
 
     protected void startSearchProgressBar() {
@@ -110,8 +112,22 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
     }
 
     @Override
-    public void onSearchResult() {
+    public void onSearchResult(IAddressSearch addressSearch) {
         stopSearchProgressBar();
+        TextView noSearchResult = (TextView) findViewById(R.id.no_search_result);
+        if (noSearchResult == null) {
+            return;
+        }
+        if (addressSearch.size() == 0) {
+            if (addressSearch == selectedAddresses) {
+                noSearchResult.setText(R.string.search_no_local_result);
+            } else {
+                noSearchResult.setText(R.string.search_no_result);
+            }
+            noSearchResult.setVisibility(View.VISIBLE);
+        } else {
+            noSearchResult.setVisibility(View.GONE);
+        }
     }
 
     @Override

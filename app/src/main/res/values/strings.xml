@@ -611,4 +611,8 @@
     <string name="search_button">Search</string>
     <!-- Address Search: Text displayed at the bottom containing the license of the searched data. -->
     <string name="search_license">Data © OpenStreetMap contributors, ODbL 1.0.</string>
+    <!-- Address Search: Text displayed when the search contains no entries. -->
+    <string name="search_no_result">Could not find any place for this.</string>
+    <!-- Address Search: Text displayed when the search contains no entries. -->
+    <string name="search_no_local_result">No such places are recorded on the device.</string>
 </resources>
