@@ -39,7 +39,7 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
         setContentView(R.layout.activity_address_search);
 
         progressBar = (ProgressBar)findViewById(R.id.search_progress);
-        stopSearch();
+        stopSearchProgressBar();
 
         TextView searchLicense = (TextView) findViewById(R.id.text_seach_license);
         searchLicense.setOnClickListener(new View.OnClickListener() {
@@ -55,7 +55,7 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
             @Override
             public void onClick(View v) {
                 addressSearch.search(searchText.getText().toString());
-                startSearch();
+                startSearchProgressBar();
             }
         });
         // search the found addresses when the text is changed.
@@ -71,14 +71,14 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
         });
     }
 
-    protected void startSearch() {
+    protected void startSearchProgressBar() {
         progressBar.setIndeterminate(true);
         progressBar.setProgress(10);
         progressBar.setMinimumWidth(progressBar.getHeight());
         progressBar.setVisibility(View.VISIBLE);
     }
 
-    protected void stopSearch() {
+    protected void stopSearchProgressBar() {
         if (progressBar != null) {
             progressBar.setProgress(0);
             progressBar.setVisibility(View.GONE);
@@ -98,7 +98,6 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
 
     @Override
     public void notifyAboutChanges(IAddressSearch.Observer observer) {
-        stopSearch();
         addressSearch.notifyAboutChanges(observer);
         selectedAddresses.notifyAboutChanges(observer);
         selectedAddresses.search("");
@@ -107,7 +106,12 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
     @Override
     public void onSearchError(int errorId) {
         new Dialog(this).alertError(errorId);
-        stopSearch();
+        stopSearchProgressBar();
+    }
+
+    @Override
+    public void onSearchResult() {
+        stopSearchProgressBar();
     }
 
     @Override

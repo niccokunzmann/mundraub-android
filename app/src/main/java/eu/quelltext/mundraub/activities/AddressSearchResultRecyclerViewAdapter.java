@@ -47,7 +47,8 @@ public class AddressSearchResultRecyclerViewAdapter extends RecyclerView.Adapter
     @Override
     public void onNewSearchResults(IAddressSearch addressSearch) {
         this.addressSearch = addressSearch;
-        this.notifyDataSetChanged();
+        notifyDataSetChanged();
+        listener.onSearchResult();
     }
 
     @Override
