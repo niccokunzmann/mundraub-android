@@ -19,7 +19,8 @@ The API level is 9 so the application can run on old mobile phones.
 Download
 --------
 
-[<img src="https://f-droid.org/badge/get-it-on.png" height="75">][fdroid]
+[<img src="https://f-droid.org/badge/get-it-on.png" height="75" alt="Get it on F-Droid" />][fdroid]
+[<img src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height="75" alt="Get it on Google Play" />][google-play]
 
 The latest version can be downloaded from GitHub
 - [Download latest release](https://niccokunzmann.github.io/download_latest/fruit-radar-release.apk)
@@ -112,5 +113,5 @@ Languages:
 [MatLog Libre]: https://f-droid.org/en/packages/com.pluscubed.matloglibre/
 [documentation]: docs#readme
 [Nominatim]: https://nominatim.openstreetmap.org/
-[google-play]: https://play.google.com
+[google-play]: https://play.google.com/store/apps/details?id=eu.quelltext.mundraub
 
