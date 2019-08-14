@@ -11,3 +11,10 @@ support for Android version 13 and lower.
 - [Getting the supply configuration](https://docs.fastlane.tools/actions/supply/)
   with your Google Play credentials.
 
+## Deployment
+
+Each tag is deployed.
+If there is a changelog file for the version code,
+then there will be a deployment to production,
+otherwise the release is deployed to the beta branch.
+
