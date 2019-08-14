@@ -17,5 +17,6 @@
     ,"c370065a08cf78836e5e052912bdd331d634f143": "Add progress circle when the search is running so users know when it is done."
     ,"8043699f99a2d8ce7d862f51d49f15ef1b7a360e": "Fix the search of the main map. It would not open the map at the search location but now does."
     ,"13a52d003db6088b7cc445eec5fab04df5935514": "Add a text if the search has no results."
+    ,"607ff6a9c8c6d841ba407c15911e8ef4fea4fc42": "Fix bug: The search order of the saved results is kept and not reversed."
 }
 
