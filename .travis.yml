@@ -72,6 +72,7 @@ before_deploy:
 # assume that all tags are releases and release to google play
 - if .travis/check-google-play; then .travis/create-google-play-release; fi
 - if [ -f "apks/fruit-radar-google-play-release.apk" ]; then .travis/deploy-to-play-store beta --validate_only true --skip_upload_images true --skip_upload_screenshots true --skip_upload_apk true --skip_upload_aab true; fi
+- if [ -n "$TRAVIS_TAG" ]; then DEPLOY_TRACK="`.travis/get-play-deploy-track  \"$TRAVIS_TAG\"`"; echo "deploying to track \"$DEPLOY_TRACK\""; fi
 
 deploy:
   # push the latest strings to translate
@@ -99,7 +100,7 @@ deploy:
       repo: niccokunzmann/mundraub-android
   # in the release tag, upload the apks to Google Play
   - provider: script
-    script: .travis/deploy-to-play-store beta
+    script: .travis/deploy-to-play-store "$DEPLOY_TRACK"
     skip_cleanup: true
     on:
       tags: true

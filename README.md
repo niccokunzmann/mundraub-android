@@ -24,6 +24,7 @@ Download
 The latest version can be downloaded from GitHub
 - [Download latest release](https://niccokunzmann.github.io/download_latest/fruit-radar-release.apk)
 - [Download latest debug version](https://niccokunzmann.github.io/download_latest/fruit-radar-debug.apk)
+- [Join the Beta test on Google Play](https://play.google.com/apps/testing/eu.quelltext.mundraub)
 
 Contribute
 ----------

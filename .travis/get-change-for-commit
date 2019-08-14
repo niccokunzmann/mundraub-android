@@ -1,0 +1,22 @@
+#!/usr/bin/python3
+import os
+import json
+import sys
+
+# arguments
+COMMIT = sys.argv[1]
+
+assert COMMIT == COMMIT.lower() and len(COMMIT) == 40
+
+# constants
+HERE = os.path.dirname(__file__) or "."
+CHANGELOG_PATH = os.path.join(HERE, "..", "CHANGELOG.json")
+
+# find the change
+with open(CHANGELOG_PATH, encoding="UTF-8") as f:
+    changelog = json.load(f)
+
+change = changelog.get(COMMIT, "")
+if change:
+    print(change)
+

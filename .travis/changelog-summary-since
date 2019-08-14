@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e
+
+cd "`dirname \"$0\"`"
+
+version="$1"
+
+function debug() {
+    1>&2 echo "$0: $@"
+}
+
+commits="`./commits-since \"$version\"`"
+
+for short_commit in $commits; do
+    commit=`git log --pretty=%H -1 $short_commit`
+    debug "commit: $commit"
+    "./get-change-for-commit" "$commit"
+done
+

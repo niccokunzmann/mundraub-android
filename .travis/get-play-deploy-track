@@ -1,0 +1,26 @@
+#!/bin/bash
+#
+# If there is a changelog file for the current version, this version is
+# deployed to the production branch.
+# If this version is without a changelog, it is deployed to the beta branch.
+#
+
+set -e
+
+cd "`dirname \"$0\"`"
+
+function debug() {
+    1>&2 echo "$0: $@"
+}
+
+version="$1"
+version_code="`./version-to-version-code \"$version\"`"
+
+debug "version $version and code $version_code"
+
+if [ -f "../metadata/en/changelogs/$version_code.txt" ]; then
+    echo "production"
+else
+    echo "beta"
+fi
+
