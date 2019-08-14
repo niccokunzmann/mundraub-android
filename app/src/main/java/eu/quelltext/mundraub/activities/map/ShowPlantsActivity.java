@@ -43,10 +43,4 @@ public class ShowPlantsActivity extends MapBaseActivity {
             openMapAtLastPlantOrDefault();
         }
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        reloadMap();
-    }
 }
