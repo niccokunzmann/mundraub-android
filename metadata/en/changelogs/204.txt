@@ -1,0 +1,1 @@
+Fix bug: The search order of the saved results is kept and not reversed.
