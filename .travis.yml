@@ -66,8 +66,6 @@ script:
 - "find | grep '\\.apk'"
 - .travis/release-apk
 - .travis/debug-apk
-
-before_deploy:
 - .travis/collect-apks
 # assume that all tags are releases and release to google play
 - if .travis/check-google-play; then .travis/create-google-play-release; fi
