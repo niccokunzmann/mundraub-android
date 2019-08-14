@@ -12,7 +12,7 @@ echo "changelog for $version at version code $version_code"
 
 if [ -z "$changelog_message" ]; then
     echo "No described changes detected. Exiting."
-    exit
+    exit 1
 fi
 echo "$changelog_message"
 
