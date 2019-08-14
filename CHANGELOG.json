@@ -15,5 +15,7 @@
     ,"876f3643706b999164498cdb79f895e703662022": "Add offline storage for used addresses."
     ,"49ee98cf1acc59441b01a2b9505cbdee367ff317": "Update Privacy Policy to include Nominatim and ArcGIS World Imagery."
     ,"c370065a08cf78836e5e052912bdd331d634f143": "Add progress circle when the search is running so users know when it is done."
+    ,"8043699f99a2d8ce7d862f51d49f15ef1b7a360e": "Fix the search of the main map. It would not open the map at the search location but now does."
+    ,"13a52d003db6088b7cc445eec5fab04df5935514": "Add a text if the search has no results."
 }
 
