@@ -1,6 +1,5 @@
-# Screenshots
+# How to use Fruit Radar
 
-These are screenshots of the app.
 The app is available in at least English and German.
 
 ## List your plants
