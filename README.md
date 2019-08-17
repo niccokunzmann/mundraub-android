@@ -18,8 +18,8 @@ The API level is 9 so the application can run on old mobile phones.
 Download
 --------
 
-[<img src="https://f-droid.org/badge/get-it-on.png" height="75" alt="Get it on F-Droid" />][fdroid]
-[<img src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height="75" alt="Get it on Google Play" />][google-play]
+[<img src="images/get-it/fdroid.png" height="75" alt="Get it on F-Droid" />][fdroid]
+[<img src="images/get-it/google-play.png" height="75" alt="Get it on Google Play" />][google-play]
 
 The latest version can be downloaded from GitHub
 - [Download latest release](https://niccokunzmann.github.io/download_latest/fruit-radar-release.apk)
