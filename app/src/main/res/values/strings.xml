@@ -412,6 +412,10 @@
     <!-- settings: API choice  -->
     <string name="settings_use_na_ovoce">If this is enabled, this app publishes the plants to Na-Ovoce.cz.</string>
     <!-- settings: API choice  -->
+    <string name="settings_use_my_na_ovoce">If this is enabled, this app publishes the plants to a self-hosted Na-Ovoce server.</string>
+    <!-- settings: Default domain for a na-ovoce server  -->
+    <string name="default_custom_na_ovoce_domain" translatable="false">na-ovoce.cz</string>
+    <!-- settings: API choice  -->
     <string name="settings_use_fruitmap">If this is enabled, this app publishes the plants to FruitMap.org.</string>
     <!-- settings: API choice  -->
     <string name="settings_use_dummy">If this is enabled, this app does not publish the plants but instead simulates a local API for testing.</string>
