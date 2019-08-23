@@ -190,6 +190,8 @@
     <string name="login_api_name_mundraub">Mundraub.org</string>
     <!-- Login: API name for na ovoce -->
     <string name="login_api_name_na_ovoce">Na-Ovoce.cz</string>
+    <!-- Login: API name for a na-ovoce server running under an own domain -->
+    <string name="login_api_name_my_na_ovoce">Custom Na-Ovoce Server</string>
     <!-- Login: API name for the local test API for development -->
     <string name="login_api_name_dummy">Local Dummy API</string>
     <!-- Login: API name for fruit map -->
@@ -413,8 +415,6 @@
     <string name="settings_use_na_ovoce">If this is enabled, this app publishes the plants to Na-Ovoce.cz.</string>
     <!-- settings: API choice  -->
     <string name="settings_use_my_na_ovoce">If this is enabled, this app publishes the plants to a self-hosted Na-Ovoce server.</string>
-    <!-- settings: Default domain for a na-ovoce server  -->
-    <string name="default_custom_na_ovoce_domain" translatable="false">na-ovoce.cz</string>
     <!-- settings: API choice  -->
     <string name="settings_use_fruitmap">If this is enabled, this app publishes the plants to FruitMap.org.</string>
     <!-- settings: API choice  -->

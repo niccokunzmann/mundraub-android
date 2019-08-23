@@ -319,8 +319,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:inputType="textUri"
-                        android:text="@string/default_custom_na_ovoce_domain" />
+                        android:inputType="textUri" />
                 </LinearLayout>
 
                 <RadioButton
