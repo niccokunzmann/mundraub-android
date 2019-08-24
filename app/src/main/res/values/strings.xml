@@ -539,6 +539,8 @@
     <string name="settings_success_download_map">All selected parts of the map have been downloaded and are now available offline.</string>
     <!-- settings: max number of displayed markers on map : text -->
     <string name="settings_max_num_of_markers" formatted="false">Maximum of <xliff:g example="100" id="maxMarkers">%1$d</xliff:g> markers will be displayed on map.</string>
+    <!-- settings: when you choose a custom na-ovoce server as a target for upload, you can click this button to reach the source code of na-ovoce.cz -->
+    <string name="settings_setup_na_ovoce">Setup</string>
 
     <!-- ==============  Community Codex  ============== -->
     <!-- https://mundraub.org/mundraeuber-regeln -->

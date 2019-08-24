@@ -320,6 +320,13 @@
                         android:layout_weight="1"
                         android:ems="10"
                         android:inputType="textUri" />
+
+                    <Button
+                        android:id="@+id/button_setup_na_ovoce"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/settings_setup_na_ovoce" />
                 </LinearLayout>
 
                 <RadioButton

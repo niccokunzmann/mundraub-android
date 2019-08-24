@@ -47,6 +47,7 @@ import okio.Okio;
 public class SettingsActivity extends MundraubBaseActivity {
 
     private static BackgroundDownloadTask mapDownload = null;
+    private static final String NA_OVOCE_GITHUB_URL = "https://github.com/jsmesami/naovoce";
 
     private ProgressBar updateProgress;
     final Handler handler = new Handler();
@@ -244,6 +245,14 @@ public class SettingsActivity extends MundraubBaseActivity {
             }
         });
         customNaOvoceDomain.setHint(Settings.DEFAULT_CUSTOM_NA_OVOCE_DOMAIN);
+
+        Button setupNaOvoce = (Button) findViewById(R.id.button_setup_na_ovoce);
+        setupNaOvoce.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openURLInBrowser(NA_OVOCE_GITHUB_URL);
+            }
+        });
     }
 
     private void buttonStartMapDownloadClicked(){
