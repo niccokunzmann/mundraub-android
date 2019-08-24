@@ -615,4 +615,14 @@
     <string name="search_no_result">Could not find any place for this.</string>
     <!-- Address Search: Text displayed when the search contains no entries. -->
     <string name="search_no_local_result">No such places are recorded on the device.</string>
+
+    <!-- ==============  Notifications  ============== -->
+    <!-- Notifications: The download is in progress. -->
+    <string name="notification_download_in_progress">Download in progress.</string>
+    <!-- Notifications: The download is complete. -->
+    <string name="notification_download_completed">Download complete.</string>
+    <!-- Notifications: This is the title of the nofication which tracks the download of offline map tiles. -->
+    <string name="notification_title_download_map">Offline Map Download</string>
+    <!-- Notifications: This is the title of the nofication which tracks the download of offline plant markers. -->
+    <string name="notification_title_download_markers">Download of Plant Markers</string>
 </resources>

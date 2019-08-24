@@ -7,6 +7,7 @@ import java.util.List;
 
 import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.map.TilesCache;
+import eu.quelltext.mundraub.notification.FruitRadarNotification;
 
 public class Initialization {
 

@@ -1,12 +1,9 @@
 package eu.quelltext.mundraub.activities;
 
 import android.annotation.SuppressLint;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.NotificationCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -40,6 +37,8 @@ import eu.quelltext.mundraub.map.PlantsCache;
 import eu.quelltext.mundraub.map.TilesCache;
 import eu.quelltext.mundraub.map.position.BoundingBox;
 import eu.quelltext.mundraub.map.position.BoundingBoxCollection;
+import eu.quelltext.mundraub.notification.NotificationIDs;
+import eu.quelltext.mundraub.notification.ProgressNotification;
 import okhttp3.ResponseBody;
 import okio.BufferedSink;
 import okio.Okio;
@@ -110,16 +109,10 @@ public class SettingsActivity extends MundraubBaseActivity {
         protected abstract Progress getProgressOrNull();
     }
 
-    NotificationCompat.Builder notification;
-    private static final int uniqueID= 123;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-
-        notification = new NotificationCompat.Builder(this);
-        notification.setAutoCancel(true);
 
         updateProgress = (ProgressBar) findViewById(R.id.update_progress);
         apiRadioGroup = (RadioGroup) findViewById(R.id.api_choice);
@@ -225,56 +218,16 @@ public class SettingsActivity extends MundraubBaseActivity {
             public void onClick(View v) {
                 if (!isDownloadingMap()) {
                     downloadMap();
-                    buttonStartMapDownloadClicked();
+                    new ProgressNotification(
+                            SettingsActivity.this,
+                            NotificationIDs.ID_MAP_DOWNLOAD,
+                            mapDownload.getProgress(),
+                            R.string.notification_title_download_map);
                 }
             }
         });
         updateProgressMap = (ProgressBar) findViewById(R.id.update_progress_map);
         updateMapOfflineButtons();
-
-    }
-
-    private void buttonStartMapDownloadClicked(){
-        notification.setSmallIcon(R.mipmap.ic_launcher);
-        notification.setTicker("Fruit Radar");
-        notification.setWhen(System.currentTimeMillis());
-        notification.setContentTitle("Offline map updated");
-        notification.setContentText("Download in progress!");
-
-        final int max_progress = 100;
-        int current_progress = 0;
-
-        notification.setProgress(max_progress, current_progress, false );
-
-        Intent intent= new Intent(this, SettingsActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        notification.setContentIntent(pendingIntent);
-
-        NotificationManager notificationManager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(uniqueID, notification.build());
-
-        Thread thread = new Thread(){
-            @Override
-            public void run() {
-                int count=0;
-                try {
-                    while (count <= 100) {
-                        count = count + 10;
-                        sleep(1000);
-                        notification.setProgress(max_progress,count, false);
-                        NotificationManager notificationManager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                        notificationManager.notify(uniqueID, notification.build());
-                    }
-
-                    notification.setContentText("Download complete");
-                    notification.setProgress(0,0,false);
-                    NotificationManager notificationManager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                    notificationManager.notify(uniqueID, notification.build());
-                }catch (InterruptedException e){}
-            }
-        };
-
-        thread.start();
 
     }
 
@@ -667,7 +620,7 @@ public class SettingsActivity extends MundraubBaseActivity {
 
             @Override
             public void onGranted(Permissions.Permission permission) {
-                PlantsCache.update(new API.Callback() {
+                Progress progress = PlantsCache.update(new API.Callback() {
                     @Override
                     public void onSuccess() {
                         feedbackAboutSettingsChange(Settings.useOfflineMapAPI(true));
@@ -680,6 +633,11 @@ public class SettingsActivity extends MundraubBaseActivity {
                         new Dialog(SettingsActivity.this).alertError(errorResourceString);
                     }
                 });
+                new ProgressNotification(
+                        SettingsActivity.this,
+                        NotificationIDs.ID_MARKER_DOWNLOAD,
+                        progress,
+                        R.string.notification_title_download_markers);
             }
         });
     }
