@@ -1,0 +1,2 @@
+Add progress notification about marker download. The notification for the offline map download now tracks the progress.
+Add the ability to upload plants to self-hosted servers using the na-ovoce.cz API.
