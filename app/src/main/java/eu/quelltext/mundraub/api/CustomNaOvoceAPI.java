@@ -7,9 +7,11 @@ public class CustomNaOvoceAPI extends NaOvoceAPI {
 
 
     private final String host;
+    private final boolean downloadMarkers;
 
-    public CustomNaOvoceAPI(String host) {
+    public CustomNaOvoceAPI(String host, boolean downloadMarkers) {
         this.host = host;
+        this.downloadMarkers = downloadMarkers;
     }
 
     @Override
@@ -35,5 +37,10 @@ public class CustomNaOvoceAPI extends NaOvoceAPI {
     @Override
     public int radioButtonId() {
         return R.id.radioButton_my_na_ovoce;
+    }
+
+    @Override
+    public boolean wantsToProvideMarkers() {
+        return downloadMarkers;
     }
 }
