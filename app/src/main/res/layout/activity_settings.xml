@@ -298,7 +298,7 @@
                     android:text="@string/settings_use_na_ovoce" />
 
                 <RadioButton
-                    android:id="@+id/radioButton_na_ovoce2"
+                    android:id="@+id/radioButton_my_na_ovoce"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

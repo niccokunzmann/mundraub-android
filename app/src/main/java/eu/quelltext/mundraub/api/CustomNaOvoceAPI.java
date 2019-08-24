@@ -31,4 +31,9 @@ public class CustomNaOvoceAPI extends NaOvoceAPI {
     public boolean isCustomNaOvoceAPI() {
         return true;
     }
+
+    @Override
+    public int radioButtonId() {
+        return R.id.radioButton_my_na_ovoce;
+    }
 }
