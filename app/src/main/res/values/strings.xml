@@ -510,6 +510,10 @@
     <!-- settings: Checkbutton to choose which sources to download markers from -->
     <string name="settings_download_mundraub_markers">If this is enabled, the app downloads all plant markers from Mundraub.org.</string>
     <!-- settings: Checkbutton to choose which sources to download markers from -->
+    <string name="settings_download_custom_na_ovoce_markers">If this is enabled, the app downloads all plant markers from a list of na-ovoce servers, seperated by comma.</string>
+    <!-- settings: If you choose to download markers from additional na-ovoce sources, you can specify this list of hosts, including http or https, domain and maye port. -->
+    <string name="settings_hint_my_na_ovoce_server">http://my.domain, https://other.server:8080</string>
+    <!-- settings: Checkbutton to choose which sources to download markers from -->
     <string name="settings_download_na_ovoce_markers">If this is enabled, the app downloads all plant markers from Na-Ovoce.cz.</string>
     <!-- settings: Checkbutton to choose which sources to download markers from -->
     <string name="settings_download_fruitmap_markers">If this is enabled, the app downloads all plant markers from FruitMap.org.</string>

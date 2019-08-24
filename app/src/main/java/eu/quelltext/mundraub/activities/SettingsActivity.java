@@ -19,6 +19,7 @@ import android.widget.ToggleButton;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import eu.quelltext.mundraub.R;
@@ -63,6 +64,7 @@ public class SettingsActivity extends MundraubBaseActivity {
     private Button buttonDownloadMap;
     private ProgressBar updateProgressMap;
     private ProgressUpdate mapProgressAutoUpdate;
+    private EditText customDownloadDomains;
 
     abstract class ProgressUpdate implements Runnable {
 
@@ -250,6 +252,28 @@ public class SettingsActivity extends MundraubBaseActivity {
                 openURLInBrowser(NA_OVOCE_GITHUB_URL);
             }
         });
+
+        customDownloadDomains = (EditText) findViewById(R.id.download_na_ovoce_server_domains);
+        customDownloadDomains.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) {
+                Set<String> urls = getCustomNaOvoceDownloadUrls();
+                Settings.setCustomNaOvoceDownloads(urls);
+            }
+        });
+
+    }
+
+    private Set<String> getCustomNaOvoceDownloadUrls() {
+        String[] urls = customDownloadDomains.toString().split(",");
+        for (int i = 0; i < urls.length; i++) {
+            urls[i] = urls[i].replaceAll(" ", "");
+        }
+        return new HashSet(Arrays.asList(urls));
     }
 
     private void downloadMap() {
@@ -399,6 +423,7 @@ public class SettingsActivity extends MundraubBaseActivity {
         });
         View customInputs = findViewById(R.id.custom_na_ovoce_inputs);
         customInputs.setVisibility(api.isCustomNaOvoceAPI() ? View.VISIBLE : View.GONE);
+
         synchronizeBooleanSetting(R.id.toggle_secure_connection, new Toggled() {
             @Override
             public int onToggle(boolean checked) {
@@ -483,6 +508,17 @@ public class SettingsActivity extends MundraubBaseActivity {
         synchronizeMarkerDownloadCheckbutton(R.id.checkBox_download_mundraub_markers, Settings.API_ID_MUNDRAUB);
         synchronizeMarkerDownloadCheckbutton(R.id.checkBox_download_na_ovoce_markers, Settings.API_ID_NA_OVOCE);
         synchronizeMarkerDownloadCheckbutton(R.id.checkBox_download_fruitmap_markers, Settings.API_ID_FRUITMAP);
+        synchronizeMarkerDownloadCheckbutton(R.id.checkBox_download_custom_na_ovoce_markers, Settings.API_ID_MY_NA_OVOCE);
+        customDownloadDomains.setVisibility(Settings.downloadMarkersFromAPI(Settings.API_ID_MY_NA_OVOCE) ? View.VISIBLE : View.GONE);
+        Set<String> settingUrls = Settings.getCustomNaOvoceDownloads();
+        if (!settingUrls.equals(getCustomNaOvoceDownloadUrls())) {
+            String urls = "";
+            for (Iterator<String> it = settingUrls.iterator(); it.hasNext(); ) {
+                String url = it.next();
+                urls += ", " + url;
+            }
+            customDownloadDomains.setText(urls);
+        }
 
         synchronizeCheckbutton(R.id.checkBox_fruit_radar, new Toggled() {
             @Override
