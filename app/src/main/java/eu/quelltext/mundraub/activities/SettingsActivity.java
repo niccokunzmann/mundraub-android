@@ -46,6 +46,7 @@ import okio.Okio;
 public class SettingsActivity extends MundraubBaseActivity {
 
     private static BackgroundDownloadTask mapDownload = null;
+    private static final String NA_OVOCE_GITHUB_URL = "https://github.com/jsmesami/naovoce";
 
     private ProgressBar updateProgress;
     final Handler handler = new Handler();
@@ -228,7 +229,27 @@ public class SettingsActivity extends MundraubBaseActivity {
         });
         updateProgressMap = (ProgressBar) findViewById(R.id.update_progress_map);
         updateMapOfflineButtons();
+        EditText customNaOvoceDomain = (EditText) findViewById(R.id.my_na_ovoce_server_domain);
+        customNaOvoceDomain.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) {
+                String url = s.toString();
+                Settings.setCustomNaOvoceHost(url.isEmpty() ? Settings.DEFAULT_CUSTOM_NA_OVOCE_DOMAIN : url);
+            }
+        });
+        customNaOvoceDomain.setHint(Settings.DEFAULT_CUSTOM_NA_OVOCE_DOMAIN);
 
+        Button setupNaOvoce = (Button) findViewById(R.id.button_setup_na_ovoce);
+        setupNaOvoce.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openURLInBrowser(NA_OVOCE_GITHUB_URL);
+            }
+        });
     }
 
     private void downloadMap() {
@@ -363,7 +384,8 @@ public class SettingsActivity extends MundraubBaseActivity {
     }
 
     private void update() {
-        apiRadioGroup.check(API.instance().radioButtonId());
+        API api = API.instance();
+        apiRadioGroup.check(api.radioButtonId());
         apiRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -375,6 +397,8 @@ public class SettingsActivity extends MundraubBaseActivity {
                 update();
             }
         });
+        View customInputs = findViewById(R.id.custom_na_ovoce_inputs);
+        customInputs.setVisibility(api.isCustomNaOvoceAPI() ? View.VISIBLE : View.GONE);
         synchronizeBooleanSetting(R.id.toggle_secure_connection, new Toggled() {
             @Override
             public int onToggle(boolean checked) {

@@ -298,6 +298,38 @@
                     android:text="@string/settings_use_na_ovoce" />
 
                 <RadioButton
+                    android:id="@+id/radioButton_my_na_ovoce"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_use_my_na_ovoce" />
+
+                <LinearLayout
+                    android:id="@+id/custom_na_ovoce_inputs"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:layout_marginRight="@dimen/text_margin"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/my_na_ovoce_server_domain"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="textUri" />
+
+                    <Button
+                        android:id="@+id/button_setup_na_ovoce"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/settings_setup_na_ovoce" />
+                </LinearLayout>
+
+                <RadioButton
                     android:id="@+id/radioButton_fruitmap"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

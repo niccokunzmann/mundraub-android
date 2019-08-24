@@ -48,12 +48,14 @@ public class Settings {
 
     public static final String API_ID_MUNDRAUB = "mundraub";
     public static final String API_ID_NA_OVOCE = "na-ovoce";
+    public static final String API_ID_MY_NA_OVOCE = "my-na-ovoce";
     public static final String API_ID_DUMMY = "dummy";
     public static final String API_ID_FRUITMAP = "fruitmap";
     public static final String API_ID_COMMUNITY = "community"; // only for markers
 
     public static final String TILES_OSM = "osm";
     public static final String TILES_SATELLITE = "satellite";
+    public static final String DEFAULT_CUSTOM_NA_OVOCE_DOMAIN = "http://na-ovoce.cz";
 
     private static final String PLANT_STORAGE_DIRECTORY_NAME = "eu.quelltext.mundraub";
     public static final String INVALID_HASH = "0000000000000000000000000000000000000000";
@@ -139,6 +141,7 @@ public class Settings {
      * https://github.com/niccokunzmann/mundraub-android/commit/1d8bf40aa68d71cd35eb65e0e25986f6a8a1913e#diff-6cf4fcc1ccb27f70ca10a1b54612d568
      */
     private static String useAPIId = API_ID_MUNDRAUB;
+    private static String customNaOvoceHost = DEFAULT_CUSTOM_NA_OVOCE_DOMAIN;
     private static boolean useInsecureConnections = false;
     private static boolean useCacheForPlants = true;
     private static File persistentPathForPlants = new File(Environment.getExternalStorageDirectory(), PLANT_STORAGE_DIRECTORY_NAME);
@@ -181,6 +184,7 @@ public class Settings {
         log.d("Permissions.CAN_ASK_FOR_PERMISSIONS", Permissions.CAN_ASK_FOR_PERMISSIONS);
         log.d("useInsecureConnections", useInsecureConnections);
         log.d("useAPIId", useAPIId);
+        log.d("customNaOvoceHost", customNaOvoceHost);
         log.d("useCacheForPlants", useCacheForPlants);
         log.d("useErrorReport", useErrorReport);
         log.d("useOfflineMapAPI", useOfflineMapAPI);
@@ -213,6 +217,7 @@ public class Settings {
         useOfflineMapAPI = preferences.getBoolean("useOfflineMapAPI", useOfflineMapAPI);
         debugMundraubMapAPI = preferences.getBoolean("debugMundraubMapAPI", debugMundraubMapAPI);
         vibrateWhenPlantIsInRange = preferences.getBoolean("vibrateWhenPlantIsInRange", vibrateWhenPlantIsInRange);
+        customNaOvoceHost = preferences.getString("customNaOvoceHost", customNaOvoceHost);
         useFruitRadarNotifications = preferences.getBoolean("useFruitRadarNotifications", useFruitRadarNotifications);
 		maximumDisplayedMarkers = preferences.getInt("maximumDisplayedMarkers", maximumDisplayedMarkers);
         radarPlantRangeMeters = preferences.getInt("radarPlantRangeMeters", radarPlantRangeMeters);
@@ -248,6 +253,7 @@ public class Settings {
             editor.putBoolean("useOfflineMapAPI", useOfflineMapAPI);
             editor.putBoolean("debugMundraubMapAPI", debugMundraubMapAPI);
             editor.putBoolean("vibrateWhenPlantIsInRange", vibrateWhenPlantIsInRange);
+            editor.putString("customNaOvoceHost", customNaOvoceHost);
             editor.putBoolean("useFruitRadarNotifications", useFruitRadarNotifications);
 			editor.putInt("maximumDisplayedMarkers", maximumDisplayedMarkers);
             editor.putInt("radarPlantRangeMeters", radarPlantRangeMeters);
@@ -363,6 +369,15 @@ public class Settings {
 
     public static int vibrateWhenPlantIsInRange(boolean isChecked) {
         vibrateWhenPlantIsInRange = isChecked;
+        return commit();
+    }
+
+    public static String getCustomNaOvoceHost() {
+        return customNaOvoceHost;
+    }
+
+    public static int setCustomNaOvoceHost(String customNaOvoceHost) {
+        Settings.customNaOvoceHost = customNaOvoceHost;
         return commit();
     }
 

@@ -232,7 +232,7 @@ public class NaOvoceAPI extends API {
     }
 
     public String getPlantUrl(String id) {
-        return "https://na-ovoce.cz/fruit/detail/" + id + "/";
+        return host() + "/fruit/detail/" + id + "/";
     };
 
     @Override

@@ -25,7 +25,10 @@ public abstract class API extends AsyncNetworkInteraction implements BackgroundD
     private boolean isLoggedIn;
 
     public static API[] all() {
-        return new API[]{DUMMY, MUNDRAUB, FRUITMAP, NA_OVOCE};
+        return new API[]{
+                DUMMY, MUNDRAUB, FRUITMAP, NA_OVOCE,
+                new CustomNaOvoceAPI(Settings.getCustomNaOvoceHost())
+        };
     }
     
     public static API instance() {
@@ -157,5 +160,7 @@ public abstract class API extends AsyncNetworkInteraction implements BackgroundD
     public abstract String getPlantUrl(String id);
     public abstract int nameResourceId();
 
-
+    public boolean isCustomNaOvoceAPI() {
+        return false;
+    }
 }

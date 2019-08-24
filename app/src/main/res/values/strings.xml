@@ -190,6 +190,8 @@
     <string name="login_api_name_mundraub">Mundraub.org</string>
     <!-- Login: API name for na ovoce -->
     <string name="login_api_name_na_ovoce">Na-Ovoce.cz</string>
+    <!-- Login: API name for a na-ovoce server running under an own domain -->
+    <string name="login_api_name_my_na_ovoce">Custom Na-Ovoce Server</string>
     <!-- Login: API name for the local test API for development -->
     <string name="login_api_name_dummy">Local Dummy API</string>
     <!-- Login: API name for fruit map -->
@@ -412,6 +414,8 @@
     <!-- settings: API choice  -->
     <string name="settings_use_na_ovoce">If this is enabled, this app publishes the plants to Na-Ovoce.cz.</string>
     <!-- settings: API choice  -->
+    <string name="settings_use_my_na_ovoce">If this is enabled, this app publishes the plants to a self-hosted Na-Ovoce server.</string>
+    <!-- settings: API choice  -->
     <string name="settings_use_fruitmap">If this is enabled, this app publishes the plants to FruitMap.org.</string>
     <!-- settings: API choice  -->
     <string name="settings_use_dummy">If this is enabled, this app does not publish the plants but instead simulates a local API for testing.</string>
@@ -535,6 +539,8 @@
     <string name="settings_success_download_map">All selected parts of the map have been downloaded and are now available offline.</string>
     <!-- settings: max number of displayed markers on map : text -->
     <string name="settings_max_num_of_markers" formatted="false">Maximum of <xliff:g example="100" id="maxMarkers">%1$d</xliff:g> markers will be displayed on map.</string>
+    <!-- settings: when you choose a custom na-ovoce server as a target for upload, you can click this button to reach the source code of na-ovoce.cz -->
+    <string name="settings_setup_na_ovoce">Setup</string>
 
     <!-- ==============  Community Codex  ============== -->
     <!-- https://mundraub.org/mundraeuber-regeln -->
