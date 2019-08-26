@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:checked="true"
-                android:text="@string/settings_download_custom_na_ovoce_markers" />
+                android:text="@string/settings_download_na_ovoce_markers" />
 
             <CheckBox
                 android:id="@+id/checkBox_download_custom_na_ovoce_markers"
@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:checked="true"
-                android:text="@string/settings_download_na_ovoce_markers" />
+                android:text="@string/settings_download_custom_na_ovoce_markers" />
 
             <EditText
                 android:id="@+id/download_na_ovoce_server_domains"
