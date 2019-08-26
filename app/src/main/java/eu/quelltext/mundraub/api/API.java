@@ -4,7 +4,6 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -27,15 +26,19 @@ public abstract class API extends AsyncNetworkInteraction implements BackgroundD
     private boolean isLoggedIn;
 
     public static API[] all() {
-        List<API> apis = Arrays.asList(new API[]{
-                    DUMMY, MUNDRAUB, FRUITMAP, NA_OVOCE,
-                    new CustomNaOvoceAPI(Settings.getCustomNaOvoceHost(), false)
-            });
-        for (Iterator<String> it = Settings.getCustomNaOvoceDownloads().iterator(); it.hasNext(); ) {
+        Set<String> dowloads = Settings.getCustomNaOvoceDownloads();
+        API apis[] = new API[5 + dowloads.size()];
+        apis[0] = DUMMY;
+        apis[1] = MUNDRAUB;
+        apis[2] = FRUITMAP;
+        apis[3] = NA_OVOCE;
+        apis[4] = new CustomNaOvoceAPI(Settings.getCustomNaOvoceHost(), false);
+        int i = 5;
+        for (Iterator<String> it = dowloads.iterator(); it.hasNext(); i++) {
             String url = it.next();
-            apis.add(new CustomNaOvoceAPI(url, true));
+            apis[i] = new CustomNaOvoceAPI(url, true);
         }
-        return (API[]) apis.toArray();
+        return apis;
     }
     
     public static API instance() {
