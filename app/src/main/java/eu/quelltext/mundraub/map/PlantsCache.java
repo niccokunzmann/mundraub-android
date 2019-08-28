@@ -109,7 +109,8 @@ public class PlantsCache extends ErrorAware {
         if (updateProgress == null || updateProgress.isDone()) {
             clear();
             BackgroundDownloadTask task = new BackgroundDownloadTask();
-            for (API api :API.getMarkerAPIs()) {
+            List<API> apis = API.getMarkerAPIs();
+            for (API api : apis) {
                 task.collectDownloadsFrom(api);
             }
             task.downloadInBackground(callback);

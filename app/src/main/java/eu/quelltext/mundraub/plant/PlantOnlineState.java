@@ -146,7 +146,7 @@ public class PlantOnlineState {
         @Override
         public void openLoginFrom(Context context) {
             Intent intent = new Intent(context, LoginActivity.class);
-            intent.putExtra(LoginActivity.ARG_API_ID, api.id());
+            intent.putExtra(LoginActivity.ARG_API_ID, api.idForPlant());
             context.startActivity(intent);
         }
 
@@ -211,7 +211,7 @@ public class PlantOnlineState {
             JSONObject json = new JSONObject();
             json.put(JSON_CLASS, JSON_CLASS_ONLINE);
             json.put(JSON_ID, id);
-            json.put(JSON_API, api.id());
+            json.put(JSON_API, api.idForPlant());
             return json;
         }
 

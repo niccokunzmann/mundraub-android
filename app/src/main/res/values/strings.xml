@@ -269,6 +269,8 @@
     <string name="operation_not_permitted">The operation is not allowed.</string>
     <!-- API errors and results:  -->
     <string name="error_unexpected_return_code">The server responded with an unexpected return code.</string>
+    <!-- API errors and results: The user tries to log in but the email needs to be verified before. -->
+    <string name="error_email_needs_to_be_validated_before_login">Please validate your e-mail address before.</string>
     <!-- API errors and results: Let's invite people to contribute when they see this error which we do not know about. -->
     <string name="error_not_specified">An error has occurred and if the developers put in more time, you would know more about what is going on. Time to start developing the app!</string>
     <!-- API errors and results: Used when an API is not 100% implemented. -->
@@ -313,6 +315,8 @@
     <string name="error_could_not_sign_up_na_ovoce">Could not sign up to Na-Ovoce.cz. The server did not return a user id.</string>
     <!-- API errors and results: in the login form -->
     <string name="error_could_not_log_in_na_ovoce">Could not log in to Na-Ovoce.cz. The server did not return an authorization token. Please check your username and password and try again.</string>
+    <!-- API errors and results: When the server only supports https -->
+    <string name="error_redirect_no_api_found">The server redirected. Maybe the API is reachable under a different url.</string>
     <!-- API errors and results: should be circumvent by the UI. If not, the user should change the API endpoint or the category of the plant or if this is an error, change categories.json -->
     <string name="error_invalid_category_for_api">The category of this plant is not available on this platform. I can not publish this plant. Please choose another category or upload it somewhere else.</string>
     <!-- API errors and results: error message when uploading/changing plant online -->

@@ -56,7 +56,7 @@ public class Settings {
 
     public static final String TILES_OSM = "osm";
     public static final String TILES_SATELLITE = "satellite";
-    public static final String DEFAULT_CUSTOM_NA_OVOCE_DOMAIN = "http://na-ovoce.cz";
+    public static final String DEFAULT_CUSTOM_NA_OVOCE_DOMAIN = "https://na-ovoce.cz";
 
     private static final String PLANT_STORAGE_DIRECTORY_NAME = "eu.quelltext.mundraub";
     public static final String INVALID_HASH = "0000000000000000000000000000000000000000";
@@ -108,6 +108,7 @@ public class Settings {
             String s = preferences.getString(key(), toString());
             String[] l = StringUtils.split(s, ",");
             strings = new HashSet<String>(Arrays.asList(l));
+            strings.remove("");
         }
 
         private String key() {
