@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -55,7 +56,7 @@ public class Settings {
 
     public static final String TILES_OSM = "osm";
     public static final String TILES_SATELLITE = "satellite";
-    public static final String DEFAULT_CUSTOM_NA_OVOCE_DOMAIN = "http://na-ovoce.cz";
+    public static final String DEFAULT_CUSTOM_NA_OVOCE_DOMAIN = "https://na-ovoce.cz";
 
     private static final String PLANT_STORAGE_DIRECTORY_NAME = "eu.quelltext.mundraub";
     public static final String INVALID_HASH = "0000000000000000000000000000000000000000";
@@ -89,8 +90,12 @@ public class Settings {
         private final String name;
         private Set<String> strings;
 
-        public SynchronizedStringSet(String name, List<String> strings) {
+        public SynchronizedStringSet(String name, Collection<String> strings) {
             this.name = name;
+            loadFrom(strings);
+        }
+
+        public void loadFrom(Collection<String> strings) {
             this.strings = new HashSet<String>(strings);
         }
 
@@ -103,6 +108,7 @@ public class Settings {
             String s = preferences.getString(key(), toString());
             String[] l = StringUtils.split(s, ",");
             strings = new HashSet<String>(Arrays.asList(l));
+            strings.remove("");
         }
 
         private String key() {
@@ -132,6 +138,10 @@ public class Settings {
                 strings.remove(apiId);
             }
         }
+
+        public Set<String> toSet() {
+            return new HashSet<>(strings);
+        }
     }
 
     /* persistent variables for the settings
@@ -153,6 +163,7 @@ public class Settings {
     private static SynchronizedStringSet showCategories = new SynchronizedStringSet("showCategories", Arrays.asList(API_ID_MUNDRAUB)); // array as list https://stackoverflow.com/a/2041810/1320237
     private static SynchronizedStringSet downloadMarkersFromAPI = new SynchronizedStringSet("downloadMarkersFromAPI", Arrays.asList(API_ID_MUNDRAUB, API_ID_NA_OVOCE, API_ID_FRUITMAP)); // array as list https://stackoverflow.com/a/2041810/1320237
     private static SynchronizedStringSet tilesToDownload = new SynchronizedStringSet("tilesToDownload", Arrays.asList(TILES_OSM));
+    private static SynchronizedStringSet customNaOvoceDownloadUrls = new SynchronizedStringSet("customNaOvoceDownloadUrls", new ArrayList<String>());
     private static boolean useFruitRadarNotifications = false;
     private static int radarPlantRangeMeters = 150;
 	private static int maximumDisplayedMarkers = 100;
@@ -200,6 +211,7 @@ public class Settings {
         log.d("showCategories", showCategories.toString());
         log.d("downloadMarkersFromAPI", downloadMarkersFromAPI.toString());
         log.d("tilesToDownload", tilesToDownload.toString());
+        log.d("customNaOvoceDownloadUrls", customNaOvoceDownloadUrls.toString());
         if (!useCacheForPlants) {
             log.d("persistentPathForPlants", persistentPathForPlants.toString());
         }
@@ -228,6 +240,7 @@ public class Settings {
         showCategories.load();
         downloadMarkersFromAPI.load();
         tilesToDownload.load();
+        customNaOvoceDownloadUrls.load();
         // load the permission questions
         permissionQuestion.clear();
         for (String key : preferences.getAll().keySet()) {
@@ -264,6 +277,7 @@ public class Settings {
             showCategories.saveTo(editor);
             downloadMarkersFromAPI.saveTo(editor);
             tilesToDownload.saveTo(editor);
+            customNaOvoceDownloadUrls.saveTo(editor);
             for (String key: permissionQuestion.keySet()) {
                 editor.putBoolean(key, permissionQuestion.get(key));
             }
@@ -379,6 +393,14 @@ public class Settings {
     public static int setCustomNaOvoceHost(String customNaOvoceHost) {
         Settings.customNaOvoceHost = customNaOvoceHost;
         return commit();
+    }
+
+    public static int setCustomNaOvoceDownloads(Set<String> urls) {
+        customNaOvoceDownloadUrls.loadFrom(urls);
+        return commit();
+    }
+    public static Set<String> getCustomNaOvoceDownloads() {
+        return customNaOvoceDownloadUrls.toSet();
     }
 
     public static boolean useCacheForPlants() {

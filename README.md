@@ -13,7 +13,7 @@ plants on the phone and upload them when an Internet connection is available.
 
 The API level is 9 so the application can run on old mobile phones.
 
-[<img src="docs/images/link-to-screenshots.png" height="120"/>][screenshots]
+[<img src="docs/images/link-to-screenshots.png" height="120"/>][fdroid]
 
 Download
 --------

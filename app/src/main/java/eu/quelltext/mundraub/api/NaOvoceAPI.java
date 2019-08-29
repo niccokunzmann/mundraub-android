@@ -35,6 +35,11 @@ public class NaOvoceAPI extends API {
     private static final String URL_DELETE_PLANT = "/api/v1/fruit/";
     private static final String JSON_TOKEN = "token";
     private static final String JSON_ID = "id";
+    private static final String JSON_DETAIL = "detail";
+    private static final String JSON_NON_FIELD_ERRORS = "non_field_errors";
+    private static final String JSON_NON_FIELD_ERRORS_NO_LOGIN = "Zadanými údaji se nebylo možné přihlásit.";
+
+
     private String token = null;
 
     @Override
@@ -192,6 +197,23 @@ public class NaOvoceAPI extends API {
         log.d("response", responseBody);
         if (code == 204 /*DELETE*/) {
             return new JSONObject();
+        }
+        if (code >= 300 && code < 400) {
+            abortOperation(R.string.error_redirect_no_api_found);
+        }
+        try {
+            JSONObject error = new JSONObject(responseBody);
+            // {"detail":"Uživatelův e-mail není ověřen."}
+            if (code == 403 && error.has(JSON_DETAIL) && error.getString(JSON_DETAIL).contains("e-mail")) {
+                abortOperation(R.string.error_email_needs_to_be_validated_before_login);
+            }
+            if (code == 400 && error.has(JSON_NON_FIELD_ERRORS)) {
+                JSONArray errors = error.getJSONArray(JSON_NON_FIELD_ERRORS);
+                if (errors.length() >= 1 && errors.get(0).equals(JSON_NON_FIELD_ERRORS_NO_LOGIN)) {
+                    abortOperation(R.string.error_could_not_log_in_na_ovoce);
+                }
+            }
+        } catch (JSONException e) {
         }
         if (code != 200 && code != 201 /*POST*/) {
             log.d("code", code);

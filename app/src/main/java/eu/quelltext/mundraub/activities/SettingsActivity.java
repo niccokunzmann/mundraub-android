@@ -4,8 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,6 +18,7 @@ import android.widget.ToggleButton;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import eu.quelltext.mundraub.R;
@@ -63,6 +63,8 @@ public class SettingsActivity extends MundraubBaseActivity {
     private Button buttonDownloadMap;
     private ProgressBar updateProgressMap;
     private ProgressUpdate mapProgressAutoUpdate;
+    private EditText customDownloadDomains;
+    private EditText customNaOvoceDomain;
 
     abstract class ProgressUpdate implements Runnable {
 
@@ -119,17 +121,9 @@ public class SettingsActivity extends MundraubBaseActivity {
         apiRadioGroup = (RadioGroup) findViewById(R.id.api_choice);
         textFruitRadarDistanceExplanation = (TextView) findViewById(R.id.text_distance_in_meters_explanation);
         textFruitRadarDistance = (EditText) findViewById(R.id.number_meters_to_plant);
-        textFruitRadarDistance.addTextChangedListener(new TextWatcher() {
+        whenTextEditedDo(textFruitRadarDistance, new OnTextEdited() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
+            public void onNewText() {
                 String text = textFruitRadarDistance.getText().toString();
                 if (text.isEmpty()) {
                     return;
@@ -143,20 +137,10 @@ public class SettingsActivity extends MundraubBaseActivity {
         });
 		textNumberOfMarkersExplanation = (TextView) findViewById(R.id.text_number_of_markers_explanation);
         textMaxNumberOfMarkers = (EditText) findViewById(R.id.number_of_markers_displayed);
-        textMaxNumberOfMarkers.addTextChangedListener(new TextWatcher() {
+        whenTextEditedDo(textMaxNumberOfMarkers, new OnTextEdited() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
- 
-            }
- 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
- 
-            }
- 
-            @Override
-            public void afterTextChanged(Editable s) {
-                String text = textMaxNumberOfMarkers.getText().toString();
+            public void onNewText() {
+            String text = textMaxNumberOfMarkers.getText().toString();
                 if (text.isEmpty()) {
                     return;
                 }
@@ -229,19 +213,18 @@ public class SettingsActivity extends MundraubBaseActivity {
         });
         updateProgressMap = (ProgressBar) findViewById(R.id.update_progress_map);
         updateMapOfflineButtons();
-        EditText customNaOvoceDomain = (EditText) findViewById(R.id.my_na_ovoce_server_domain);
-        customNaOvoceDomain.addTextChangedListener(new TextWatcher() {
+        customNaOvoceDomain = (EditText) findViewById(R.id.my_na_ovoce_server_domain);
+        customNaOvoceDomain.setHint(Settings.DEFAULT_CUSTOM_NA_OVOCE_DOMAIN);
+        whenTextEditedDo(customNaOvoceDomain, new OnTextEdited() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-            @Override
-            public void afterTextChanged(Editable s) {
-                String url = s.toString();
-                Settings.setCustomNaOvoceHost(url.isEmpty() ? Settings.DEFAULT_CUSTOM_NA_OVOCE_DOMAIN : url);
+            public void onNewText() {
+                String url = customNaOvoceDomain.getText().toString();
+                String newUrl = url.isEmpty() ? Settings.DEFAULT_CUSTOM_NA_OVOCE_DOMAIN : url;
+                if (newUrl != Settings.getCustomNaOvoceHost()) {
+                    Settings.setCustomNaOvoceHost(newUrl);
+                }
             }
         });
-        customNaOvoceDomain.setHint(Settings.DEFAULT_CUSTOM_NA_OVOCE_DOMAIN);
 
         Button setupNaOvoce = (Button) findViewById(R.id.button_setup_na_ovoce);
         setupNaOvoce.setOnClickListener(new View.OnClickListener() {
@@ -250,6 +233,53 @@ public class SettingsActivity extends MundraubBaseActivity {
                 openURLInBrowser(NA_OVOCE_GITHUB_URL);
             }
         });
+
+        customDownloadDomains = (EditText) findViewById(R.id.download_na_ovoce_server_domains);
+        whenTextEditedDo(customDownloadDomains, new OnTextEdited() {
+            @Override
+            public void onNewText() {
+                Set<String> urls = getCustomNaOvoceDownloadUrls();
+                if (!Settings.getCustomNaOvoceDownloads().equals(urls)) {
+                    Settings.setCustomNaOvoceDownloads(urls);
+                }
+            }
+        });
+    }
+
+    private void whenTextEditedDo(final EditText editText, final OnTextEdited edited) {
+        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    edited.onNewText();
+                }
+            }
+        });
+        editText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // from https://stackoverflow.com/a/8233832/1320237
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    edited.onNewText();
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    interface OnTextEdited {
+        void onNewText();
+    }
+
+    private Set<String> getCustomNaOvoceDownloadUrls() {
+        String[] urls = customDownloadDomains.getText().toString().split(",");
+        for (int i = 0; i < urls.length; i++) {
+            urls[i] = urls[i].replaceAll(" ", "");
+        }
+        HashSet<String> set = new HashSet<>(Arrays.asList(urls));
+        set.remove("");
+        return set;
     }
 
     private void downloadMap() {
@@ -378,6 +408,7 @@ public class SettingsActivity extends MundraubBaseActivity {
 
     @Override
     protected void onPause() {
+        getCurrentFocus().clearFocus(); // commit the text fields if focused
         super.onPause();
         plantProgressAutoUpdate.stop();
         mapProgressAutoUpdate.stop();
@@ -399,6 +430,9 @@ public class SettingsActivity extends MundraubBaseActivity {
         });
         View customInputs = findViewById(R.id.custom_na_ovoce_inputs);
         customInputs.setVisibility(api.isCustomNaOvoceAPI() ? View.VISIBLE : View.GONE);
+        customNaOvoceDomain.setText(Settings.getCustomNaOvoceHost());
+
+
         synchronizeBooleanSetting(R.id.toggle_secure_connection, new Toggled() {
             @Override
             public int onToggle(boolean checked) {
@@ -483,6 +517,20 @@ public class SettingsActivity extends MundraubBaseActivity {
         synchronizeMarkerDownloadCheckbutton(R.id.checkBox_download_mundraub_markers, Settings.API_ID_MUNDRAUB);
         synchronizeMarkerDownloadCheckbutton(R.id.checkBox_download_na_ovoce_markers, Settings.API_ID_NA_OVOCE);
         synchronizeMarkerDownloadCheckbutton(R.id.checkBox_download_fruitmap_markers, Settings.API_ID_FRUITMAP);
+        synchronizeMarkerDownloadCheckbutton(R.id.checkBox_download_custom_na_ovoce_markers, Settings.API_ID_MY_NA_OVOCE);
+        customDownloadDomains.setVisibility(Settings.downloadMarkersFromAPI(Settings.API_ID_MY_NA_OVOCE) ? View.VISIBLE : View.GONE);
+        Set<String> settingUrls = Settings.getCustomNaOvoceDownloads();
+        if (!settingUrls.equals(getCustomNaOvoceDownloadUrls())) {
+            String urls = "";
+            for (Iterator<String> it = settingUrls.iterator(); it.hasNext(); ) {
+                String url = it.next();
+                if (!urls.equals("")) {
+                    urls += ", ";
+                }
+                urls += url;
+            }
+            customDownloadDomains.setText(urls);
+        }
 
         synchronizeCheckbutton(R.id.checkBox_fruit_radar, new Toggled() {
             @Override

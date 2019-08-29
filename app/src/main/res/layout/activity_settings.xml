@@ -89,6 +89,25 @@
                 android:text="@string/settings_download_na_ovoce_markers" />
 
             <CheckBox
+                android:id="@+id/checkBox_download_custom_na_ovoce_markers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:checked="true"
+                android:text="@string/settings_download_custom_na_ovoce_markers" />
+
+            <EditText
+                android:id="@+id/download_na_ovoce_server_domains"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginRight="@dimen/text_margin"
+                android:layout_weight="4"
+                android:ems="10"
+                android:hint="@string/settings_hint_my_na_ovoce_server"
+                android:inputType="textUri" />
+
+            <CheckBox
                 android:id="@+id/checkBox_download_fruitmap_markers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
