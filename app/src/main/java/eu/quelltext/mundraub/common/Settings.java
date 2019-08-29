@@ -96,7 +96,7 @@ public class Settings {
         }
 
         public void loadFrom(Collection<String> strings) {
-            this.strings = new HashSet(strings);
+            this.strings = new HashSet<String>(strings);
         }
 
         @Override
@@ -163,7 +163,7 @@ public class Settings {
     private static SynchronizedStringSet showCategories = new SynchronizedStringSet("showCategories", Arrays.asList(API_ID_MUNDRAUB)); // array as list https://stackoverflow.com/a/2041810/1320237
     private static SynchronizedStringSet downloadMarkersFromAPI = new SynchronizedStringSet("downloadMarkersFromAPI", Arrays.asList(API_ID_MUNDRAUB, API_ID_NA_OVOCE, API_ID_FRUITMAP)); // array as list https://stackoverflow.com/a/2041810/1320237
     private static SynchronizedStringSet tilesToDownload = new SynchronizedStringSet("tilesToDownload", Arrays.asList(TILES_OSM));
-    private static SynchronizedStringSet customNaOvoceDownloadUrls = new SynchronizedStringSet("customNaOvoceDownloadUrls", new ArrayList());
+    private static SynchronizedStringSet customNaOvoceDownloadUrls = new SynchronizedStringSet("customNaOvoceDownloadUrls", new ArrayList<String>());
     private static boolean useFruitRadarNotifications = false;
     private static int radarPlantRangeMeters = 150;
 	private static int maximumDisplayedMarkers = 100;

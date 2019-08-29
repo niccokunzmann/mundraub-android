@@ -277,7 +277,7 @@ public class SettingsActivity extends MundraubBaseActivity {
         for (int i = 0; i < urls.length; i++) {
             urls[i] = urls[i].replaceAll(" ", "");
         }
-        HashSet set = new HashSet<String>(Arrays.asList(urls));
+        HashSet<String> set = new HashSet<>(Arrays.asList(urls));
         set.remove("");
         return set;
     }
