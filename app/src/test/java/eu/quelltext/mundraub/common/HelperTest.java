@@ -1,21 +1,13 @@
 package eu.quelltext.mundraub.common;
 
-import android.provider.ContactsContract;
-import android.provider.MediaStore;
-import android.widget.ImageView;
-
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.HttpURLConnection;
 
-import eu.quelltext.mundraub.map.position.Position;
-import okhttp3.internal.io.FileSystem;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class HelperTest {
 
@@ -86,11 +78,4 @@ public class HelperTest {
         }
 
     }
-
-    @Test
-    public void folderSize() {
-        File f = new File("C:\\Users\\SEKY\\Desktop\\mundraub-android\\images");
-        assertEquals(26582, Helper.folderSize(f));
-    }
-
 }
