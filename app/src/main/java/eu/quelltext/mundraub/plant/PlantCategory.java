@@ -47,9 +47,9 @@ public class PlantCategory {
 
     private static final String API_ID_DATABASE = "database";
     private static final String API_ID_COMMUNITY = Settings.API_ID_COMMUNITY;
-    private static final String API_ID_MUNDRAUB = API.MUNDRAUB.id();
-    private static final String API_ID_NA_OVOCE = API.NA_OVOCE.id();
-    private static final String API_ID_FRUITMAP = API.FRUITMAP.id();
+    private static final String API_ID_MUNDRAUB = API.MUNDRAUB.idForCategory();
+    private static final String API_ID_NA_OVOCE = API.NA_OVOCE.idForCategory();
+    private static final String API_ID_FRUITMAP = API.FRUITMAP.idForCategory();
 
     public static Collection<PlantCategory> all() {
         return new ArrayList<PlantCategory>(sortedCategories);
@@ -226,8 +226,8 @@ public class PlantCategory {
     }
 
     public PlantCategory on(API api) {
-        if (apiIdToCategory.containsKey(api.id())) {
-            return apiIdToCategory.get(api.id());
+        if (apiIdToCategory.containsKey(api.idForCategory())) {
+            return apiIdToCategory.get(api.idForCategory());
         }
         return NULL;
     }
@@ -273,7 +273,7 @@ public class PlantCategory {
     }
 
     public String getFieldFor(API api) {
-        return apiIdToField.get(api.id());
+        return apiIdToField.get(api.idForCategory());
     }
 
     @Override
@@ -353,7 +353,7 @@ public class PlantCategory {
     }
 
     public boolean canBeUsedByAPI(API api) {
-        return canBeUsedByAPI(api.id());
+        return canBeUsedByAPI(api.idForCategory());
     }
 
     private boolean isVisible() {

@@ -2,30 +2,9 @@
 
 cd "`dirname \"$0\"`"
 
-function debug() {
-    1>&2 echo "$0: $@"
-}
-
 version="$1"
-if [ -z "$version" ]; then
-    version="`./next_version`"
-    # assume that the next version is created from the HEAD
-    # to get the commits.
-fi
-if git tag | grep -qxF "$version"; then 
-    debug "Using version \"$version\"."
-    commits="`git log --pretty=%H \"$version\"`"
-else 
-    commits="`git log --pretty=%H`"
-    debug "Using next version \"$version\"."
-fi
 
-previous_version="`./version-add \"$version\" -1`"
-debug "Previous version is \"$previous_version\"."
-previous_commits="`git log --pretty=%H \"$previous_version\"`"
-new_commits="`echo \"$commits\" | grep -vF \"$previous_commits\"`"
-new_commits_short="`echo \"$new_commits\" | grep -oE '^.......'`"
-debug "New commits are" $new_commits_short
+new_commits_short="`./commits-since \"$version\"`"
 
 echo "Version $version"
 echo

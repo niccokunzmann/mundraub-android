@@ -7,12 +7,10 @@ set -e
 
 cd "`dirname \"$0\"`"
 
-commit="`git rev-parse --verify HEAD`"
-next_version="`./next_version | tail --bytes +2`"
-number_of_versions="`./all_versions | wc -l`"
-version_code="$(($number_of_versions + 1))"
+version="$1"
+version_code="`./version-to-version-code \"$version\"`"
 
-echo "next version: $next_version"
+echo "next version: $version"
 echo "version code: $version_code"
 
 file="../app/build.gradle"
@@ -20,5 +18,5 @@ file="../app/build.gradle"
 echo "Editing `dirname \"$0\"`/$file"
 
 sed -ri 's/(versionCode\s+)[0-9]+/\1'"$version_code"'/g' "$file"
-sed -ri 's/(versionName\s+")[0-9]+\.[0-9]+"/\1'"$next_version"'"/g' "$file"
+sed -ri 's/(versionName\s+")[0-9]+\.[0-9]+"/\1'"$version"'"/g' "$file"
 

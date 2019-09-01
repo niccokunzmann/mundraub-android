@@ -7,7 +7,7 @@ import eu.quelltext.mundraub.api.API;
 
 public abstract class ProgressableResult extends Progressable {
     private final List<API.Callback> callbacks = new ArrayList<API.Callback>();
-    abstract boolean isDone();
+    public abstract boolean isDone();
     abstract boolean isDoneAndError();
     abstract boolean isDoneAndSuccess();
     abstract int errorResourceId();

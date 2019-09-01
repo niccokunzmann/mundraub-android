@@ -1,4 +1,4 @@
-package eu.quelltext.mundraub.initialization;
+package eu.quelltext.mundraub.notification;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -25,6 +25,7 @@ import eu.quelltext.mundraub.activities.map.ShowPlantsActivity;
 import eu.quelltext.mundraub.common.Helper;
 import eu.quelltext.mundraub.common.Settings;
 import eu.quelltext.mundraub.error.ErrorAware;
+import eu.quelltext.mundraub.initialization.Initialization;
 import eu.quelltext.mundraub.map.PlantsCache;
 import eu.quelltext.mundraub.map.position.BoundingBox;
 import eu.quelltext.mundraub.map.position.IPosition;
@@ -35,13 +36,11 @@ public class FruitRadarNotification extends ErrorAware {
     public static final Position INVALID_POSITION = new Position(0, 0);
     private static MundraubBaseActivity activity;
     private static FruitRadarNotification instance;
-    private static final String CHANNEL_ID_PLANTS_NEABY = "PLANTS_NEARBY";
-    private static int lastCreatedNotificationId = 0;
     private static int lastCreatedIntentId = 0;
     private Vibrator vibrator;
     private IPosition currentPosition = INVALID_POSITION;
 
-    static void initialize() {
+    public static void initialize() {
         Initialization.provideActivityFor(new Initialization.ActivityInitialized() {
             @Override
             public void setActivity(Activity context) {
@@ -213,7 +212,7 @@ public class FruitRadarNotification extends ErrorAware {
 
         public Notification(PlantsCache.Marker marker) {
             this.marker = marker;
-            id = ++lastCreatedNotificationId;
+            id = NotificationIDs.createNewId();
 
             notifyUser();
         }

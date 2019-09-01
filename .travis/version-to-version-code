@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+# This script takes a version and maps it to the version code
+#
+
+version="$1"
+
+minor_version="`echo \"$version\" | grep -oE '[0-9]+$'`"
+version_code="$(($minor_version + 1))"
+echo "$version_code"
+

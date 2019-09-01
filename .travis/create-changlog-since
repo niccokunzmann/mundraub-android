@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -e
+
+cd "`dirname \"$0\"`"
+
+version="$1"
+version_code="`./version-to-version-code \"$version\"`"
+
+changelog_message="`./changelog-summary-since \"$version\"`"
+echo "changelog for $version at version code $version_code"
+
+if [ -z "$changelog_message" ]; then
+    echo "No described changes detected. Exiting."
+    exit 1
+fi
+echo "$changelog_message"
+
+#
+# See the documentation on the changelog files.
+# https://fdroid.gitlab.io/fdroid-website/docs/All_About_Descriptions_Graphics_and_Screenshots/
+#
+for language in ../metadata/*; do
+    if ! [ -d "$language" ]; then
+        continue
+    fi
+    directory="$language/changelogs"
+    mkdir -p "$directory"
+    changelog_file="$directory/$version_code.txt"
+    echo "Setting text in $changelog_file"
+    echo "$changelog_message" > "$changelog_file"
+done
+

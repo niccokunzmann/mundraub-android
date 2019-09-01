@@ -69,7 +69,7 @@ public class AddressSearchStore implements IAddressSearch {
 
     public void loadFrom(JSONObject json) throws JSONException {
         JSONArray all = json.getJSONArray(JSON_ALL);
-        for (int i = 0; i < all.length(); i++) {
+        for (int i = all.length() - 1; i >= 0; i--) {
             JSONObject addressJSON = all.getJSONObject(i);
             AddressSearchResult address = AddressSearchResult.fromJSON(addressJSON);
             add(address);

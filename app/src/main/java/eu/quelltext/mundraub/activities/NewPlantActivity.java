@@ -376,4 +376,8 @@ public class NewPlantActivity extends MundraubBaseActivity {
         log.d("NewPlantActivity", "Set plant category to " + plantCategory.toString());
         loadViewFromPlant();
     }
+
+    public Plant getPlant() {
+        return plant;
+    }
 }

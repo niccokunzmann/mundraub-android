@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -29,12 +30,16 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
 
     private IAddressSearch addressSearch = new NominatimAddressSearch(new NominatimWebInteraction());
     private AddressSearchStore selectedAddresses = new AddressSearchStore();
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadSelectedAddresses();
         setContentView(R.layout.activity_address_search);
+
+        progressBar = (ProgressBar)findViewById(R.id.search_progress);
+        stopSearchProgressBar();
 
         TextView searchLicense = (TextView) findViewById(R.id.text_seach_license);
         searchLicense.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +55,7 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
             @Override
             public void onClick(View v) {
                 addressSearch.search(searchText.getText().toString());
+                startSearchProgressBar();
             }
         });
         // search the found addresses when the text is changed.
@@ -63,6 +69,22 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
                 selectedAddresses.search(s.toString());
             }
         });
+
+        onSearchResult(selectedAddresses);
+    }
+
+    protected void startSearchProgressBar() {
+        progressBar.setIndeterminate(true);
+        progressBar.setProgress(10);
+        progressBar.setMinimumWidth(progressBar.getHeight());
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    protected void stopSearchProgressBar() {
+        if (progressBar != null) {
+            progressBar.setProgress(0);
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -86,6 +108,26 @@ public class AddressSearchActivity extends MundraubBaseActivity implements Addre
     @Override
     public void onSearchError(int errorId) {
         new Dialog(this).alertError(errorId);
+        stopSearchProgressBar();
+    }
+
+    @Override
+    public void onSearchResult(IAddressSearch addressSearch) {
+        stopSearchProgressBar();
+        TextView noSearchResult = (TextView) findViewById(R.id.no_search_result);
+        if (noSearchResult == null) {
+            return;
+        }
+        if (addressSearch.size() == 0) {
+            if (addressSearch == selectedAddresses) {
+                noSearchResult.setText(R.string.search_no_local_result);
+            } else {
+                noSearchResult.setText(R.string.search_no_result);
+            }
+            noSearchResult.setVisibility(View.VISIBLE);
+        } else {
+            noSearchResult.setVisibility(View.GONE);
+        }
     }
 
     @Override

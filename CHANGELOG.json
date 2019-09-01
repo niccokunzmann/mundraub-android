@@ -14,5 +14,11 @@
     ,"87aebdbbe0235e1b65a5508e21778286e31782de": "Add zoom out to big locations like cities which were searched so that the map shows them 100%."
     ,"876f3643706b999164498cdb79f895e703662022": "Add offline storage for used addresses."
     ,"49ee98cf1acc59441b01a2b9505cbdee367ff317": "Update Privacy Policy to include Nominatim and ArcGIS World Imagery."
+    ,"c370065a08cf78836e5e052912bdd331d634f143": "Add progress circle when the search is running so users know when it is done."
+    ,"8043699f99a2d8ce7d862f51d49f15ef1b7a360e": "Fix the search of the main map. It would not open the map at the search location but now does."
+    ,"1a81d2208e95ebff35ca2c3ba49d28fd8a45204e": "Add the ability to upload plants to self-hosted servers using the na-ovoce.cz API."
+    ,"13a52d003db6088b7cc445eec5fab04df5935514": "Add a text if the search has no results."
+    ,"607ff6a9c8c6d841ba407c15911e8ef4fea4fc42": "Fix bug: The search order of the saved results is kept and not reversed."
+    ,"53e5147d96104fc38180ee7c1139873524595e59": "Add progress notification about marker download. The notification for the offline map download now tracks the progress."
+    ,"7678cf6f2776d2c1700b30ce950276733b87b752": "Add Upload to custom na-ovoce servers."
 }
-

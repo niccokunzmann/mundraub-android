@@ -128,13 +128,13 @@ public class MapUrlTest {
     @Test
     public void testSetExtent() {
         BoundingBox bbox = BoundingBox.fromNESW(22, 30, 12, 0);
-        MapUrl mapUrl = new MapUrl(0, 0);
+        MapUrl mapUrl = new MapUrl(-3, 23);
         mapUrl.setZoomTo(11);
         mapUrl.setExtent(bbox);
         assertEquals("0.0,12.0,30.0,22.0", mapUrl.getString("extent"));
-        assertTrue(Double.isNaN(mapUrl.getLatitude()));
-        assertTrue(Double.isNaN(mapUrl.getLongitude()));
         assertNull(mapUrl.getString("zoom"));
+        // marker position stays intact
+        assertEquals(23, mapUrl.getLatitude(), 0.00001);
+        assertEquals(-3, mapUrl.getLongitude(), 0.00001);
     }
-
 }

@@ -4,6 +4,7 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -25,7 +26,19 @@ public abstract class API extends AsyncNetworkInteraction implements BackgroundD
     private boolean isLoggedIn;
 
     public static API[] all() {
-        return new API[]{DUMMY, MUNDRAUB, FRUITMAP, NA_OVOCE};
+        Set<String> dowloads = Settings.getCustomNaOvoceDownloads();
+        API apis[] = new API[5 + dowloads.size()];
+        apis[0] = DUMMY;
+        apis[1] = MUNDRAUB;
+        apis[2] = FRUITMAP;
+        apis[3] = NA_OVOCE;
+        apis[4] = CustomNaOvoceLoginAPI.instance();
+        int i = 5;
+        for (Iterator<String> it = dowloads.iterator(); it.hasNext(); i++) {
+            String url = it.next();
+            apis[i] = new CustomNaOvoceAPI(url);
+        }
+        return apis;
     }
     
     public static API instance() {
@@ -71,12 +84,20 @@ public abstract class API extends AsyncNetworkInteraction implements BackgroundD
     }
 
     public static API fromId(String id) {
-        for (API api: all()) {
-            if (api.id().equals(id)) {
-                return api;
+        for (API api : all()) {
+            API newApi = api.tryLoadFromId(id);
+            if (newApi != null) {
+                return newApi;
             }
         }
         return DEFAULT;
+    }
+
+    protected API tryLoadFromId(String id) {
+        if (id.equals(id())) {
+            return this;
+        }
+        return null;
     }
 
 
@@ -157,5 +178,15 @@ public abstract class API extends AsyncNetworkInteraction implements BackgroundD
     public abstract String getPlantUrl(String id);
     public abstract int nameResourceId();
 
+    public boolean isCustomNaOvoceAPI() {
+        return false;
+    }
 
+    public String idForCategory() {
+        return id();
+    }
+
+    public String idForPlant() {
+        return id();
+    }
 }

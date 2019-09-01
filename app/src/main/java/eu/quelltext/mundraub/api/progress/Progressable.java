@@ -4,7 +4,7 @@ import eu.quelltext.mundraub.error.ErrorAware;
 
 public abstract class Progressable extends ErrorAware {
     public abstract void setProgress(double progress);
-    abstract double getProgress();
+    public abstract double getProgress();
 
     protected double inBounds(double progress) {
         if (progress > 1) {

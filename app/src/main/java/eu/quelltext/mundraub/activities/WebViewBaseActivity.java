@@ -16,6 +16,7 @@ import java.util.Locale;
 public class WebViewBaseActivity extends MundraubBaseActivity {
 
     protected WebView webView = null;
+    private CookieSyncManager cookieSyncManager = null;
 
     protected void initializeWebView(int webViewId) {
         webView = (WebView) findViewById(webViewId);
@@ -90,10 +91,17 @@ public class WebViewBaseActivity extends MundraubBaseActivity {
         webView.addJavascriptInterface(new LocalCookieManager(), "localCookieManager");
     }
 
+    private CookieSyncManager getCookieSyncManager() {
+        if (cookieSyncManager == null) {
+            cookieSyncManager = CookieSyncManager.createInstance(this);
+        }
+        return cookieSyncManager;
+    }
+
     private void syncCookies() {
         if (Build.VERSION.SDK_INT < 21) {
             // CookieSyncManager is deprecated since API level 21 https://stackoverflow.com/a/47913011
-            android.webkit.CookieSyncManager.getInstance().sync(); // from https://stackoverflow.com/a/8390280
+            getCookieSyncManager().sync(); // from https://stackoverflow.com/a/8390280
         }
     }
 
@@ -109,15 +117,19 @@ public class WebViewBaseActivity extends MundraubBaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        // see https://stackoverflow.com/a/2566660/1320237
-        CookieSyncManager.getInstance().stopSync();
+        if (Build.VERSION.SDK_INT < 21) {
+            // see https://stackoverflow.com/a/2566660/1320237
+            getCookieSyncManager().stopSync();
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        // see https://stackoverflow.com/a/2566660/1320237
-        CookieSyncManager.getInstance().startSync();
+        if (Build.VERSION.SDK_INT < 21) {
+            // see https://stackoverflow.com/a/2566660/1320237
+            getCookieSyncManager().startSync();
+        }
     }
 
     public class LocalCookieManager {

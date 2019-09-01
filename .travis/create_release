@@ -17,9 +17,15 @@ git fetch --tags
 version="`./next_version`"
 
 echo "set the gradle version"
-./set_next_gradle_version
+./set_next_gradle_version "$version"
 git add ../app/build.gradle
 git commit -m"$version: set gradle version"
+
+echo "create current changelog"
+if ./create-changlog-since "$version"; then
+  git add ../metadata
+  git commit -m"$version: create changelog files"
+fi
 
 echo "update the translations"
 git stash || true

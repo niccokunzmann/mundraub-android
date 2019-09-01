@@ -2,6 +2,7 @@ package eu.quelltext.mundraub.map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -58,7 +59,13 @@ public class MapUrl {
             if (splitValue.length != 2) {
                 continue;
             }
-            this.configuration.put(URLDecoder.decode(splitValue[0]), URLDecoder.decode(splitValue[1]));
+            try {
+                String key = URLDecoder.decode(splitValue[0], "UTF-8");
+                String entry = URLDecoder.decode(splitValue[1], "UTF-8");
+                this.configuration.put(key, entry);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace(); // this should never happen. UTF-8 should be there.
+            }
         }
         commonConfiguration();
     }
@@ -67,7 +74,13 @@ public class MapUrl {
     public String getUrl() {
         List<String> query = new ArrayList<>();
         for (Map.Entry<String, String> entry : configuration.entrySet()) {
-            query.add(URLEncoder.encode(entry.getKey()) + "=" + URLEncoder.encode(entry.getValue()));
+            try {
+                String key = URLEncoder.encode(entry.getKey(), "UTF-8");
+                String value = URLEncoder.encode(entry.getValue(), "UTF-8");
+                query.add(key + "=" + value);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace(); // this should never happen. UTF-8 should be there.
+            }
         }
         return "file:///android_asset/map/examples/fullScreen.html?" + StringUtils.join(query.toArray(), "&");
     }
@@ -78,11 +91,11 @@ public class MapUrl {
     }
 
     public double getLatitude() {
-        return getDouble(CONFIG_CENTER_LAT);
+        return getDouble(CONFIG_MARKER_LAT);
     }
 
     public double getLongitude() {
-        return getDouble(CONFIG_CENTER_LON);
+        return getDouble(CONFIG_MARKER_LON);
     }
 
     public double getDouble(String name) {

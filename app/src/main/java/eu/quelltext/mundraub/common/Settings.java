@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -48,12 +49,14 @@ public class Settings {
 
     public static final String API_ID_MUNDRAUB = "mundraub";
     public static final String API_ID_NA_OVOCE = "na-ovoce";
+    public static final String API_ID_MY_NA_OVOCE = "my-na-ovoce";
     public static final String API_ID_DUMMY = "dummy";
     public static final String API_ID_FRUITMAP = "fruitmap";
     public static final String API_ID_COMMUNITY = "community"; // only for markers
 
     public static final String TILES_OSM = "osm";
     public static final String TILES_SATELLITE = "satellite";
+    public static final String DEFAULT_CUSTOM_NA_OVOCE_DOMAIN = "https://na-ovoce.cz";
 
     private static final String PLANT_STORAGE_DIRECTORY_NAME = "eu.quelltext.mundraub";
     public static final String INVALID_HASH = "0000000000000000000000000000000000000000";
@@ -82,13 +85,17 @@ public class Settings {
         return 30;
     }
 
-    private static class SynchronizedStringSet { // TODO: test
+    public static class SynchronizedStringSet { // TODO: test
 
         private final String name;
         private Set<String> strings;
 
-        public SynchronizedStringSet(String name, List<String> strings) {
+        public SynchronizedStringSet(String name, Collection<String> strings) {
             this.name = name;
+            loadFrom(strings);
+        }
+
+        public void loadFrom(Collection<String> strings) {
             this.strings = new HashSet<String>(strings);
         }
 
@@ -101,6 +108,7 @@ public class Settings {
             String s = preferences.getString(key(), toString());
             String[] l = StringUtils.split(s, ",");
             strings = new HashSet<String>(Arrays.asList(l));
+            strings.remove("");
         }
 
         private String key() {
@@ -130,6 +138,10 @@ public class Settings {
                 strings.remove(apiId);
             }
         }
+
+        public Set<String> toSet() {
+            return new HashSet<>(strings);
+        }
     }
 
     /* persistent variables for the settings
@@ -139,6 +151,7 @@ public class Settings {
      * https://github.com/niccokunzmann/mundraub-android/commit/1d8bf40aa68d71cd35eb65e0e25986f6a8a1913e#diff-6cf4fcc1ccb27f70ca10a1b54612d568
      */
     private static String useAPIId = API_ID_MUNDRAUB;
+    private static String customNaOvoceHost = DEFAULT_CUSTOM_NA_OVOCE_DOMAIN;
     private static boolean useInsecureConnections = false;
     private static boolean useCacheForPlants = true;
     private static File persistentPathForPlants = new File(Environment.getExternalStorageDirectory(), PLANT_STORAGE_DIRECTORY_NAME);
@@ -150,6 +163,7 @@ public class Settings {
     private static SynchronizedStringSet showCategories = new SynchronizedStringSet("showCategories", Arrays.asList(API_ID_MUNDRAUB)); // array as list https://stackoverflow.com/a/2041810/1320237
     private static SynchronizedStringSet downloadMarkersFromAPI = new SynchronizedStringSet("downloadMarkersFromAPI", Arrays.asList(API_ID_MUNDRAUB, API_ID_NA_OVOCE, API_ID_FRUITMAP)); // array as list https://stackoverflow.com/a/2041810/1320237
     private static SynchronizedStringSet tilesToDownload = new SynchronizedStringSet("tilesToDownload", Arrays.asList(TILES_OSM));
+    private static SynchronizedStringSet customNaOvoceDownloadUrls = new SynchronizedStringSet("customNaOvoceDownloadUrls", new ArrayList<String>());
     private static boolean useFruitRadarNotifications = false;
     private static int radarPlantRangeMeters = 150;
 	private static int maximumDisplayedMarkers = 100;
@@ -181,6 +195,7 @@ public class Settings {
         log.d("Permissions.CAN_ASK_FOR_PERMISSIONS", Permissions.CAN_ASK_FOR_PERMISSIONS);
         log.d("useInsecureConnections", useInsecureConnections);
         log.d("useAPIId", useAPIId);
+        log.d("customNaOvoceHost", customNaOvoceHost);
         log.d("useCacheForPlants", useCacheForPlants);
         log.d("useErrorReport", useErrorReport);
         log.d("useOfflineMapAPI", useOfflineMapAPI);
@@ -196,6 +211,7 @@ public class Settings {
         log.d("showCategories", showCategories.toString());
         log.d("downloadMarkersFromAPI", downloadMarkersFromAPI.toString());
         log.d("tilesToDownload", tilesToDownload.toString());
+        log.d("customNaOvoceDownloadUrls", customNaOvoceDownloadUrls.toString());
         if (!useCacheForPlants) {
             log.d("persistentPathForPlants", persistentPathForPlants.toString());
         }
@@ -213,6 +229,7 @@ public class Settings {
         useOfflineMapAPI = preferences.getBoolean("useOfflineMapAPI", useOfflineMapAPI);
         debugMundraubMapAPI = preferences.getBoolean("debugMundraubMapAPI", debugMundraubMapAPI);
         vibrateWhenPlantIsInRange = preferences.getBoolean("vibrateWhenPlantIsInRange", vibrateWhenPlantIsInRange);
+        customNaOvoceHost = preferences.getString("customNaOvoceHost", customNaOvoceHost);
         useFruitRadarNotifications = preferences.getBoolean("useFruitRadarNotifications", useFruitRadarNotifications);
 		maximumDisplayedMarkers = preferences.getInt("maximumDisplayedMarkers", maximumDisplayedMarkers);
         radarPlantRangeMeters = preferences.getInt("radarPlantRangeMeters", radarPlantRangeMeters);
@@ -223,6 +240,7 @@ public class Settings {
         showCategories.load();
         downloadMarkersFromAPI.load();
         tilesToDownload.load();
+        customNaOvoceDownloadUrls.load();
         // load the permission questions
         permissionQuestion.clear();
         for (String key : preferences.getAll().keySet()) {
@@ -248,6 +266,7 @@ public class Settings {
             editor.putBoolean("useOfflineMapAPI", useOfflineMapAPI);
             editor.putBoolean("debugMundraubMapAPI", debugMundraubMapAPI);
             editor.putBoolean("vibrateWhenPlantIsInRange", vibrateWhenPlantIsInRange);
+            editor.putString("customNaOvoceHost", customNaOvoceHost);
             editor.putBoolean("useFruitRadarNotifications", useFruitRadarNotifications);
 			editor.putInt("maximumDisplayedMarkers", maximumDisplayedMarkers);
             editor.putInt("radarPlantRangeMeters", radarPlantRangeMeters);
@@ -258,6 +277,7 @@ public class Settings {
             showCategories.saveTo(editor);
             downloadMarkersFromAPI.saveTo(editor);
             tilesToDownload.saveTo(editor);
+            customNaOvoceDownloadUrls.saveTo(editor);
             for (String key: permissionQuestion.keySet()) {
                 editor.putBoolean(key, permissionQuestion.get(key));
             }
@@ -364,6 +384,23 @@ public class Settings {
     public static int vibrateWhenPlantIsInRange(boolean isChecked) {
         vibrateWhenPlantIsInRange = isChecked;
         return commit();
+    }
+
+    public static String getCustomNaOvoceHost() {
+        return customNaOvoceHost;
+    }
+
+    public static int setCustomNaOvoceHost(String customNaOvoceHost) {
+        Settings.customNaOvoceHost = customNaOvoceHost;
+        return commit();
+    }
+
+    public static int setCustomNaOvoceDownloads(Set<String> urls) {
+        customNaOvoceDownloadUrls.loadFrom(urls);
+        return commit();
+    }
+    public static Set<String> getCustomNaOvoceDownloads() {
+        return customNaOvoceDownloadUrls.toSet();
     }
 
     public static boolean useCacheForPlants() {

@@ -13,17 +13,18 @@ plants on the phone and upload them when an Internet connection is available.
 
 The API level is 9 so the application can run on old mobile phones.
 
-[<img src="docs/images/link-to-screenshots.png" height="120"/>][screenshots]
-[View the screenshots][screenshots]
+[<img src="docs/images/link-to-screenshots.png" height="120"/>][fdroid]
 
 Download
 --------
 
-[<img src="https://f-droid.org/badge/get-it-on.png" height="75">][fdroid]
+[<img src="images/get-it/fdroid.png" height="75" alt="Get it on F-Droid" />][fdroid]
+[<img src="images/get-it/google-play.png" height="75" alt="Get it on Google Play" />][google-play]
 
 The latest version can be downloaded from GitHub
 - [Download latest release](https://niccokunzmann.github.io/download_latest/fruit-radar-release.apk)
 - [Download latest debug version](https://niccokunzmann.github.io/download_latest/fruit-radar-debug.apk)
+- [Join the Beta test on Google Play](https://play.google.com/apps/testing/eu.quelltext.mundraub)
 
 Contribute
 ----------
@@ -75,6 +76,7 @@ Services:
 - [Transifex][tx] for managing translations
     - [Microsoft Translate] with a free account for suggesting translations. 
 - [F-Droid][fdroid] for publishing the app
+- [Google Play][google-play] for publishing the app
 - OpenStreetMap's [Nominatim] to search for places on the map
 
 Languages:
@@ -96,7 +98,6 @@ Languages:
 [issues]: https://github.com/niccokunzmann/mundraub-android/issues
 [tx]: https://www.transifex.com/mundraub-android/mundraub-android-app/
 [setup]: docs/setup.md
-[screenshots]: docs/usage.md#readme
 [fdroid]: https://f-droid.org/en/packages/eu.quelltext.mundraub/
 [Android Studio]: https://developer.android.com/studio/
 [releases]: https://github.com/niccokunzmann/mundraub-android/releases
@@ -110,3 +111,5 @@ Languages:
 [MatLog Libre]: https://f-droid.org/en/packages/com.pluscubed.matloglibre/
 [documentation]: docs#readme
 [Nominatim]: https://nominatim.openstreetmap.org/
+[google-play]: https://play.google.com/store/apps/details?id=eu.quelltext.mundraub
+

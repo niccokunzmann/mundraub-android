@@ -1,7 +1,6 @@
 package eu.quelltext.mundraub.activities.map;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
 
@@ -37,9 +36,8 @@ public class SelectOfflineMapPartsActivity extends MapBaseActivity {
         openMapAtLastPlantOrDefault();
     }
 
-    @NonNull
     @Override
-    protected MapUrl createMapUrl(double longitude, double latitude) {
-        return super.createMapUrl(longitude, latitude).createBoxes();
+    protected void openMapAt(MapUrl url) {
+        super.openMapAt(url.createBoxes());
     }
 }

@@ -82,16 +82,18 @@ public class AddressStoreTest {
 
     @Test
     public void testCanSerializeContentInCorrectOrder() throws JSONException {
-        store.add(A1);
-        store.add(A2);
         store.add(A3);
-        JSONObject json = store.toJSON();
-        store = AddressSearchStore.fromJSON(json);
-        store.search("");
-        assertEquals(3, store.size());
-        assertEquals(A1, store.get(0));
-        assertEquals(A2, store.get(1));
-        assertEquals(A3, store.get(2));
+        store.add(A2);
+        store.add(A1);
+        for (int i = 0; i < 4; i++) {
+            JSONObject json = store.toJSON();
+            store = AddressSearchStore.fromJSON(json);
+            store.search("");
+            assertEquals(3, store.size());
+            assertEquals(A1, store.get(0));
+            assertEquals(A2, store.get(1));
+            assertEquals(A3, store.get(2));
+        }
     }
 
     @Test

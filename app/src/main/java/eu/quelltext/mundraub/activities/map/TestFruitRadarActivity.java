@@ -8,7 +8,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import eu.quelltext.mundraub.R;
-import eu.quelltext.mundraub.initialization.FruitRadarNotification;
+import eu.quelltext.mundraub.notification.FruitRadarNotification;
 import eu.quelltext.mundraub.map.MapUrl;
 
 public class TestFruitRadarActivity extends MapBaseActivity {

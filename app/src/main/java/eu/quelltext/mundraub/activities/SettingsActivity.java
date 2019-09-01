@@ -1,14 +1,10 @@
 package eu.quelltext.mundraub.activities;
 
 import android.annotation.SuppressLint;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.NotificationCompat;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -22,6 +18,7 @@ import android.widget.ToggleButton;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import eu.quelltext.mundraub.R;
@@ -40,6 +37,8 @@ import eu.quelltext.mundraub.map.PlantsCache;
 import eu.quelltext.mundraub.map.TilesCache;
 import eu.quelltext.mundraub.map.position.BoundingBox;
 import eu.quelltext.mundraub.map.position.BoundingBoxCollection;
+import eu.quelltext.mundraub.notification.NotificationIDs;
+import eu.quelltext.mundraub.notification.ProgressNotification;
 import okhttp3.ResponseBody;
 import okio.BufferedSink;
 import okio.Okio;
@@ -47,6 +46,7 @@ import okio.Okio;
 public class SettingsActivity extends MundraubBaseActivity {
 
     private static BackgroundDownloadTask mapDownload = null;
+    private static final String NA_OVOCE_GITHUB_URL = "https://github.com/jsmesami/naovoce";
 
     private ProgressBar updateProgress;
     final Handler handler = new Handler();
@@ -63,6 +63,8 @@ public class SettingsActivity extends MundraubBaseActivity {
     private Button buttonDownloadMap;
     private ProgressBar updateProgressMap;
     private ProgressUpdate mapProgressAutoUpdate;
+    private EditText customDownloadDomains;
+    private EditText customNaOvoceDomain;
 
     abstract class ProgressUpdate implements Runnable {
 
@@ -110,32 +112,18 @@ public class SettingsActivity extends MundraubBaseActivity {
         protected abstract Progress getProgressOrNull();
     }
 
-    NotificationCompat.Builder notification;
-    private static final int uniqueID= 123;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        notification = new NotificationCompat.Builder(this);
-        notification.setAutoCancel(true);
-
         updateProgress = (ProgressBar) findViewById(R.id.update_progress);
         apiRadioGroup = (RadioGroup) findViewById(R.id.api_choice);
         textFruitRadarDistanceExplanation = (TextView) findViewById(R.id.text_distance_in_meters_explanation);
         textFruitRadarDistance = (EditText) findViewById(R.id.number_meters_to_plant);
-        textFruitRadarDistance.addTextChangedListener(new TextWatcher() {
+        whenTextEditedDo(textFruitRadarDistance, new OnTextEdited() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
+            public void onNewText() {
                 String text = textFruitRadarDistance.getText().toString();
                 if (text.isEmpty()) {
                     return;
@@ -149,20 +137,10 @@ public class SettingsActivity extends MundraubBaseActivity {
         });
 		textNumberOfMarkersExplanation = (TextView) findViewById(R.id.text_number_of_markers_explanation);
         textMaxNumberOfMarkers = (EditText) findViewById(R.id.number_of_markers_displayed);
-        textMaxNumberOfMarkers.addTextChangedListener(new TextWatcher() {
+        whenTextEditedDo(textMaxNumberOfMarkers, new OnTextEdited() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
- 
-            }
- 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
- 
-            }
- 
-            @Override
-            public void afterTextChanged(Editable s) {
-                String text = textMaxNumberOfMarkers.getText().toString();
+            public void onNewText() {
+            String text = textMaxNumberOfMarkers.getText().toString();
                 if (text.isEmpty()) {
                     return;
                 }
@@ -225,57 +203,83 @@ public class SettingsActivity extends MundraubBaseActivity {
             public void onClick(View v) {
                 if (!isDownloadingMap()) {
                     downloadMap();
-                    buttonStartMapDownloadClicked();
+                    new ProgressNotification(
+                            SettingsActivity.this,
+                            NotificationIDs.ID_MAP_DOWNLOAD,
+                            mapDownload.getProgress(),
+                            R.string.notification_title_download_map);
                 }
             }
         });
         updateProgressMap = (ProgressBar) findViewById(R.id.update_progress_map);
         updateMapOfflineButtons();
+        customNaOvoceDomain = (EditText) findViewById(R.id.my_na_ovoce_server_domain);
+        customNaOvoceDomain.setHint(Settings.DEFAULT_CUSTOM_NA_OVOCE_DOMAIN);
+        whenTextEditedDo(customNaOvoceDomain, new OnTextEdited() {
+            @Override
+            public void onNewText() {
+                String url = customNaOvoceDomain.getText().toString();
+                String newUrl = url.isEmpty() ? Settings.DEFAULT_CUSTOM_NA_OVOCE_DOMAIN : url;
+                if (newUrl != Settings.getCustomNaOvoceHost()) {
+                    Settings.setCustomNaOvoceHost(newUrl);
+                }
+            }
+        });
 
+        Button setupNaOvoce = (Button) findViewById(R.id.button_setup_na_ovoce);
+        setupNaOvoce.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openURLInBrowser(NA_OVOCE_GITHUB_URL);
+            }
+        });
+
+        customDownloadDomains = (EditText) findViewById(R.id.download_na_ovoce_server_domains);
+        whenTextEditedDo(customDownloadDomains, new OnTextEdited() {
+            @Override
+            public void onNewText() {
+                Set<String> urls = getCustomNaOvoceDownloadUrls();
+                if (!Settings.getCustomNaOvoceDownloads().equals(urls)) {
+                    Settings.setCustomNaOvoceDownloads(urls);
+                }
+            }
+        });
     }
 
-    private void buttonStartMapDownloadClicked(){
-        notification.setSmallIcon(R.mipmap.ic_launcher);
-        notification.setTicker("Fruit Radar");
-        notification.setWhen(System.currentTimeMillis());
-        notification.setContentTitle("Offline map updated");
-        notification.setContentText("Download in progress!");
-
-        final int max_progress = 100;
-        int current_progress = 0;
-
-        notification.setProgress(max_progress, current_progress, false );
-
-        Intent intent= new Intent(this, SettingsActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        notification.setContentIntent(pendingIntent);
-
-        NotificationManager notificationManager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(uniqueID, notification.build());
-
-        Thread thread = new Thread(){
+    private void whenTextEditedDo(final EditText editText, final OnTextEdited edited) {
+        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void run() {
-                int count=0;
-                try {
-                    while (count <= 100) {
-                        count = count + 10;
-                        sleep(1000);
-                        notification.setProgress(max_progress,count, false);
-                        NotificationManager notificationManager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                        notificationManager.notify(uniqueID, notification.build());
-                    }
-
-                    notification.setContentText("Download complete");
-                    notification.setProgress(0,0,false);
-                    NotificationManager notificationManager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                    notificationManager.notify(uniqueID, notification.build());
-                }catch (InterruptedException e){}
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    edited.onNewText();
+                }
             }
-        };
+        });
+        editText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // from https://stackoverflow.com/a/8233832/1320237
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    edited.onNewText();
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
 
-        thread.start();
+    interface OnTextEdited {
+        void onNewText();
+    }
 
+    private Set<String> getCustomNaOvoceDownloadUrls() {
+        String[] urls = customDownloadDomains.getText().toString().split(",");
+        for (int i = 0; i < urls.length; i++) {
+            urls[i] = urls[i].replaceAll(" ", "");
+        }
+        HashSet<String> set = new HashSet<>(Arrays.asList(urls));
+        set.remove("");
+        return set;
     }
 
     private void downloadMap() {
@@ -404,13 +408,15 @@ public class SettingsActivity extends MundraubBaseActivity {
 
     @Override
     protected void onPause() {
+        getCurrentFocus().clearFocus(); // commit the text fields if focused
         super.onPause();
         plantProgressAutoUpdate.stop();
         mapProgressAutoUpdate.stop();
     }
 
     private void update() {
-        apiRadioGroup.check(API.instance().radioButtonId());
+        API api = API.instance();
+        apiRadioGroup.check(api.radioButtonId());
         apiRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -422,6 +428,11 @@ public class SettingsActivity extends MundraubBaseActivity {
                 update();
             }
         });
+        View customInputs = findViewById(R.id.custom_na_ovoce_inputs);
+        customInputs.setVisibility(api.isCustomNaOvoceAPI() ? View.VISIBLE : View.GONE);
+        customNaOvoceDomain.setText(Settings.getCustomNaOvoceHost());
+
+
         synchronizeBooleanSetting(R.id.toggle_secure_connection, new Toggled() {
             @Override
             public int onToggle(boolean checked) {
@@ -506,6 +517,20 @@ public class SettingsActivity extends MundraubBaseActivity {
         synchronizeMarkerDownloadCheckbutton(R.id.checkBox_download_mundraub_markers, Settings.API_ID_MUNDRAUB);
         synchronizeMarkerDownloadCheckbutton(R.id.checkBox_download_na_ovoce_markers, Settings.API_ID_NA_OVOCE);
         synchronizeMarkerDownloadCheckbutton(R.id.checkBox_download_fruitmap_markers, Settings.API_ID_FRUITMAP);
+        synchronizeMarkerDownloadCheckbutton(R.id.checkBox_download_custom_na_ovoce_markers, Settings.API_ID_MY_NA_OVOCE);
+        customDownloadDomains.setVisibility(Settings.downloadMarkersFromAPI(Settings.API_ID_MY_NA_OVOCE) ? View.VISIBLE : View.GONE);
+        Set<String> settingUrls = Settings.getCustomNaOvoceDownloads();
+        if (!settingUrls.equals(getCustomNaOvoceDownloadUrls())) {
+            String urls = "";
+            for (Iterator<String> it = settingUrls.iterator(); it.hasNext(); ) {
+                String url = it.next();
+                if (!urls.equals("")) {
+                    urls += ", ";
+                }
+                urls += url;
+            }
+            customDownloadDomains.setText(urls);
+        }
 
         synchronizeCheckbutton(R.id.checkBox_fruit_radar, new Toggled() {
             @Override
@@ -667,7 +692,7 @@ public class SettingsActivity extends MundraubBaseActivity {
 
             @Override
             public void onGranted(Permissions.Permission permission) {
-                PlantsCache.update(new API.Callback() {
+                Progress progress = PlantsCache.update(new API.Callback() {
                     @Override
                     public void onSuccess() {
                         feedbackAboutSettingsChange(Settings.useOfflineMapAPI(true));
@@ -680,6 +705,11 @@ public class SettingsActivity extends MundraubBaseActivity {
                         new Dialog(SettingsActivity.this).alertError(errorResourceString);
                     }
                 });
+                new ProgressNotification(
+                        SettingsActivity.this,
+                        NotificationIDs.ID_MARKER_DOWNLOAD,
+                        progress,
+                        R.string.notification_title_download_markers);
             }
         });
     }
