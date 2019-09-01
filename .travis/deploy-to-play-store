@@ -16,8 +16,7 @@ cd "$HERE/.."
 
 if ! which fastlane > /dev/null; then
     echo "fastlane is not installed. It will be installed now."
-    gem install bundler
-    bundle install
+    gem install fastlane
 fi
 
 if ! [ -f "$APK" ]; then
