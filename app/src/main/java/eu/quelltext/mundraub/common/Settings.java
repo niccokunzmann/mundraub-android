@@ -85,7 +85,7 @@ public class Settings {
         return 30;
     }
 
-    private static class SynchronizedStringSet { // TODO: test
+    public static class SynchronizedStringSet { // TODO: test
 
         private final String name;
         private Set<String> strings;
