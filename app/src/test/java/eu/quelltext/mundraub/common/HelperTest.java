@@ -1,8 +1,11 @@
 package eu.quelltext.mundraub.common;
 
+import com.google.common.io.Files;
+
 import org.junit.Test;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
@@ -77,5 +80,44 @@ public class HelperTest {
             e.printStackTrace();
         }
 
+    }
+
+    @Test
+    public void testCompare(){
+        assertEquals(Helper.compare(0,1), -1);
+        assertEquals(Helper.compare(1,0), 1);
+        assertEquals(Helper.compare(0,0), 0);
+    }
+
+    @Test
+    public void testDistanceInMeters(){
+        assertEquals(Helper.distanceInMetersBetween(0.0,0.0,1.0,1.0), 157955.13999241014, 0);
+        assertEquals(Helper.distanceInMetersBetween(45.58885,12.34521,12.47785,1.12345), 3874247.1015959415, 0);
+    }
+
+    @Test
+    public void testMetersToDegrees(){
+        assertEquals(Helper.metersToDegrees(123.25),0.0011034613797355577, 0);
+    }
+
+
+    @Test
+    public void testDoubleToString(){
+        assertEquals(Helper.doubleTo15DigitString(25.25), "25.250000000000000");
+        assertEquals(Helper.doubleTo15DigitString(-154782.24445), "-154782.244450000000000");
+    }
+
+    @Test
+    public void testFolderSize() throws IOException {
+        File dir = Files.createTempDir();
+        assertEquals(Helper.folderSize(dir), 0);
+        // write to a file
+        // see https://stackoverflow.com/a/2885224
+        byte data[] = new byte[100];
+        FileOutputStream out = new FileOutputStream(dir.toString() + "/test.txt");
+        out.write(data);
+        out.close();
+        long size = Helper.folderSize(dir);
+        assertEquals(size, 100);
     }
 }
