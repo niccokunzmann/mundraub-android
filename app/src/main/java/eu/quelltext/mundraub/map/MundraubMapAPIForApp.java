@@ -98,7 +98,7 @@ public class MundraubMapAPIForApp extends MundraubMapAPI {
                 response.addHeader("Cache-Control", "no-store, must-revalidate"); // no cache from https://stackoverflow.com/a/2068407
                 return response;
             } else {
-                log.d("handle tile", 307 + ": " + z + "/" + y + "/" + x);
+                log.d("handle tile", 307 + ": " + z + "/" + y + "/" + x + " -> " + tile.url());
                 Response response = Response.newFixedLengthResponse(Status.TEMPORARY_REDIRECT, MIME_PLAINTEXT, "Image not found.");
                 response.addHeader("Location", tile.url());
                 return response;

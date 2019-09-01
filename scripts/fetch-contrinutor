@@ -1,0 +1,4 @@
+#!/bin/bash
+
+git fetch "https://github.com/$1/mundraub-android.git"
+
