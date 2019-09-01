@@ -5,8 +5,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import eu.quelltext.mundraub.api.API;
-import eu.quelltext.mundraub.api.DummyAPI;
 import eu.quelltext.mundraub.common.Settings;
 
 import static junit.framework.Assert.assertEquals;
@@ -60,18 +58,5 @@ public class SynchronizedSetTest {
         set.setChecked("Zero", false);
         set.setChecked("Two", false);
         assertEquals(set.toString(), "One");
-    }
-
-    @Test
-    public void dummyApiTest(){
-//        API api= new DummyAPI();
-//        api.login("test", "test", new API.Callback(){
-//            @Override
-//            public void onSuccess() {
-//
-//            }
-//        });
-//
-//        assertTrue(api.isLoggedIn());
     }
 }
