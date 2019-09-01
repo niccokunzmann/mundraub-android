@@ -1,4 +1,5 @@
 #!/bin/bash
 
-git fetch "https://github.com/$1/mundraub-android.git"
+# see https://stackoverflow.com/a/19644027/1320237
+git fetch "https://github.com/$1/mundraub-android.git" '+refs/heads/*:refs/heads/*'
 

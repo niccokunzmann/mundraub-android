@@ -71,5 +71,4 @@ public class HelperPositionTest {
         int direction = Helper.directionFromPositionToPositionAsResourceId(i, i1, i2, i3);
         assertEquals(mapToString(expectedDirection) + " == " + mapToString(direction), expectedDirection, direction);
     }
-
 }
