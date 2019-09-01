@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import eu.quelltext.mundraub.map.position.BoundingBox;
 import eu.quelltext.mundraub.map.position.Position;
+import eu.quelltext.mundraub.map.position.RadiusBoundingBox;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;

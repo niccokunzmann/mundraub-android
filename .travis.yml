@@ -42,9 +42,9 @@ addons:
 
 before_install:
 # create signing key, see https://doubledot.dev/blog/2018-11-14-Continuous-Integration/
-- openssl aes-256-cbc -K $TRAVIS_FILE_KEY -iv $TRAVIS_FILE_IV -in .travis/key.jks.enc -out .travis/key.jks -d
+- openssl aes-256-cbc -K $TRAVIS_FILE_KEY -iv $TRAVIS_FILE_IV -in .travis/key.jks.enc -out .travis/key.jks -d || true
 # create google api service account json key file
-- openssl aes-256-cbc -K $TRAVIS_FILE_KEY -iv $TRAVIS_FILE_IV -in .travis/api.json.enc -out .travis/api.json -d
+- openssl aes-256-cbc -K $TRAVIS_FILE_KEY -iv $TRAVIS_FILE_IV -in .travis/api.json.enc -out .travis/api.json -d || true
 
 before_script:
 # install sdkman from https://sdkman.io/
