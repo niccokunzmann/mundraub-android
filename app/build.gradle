@@ -8,8 +8,8 @@ android {
         targetSdkVersion 25
 
         // BEGIN: this is changed by the travis build
-        versionCode 1
-        versionName "1.0"
+        versionCode 209
+        versionName "v1.208"
         // END
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
