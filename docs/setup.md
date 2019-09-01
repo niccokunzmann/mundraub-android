@@ -57,7 +57,7 @@ To display the map, you need a web browser like Firefox.
 Mundraub.org does not allow JavaScript access to the map
 directly because it does not set the `Access-Control-Allow-Origin`
 header therefore we need a proxy for this map.
-The proxy can be run with the [command `scripts/runHTTPProxy.sh`][scripts]
+The proxy can be run with the [command `scripts/runHTTPProxy.sh`][script-proxy]
 You need `java` and `javac` for this.
 
 Please the the [API] to know what the proxy provides.
