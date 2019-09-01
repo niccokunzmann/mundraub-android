@@ -22,9 +22,6 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
     // sign the release on Travis, see https://doubledot.dev/blog/2018-11-14-Continuous-Integration/
-    signingConfigs {
-        release
-    }
     buildTypes {
         release {
             minifyEnabled false
@@ -32,8 +29,11 @@ android {
         }
     }
 
-    def isRunningOnTravis = System.getenv("CI") == "true"
+    def isRunningOnTravis = System.getenv("SIGN_THE_BUILD") == "true"
     if (isRunningOnTravis) {
+        signingConfigs {
+            release
+        }
         signingConfigs.release.storeFile = file("../.travis/key.jks")
         signingConfigs.release.storePassword = System.getenv("keystore_password")
         signingConfigs.release.keyAlias = System.getenv("keystore_alias")
