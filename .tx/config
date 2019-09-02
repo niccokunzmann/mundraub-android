@@ -10,7 +10,7 @@ type = ANDROID
 
 [mundraub-android-app.fdroid-short-description-txt]
 file_filter = metadata/<lang>/short_description.txt
-minimum_perc = 100
+minimum_perc = 0
 source_file = metadata/en/short_description.txt
 source_lang = en
 type = TXT
@@ -38,7 +38,7 @@ type = REQUIREJS
 
 [mundraub-android-app.fdroid-title-txt]
 file_filter = metadata/<lang>/title.txt
-minimum_perc = 100
+minimum_perc = 0
 source_file = metadata/en/title.txt
 source_lang = en
 type = TXT
