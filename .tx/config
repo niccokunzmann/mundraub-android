@@ -17,14 +17,21 @@ type = TXT
 
 [mundraub-android-app.fdroid-full-description-txt]
 file_filter = metadata/<lang>/full_description.txt
-minimum_perc = 50
+minimum_perc = 0
 source_file = metadata/en/full_description.txt
+source_lang = en
+type = TXT
+
+[mundraub-android-app.fdroid-full-description-play-txt]
+file_filter = metadata/<lang>/full_description_play.txt
+minimum_perc = 0
+source_file = metadata/en/full_description_play.txt
 source_lang = en
 type = TXT
 
 [mundraub-android-app.map-translations-js]
 file_filter = app/src/main/assets/map/translations/<lang>.js
-minimum_perc = 50
+minimum_perc = 0
 source_file = app/src/main/assets/map/translations/en.js
 source_lang = en
 type = REQUIREJS
@@ -38,6 +45,7 @@ type = TXT
 
 [mundraub-android-app.privacy-policy-html]
 file_filter = app/src/main/assets/privacy/<lang>.html
+minimum_perc = 0
 source_file = app/src/main/assets/privacy/en.html
 source_lang = en-US
 type = HTML
