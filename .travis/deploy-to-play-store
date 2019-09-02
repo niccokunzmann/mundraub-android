@@ -9,6 +9,7 @@ shift
 # constants
 HERE="`dirname \"$0\"`"
 APK="apks/fruit-radar-google-play-release.apk"
+METADATA_OUTPUT='/tmp/fruit-radar-metadata'
 
 cd "$HERE/.."
 
@@ -26,8 +27,8 @@ if ! [ -f "$APK" ]; then
     exit 1
 fi
 
-echo "#### create metadata folder ####"
-"$HERE/create-google-play-metadata"
+echo "#### create metadata folder $METADATA_OUTPUT ####"
+"$HERE/create-google-play-metadata" "$METADATA_OUTPUT"
 
 echo "#### deploy ####"
 fastlane supply \
