@@ -36,17 +36,17 @@
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="apple">Apfel</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="apricot">Aprikose</string>
+    <string name="apricot">Marille</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="pear">Birne</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="cherry">Kirsche</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="mirabelle">Mirabelle</string>
+    <string name="mirabelle">Kriecherl</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="mulberry">Maulbeere</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="plum">Pflaume</string>
+    <string name="plum">Zwetschke</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="quince">Quitte</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
@@ -54,7 +54,7 @@
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="blackberry">Brombeere</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="blueberry">Blaubeere</string>
+    <string name="blueberry">Schwarzbeere</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="bilberry">Heidelbeere</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
@@ -66,9 +66,9 @@
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="juneberry">Felsenbrine</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="currant">Johannisbeere</string>
+    <string name="currant">Ribisel</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="cornel_cherry">Cornelkirsche</string>
+    <string name="cornel_cherry">Dirndl</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="seaberry">Sanddorn</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
@@ -104,11 +104,11 @@
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="unnamed_plant">Unbenannte Pflanze</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="sour_cherry">Sauerkirsche</string>
+    <string name="sour_cherry">Weichsel</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="lemon_balm">Zitronenmelisse</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="chokeberry">Apfelbeere</string>
+    <string name="chokeberry">Aronia</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="medlar">Mispel</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
@@ -128,15 +128,15 @@
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="grapefruit">Grapefruit</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="red_ribes">Rote Johannisbeere</string>
+    <string name="red_ribes">Rote Ribisel</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="black_ribes">Schwarze Johannisbeere</string>
+    <string name="black_ribes">Schwarze Ribisel</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="strawberry">Erdbeere</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="jostaberry">Jostabeere</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="greengage">Edelpflaume</string>
+    <string name="greengage">Ringlotte</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="grape">Weintraube</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
@@ -186,8 +186,6 @@
     <string name="login_api_name_mundraub">Mundraub.org</string>
     <!-- Login: API name for na ovoce -->
     <string name="login_api_name_na_ovoce">Na-Ovoce.cz</string>
-    <!-- Login: API name for a na-ovoce server running under an own domain -->
-    <string name="login_api_name_my_na_ovoce">Eigener Na-Ovoce-Server</string>
     <!-- Login: API name for the local test API for development -->
     <string name="login_api_name_dummy">Lokale Test-API</string>
     <!-- Login: API name for fruit map -->
@@ -262,8 +260,6 @@
     <string name="operation_not_permitted">Diese Aktion ist nicht erlaubt.</string>
     <!-- API errors and results:  -->
     <string name="error_unexpected_return_code">Der Server hat einen unerwarteten Rückgabewert gesendet.</string>
-    <!-- API errors and results: The user tries to log in but the email needs to be verified before. -->
-    <string name="error_email_needs_to_be_validated_before_login">Bitte bestätige Deine E-Mail-Adresse vorher.</string>
     <!-- API errors and results: Let's invite people to contribute when they see this error which we do not know about. -->
     <string name="error_not_specified">Es ist ein Fehler aufgetreten und wenn die Entwickler mehr Zeit genutzt hätten, wüsstest Du, woran es liegt. Zeit, beizutragen!</string>
     <!-- API errors and results: Used when an API is not 100% implemented. -->
@@ -308,8 +304,6 @@
     <string name="error_could_not_sign_up_na_ovoce">Du konntest nicht bei Na-Ovoce.cz angemeldet werden. Der Server hat keine Nutzer-ID geliefert.</string>
     <!-- API errors and results: in the login form -->
     <string name="error_could_not_log_in_na_ovoce">Du konntest nicht bei Na-Ovoce.cz angemeldet werden. Der Server hat keinen Authentifizierungsschlüssel gesendet. Bitte überprüfe den Nutzernamen und das Passwort und versuche es erneut.</string>
-    <!-- API errors and results: When the server only supports https -->
-    <string name="error_redirect_no_api_found">Der Server hat an eine andere URL verwiesen. Vielleicht ist die API unter einer anderen URL erreichbar.</string>
     <!-- API errors and results: should be circumvent by the UI. If not, the user should change the API endpoint or the category of the plant or if this is an error, change categories.json -->
     <string name="error_invalid_category_for_api">Diese Kategorie Pflanze gibt es nicht auf dieser Plattform. Bitte wähle eine andere Kategorie oder lade die Pflanze woanders hoch.</string>
     <!-- API errors and results: error message when uploading/changing plant online -->
@@ -342,11 +336,6 @@
     <string name="menu_rules">Mundräuberregeln</string>
     <!-- Menu: entry to open the Privacy Policy -->
     <string name="menu_privacy">Datenschutz</string>
-    <!-- Menu: entry to open the Changelog -->
-    <string name="menu_changelog">Updateverlauf</string>
-    <!-- Menu: entry to open the Address Search -->
-    <string name="menu_search_address">Orte Finden</string>
-
     <!-- ==============  About the app  ============== -->
     <!-- About the app: Activity title -->
     <string name="title_about">Infos über die App</string>
@@ -404,8 +393,6 @@
     <string name="settings_use_mundraub_api">Wenn das eingeschaltet ist, publiziert die App die Pflanzen auf Mundraub.org.</string>
     <!-- settings: API choice  -->
     <string name="settings_use_na_ovoce">Wenn das eingeschaltet ist, publiziert die App die Pflanzen auf Na-Ovoce.cz.</string>
-    <!-- settings: API choice  -->
-    <string name="settings_use_my_na_ovoce">Wenn das eingeschaltet ist, publiziert die App die Pflanzen auf einem eigenen Na-Ovoce-Server.</string>
     <!-- settings: API choice  -->
     <string name="settings_use_fruitmap">Wenn das eingeschaltet ist, publiziert die App die Pflanzen auf FruitMap.org.</string>
     <!-- settings: API choice  -->
@@ -499,10 +486,6 @@
     <!-- settings: Checkbutton to choose which sources to download markers from -->
     <string name="settings_download_mundraub_markers">Wenn das eingeschaltet ist, lädt die App die Marker von Mundraub.org runter.</string>
     <!-- settings: Checkbutton to choose which sources to download markers from -->
-    <string name="settings_download_custom_na_ovoce_markers">Wenn das eingeschaltet ist, lädt die App alle Pflanzen von einer Liste von Na-Ovoce-Servern herunter, durch Komma getrennt.</string>
-    <!-- settings: If you choose to download markers from additional na-ovoce sources, you can specify this list of hosts, including http or https, domain and maye port. -->
-    <string name="settings_hint_my_na_ovoce_server">http://meine.domain, https:anderer.server:8080</string>
-    <!-- settings: Checkbutton to choose which sources to download markers from -->
     <string name="settings_download_na_ovoce_markers">Wenn das eingeschaltet ist, lädt die App die Marker von Na-Ovoce.cz runter.</string>
     <!-- settings: Checkbutton to choose which sources to download markers from -->
     <string name="settings_download_fruitmap_markers">Wenn das eingeschaltet ist, lädt die App die Marker von FruitMap.org runter.</string>
@@ -531,10 +514,7 @@
     <!-- settings: dialog message when all the map tiles are downloaded with success -->
     <string name="settings_success_download_map">Alle ausgewählten Gebiete der Karte wurden heruntergeladen und sind nun auch offline verfügbar.</string>
     <!-- settings: max number of displayed markers on map : text -->
-    <string name="settings_max_num_of_markers" formatted="false">Maximal<xliff:g example="100" id="maxMarkers">%1$d</xliff:g> Marker werden auf der Karte angezeigt.</string>
-    <!-- settings: when you choose a custom na-ovoce server as a target for upload, you can click this button to reach the source code of na-ovoce.cz -->
-    <string name="settings_setup_na_ovoce">Aufsetzen</string>
-
+    <string name="settings_max_num_of_markers" formatted="false">Maximum of <xliff:g example="100" id="maxMarkers">%1$d</xliff:g> markers will be displayed on map.</string>
     <!-- ==============  Community Codex  ============== -->
     <!-- https://mundraub.org/mundraeuber-regeln -->
     <!-- Community Codex: Activity title -->
@@ -599,29 +579,4 @@
     <!-- Privacy Policy: Activity title. This is displayed when viewing the Privacy Policy. -->
     <string name="title_privacy_policy">Datenschutz</string>
 
-    <!-- ==============  Changelog  ============== -->
-    <!-- Changelog: Activity title. This is displayed when viewing the Changelog. -->
-    <string name="title_changelog">Änderungen an dieser App</string>
-
-    <!-- ==============  Address Search  ============== -->
-    <!-- Address Address Search: Activity title. This is displayed when viewing the Address Search. -->
-    <string name="title_address_search">Finde einen Ort auf der Karte</string>
-    <!-- Address Search: Text of the addressSearch button. -->
-    <string name="search_button">Suchen</string>
-    <!-- Address Search: Text displayed at the bottom containing the license of the searched data. -->
-    <string name="search_license">Daten © OpenStreetMap Beitragende, ODbL 1.0.</string>
-    <!-- Address Search: Text displayed when the search contains no entries. -->
-    <string name="search_no_result">Konnte keine Orte finden.</string>
-    <!-- Address Search: Text displayed when the search contains no entries. -->
-    <string name="search_no_local_result">Keine solchen Orte sind in der App gespeichert.</string>
-
-    <!-- ==============  Notifications  ============== -->
-    <!-- Notifications: The download is in progress. -->
-    <string name="notification_download_in_progress">Download läuft.</string>
-    <!-- Notifications: The download is complete. -->
-    <string name="notification_download_completed">Download abgeschlossen.</string>
-    <!-- Notifications: This is the title of the nofication which tracks the download of offline map tiles. -->
-    <string name="notification_title_download_map">Offline-Karte wird heruntergeladen.</string>
-    <!-- Notifications: This is the title of the nofication which tracks the download of offline plant markers. -->
-    <string name="notification_title_download_markers">Pflanzenstandorte werden heruntergeladen.</string>
-</resources>
+    </resources>
