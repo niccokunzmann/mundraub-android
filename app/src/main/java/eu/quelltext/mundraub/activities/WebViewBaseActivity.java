@@ -3,7 +3,6 @@ package eu.quelltext.mundraub.activities;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.webkit.ConsoleMessage;
-import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.GeolocationPermissions;
 import android.webkit.WebChromeClient;
@@ -61,10 +60,6 @@ public class WebViewBaseActivity extends MundraubBaseActivity {
             }
         });
         webView.setWebViewClient(new WebViewClient() {
-            public void onPageFinished(WebView view, String url) {
-                syncCookies();
-            }
-
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 // When user clicks a hyperlink, load in the existing WebView
@@ -78,31 +73,9 @@ public class WebViewBaseActivity extends MundraubBaseActivity {
             }
         });
 
-        // enable cookies for web view
-        // see https://stackoverflow.com/a/47868677/1320237
-        if (Build.VERSION.SDK_INT >= 21) {
-            CookieManager.getInstance().setAcceptThirdPartyCookies(webView, true);
-        } else {
-            CookieManager.getInstance().setAcceptCookie(true);
-        }
-
         // adding a builtin cookie manager
         // see https://stackoverflow.com/a/18445563/1320237
         webView.addJavascriptInterface(new LocalCookieManager(), "localCookieManager");
-    }
-
-    private CookieSyncManager getCookieSyncManager() {
-        if (cookieSyncManager == null) {
-            cookieSyncManager = CookieSyncManager.createInstance(this);
-        }
-        return cookieSyncManager;
-    }
-
-    private void syncCookies() {
-        if (Build.VERSION.SDK_INT < 21) {
-            // CookieSyncManager is deprecated since API level 21 https://stackoverflow.com/a/47913011
-            getCookieSyncManager().sync(); // from https://stackoverflow.com/a/8390280
-        }
     }
 
     /* Handle the app opening an app internal url starting with app://
@@ -112,24 +85,6 @@ public class WebViewBaseActivity extends MundraubBaseActivity {
         // this method handles the other side of appInteraction.js
         log.d("openInAppUrl", url);
         return false;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (Build.VERSION.SDK_INT < 21) {
-            // see https://stackoverflow.com/a/2566660/1320237
-            getCookieSyncManager().stopSync();
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (Build.VERSION.SDK_INT < 21) {
-            // see https://stackoverflow.com/a/2566660/1320237
-            getCookieSyncManager().startSync();
-        }
     }
 
     public class LocalCookieManager {
