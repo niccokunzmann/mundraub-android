@@ -126,8 +126,8 @@ function onload() {
         var unsortedMapLayers = [
             // see https://wiki.openstreetmap.org/wiki/OpenLayers_Simple_Example#Extensions
             //    new OpenLayers.Layer.OSM(),
-            layer_earth,
             layer_osm,
+            layer_earth,
             //    new OpenLayers.Layer.WMS( "OpenLayers WMS", "http://vmap0.tiles.osgeo.org/wms/vmap0?", {layers: 'basic'} ),
             //    new OpenLayers.Layer.OSM("OpenTopoMap", "https://{a|b|c}.tile.opentopomap.org/{z}/{x}/{y}.png", {numZoomLevels: 19}),
             ];
