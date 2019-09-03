@@ -117,7 +117,10 @@ function onload() {
             "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}/",
             {numZoomLevels: 17});
         layer_earth.attribution = "Source: Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community"; // from https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/
-        var layer_osm = new OpenLayers.Layer.OSM("Mapnik", "http://a.tile.openstreetmap.org/${z}/${x}/${y}.png", {numZoomLevels: 19});
+        var layer_osm = new OpenLayers.Layer.OSM(
+            translate("Street Map"),
+            "http://a.tile.openstreetmap.org/${z}/${x}/${y}.png",
+            {numZoomLevels: 19});
         layer_osm.attribution = '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
         
         mapLayersById.osm = layer_osm;
