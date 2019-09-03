@@ -1,16 +1,15 @@
 package eu.quelltext.mundraub.map;
 
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.nanohttpd.protocols.http.IHTTPSession;
 import org.nanohttpd.protocols.http.NanoHTTPD;
-import org.nanohttpd.protocols.http.request.Method;
 import org.nanohttpd.protocols.http.response.Response;
 import org.nanohttpd.protocols.http.response.Status;
-import org.nanohttpd.util.IHandler;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+import eu.quelltext.mundraub.map.handler.ErrorHandler;
+import eu.quelltext.mundraub.map.handler.URIHandler;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -20,7 +19,7 @@ import okhttp3.Request;
     This is a proxy to the Mundraub API for the map.
     It can be extended to cache plants.
  */
-public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
+public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy, ErrorHandler {
 
     private final static int DEFAULT_PORT = 39768;
     private static final String API_PATH_TRANSLATIONS = "/translations/app.js";
@@ -69,62 +68,10 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
         return Response.newFixedLengthResponse(Status.NOT_FOUND, NanoHTTPD.MIME_HTML, msg);
     }
 
-    protected class URIHandler implements IHandler<IHTTPSession, Response> {
-
-        private final String uri;
-
-        public URIHandler(String uri) {
-            this.uri = uri;
-        }
-
-        @Override
-        public Response handle(IHTTPSession input) {
-            if (wantsToServe(input)) {
-                Response response;
-                try {
-                    response = respondTo(input);
-                } catch (Exception e) {
-                    response = handleError(e);
-                }
-                response.addHeader("Access-Control-Allow-Origin", "*"); // allow JavaScript to access the content
-                return response;
-            }
-            return null;
-        }
-
-        public Response respondTo(IHTTPSession input) throws Exception {
-            return null;
-        }
-
-        public boolean wantsToServe(IHTTPSession input) {
-            return wantsToHandleMethod(input.getMethod()) &&
-                    wantsToServeURI(input.getUri());
-        }
-
-        public boolean wantsToServeURI(String uri) {
-            return uri.equals(this.uri);
-        }
-
-        public boolean wantsToHandleMethod(Method method) {
-            return method == Method.GET;
-        }
-
-        public Response handleError(Exception e) {
-            MundraubMapAPI.this.handleError(e);
-            String msg = "<html><body><h1>500 Internal server errir</h1>\n" +
-                    "<pre>" + ExceptionUtils.getStackTrace(e) + "</pre></body></html>";
-            return Response.newFixedLengthResponse(Status.INTERNAL_ERROR, NanoHTTPD.MIME_HTML, msg);
-        }
-
-        protected String baseUri() {
-            return uri;
-        }
-    }
-
-    protected class PlantHandler extends URIHandler  {
+    protected class PlantHandler extends URIHandler {
 
         protected PlantHandler(String uri) {
-            super(uri);
+            super(uri, MundraubMapAPI.this);
         }
 
         public Response respondTo(IHTTPSession input) throws Exception {
@@ -145,7 +92,7 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
         return response.body().bytes();
     }
 
-    protected void handleError(Exception e) {
+    public void handleError(Exception e) {
         e.printStackTrace();
     }
 
@@ -175,7 +122,7 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy {
     protected class TranslationsHandler extends URIHandler {
 
         public TranslationsHandler(String uri) {
-            super(uri);
+            super(uri, MundraubMapAPI.this);
         }
 
         @Override
