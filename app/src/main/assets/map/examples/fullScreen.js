@@ -117,11 +117,13 @@ function onload() {
             "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}/",
             {numZoomLevels: 17});
         layer_earth.attribution = "Source: Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community"; // from https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/
+        layer_earth.persistentId = "Satellite";
         var layer_osm = new OpenLayers.Layer.OSM(
             translate("Street Map"),
             "http://a.tile.openstreetmap.org/${z}/${x}/${y}.png",
             {numZoomLevels: 19});
         layer_osm.attribution = '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+        layer_osm.persistentId = "Mapnik";
         
         mapLayersById.osm = layer_osm;
         mapLayersById.earth = layer_earth;
@@ -141,7 +143,7 @@ function onload() {
             var visibleLayerName = getCookie(VISIBLE_LAYER);
             console.log("visibleLayerName: " + visibleLayerName);
             unsortedMapLayers.forEach(function (layer, index) {
-                if (layer.name == visibleLayerName) {
+                if (layer.persistentId == visibleLayerName) {
                     layers.unshift(layer);
                 } else {
                     layers.push(layer);
@@ -153,8 +155,8 @@ function onload() {
                 var layer = e.layer;
                 // from https://gis.stackexchange.com/q/110114
                 if (layer.visibility && unsortedMapLayers.includes(layer)) {
-                    console.log("Change to layer: " + layer.name);
-                    setCookie(VISIBLE_LAYER, layer.name);
+                    console.log("Change to layer: " + layer.persistentId);
+                    setCookie(VISIBLE_LAYER, layer.persistentId);
                 }
             });
         }
