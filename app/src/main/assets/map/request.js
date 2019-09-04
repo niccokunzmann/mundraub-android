@@ -1,3 +1,6 @@
+/*
+ * General function to request JSON.
+ */
 function sendRequest(url, onSuccess, onError){
     // see https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Sending_forms_through_JavaScript
     var XHR = new XMLHttpRequest();
@@ -33,8 +36,15 @@ function sendRequest(url, onSuccess, onError){
     XHR.send(null);
 }
 
+/*
+ * These are general settings.
+ */
 var API_PROXY_DEFAULT_PORT = 39768;
 var API_HOST = "http://localhost:" + API_PROXY_DEFAULT_PORT;
+
+/*
+ * These functions are used to request plants from a server.
+ */
 var PLANT_MARKER_URL = API_HOST + "/cluster/plant"
 var PLANT_MARKER_CATEGORIES = "cat=4,5,6,7,8,9,10,11,12,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37";
 
@@ -65,18 +75,29 @@ function updatePlants() {
         destroyAllPlantMarkers();
         if (newPlants) {
             newPlants.features.forEach(function(plant) {
-                addPlantMarker(plant);
+                addPlantMarker(createPlantFromMundraub(plant), plants);
             });
         }
     });
 }
 
-var APP_TRANSLATIONS_URL = API_HOST + "/translations/app.js"
-
 /*
  * Get translations from the app so we do not have to translate twice.
  */
+var APP_TRANSLATIONS_URL = API_HOST + "/translations/app.js"
 function getAppTranslations(onSuccess) {
     sendRequest(APP_TRANSLATIONS_URL, onSuccess);
+}
+
+/*
+ * These functions request the own plants of the user.
+ */
+var OWN_PLANTS_URL = API_HOST + "/cluster/plants.json";
+var OWN_PLANTS = null;
+function loadOwnPlants() {
+    sendRequest(OWN_PLANTS_URL, function(ownPlants) {
+        OWN_PLANTS = ownPlants; // debug
+        loadOwnPlantsFrom(ownPlants);
+    });
 }
 

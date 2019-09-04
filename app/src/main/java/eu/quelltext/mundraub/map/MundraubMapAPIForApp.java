@@ -14,6 +14,7 @@ import eu.quelltext.mundraub.error.Logger;
 import eu.quelltext.mundraub.initialization.Initialization;
 import eu.quelltext.mundraub.map.handler.PlantCollectionHandler;
 import eu.quelltext.mundraub.map.handler.TilesHandler;
+import eu.quelltext.mundraub.map.handler.URIHandler;
 import eu.quelltext.mundraub.plant.Plant;
 import eu.quelltext.mundraub.plant.PlantCategory;
 import okhttp3.OkHttpClient;
@@ -21,14 +22,17 @@ import okhttp3.OkHttpClient;
 public class MundraubMapAPIForApp extends MundraubMapAPI {
 
     private final Logger.Log log;
-    private final static String PATH_PLANTS = "/cluster/my-plants";
 
     public MundraubMapAPIForApp() {
         super(Settings.hostForMundraubAPI());
         log = Logger.newFor(this);
         addHTTPInterceptor(new TilesHandler(this, MapUrl.PATH_SATELITE, TilesCache.forSatellite(), this, this.log));
         addHTTPInterceptor(new TilesHandler(this, MapUrl.PATH_OSM, TilesCache.forOSM(), this, this.log));
-        addHTTPInterceptor(new PlantCollectionHandler(PATH_PLANTS, Plant.getPlants(), this));
+    }
+
+    @Override
+    protected URIHandler createPlantCollectionHandler() {
+        return new PlantCollectionHandler(PATH_PLANTS, Plant.getPlants(), this);
     }
 
     @Override

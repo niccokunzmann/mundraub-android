@@ -1,3 +1,26 @@
+/*
+    {"1":{"pos":["-0.0535529773902500","-78.7753200531005000"],"count":"4"}}
+    {"8":{"pos":["11.1807315000000000","12.8287292000000000"],"properties":{"nid":"77535","tid":"15"}}}
+    
+    -> 
+    {
+        "position": {
+            "lon": float
+            "lat": float
+        },
+        isCluster: boolean,
+        category: string, // if isCluster is false
+        count: int // if isCluster is true
+    }
+ */
+function createPlantFromMundraub(mundraub) {
+    return {
+        "position": getLonLatFromPlant(mundraub),
+        "isCluster": mundraub.count != undefined,
+        "category": getCategoryId(mundraub),
+        "count": mundraub.count,
+    }
+}
 
 function getLonLatFromPlant(plant) {
     var lon = plant.pos[1];
@@ -11,13 +34,11 @@ function getLonLatFromPlant(plant) {
     return {lon:lon, lat:lat};
 }
 
-function addPlantMarker(plant) {
-    var lonlat = getLonLatFromPlant(plant);
-    var position = lonLatToMarkerPosition(lonlat);
+function addPlantMarker(plant, layer) {
+    var position = lonLatToMarkerPosition(plant.position);
     var icon = getMarkerIconOfPlant(plant);
-    var isPlantCluster = plant.count != undefined;
-    var plantMarker = addMarker(position, function() {
-        if (isPlantCluster) {
+    var plantMarker = createMarker(position, function() {
+        if (plant.isCluster) {
             return "<b>" + plant.count + "</b>"
         } else {
             return "<b>" + translate(getCategoryId(plant)) + "</b>" + 
@@ -25,10 +46,11 @@ function addPlantMarker(plant) {
                 distanceString(lonlat, markerPositionToLonLat(marker.lonlat));
         }
     });
+    layer.addMarker(plantMarker);
     if (icon) {
         plantMarker.setUrl(icon.url.src);
     }
-    if (isPlantCluster) {
+    if (plant.isCluster) {
         setIconDescriptionOfMarker(plantMarker, plant.count)
     }
     plantMarker.display(true);
@@ -52,8 +74,8 @@ function destroyAllPlantMarkers() {
     destroyAllPopups();
 }
 
-function addMarker(ll, getPopupContentHTML) {
-    // add a marker with a pop-up
+function createMarker(ll, getPopupContentHTML) {
+    // create a marker with a pop-up
     // http://dev.openlayers.org/examples/popupMatrix.html
     var feature = new OpenLayers.Feature(markers, ll); 
     feature.closeBox = true;
@@ -80,8 +102,12 @@ function addMarker(ll, getPopupContentHTML) {
     };
     marker.events.register("click", feature, markerClick);
     marker.click = markerClick;
-
-    plants.addMarker(marker);
     return marker;
+}
+
+function loadOwnPlantsFrom(ownPlants) {
+    ownPlants.forEach(function(plant) {
+        
+    });
 }
 

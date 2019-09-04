@@ -86,7 +86,7 @@ function setPosition(doNotPrint) {
     controlsBlockMapClick();
 }
 
-var center = {lon: 78.8718, lat:21.7679};
+var center = {lon: 13.097033948961839, lat: 52.38587459217477};
 var zoom = 16;
 
 // projection from https://wiki.openstreetmap.org/wiki/OpenLayers_Simple_Example#Add_Markers
@@ -213,6 +213,7 @@ function onload() {
         });
         
         addBoxesToMap();
+        loadOwnPlants();
         
     } catch(error) {
         printError(error)

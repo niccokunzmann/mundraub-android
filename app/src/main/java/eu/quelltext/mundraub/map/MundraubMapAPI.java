@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import eu.quelltext.mundraub.map.handler.ErrorHandler;
+import eu.quelltext.mundraub.map.handler.MockPlantCollectionHandler;
 import eu.quelltext.mundraub.map.handler.URIHandler;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -23,6 +24,7 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy, ErrorHan
 
     private final static int DEFAULT_PORT = 39768;
     private static final String API_PATH_TRANSLATIONS = "/translations/app.js";
+    protected final static String PATH_PLANTS = "/cluster/plants.json";
 
 
     @Override
@@ -39,6 +41,11 @@ public class MundraubMapAPI extends NanoHTTPD implements MundraubProxy, ErrorHan
         super(hostname, DEFAULT_PORT);
         addHTTPInterceptor(new PlantHandler(API_PATH));
         addHTTPInterceptor(new TranslationsHandler(API_PATH_TRANSLATIONS));
+        addHTTPInterceptor(createPlantCollectionHandler());
+    }
+
+    protected URIHandler createPlantCollectionHandler() {
+        return new MockPlantCollectionHandler(PATH_PLANTS, this);
     }
 
     public int getPort() {
