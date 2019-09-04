@@ -50,6 +50,7 @@ function setMarkerToPosition(lonlat) {
     }
     markers.addMarker(marker);
     setConfigurationInURL();
+    destroyAllPopups();
 }
 
 function getMarkerPosition() {
@@ -94,6 +95,7 @@ var fromProjection;
 var toProjection;
 var markers;
 var plants;
+var ownPlants;
 var marker;
 var map;
 var mapLayersById = {};
@@ -108,6 +110,7 @@ function onload() {
         toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
         markers = new OpenLayers.Layer.Markers( translate("Location") );
         plants = new OpenLayers.Layer.Markers( translate("Plants") );
+        ownPlants = new OpenLayers.Layer.Markers( translate("My Plants") );
         marker = new OpenLayers.Marker(lonLatToMarkerPosition(center));
 
         markers.addMarker(marker);
@@ -163,6 +166,7 @@ function onload() {
         showRememberedLayer();
         layers.push(markers);
         layers.push(plants);
+        layers.push(ownPlants);
 
         map = new OpenLayers.Map({
             div: "map",
