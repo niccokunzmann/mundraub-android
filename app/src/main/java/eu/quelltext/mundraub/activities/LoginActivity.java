@@ -275,7 +275,7 @@ public class LoginActivity extends MundraubBaseActivity {
         // from https://stackoverflow.com/a/7350315/1320237
         int ecolor = R.color.colorAccent;
         String estring = getResources().getString(errorResourceId);
-        ForegroundColorSpan fgcspan = new ForegroundColorSpan(getResources()nano .getColor(ecolor));
+        ForegroundColorSpan fgcspan = new ForegroundColorSpan(getResources().getColor(ecolor));
         SpannableStringBuilder ssbuilder = new SpannableStringBuilder(estring);
         ssbuilder.setSpan(fgcspan, 0, estring.length(), 0);
         editText.setError(ssbuilder);
