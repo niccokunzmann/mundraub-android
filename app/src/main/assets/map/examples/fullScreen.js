@@ -50,6 +50,7 @@ function setMarkerToPosition(lonlat) {
     }
     markers.addMarker(marker);
     setConfigurationInURL();
+    destroyAllPopups();
 }
 
 function getMarkerPosition() {
@@ -86,7 +87,7 @@ function setPosition(doNotPrint) {
     controlsBlockMapClick();
 }
 
-var center = {lon: 78.8718, lat:21.7679};
+var center = {lon: 13.097033948961839, lat: 52.38587459217477};
 var zoom = 16;
 
 // projection from https://wiki.openstreetmap.org/wiki/OpenLayers_Simple_Example#Add_Markers
@@ -94,6 +95,7 @@ var fromProjection;
 var toProjection;
 var markers;
 var plants;
+var ownPlants;
 var marker;
 var map;
 var mapLayersById = {};
@@ -108,6 +110,7 @@ function onload() {
         toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
         markers = new OpenLayers.Layer.Markers( translate("Location") );
         plants = new OpenLayers.Layer.Markers( translate("Plants") );
+        ownPlants = new OpenLayers.Layer.Markers( translate("My Plants") );
         marker = new OpenLayers.Marker(lonLatToMarkerPosition(center));
 
         markers.addMarker(marker);
@@ -163,6 +166,7 @@ function onload() {
         showRememberedLayer();
         layers.push(markers);
         layers.push(plants);
+        layers.push(ownPlants);
 
         map = new OpenLayers.Map({
             div: "map",
@@ -213,6 +217,7 @@ function onload() {
         });
         
         addBoxesToMap();
+        loadOwnPlants();
         
     } catch(error) {
         printError(error)

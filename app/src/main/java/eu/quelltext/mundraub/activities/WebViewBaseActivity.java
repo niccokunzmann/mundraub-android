@@ -3,7 +3,6 @@ package eu.quelltext.mundraub.activities;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.webkit.ConsoleMessage;
-import android.webkit.CookieSyncManager;
 import android.webkit.GeolocationPermissions;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -15,7 +14,6 @@ import java.util.Locale;
 public class WebViewBaseActivity extends MundraubBaseActivity {
 
     protected WebView webView = null;
-    private CookieSyncManager cookieSyncManager = null;
 
     protected void initializeWebView(int webViewId) {
         webView = (WebView) findViewById(webViewId);

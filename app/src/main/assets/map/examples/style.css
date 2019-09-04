@@ -227,3 +227,11 @@ div.olControlAttribution {
     cursor: pointer;
 }
 
+/*
+ * Styling of the own plants.
+ */
+.ownPlants img {
+    border-bottom: 3px solid rgba(254, 193, 25, 0.5);
+    background-color: rgba(254, 193, 25, 0.5);
+    border-radius: 25px;
+}

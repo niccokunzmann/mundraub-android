@@ -1,6 +1,6 @@
 
 function getMarkerIconOfPlant(plant) {
-    if (plant.count) {
+    if (plant.isCluster) {
         return ICON_FOR_A_GROUP_OF_PLANTS.clone();
     } else {    
         return iconForCategoryId(getCategoryId(plant));
@@ -8,8 +8,9 @@ function getMarkerIconOfPlant(plant) {
 }
 
 function getCategoryId(plant) {
-    return tidToCategoryId[plant.properties.tid] || // using the mundraub API
-           plant.properties.category || // using the offline API
+    return plant.properties ? tidToCategoryId[plant.properties.tid] || // using the mundraub API
+           plant.properties.category :  // using the offline API
+           plant.category || // using the plant schema from this map
            DEFAULT_PLANT_CATEGORY_NAME; // erm. using erm. yeah, maybe there is an error...
 }
 

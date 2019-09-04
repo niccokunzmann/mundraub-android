@@ -126,7 +126,7 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
         getPlants();
     }
 
-    private static PlantCollection getPlants() {
+    public static PlantCollection getPlants() {
         if (plants == null) {
             plants = new PersistentPlantCollection();
         }
