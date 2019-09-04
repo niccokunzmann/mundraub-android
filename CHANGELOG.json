@@ -21,4 +21,5 @@
     ,"607ff6a9c8c6d841ba407c15911e8ef4fea4fc42": "Fix bug: The search order of the saved results is kept and not reversed."
     ,"53e5147d96104fc38180ee7c1139873524595e59": "Add progress notification about marker download. The notification for the offline map download now tracks the progress."
     ,"7678cf6f2776d2c1700b30ce950276733b87b752": "Add Upload to custom na-ovoce servers."
+    ,"b9e24b8d70e44dccc03a3a5eb293ff112a87c881": "Add the plants found with the app to the map."
 }
