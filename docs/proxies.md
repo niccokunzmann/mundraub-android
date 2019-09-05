@@ -51,3 +51,7 @@ server {
 	}
 }
 ```
+
+## mundraub.org
+
+The API cna be reached via http, so there does not need to be a proxy.
