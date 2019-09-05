@@ -4,184 +4,184 @@
          https://www.transifex.com/mundraub-android/mundraub-android-app/
       -->
     <!-- Universal app name. If you translate it, also translate it in the title.txt file. -->
-    <string name="app_name">Radar à fruit et plantes comestibles</string>
+    <string name="app_name">Frucht-Radar</string>
 
     <!-- ==============  Edit and add a plant  ============== -->
     <!-- Edit and add a plant: Activity title -->
-    <string name="title_edit_plant">Modifier Plante</string>
+    <string name="title_edit_plant">Pflanze Bearbeiten</string>
     <!-- Edit and add a plant: When there are form fields still unfilled or with invalid information, this is displayed. -->
-    <string name="plant_has_unfilled_form_fields">Ajoutez des informations sur cette plante ...</string>
+    <string name="plant_has_unfilled_form_fields">Bitte fülle alle Felder für die Pflanze aus ...</string>
     <!-- Edit and add a plant: all fields are filled and the plant can be uploaded to a platform -->
-    <string name="all_plant_fields_are_filled">Tout les champs requis sont remplis.</string>
+    <string name="all_plant_fields_are_filled">Alle benötigten Felder für die Pflanze sind gefüllt.</string>
     <!-- Edit and add a plant: The type of plant is not chosen. This opens the Activity for choosing the plant type. -->
-    <string name="choose_plant_type">Choisissez un type de plante !</string>
+    <string name="choose_plant_type">Wähle einen Pflanzentypen!</string>
     <!-- Edit and add a plant: Number of plants of the cosen type in this entry -->
-    <string name="count">Nombre:</string>
+    <string name="count">Anzahl:</string>
     <!-- Edit and add a plant: Description of the plant and place where to find it -->
-    <string name="description">Description</string>
+    <string name="description">Beschreibung</string>
     <!-- Edit and add a plant: Position if the plant -->
-    <string name="position">Position :</string>
+    <string name="position">Position</string>
     <!-- Edit and add a plant: Remove the own plant from the list of own plants. -->
-    <string name="delete">Supprimer</string>
+    <string name="delete">Löschen</string>
     <!-- Edit and add a plant: GPS button to get the current position -->
     <string name="GPS">GPS</string>
     <!-- Edit and add a plant: License for the map in case a static map image of the plant location is given. -->
-    <string name="osm_license">Contributeurs © OpenStreetMap</string>
+    <string name="osm_license">© OpenStreetMap Beitragende</string>
     <!-- Edit and add a plant: Button to choose the position of the plant from the map. -->
-    <string name="map">Carte</string>
+    <string name="map">Karte</string>
 
     <!-- ==============  plant categories  ============== -->
     <!-- plant categories: Activity title -->
-    <string name="title_activity_choose_plant_type">Catégorie Plante</string>
+    <string name="title_activity_choose_plant_type">Art der Pflanze</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="apple">Pommier</string>
+    <string name="apple">Apfel</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="apricot">Abricotier</string>
+    <string name="apricot">Marille</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="pear">Poirier</string>
+    <string name="pear">Birne</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="cherry">Cerisier</string>
+    <string name="cherry">Kirsche</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="mirabelle">Mirabellier</string>
+    <string name="mirabelle">Kriecherl</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="mulberry">Mûrier</string>
+    <string name="mulberry">Maulbeere</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="plum">Prunier</string>
+    <string name="plum">Zwetschke</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="quince">Poirier de Coing</string>
+    <string name="quince">Quitte</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="other_fruit_trees">Autre arbre fruitier</string>
+    <string name="other_fruit_trees">Andere Obstbäume</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="blackberry">Mûres (ronces)</string>
+    <string name="blackberry">Brombeere</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="blueberry">Myrtillier Bleuet</string>
+    <string name="blueberry">Schwarzbeere</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="bilberry">Myrtillier</string>
+    <string name="bilberry">Heidelbeere</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="raspberry">Framboisier</string>
+    <string name="raspberry">Himbeere</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="elder">Sureau</string>
+    <string name="elder">Holunder</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="rose_hip">Cynorhodon Poil-à-gratter</string>
+    <string name="rose_hip">Hagebutte</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="juneberry">Amélanchier</string>
+    <string name="juneberry">Felsenbrine</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="currant">Groseiller</string>
+    <string name="currant">Ribisel</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="cornel_cherry">Cornouiller sauvage</string>
+    <string name="cornel_cherry">Dirndl</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="seaberry">Argousier</string>
+    <string name="seaberry">Sanddorn</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="haw">Aubépine</string>
+    <string name="haw">Weißdorn</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="sloe">Prunellier</string>
+    <string name="sloe">Schlehe</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="other_fruit_shrub">Autre arbuste fruitier</string>
+    <string name="other_fruit_shrub">Andere Obststräucher</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="ramsons">Ail des ours</string>
+    <string name="ramsons">Bärlauch</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="mint">Menthe</string>
+    <string name="mint">Minze</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="rosemary">Romarin</string>
+    <string name="rosemary">Rosmarin</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="thyme">Thym</string>
+    <string name="thyme">Thymian</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="other_herbs">Autre herbe</string>
+    <string name="other_herbs">Andere Kräuter</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="juniper">Genévrier</string>
+    <string name="juniper">Wacholder</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="woodruff">Aspérule</string>
+    <string name="woodruff">Waldmeister</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="hazel">Noisetier</string>
+    <string name="hazel">Haselnuss</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="chestnut">Châtaigner</string>
+    <string name="chestnut">Esskastanie</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="wild_strawberry">Fraisier des bois</string>
+    <string name="wild_strawberry">Walderdbeere</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="walnut">Noyer</string>
+    <string name="walnut">Walnuss</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="other_nut">autre noix</string>
+    <string name="other_nut">Andere Nüsse</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="unnamed_plant">Plante inconnue</string>
+    <string name="unnamed_plant">Unbenannte Pflanze</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="sour_cherry">Cerisier Griotte</string>
+    <string name="sour_cherry">Weichsel</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="lemon_balm">Mélisse Citronnelle</string>
+    <string name="lemon_balm">Zitronenmelisse</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="chokeberry">Aronia</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="medlar">Néflier</string>
+    <string name="medlar">Mispel</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="service_tree">Cormier ou Sorbus</string>
+    <string name="service_tree">Elsbeere</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="rowan">Sorbier</string>
+    <string name="rowan">Voglebeere</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="almond">Amandier</string>
+    <string name="almond">Mandel</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="gooseberry">Groseilles blanches</string>
+    <string name="gooseberry">Stachelbeere</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="peach">Pêcher</string>
+    <string name="peach">Pfirsich</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="silverberry">Chalef argenté</string>
+    <string name="silverberry">Ölweide</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="tangerine">Mandarine</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="grapefruit">Pamplemousse</string>
+    <string name="grapefruit">Grapefruit</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="red_ribes">Ribes Rouge</string>
+    <string name="red_ribes">Rote Ribisel</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="black_ribes">Ribes Noir</string>
+    <string name="black_ribes">Schwarze Ribisel</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="strawberry">Fraise</string>
+    <string name="strawberry">Erdbeere</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="jostaberry">Jostaberry</string>
+    <string name="jostaberry">Jostabeere</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="greengage">Greengage</string>
+    <string name="greengage">Ringlotte</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="grape">Grain de raisin</string>
+    <string name="grape">Weintraube</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="orange">Orange</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="dogwood">Cornouiller</string>
+    <string name="dogwood">Hartriegel</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="lemon">Citron</string>
+    <string name="lemon">Zitrone</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="briar">Bruyère</string>
+    <string name="briar">Dornstrauch</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="fig">Figue</string>
+    <string name="fig">Feige</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
-    <string name="horse_chestnut">Marronnier</string>
+    <string name="horse_chestnut">Rosskastanie</string>
     <!-- plant categories: This is an error name for a category when we forgot to add a translation for it. -->
-    <string name="fruit_resource_id_not_found">Erreur: Ajoutez la catégorie d\'installation dans le fichier strings.xml.</string>
+    <string name="fruit_resource_id_not_found">Fehler: Füge diese Pflanzenkategorie in der strings.xml-Datei hinzu.</string>
 
 
     <!-- ==============  Login  ============== -->
     <!-- Login: Activity title -->
-    <string name="title_activity_login">Se connecter</string>
+    <string name="title_activity_login">Einloggen</string>
     <!-- Login: Hint in the username field -->
-    <string name="prompt_username">Nom d\'utilisateur</string>
+    <string name="prompt_username">Nutzername</string>
     <!-- Login: hint in the email field when you sign in -->
-    <string name="prompt_email">E-mail</string>
+    <string name="prompt_email">E-Mail</string>
     <!-- Login: hint in the password field -->
-    <string name="prompt_password">Mot de passe</string>
+    <string name="prompt_password">Passwort</string>
     <!-- Login: Text on the sign in button -->
-    <string name="action_sign_in">Se connecter (compte requis)</string>
+    <string name="action_sign_in">Einloggen (Profil verausgesetzt)</string>
     <!-- Login: action label of the password field -->
-    <string name="action_sign_in_short">Se connecter</string>
+    <string name="action_sign_in_short">Einloggen</string>
     <!-- Login: Text on the register button -->
-    <string name="action_register">Enregistrer un nouveau compte</string>
+    <string name="action_register">Neues Konto erstellen</string>
     <!-- Login: Error message -->
-    <string name="error_invalid_username">Ce nom d\'utilisateur est invalide</string>
+    <string name="error_invalid_username">Dieser Nutzername ist ungültig</string>
     <!-- Login: Error message -->
-    <string name="error_invalid_password">Ce mot de passe est trop court</string>
+    <string name="error_invalid_password">Das Passwort ist zu kurz</string>
     <!-- Login: Error message -->
-    <string name="invalid_credentials">Nom d\'utilisateur inexistant ou mot de passe incorrect.</string>
+    <string name="invalid_credentials">Der Nutzer existiert nicht oder das Passwort ist falsch.</string>
     <!-- Login: Error message -->
-    <string name="error_field_required">Veuillez remplir ce champ</string>
+    <string name="error_field_required">Dieses Feld bitte füllen</string>
     <!-- Login: Error message -->
-    <string name="error_invalid_email">Veuillez entrer une adresse mail valide</string>
+    <string name="error_invalid_email">Bitte fülle eine valide E-Mail-Adresse hier ein.</string>
     <!-- Login: Shown as dialog information  -->
-    <string name="signup_successful_see_email">Der Anmeldeprozess war erfolgreich. Du solltest bald eine E-Mail erhalten.</string>
+    <string name="signup_successful_see_email">Der Anmeldeprozess war erfolgreich</string>
     <!-- Login: API name for mundraub -->
     <string name="login_api_name_mundraub">Mundraub.org</string>
     <!-- Login: API name for na ovoce -->
@@ -194,389 +194,389 @@
 
     <!-- ==============  view plant details  ============== -->
     <!-- view plant details: Activity title -->
-    <string name="title_plant_detail">Détails de la plante</string>
+    <string name="title_plant_detail">Pflanzenbeschreibung</string>
     <!-- view plant details: Button text when login was successful -->
-    <string name="upload_plant_online">Partager cette plante en ligne</string>
+    <string name="upload_plant_online">Pflanze online teilen</string>
     <!-- view plant details: Button text when changes to the plant can be uploaded -->
-    <string name="edit_plant_online">Envoyer les changements</string>
+    <string name="edit_plant_online">Änderungen hochladen</string>
     <!-- view plant details: Button text to remove the plant -->
-    <string name="delete_plant_online">Entferne die Pflanze von der Plattform.</string>
+    <string name="delete_plant_online">Entferne die Pflanze von der Plattform</string>
     <!-- view plant details: Button text to open the browser window to the platform -->
     <string name="view_plant_online">Zeige die Pflanze online an</string>
     <!-- view plant details: Text heading for the online platform action buttons -->
     <string name="plant_online_description">Ändere die Pflanze online:</string>
     <!-- view plant details: plant description -->
-    <string name="longitude">Longitude:</string>
+    <string name="longitude">Geografische Länge:</string>
     <!-- view plant details: plant description -->
-    <string name="latitude">Latitude:</string>
+    <string name="latitude">Geografische Breite:</string>
     <!-- view plant details: this is asked when the position of the plant should better be chosen from the map -->
-    <string name="ask_open_the_map">Voulez-vous ouvrir la carte et d\'abord positionner la plante ?</string>
+    <string name="ask_open_the_map">Möchtest Du die Karte öffnen, um die Pflanze genauer zu plazieren?</string>
     <!-- view plant details: this is asked when the position of the plant should better be chosen from the map -->
-    <string name="reason_reposition_unknown_position">La position enregistrée de la plante peut être trop éloignée. Veuillez vérifier.</string>
+    <string name="reason_reposition_unknown_position">Die erhaltene Position der Pflanze ist vielleicht zu weit weg vom Fundort. Bitte überprüfe das.</string>
     <!-- view plant details: this is asked when the position of the plant should better be chosen from the map -->
-    <string name="reason_reposition_gps_position">La position GPS est probablement trop lointaine de votre position réelle. Veuillez vérifier la carte.</string>
+    <string name="reason_reposition_gps_position">Die GPS-Position ist wahrscheinlich zu weit vom STandort entfernt. Schau bitte auf die Karte, um das zu überprüfen.</string>
     <!-- view plant details: Dialog information -->
-    <string name="delete_plant_information">Si vous supprimez la plante en ligne, celle-ci, tout les commentaires et autres informations seront perdues.</string>
+    <string name="delete_plant_information">Wenn Du die Pflanze online löschst, sind die Kommentare anderer sowie die anderen Onlineinformationen verloren.</string>
     <!-- view plant details: Dialog information -->
-    <string name="ask_delete_plant">Möchtest Du die Pflanze von der Onlineplattform entfernen?</string>
+    <string name="ask_delete_plant">Möchtest Du die Pflanze von der Online-Plattform entfernen?</string>
     <!-- view plant details: Button text shown when the wide screen view is activated where you can see the list and the plant at the same time. -->
-    <string name="edit">Modifier</string>
+    <string name="edit">Ändern</string>
     <!-- view plant details: Asked when the category of the plant can be mapped to a broader category on the platform. -->
-    <string name="ask_upload_ok">Souhaitez-vous télécharger la plante comme ceci?</string>
+    <string name="ask_upload_ok">Möchtest Du diese Pflanze so hochladen?</string>
     <!-- view plant details: Asked when the category of the plant can be mapped to a broader category on the platform. -->
-    <string name="reason_category_changes">Sur \"<xliff:g example="Mundraub.org" id="platform">%1$s</xliff:g>\", la catégorie \"<xliff:g example="Tangerine" id="source_category">%2$s</xliff:g>\" ne peut être téléchargée que sous \"<xliff:g example="Other Fruit Tree" id="mapped_category">%3$s</xliff:g>\".</string>
+    <string name="reason_category_changes">Auf <xliff:g example="Mundraub.org" id="platform">%1$s</xliff:g> kann die Kategorie \"<xliff:g example="Tangerine" id="source_category">%2$s</xliff:g>\" nur als \"<xliff:g example="Other Fruit Tree" id="mapped_category">%3$s</xliff:g>\" hochgeladen werden.</string>
     <!-- view plant details: displayed after "Longitude:" and "Latitude:" if the plant has no position -->
-    <string name="position_not_set">inconnu</string>
+    <string name="position_not_set">unbekannt</string>
     <!-- view plant details: reason for asking to check the other plants nearby -->
-    <string name="reason_plant_has_other_plant_nearby">Il existe une autre plante du même type à proximité de cette plante. Si vous téléchargez l\'installation, il peut s\'agir d\'un doublon.</string>
+    <string name="reason_plant_has_other_plant_nearby">Es gibt eine Pflanze vergleichbaren Types neben dieser Pflanze. Wenn Du die Pflanze hochlädst, ist das vielleicht eine Dopplung.</string>
     <!-- view plant details: Question whether to open the map when there is an equal plant nearby -->
-    <string name="ask_open_map_before_upload">Voulez-vous vérifier la carte et annuler le téléchargement?</string>
+    <string name="ask_open_map_before_upload">Möchtest Du die Karte öffnen statt hochzuladen?</string>
 
     <!-- ==============  Dialogs  ============== -->
     <!-- Dialogs: Dialog title -->
-    <string name="error">Erreur</string>
+    <string name="error">Fehler</string>
     <!-- Dialogs: Dialog title -->
-    <string name="success">Succès !</string>
+    <string name="success">Erfolg!</string>
     <!-- Dialogs: Dialog title -->
-    <string name="attention">Attention</string>
+    <string name="attention">Achtung</string>
     <!-- Dialogs: Dialog message -->
-    <string name="delete_question">Etes-vous sûr que vous voulez supprimer?</string>
+    <string name="delete_question">Sicher, dass Du löschen willst?</string>
     <!-- Dialogs: Reason why we ask if the plant should be deleted. -->
-    <string name="delete_plant_reason">Si vous supprimez l\'installation, toutes les images et données de l\'installation sur votre téléphone seront perdues. Si vous avez téléchargé l\'installation, la plate-forme possède toujours les données.</string>
+    <string name="delete_plant_reason">Wenn Du die Pflanze löschst, werden die Bilder und Daten der Pflanze vom Telefon gelöscht. Wenn Du die Pflanze hochgeladen hast, bleiben die Informationen immernoch auf der Plattform.</string>
     <!-- Dialogs: Dialog button -->
-    <string name="no">non</string>
+    <string name="no">Nein</string>
     <!-- Dialogs: Dialog button -->
-    <string name="yes">oui</string>
+    <string name="yes">Ja</string>
 
     <!-- ==============  List of my plants  ============== -->
     <!-- List of my plants: Activity title -->
-    <string name="title_my_plants">Mes plantes</string>
+    <string name="title_my_plants">Meine Pflanzen</string>
     <!-- List of my plants: This is shown between my plants of different date. You probably just want to re-order the letters and change the characters in between. For the date format see https://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html -->
-    <string name="plant_list_date_format">mm/jj/aaaa</string>
+    <string name="plant_list_date_format">dd. MM. yyyy</string>
 
     <!-- API errors and results: Never saw that but the AsyncTask has this operation -->
-    <string name="task_was_cancelled">L\'action a été annulée.</string>
+    <string name="task_was_cancelled">Die Aktion wurde abgebrochen.</string>
     <!-- API errors and results: When you try to upload/change the plant online but the API does not allow this. -->
-    <string name="operation_not_permitted">Action non autorisée.</string>
+    <string name="operation_not_permitted">Diese Aktion ist nicht erlaubt.</string>
     <!-- API errors and results:  -->
-    <string name="error_unexpected_return_code">Le serveur a retourné un code inattendu.</string>
+    <string name="error_unexpected_return_code">Der Server hat einen unerwarteten Rückgabewert gesendet.</string>
     <!-- API errors and results: Let's invite people to contribute when they see this error which we do not know about. -->
-    <string name="error_not_specified">Une erreur est survenue et si les développeurs y mettaient plus de temps, vous en sauriez plus sur ce qui se passe... Il est temps de s\'y mettre !</string>
+    <string name="error_not_specified">Es ist ein Fehler aufgetreten und wenn die Entwickler mehr Zeit genutzt hätten, wüsstest Du, woran es liegt. Zeit, beizutragen!</string>
     <!-- API errors and results: Used when an API is not 100% implemented. -->
-    <string name="error_not_implemented">Cette action n\'est pas encore implémentée. </string>
+    <string name="error_not_implemented">Diese Aktion wurde noch nicht implementiert.</string>
     <!-- API errors and results:  -->
-    <string name="success_plant_uploaded">La plante a été téléchargée sur la plateforme en ligne.</string>
+    <string name="success_plant_uploaded">Die Pflanze wurde auf die Online-Plattform hochgeladen.</string>
     <!-- API errors and results:  -->
-    <string name="success_plant_updated">Plante mise à jours avec succès.</string>
+    <string name="success_plant_updated">Die Pflanze wurde erfolgreich aktualisiert.</string>
     <!-- API errors and results:  -->
-    <string name="success_plant_deleted">La plante a été supprimée de la plateforme en ligne.</string>
+    <string name="success_plant_deleted">Die Pflanze wurde von der Online-Plattform gelöscht.</string>
     <!-- API errors and results: The server answered and we do not know what has happened. Computer says no. -->
-    <string name="error_could_not_post_plant">La plante n\'a pas pu être publiée car le serveur a rejeté les données.</string>
+    <string name="error_could_not_post_plant">Die Pflanze konnte nicht veröffentlicht werden, weil der Server die Daten zurückgewiesen hat.</string>
     <!-- API errors and results:  -->
-    <string name="error_no_plant_id">Le serveur n\'a pas répondu une ID de plante. Vérifiez en ligne ce qu\'il s\'est passé.</string>
+    <string name="error_no_plant_id">Der Server hat nicht mit einer Pflanzen-ID geantwortet. Schau besser selbst online, was los ist.</string>
     <!-- API errors and results: Probably no internet connection. -->
-    <string name="error_unknown_hostname">Impossible de résoudre le nom d\'hôte et donc impossible de se connecter au serveur. S\'il vous plait, vérifiez votre connexion internet.</string>
+    <string name="error_unknown_hostname">Der Name des Servers konnte nicht aufgelöst werden. Deswegen konnte ich mich nicht verbinden.</string>
     <!-- API errors and results: Mundraub also posts the address. This could also be shown on the map if we have an address search there. -->
-    <string name="error_could_not_parse_open_street_map_data">Impossible de récupérer l\'adresse d\' OpenStreetMap.</string>
+    <string name="error_could_not_parse_open_street_map_data">Ich konnte keine Adresse für die Pflanze von OpenStreetMap.org erhalten.</string>
     <!-- API errors and results: IOException in the connection when we try to see if the plant exists on Mundraub.org. -->
-    <string name="error_count_not_check_plant">Impossible de demander au serveur si la plante existe.</string>
+    <string name="error_count_not_check_plant">Ich konnte den Server nicht fragen, ob die Pflanze existiert.</string>
     <!-- API errors and results: Super broad. This is the error message shown if we do not know what has happened with the connection once it was established.. -->
-    <string name="error_connection">Une erreur est survenue lors de la connexion au serveur.</string>
+    <string name="error_connection">Es gab einen Fehler bei der Verbindung zum Server.</string>
     <!-- API errors and results: Mundraub.org: Looks like we are unable to do that. -->
-    <string name="error_could_not_delete_plant">La plante n\'a pas pu être supprimée en ligne. Une erreur est survenue. Veuillez vous rendre sur le site  pour la supprimer manuellement.</string>
+    <string name="error_could_not_delete_plant">Die Pflanze konnte online nicht gelöscht werden. Es gab irgendeinen Fehler. Schau bitte selbst online nach.</string>
     <!-- API errors and results: Certificates can not be verified on older platforms. This error message should direct the user to the settings to allow unsafe connections. -->
-    <string name="error_could_not_validate_host">L\'identité du serveur n\'est pas fiable. C\'est un problème connu sur d\'anciennes plateformes. Actuellement vous pouvez désactiver les connections de confiances dans paramètres pour contourner cette erreur. Vous êtes libre de contribuer à trouver une meilleure solution.</string>
+    <string name="error_could_not_validate_host">Der Identität des Servers wird nicht vertraut. Das ist ein bekanntes Problem älterer Android-Pattformen. Momentan kannst Du vertraute Verbindungen in den Einstellungen ausschalten, um den Fehler zu umgehen. Du darfst gerne eine Lösung beisteuern.</string>
     <!-- API errors and results: When there is a JSON error for the markers retrieved from any API. -->
-    <string name="error_invalid_json_for_markers">Les marqueurs retournés par Mundraub.org sont dans un format inattendu. Peut-être ont-ils changer l\'API ? SVP rapportez ce problème, voir la page À propos du menu.</string>
+    <string name="error_invalid_json_for_markers">Die Marker, die von der Plattform geliefert wurden, sind in einem unerwarteten Format. Vielleicht haben die die API geändert? Bitte melde uns dieses Problem. Wie steht auf der Seite über die App.</string>
     <!-- API errors and results:  -->
-    <string name="error_could_not_sign_up_mundraub">Impossible de se connecter à Mundraub.org</string>
+    <string name="error_could_not_sign_up_mundraub">Ich konnte Dich nicht bei Mundraub.org anmelden.</string>
     <!-- API errors and results: Should not happen. Internal URL construction. -->
-    <string name="error_malformed_url">L\'URL donnée contient une erreur de syntaxe.</string>
+    <string name="error_malformed_url">Die gegebene URL war nicht benutzbar.</string>
     <!-- API errors and results:  -->
-    <string name="error_invalid_protocol">Une erreur est survenue lors de la connexion au serveur.</string>
+    <string name="error_invalid_protocol">Es gab einen Fehler in der Benutzung des Protokolls.</string>
     <!-- API errors and results: Cannot use SSL or TLS -->
-    <string name="error_no_such_algorithm">L\'algorithme de chiffrage n\'est pas présent.</string>
+    <string name="error_no_such_algorithm">Der Algorithmus für die Verschlüsselung ist nicht da.</string>
     <!-- API errors and results: also used for API connections -->
-    <string name="error_key_management">Impossible d\'initialiser la gestion des clés.</string>
+    <string name="error_key_management">Konnte das Verwaltungssystem für die Verschlüsselung nicht erzeugen.</string>
     <!-- API errors and results: Timeout Error -->
-    <string name="error_timeout">Une erreur est survenue lors de la connexion au serveur.</string>
+    <string name="error_timeout">Die Verbindung zum Server hat zu lange nicht geklappt.</string>
     <!-- API errors and results: in the login form -->
-    <string name="error_could_not_sign_up_na_ovoce">Impossible de créer un compte sur Na-Ovoce.cz. Le serveur n\'a pas retourné d\'ID utilisateur. </string>
+    <string name="error_could_not_sign_up_na_ovoce">Du konntest nicht bei Na-Ovoce.cz angemeldet werden. Der Server hat keine Nutzer-ID geliefert.</string>
     <!-- API errors and results: in the login form -->
-    <string name="error_could_not_log_in_na_ovoce">Impossible de se connecter à Na-Ovoce.cz. Le serveur n\'a pas retourné de token d\'autorisation. Veuillez vérifier votre nom d\'utilisateur et votre mot de passe avant de réessayer.</string>
+    <string name="error_could_not_log_in_na_ovoce">Du konntest nicht bei Na-Ovoce.cz angemeldet werden. Der Server hat keinen Authentifizierungsschlüssel gesendet. Bitte überprüfe den Nutzernamen und das Passwort und versuche es erneut.</string>
     <!-- API errors and results: should be circumvent by the UI. If not, the user should change the API endpoint or the category of the plant or if this is an error, change categories.json -->
-    <string name="error_invalid_category_for_api">La catégorie de cette plante n\'est pas disponible sur cette plateforme. Je ne peux pas publier cette plante. Veuillez choisir une autre catégorie ou la télécharger ailleurs.</string>
+    <string name="error_invalid_category_for_api">Diese Kategorie Pflanze gibt es nicht auf dieser Plattform. Bitte wähle eine andere Kategorie oder lade die Pflanze woanders hoch.</string>
     <!-- API errors and results: error message when uploading/changing plant online -->
-    <string name="error_plant_position_is_invalid">La plante n\'a pas de localisation valide. Impossible de la publier.</string>
+    <string name="error_plant_position_is_invalid">Die Position der Pflanze ist nicht gesetzt. Deswegen kann die Pflanze nicht veröffentlicht werden.</string>
     <!-- API errors and results:  -->
-    <string name="error_plant_category_is_not_set">Veuillez choisir une catégorie de plante dans laquelle uploader.</string>
+    <string name="error_plant_category_is_not_set">Bitte wähle eine Kategorie für die Pflanze, um sie hochzuladen.</string>
     <!-- API errors and results: SSLProtocolException -->
-    <string name="error_could_not_establish_a_secure_connection">Une erreur s\'est produite lorsque j\'ai tenté d\'établir une connexion sécurisée au serveur.</string>
+    <string name="error_could_not_establish_a_secure_connection">Es gab einen Fehler während eine sichere Verbindung zum Server hergestellt wurde.</string>
 
     <!-- ==============  map to choose plant position  ============== -->
     <!-- map to choose plant position: Activity title -->
-    <string name="title_choose_map_position">Choisissez Position Plante</string>
+    <string name="title_choose_map_position">Pflanzen-Position Wählen</string>
     <!-- map to choose plant position: info dialog when the plant has no position -->
-    <string name="info_plant_position_is_chosen_from_best_guess">La plante n\'a aucune localisation enregistrée. Le marqueur est où la dernière plante a été placée. Veuillez trouver la localisation correcte.</string>
+    <string name="info_plant_position_is_chosen_from_best_guess">Diese Pflanze hat keine Position gesetzt. Der Marker ist bei der nächsten Pflanze. Bitte finde selbst die richtige Position.</string>
 
     <!-- ==============  Map of all plants  ============== -->
     <!-- Map of all plants: Activity title -->
-    <string name="title_activity_show_plants">Carte des Plantes</string>
+    <string name="title_activity_show_plants">Pflanzenkarte</string>
 
     <!-- ==============  Menu  ============== -->
     <!-- Menu: entry to open the app menu -->
-    <string name="menu_about">À Propos</string>
+    <string name="menu_about">Über</string>
     <!-- Menu: entry to open the settings -->
-    <string name="menu_settings">Paramètres</string>
+    <string name="menu_settings">Einstellungen</string>
     <!-- Menu: entry to open the map -->
-    <string name="menu_map">Carte</string>
+    <string name="menu_map">Karte</string>
     <!-- Menu: entry to open the own collected plants -->
-    <string name="menu_my_plants">Mes plantes</string>
+    <string name="menu_my_plants">Meine Pflanzen</string>
     <!-- Menu: entry to open the community codex -->
-    <string name="menu_rules">Codex Communautaire</string>
+    <string name="menu_rules">Mundräuberregeln</string>
     <!-- Menu: entry to open the Privacy Policy -->
-    <string name="menu_privacy">Politique de confidentialité</string>
+    <string name="menu_privacy">Datenschutz</string>
     <!-- ==============  About the app  ============== -->
     <!-- About the app: Activity title -->
-    <string name="title_about">A propos</string>
+    <string name="title_about">Infos über die App</string>
     <!-- About the app: text -->
-    <string name="about_app">Ceci est l\'application non officielle pour Mundraub.org. La source est ouverte. Vous êtes invité à contribuer.</string>
+    <string name="about_app">Das ist die inoffizielle App für Mundraub.org. Der Quelltext is offen. Du bist eingeladen, beizutragen.</string>
     <!-- About the app: button -->
-    <string name="about_view_source">Voir le code source</string>
+    <string name="about_view_source">Sieh den Quelltext an</string>
     <!-- About the app: button text -->
-    <string name="about_view_source_at_version" formatted="false">Voir le code source de la version<xliff:g example="1.0" id="version">%1$s</xliff:g> au commit <xliff:g example="5849748" id="commit">%2$s</xliff:g>.</string>
+    <string name="about_view_source_at_version" formatted="false">Schau den Quelltext zur Version <xliff:g example="1.0" id="version">%1$s</xliff:g>  und dem Commit <xliff:g example="5849748" id="commit">%2$s</xliff:g> an.</string>
     <!-- About the app: text -->
-    <string name="about_four_freedoms">Vous êtes libre d\'exécuter, étudier, redistribuer et améliorer cette application.</string>
+    <string name="about_four_freedoms">Du hast die Freiheit, diese App auszuführen, sie zu studieren, verteilen und verbessern.</string>
     <!-- About the app: button -->
-    <string name="about_view_four_freedoms">Plus d\'informations à propos de nos 4 libertés</string>
+    <string name="about_view_four_freedoms">Mehr über unsere vier Freiheiten</string>
     <!-- About the app: button url. you can translate this to your language -->
-    <string name="about_view_four_freedoms_url">https://fr.wikipedia.org/wiki/Logiciel_libre#Définition_de_la_Free_Software_Foundation_(FSF)</string>
+    <string name="about_view_four_freedoms_url">https://de.wikipedia.org/wiki/Freie_Software#Die_vier_Freiheiten</string>
     <!-- About the app: text -->
-    <string name="about_issues">Si vous rencontrez un problème avec l\'application et que vous voulez le signaler, vous pouvez ouvrir une nouvelle Issue.</string>
+    <string name="about_issues">Wenn du ein Problem mit der App feststellst und uns das mitteilen magst, kannst Du eine neue Issue öffnen.</string>
     <!-- About the app: button -->
-    <string name="about_view_issues">Afficher les Issues ou en ouvrir une</string>
+    <string name="about_view_issues">Issues ansehen oder eine öffnen</string>
     <!-- About the app: text -->
-    <string name="about_licenses">Cette appli a un modèle de licence double : GPL version 3 pour l\'application, et licence MIT pour la carte.</string>
+    <string name="about_licenses">Diese App hat ein doppeltes Lizenzmodell: GPL der Version 3 und zusätzlich die MIT Lizenz für die Karte.</string>
     <!-- About the app: button -->
-    <string name="about_gpl">Voir la licence GPLv3</string>
+    <string name="about_gpl">GPLv3 ansehen</string>
     <!-- About the app: button -->
-    <string name="about_mit">Voir la licence MIT</string>
+    <string name="about_mit">MIT ansehen</string>
 
     <!-- ==============  Crash reporting  ============== -->
     <!-- Crash reporting: error message & explanation when an error report is present -->
-    <string name="error_app_crashed">L\'appli a rencontré une erreur inattendue et a crashé. Si vous souhaitez aider à résoudre le problème, rendez-vous sur F-Droid, ouvrez le Suivi des Problèmes et signalez le crash avec le fichier %s.</string>
+    <string name="error_app_crashed">Die App hatte einen unerwarteten Fehler und ist abgestürzt. Wenn Du helfen magst, das Problem zu beheben, bitte geh auf die F-Droid-Seite der App, öffne die Fehlerverfolgung und erstelle einen Bericht mit der Datei %s.</string>
     <!-- Crash reporting: error message & explanation when an error report is present -->
-    <string name="ask_error_report_is_needed">Voulez-vous utiliser le rapport d\'erreur ?</string>
+    <string name="ask_error_report_is_needed">Möchtest Du den Fehlerbereicht noch benutzen?</string>
 
     <!-- ==============  Requesting permissions  ============== -->
     <!-- Requesting permissions: General question to give a permission -->
-    <string name="permission_request">Voulez-vous accorder cette permission maintenant, afin que l\'application puisse utiliser cette fonctionnalité ?</string>
+    <string name="permission_request">Möchtest Du die jetzt die Erlaubnis erteilen, damit die App diese Funktion bereitstellen kann?</string>
     <!-- Requesting permissions: Error message on old devices. -->
-    <string name="permission_error_no_api">Je n\'ai pas pu ouvrir la boîte de dialogue des permissions car la version de l\'API de ce périphérique est trop basse. Essayez d\'accorder la permission vous-même !</string>
+    <string name="permission_error_no_api">Ich konnte den Android-Dialog für die Erlaubnis nicht öffnen, weil das Telefon eine zu alte API-Verison hat. Versuch doch, die Erlaubnis selbst zu erteilen!</string>
     <!-- Requesting permissions: ACCESS_FINE_LOCATION reason -->
-    <string name="permission_purpose_access_fine_location">L\'appli a besoin d\'une permission pour accéder à l\'emplacement de l\'appareil afin de remplir automatiquement la position de la plante.</string>
+    <string name="permission_purpose_access_fine_location">Die App braucht die Erlaubnis, das Gerät zu orten, um die Position der Pflanzen automatisch zu setzen.</string>
     <!-- Requesting permissions: CAMERA_REASON -->
-    <string name="permission_purpose_camera">L\'appli a besoin d\'une permission pour accéder à la caméra afin de prendre des photos de plantes.</string>
+    <string name="permission_purpose_camera">DI eApp braucht die Erlaubnis, die Kamera-App zu öffnen, um Bilder von den Pflanzen aufnehmen zu können.</string>
     <!-- Requesting permissions: EXTERNAL_STORAGE reason -->
-    <string name="permission_purpose_external_storage">L\'appli doit être autorisée à écrire les plantes trouvées sur le stockage de l\'appareil afin de pouvoir les voir lorsque l\'application est fermée puis rouverte.</string>
+    <string name="permission_purpose_external_storage">Die App braucht die Erlaubnis, auf das Dateisystem zu speichern, damit die aufgenommenen Pflanzen auch noch da sind, wenn die App schließt und wieder öffnet.</string>
     <!-- Requesting permissions: INTERNET reason. probably useless since given any way -->
-    <string name="permission_purpose_internet">L\'appli a besoin d\'une autorisation pour accéder à Internet afin de vous permettre de télécharger la position et les infos des plantes.</string>
+    <string name="permission_purpose_internet">Die App braucht die Erlaubnis, auf das Internet zuzugreifen, um Dir zu erlauben, die Pflanzen auf Mundraub.org zu teilen.</string>
     <!-- Requesting permissions: General permission denied message -->
-    <string name="permission_denied_consequences">La permission n\'a pas été accordée, l\'application ne peut donc pas faire cela.</string>
+    <string name="permission_denied_consequences">Die Erlaubnis wurde der App nicht erteilt. Damit ist diese Funktion nicht verfügbar.</string>
     <!-- Requesting permissions: VIBRATE reason -->
-    <string name="permission_purpose_vibrate">Lorsqu\'il y a une usine à portée, le téléphone peut vibrer pendant un court instant pour vous en informer. Même si vous en donnez l\'autorisation, vous pouvez activer et désactiver les vibrations dans les paramètres.</string>
+    <string name="permission_purpose_vibrate">Wenn eine Pflanze in Reichweite ist, kann das Gerät vibrieren, um Dich zu benachrichtigen. Selbst wenn Du dieser App die Berechtigung zu Vibireren erteilst, kannst Du das hier wieder an und ausschalten.</string>
 
     <!-- ==============  settings  ============== -->
     <!-- settings: Activity title -->
-    <string name="title_settings">Paramètres</string>
+    <string name="title_settings">App-Einstellungen</string>
     <!-- settings: API choice -->
-    <string name="settings_use_mundraub_api">Si cette option est activée, l\'appli publiera les plantes sur Mundraub.org.</string>
+    <string name="settings_use_mundraub_api">Wenn das eingeschaltet ist, publiziert die App die Pflanzen auf Mundraub.org.</string>
     <!-- settings: API choice  -->
-    <string name="settings_use_na_ovoce">Si cette option est activée, l\'appli publiera les plantes sur Na-Ovoce.cz.</string>
+    <string name="settings_use_na_ovoce">Wenn das eingeschaltet ist, publiziert die App die Pflanzen auf Na-Ovoce.cz.</string>
     <!-- settings: API choice  -->
-    <string name="settings_use_fruitmap">Si cela est activé, cette application publie les plantes sur FruitMap.org.</string>
+    <string name="settings_use_fruitmap">Wenn das eingeschaltet ist, publiziert die App die Pflanzen auf FruitMap.org.</string>
     <!-- settings: API choice  -->
-    <string name="settings_use_dummy">Si cette option est activée, l\'appli ne publiera pas les plantes découvertes, mais simulera une API locale pour les tester.</string>
+    <string name="settings_use_dummy">Wenn das eingeschaltet ist, publiziert die App keine Pflanzen sondern nutzt eine lokale API zum Testen.</string>
     <!-- settings: used on old platforms -->
-    <string name="setting_use_secure_connection">Si cette option est activée, l\'appli se connectera à Mundraub.org et d\'autres serveurs via des connections approuvés par des Autorités de Certification. Cela peut être problématique sur des appareils anciens qui ne peuvent pas vérifier le certificat.</string>
+    <string name="setting_use_secure_connection">Wenn das eingeschaltet ist, wird den Verbindungen zu Mundraub.org und anderen Servern von den Zertifikatsautoritäten vertraut. Das kann Probleme auf älteren Androids geben, die nicht in der Lage sind, die neueren Zertifikate zu verwenden.</string>
     <!-- settings:  -->
-    <string name="settings_use_cache">Si cette option est activée, l\'appli utilisera le répertoire cache des plantes. Vous pouvez les supprimer quand vous le souhaitez. Si cette option est désactivée, l\'application utilise le stockage externe pour vous permettre de synchroniser et de transférer les plantes.</string>
+    <string name="settings_use_cache">Wenn das eingeschaltet ist, verwendet die App das Cacheverzeichnis für die Pflanzen. Du kannst sie löschen, wenn nötig. Wenn das aus ist, nutzt die App den externen Speicher, sodass Du die Pflanzen synchronisieren und kopieren kannst.</string>
     <!-- settings: Error message when the plant location can not be changed. -->
-    <string name="error_could_not_move_plants">Les plantes n\'ont pas pu être déplacées dans le répertoire souhaité.</string>
+    <string name="error_could_not_move_plants">Die Pflanzendaten konnten nicht in das gewünschte Verzeichnis verschoben werden.</string>
     <!-- settings: section title -->
-    <string name="settings_connection">Paramètres de Connexion</string>
+    <string name="settings_connection">Einstellungen für die Verbindung</string>
     <!-- settings: section title -->
-    <string name="settings_storage">Paramètres de Stockage</string>
+    <string name="settings_storage">Einstellungen für das Speichern</string>
     <!-- settings: section title -->
-    <string name="settings_offline_map">Paramètres de carte hors ligne</string>
+    <string name="settings_offline_map">Offline-Karten-Einstellungen</string>
     <!-- settings: section title -->
-    <string name="settings_debug">Paramètres de Débogage</string>
+    <string name="settings_debug">Einstellungen zum Entwickeln</string>
     <!-- settings: section title -->
-    <string name="settings_permissions">Paramètres des Permissions</string>
+    <string name="settings_permissions">Einstellungen für Zugriffsrechte</string>
     <!-- settings: column title: Switch permissions on and off -->
-    <string name="settings_permission_activate">On/Off</string>
+    <string name="settings_permission_activate">An/Aus</string>
     <!-- settings: column title: should a dialog be shown if a permission is not given but required? -->
-    <string name="settings_permission_ask">Demander?</string>
+    <string name="settings_permission_ask">Fragen?</string>
     <!-- settings: column title -->
-    <string name="settings_permission_name">Permission</string>
+    <string name="settings_permission_name">Zugriffsrechte</string>
     <!-- settings: permission name -->
-    <string name="settings_permission_camera_title">CAMERA</string>
+    <string name="settings_permission_camera_title">KAMERA</string>
     <!-- settings: permission explanation -->
-    <string name="settings_permission_camera_text">L\'appli peut-elle prendre des photos de plantes ?</string>
+    <string name="settings_permission_camera_text">Kann die App Bilder von Pflanzen machen?</string>
     <!-- settings: permission name -->
-    <string name="settings_permission_storage_title">STOCKAGE EXTERNE</string>
+    <string name="settings_permission_storage_title">EXTERNER SPEICHER</string>
     <!-- settings: permission explanation -->
-    <string name="settings_permission_storage_text">L\'appli peut-elle enregistrer les plantes sur le stockage externe ?</string>
+    <string name="settings_permission_storage_text">Kann die App Pflanzen auf dem externen Speicher ablegen?</string>
     <!-- settings: permission name -->
-    <string name="settings_permission_location_title">LOCALISATION</string>
+    <string name="settings_permission_location_title">ORTUNG</string>
     <!-- settings: permission explanation -->
-    <string name="settings_permission_location_text">L\'appli peut-elle remplir la localisation de la plante via le GPS ?</string>
+    <string name="settings_permission_location_text">Kann die App die Position mit GPS ermitteln?</string>
     <!-- settings: permission name -->
     <string name="settings_permission_internet_title">INTERNET</string>
     <!-- settings: permission explanation -->
-    <string name="settings_permission_internet_text">L\'appli peut-elle se connecter à Mundraub et aux services de cartes ?</string>
+    <string name="settings_permission_internet_text">Kann die App sich zu Mundraub und Kartendiensten verbinden?</string>
     <!-- settings: permission name -->
-    <string name="settings_permission_vibration_title">VIBRER</string>
+    <string name="settings_permission_vibration_title">VIBRATION</string>
     <!-- settings: permission explanation -->
-    <string name="settings_permission_vibration_text">L\'application peut-elle vibrer si le radar de détection de fruits détecte un fruit?</string>
+    <string name="settings_permission_vibration_text">Darf die App vibirieren, wenn der Frucht-Radar eine Pflanze findet?</string>
     <!-- settings: Error message on old APIs when the permission dialog window can not be opened -->
-    <string name="error_can_edit_permissions_only_externally">Les permissions de l\'application ne peuvent être modifiées qu\'en externe. Veuillez ouvrir les paramètres Android de l\'application pour les modifier.</string>
+    <string name="error_can_edit_permissions_only_externally">App-Rechte können nur extern verwaltet werden. Bitte öffne die Android-Einstellungen und ändere die Rechte der App selbst.</string>
     <!-- settings: Pressing the left button for the permission turn off -->
-    <string name="error_can_not_edit_permissions_api_too_old">Désolé, cette version d\'Android est trop ancienne pour révoquer les permissions de l\'application.</string>
+    <string name="error_can_not_edit_permissions_api_too_old">Diese Version von Android ist zu alt, um die Zugriffsrechte für die App zurückzunehmen. Sorry.</string>
     <!-- settings:  -->
-    <string name="settings_ask_for_error_report">Lorsque l\'application démarre après avoir crasher : si cette option est activée, il vous sera demandé si vous souhaitez utiliser le rapport d\'erreur.</string>
+    <string name="settings_ask_for_error_report">Wenn die App startet, nachdem sie gecrasht ist: Wenn das eingeschaltet ist, fragt die App ob Du den Fehlerbericht benutzen möchtest.</string>
     <!-- settings: section title -->
-    <string name="settings_offline">Paramètres Hors-Ligne</string>
+    <string name="settings_offline">Offline-Einstellungen</string>
     <!-- settings:  -->
-    <string name="settings_use_offline_mode">Si cette option est activée, la carte est remplie avec les marqueurs d\'installation téléchargés. Si cette option est désactivée, une version mise à jour est utilisée sur Mundraub.org.</string>
+    <string name="settings_use_offline_mode">Wenn das eingeschaltet ist, wird die Karte mit den heruntergeladenen Pflanzenmarkierungen bestückt. Wenn das ausgeschaltet ist, dann wird eine aktuelle Version von Mundraub.org verwendet.</string>
     <!-- settings: dialog reason: download offline data -->
-    <string name="reason_offline_data_needs_to_be_downloaded">Pour avoir quelque chose qui s\'affiche hors-ligne, nous devons télécharger des données. Vous pouvez également utiliser ce qui est déjà stocké sur le téléphone.</string>
+    <string name="reason_offline_data_needs_to_be_downloaded">Um etwas offline zu machen, müssen wir Daten runtergeladen haben. Du kannst auch das verwenden, was schon runtergeladen wurde.</string>
     <!-- settings: dialog question: download offline data -->
-    <string name="ask_download_offline_data">Voulez-vous mettre à jour les données hors-ligne maintenant?</string>
+    <string name="ask_download_offline_data">Möchtest du die Offline-Daten jetzt aktualisieren?</string>
     <!-- settings: dialog success: download offline data -->
-    <string name="success_plant_offline_data_was_downloaded">Tous les marqueurs de plantes sélectionnés sont téléchargés.</string>
+    <string name="success_plant_offline_data_was_downloaded">Alle ausgewählten Pflanzenfundorte wurden heruntergelanden.</string>
     <!-- settings: dialog error: download offline data -->
-    <string name="error_debug_api_can_not_download_offline_data">L\'API de débogage ne peut pas télécharger les données hors connexion. Veuillez utiliser l\'API Mundraub au bas des paramètres.</string>
+    <string name="error_debug_api_can_not_download_offline_data">Die Debug-API kann keine Daten runterladen. Bitte benutze die Mundraub-API unten in den Einstellungen zu diesem Zweck.</string>
     <!-- settings:  -->
-    <string name="settings_create_public_api_for_debug">Si cette option est activée, l\'application fournit l\'API de carte Mundraub au réseau local. Aucun dommage ne peut être fait car cette API est en lecture seule.</string>
+    <string name="settings_create_public_api_for_debug">Wenn das eingeschaltet ist, stellt die App die Mundraub-API im lokalen Netzwerk frei. Das ist nicht schlimm, da die API nur Lesen erlaubt und kein Verändern.</string>
     <!-- settings: section title -->
-    <string name="settings_markers">Choisissez vos catégories de plantes</string>
+    <string name="settings_markers">Wähle Deine Pflanzenkategorien</string>
     <!-- settings:  -->
-    <string name="settings_use_markers_mundraub">Lorsque cette case est cochée, vous pouvez choisir votre catégorie d’usine sur Mundraub.org.</string>
+    <string name="settings_use_markers_mundraub">Wenn das eingeschaltet ist, kannst Du die Pflanzenkategorien von Mundraub.org verwenden.</string>
     <!-- settings:  -->
-    <string name="settings_use_markers_na_ovoce">Lorsque cette case est cochée, vous pouvez choisir votre catégorie d\'installation à partir de Na-Ovoce.cz.</string>
+    <string name="settings_use_markers_na_ovoce">Wenn das eingeschaltet ist, kannst Du die Pflanzenkategorien von Na-Ovoce.cz verwenden.</string>
     <!-- settings:  -->
-    <string name="settings_use_markers_fruitmap">Lorsque cette case est cochée, vous pouvez choisir votre catégorie de plante sur FruitMap.org.</string>
+    <string name="settings_use_markers_fruitmap">Wenn das eingeschaltet ist, kannst Du die Pflanzenkategorien von FruitMap.org verwenden.</string>
     <!-- settings:  -->
-    <string name="settings_use_markers_community">Lorsque cette case est cochée, vous pouvez choisir des catégories de plantes qui ne sont disponibles que dans l\'application et fournies par la communauté.</string>
+    <string name="settings_use_markers_community">Wenn das eingeschaltet ist, kannst du die Kategorien von Pflanzen verwenden, die nur in der App existieren und durch die Gemeinschaft begetragen wurden.</string>
     <!-- settings: fruit radar: section title -->
-    <string name="settings_fruit_radar">Radar à fruit et plantes comestibles</string>
+    <string name="settings_fruit_radar">Frucht-Radar</string>
     <!-- settings: fruit radar:  -->
-    <string name="settings_enable_fruit_radar">Si cela est activé, l\'application vous avertit des plantes comestibles à proximité.</string>
+    <string name="settings_enable_fruit_radar">Wenn das eingeschaltet ist, benachrichtigt Dich die App über Pflanzen in der Nähe.</string>
     <!-- settings: fruit radar: text -->
-    <string name="settings_distance_in_meters" formatted="false">Lorsque la plante est à <xliff:g example="10" id="distance">%1$d</xliff:g> quelques mètres, vous recevez une notification.</string>
+    <string name="settings_distance_in_meters" formatted="false">Wenn die Pflanze <xliff:g example="10" id="distance">%1$d</xliff:g> meter entfernt ist, wirst Du benachrichtigt.</string>
     <!-- settings: fruit radar: development test at the bottom of the app -->
-    <string name="settings_test_fruit_radar">tester les notifications radar sur la carte</string>
+    <string name="settings_test_fruit_radar">Teste die Radar-Benachrichtigungen auf der Karte</string>
     <!-- settings: Dialog: switch on offline mode? -->
-    <string name="reason_radar_only_works_in_offline_mode">Le radar à fruits ne fonctionne qu\'en mode hors connexion car il nécessite le téléchargement des marqueurs.</string>
+    <string name="reason_radar_only_works_in_offline_mode">Der Frucht-Radar funktioniert nur im Offline-Modus, weil er heruntergelade Marker braucht.</string>
     <!-- settings: Dialog: switch on offline mode? -->
-    <string name="ask_switch_on_offline_mode">Voulez-vous entrer en mode hors connexion maintenant?</string>
+    <string name="ask_switch_on_offline_mode">Möchtest Du die App jetzt in den Offline-Modus versetzen?</string>
     <!-- settings:  -->
-    <string name="settings_enable_fruit_radar_vibration">Si cette option est activée et qu\'une plante apparaît sur le radar des fruits, ce téléphone vibre.</string>
+    <string name="settings_enable_fruit_radar_vibration">Wenn eine Pflanze auf dem Frucht-Radar erscheint, vibriert das Gerät.</string>
     <!-- settings: Checkbutton to choose which sources to download markers from -->
-    <string name="settings_download_mundraub_markers">Si cette option est activée, l\'application télécharge tous les marqueurs d\'installation de Mundraub.org.</string>
+    <string name="settings_download_mundraub_markers">Wenn das eingeschaltet ist, lädt die App die Marker von Mundraub.org runter.</string>
     <!-- settings: Checkbutton to choose which sources to download markers from -->
-    <string name="settings_download_na_ovoce_markers">Si cette option est activée, l\'application télécharge tous les marqueurs d\'installation de Na-Ovoce.cz.</string>
+    <string name="settings_download_na_ovoce_markers">Wenn das eingeschaltet ist, lädt die App die Marker von Na-Ovoce.cz runter.</string>
     <!-- settings: Checkbutton to choose which sources to download markers from -->
-    <string name="settings_download_fruitmap_markers">Si cette option est activée, l\'application télécharge tous les marqueurs de plante à partir de FruitMap.org.</string>
+    <string name="settings_download_fruitmap_markers">Wenn das eingeschaltet ist, lädt die App die Marker von FruitMap.org runter.</string>
     <!-- settings: Button text to open the map an choose areas to take offline -->
-    <string name="settings_create_offline_areas">Choisissez les zones de la carte à déconnecter.</string>
+    <string name="settings_create_offline_areas">Wähle Gebiete, die als offline-Karte verfügbar sein sollen.</string>
     <!-- settings: Checkbutton to choose which sources to download map tiles from -->
-    <string name="settings_offline_mapnik">Téléchargez les tuiles OpenStreetMap.</string>
+    <string name="settings_offline_mapnik">Lade OpenSteetMap-Teile herunter.</string>
     <!-- settings: Checkbutton to choose which sources to download map tiles from -->
-    <string name="settings_offline_satellite">Téléchargez les vignettes d\'images de la Terre.</string>
+    <string name="settings_offline_satellite">Lade Satellitenbilder herunter.</string>
     <!-- settings: -->
-    <string name="settings_offline_map_explanation">Mettre la carte hors ligne réduit les communications Internet et vous permet d\'afficher la carte lorsque vous ne disposez pas d\'une connexion Internet facilitant la recherche de plantes.</string>
+    <string name="settings_offline_map_explanation">Die Karte offline zu bringen, braucht weniger Internetvolumen und Du kannst die Karte ansehen, wenn Du keine Internet-Verbindung hast. Das hilft, die Pflanzen zu finden.</string>
     <!-- settings: -->
-    <string name="settings_offline_markers_explanation">Cette application fonctionne mieux en mode hors connexion lorsque toutes les plantes de différentes plates-formes sont téléchargées. En mode en ligne, vous ne pouvez utiliser Mundraub.org que parce qu\'ils permettent d\'obtenir des plantes dans une certaine plage.</string>
+    <string name="settings_offline_markers_explanation">Diese App funktioniert am Besten im Offline-Modus, wenn die Pflanzen aus verschiedenen Plattformen heruntergeladen wurden. Im Online-Modus kannst Du nur Mundraub.org benutzen, weil die erlauben, die Pflanzen im Kartenausschnitt herunterzuladen.</string>
     <!-- settings: offline map statistics -->
-    <string name="settings_offline_map_statistics" formatted="false">Vous voulez avoir <xliff:g example="3" id="areas">%1$d</xliff:g> zones hors ligne. La taille de toutes les images de mosaïque de carte sur votre téléphone devrait être environ <xliff:g example="30mb" id="estimated">%2$s</xliff:g>. Actuellement, <xliff:g example="40mb" id="used">%3$s</xliff:g> sont en cours d\'utilisation.</string>
+    <string name="settings_offline_map_statistics" formatted="false">Du möchtest <xliff:g example="3" id="areas">%1$d</xliff:g> Gebiete offline haben. Das sollten so <xliff:g example="30mb" id="estimated">%2$s</xliff:g> an Kartenteilen sein. Momentan benutzt Du <xliff:g example="40mb" id="used">%3$s</xliff:g> für die Offline-Karte.</string>
     <!-- settings: button text -->
-    <string name="settings_remove_offline_map_areas">Supprimer toutes les zones hors connexion</string>
+    <string name="settings_remove_offline_map_areas">Alle Offline-Gebiete löschen</string>
     <!-- settings: button text -->
-    <string name="settings_download_tiles">Télécharger la carte</string>
+    <string name="settings_download_tiles">Karte runterladen</string>
     <!-- settings: dialog when you delete all offline areas -->
-    <string name="settings_reason_delete_offline_tiles">Vous avez supprimé toutes les zones hors connexion, mais les pièces téléchargées utilisent encore de l\'espace.</string>
+    <string name="settings_reason_delete_offline_tiles">Du löschst die eingezeichneten Offline-Gebiete aber die Gebiete sind immernoch heruntergeladen.</string>
     <!-- settings: dialog when you delete all offline areas -->
-    <string name="settings_ask_delete_downloaded_tiles">Voulez-vous supprimer toutes les tuiles hors ligne?</string>
+    <string name="settings_ask_delete_downloaded_tiles">Möchtest Du auch die Kartenstücken löschen, die schon auf dem Telefon sind?</string>
     <!-- settings: checkbox to configure download of map tiles -->
-    <string name="settings_download_all_zoom_levels">J\'aimerais pouvoir effectuer un zoom arrière en mode hors connexion. Cette opération télécharge également les mosaïques de carte pour effectuer un zoom arrière et nécessite environ un tiers de l\'espace supplémentaire.</string>
+    <string name="settings_download_all_zoom_levels">Ich möchte im Offline-Modus herauszoomen können. Das downloaded auch dieKartenteile um rauszuzoomen und braucht ca. ein Drittel mehr Speicher. </string>
     <!-- settings: dialog message when all the map tiles are downloaded with success -->
-    <string name="settings_success_download_map">Toutes les parties sélectionnées de la carte ont été téléchargées et sont maintenant disponibles hors connexion.</string>
+    <string name="settings_success_download_map">Alle ausgewählten Gebiete der Karte wurden heruntergeladen und sind nun auch offline verfügbar.</string>
     <!-- settings: max number of displayed markers on map : text -->
-    <string name="settings_max_num_of_markers" formatted="false">Un maximum de <xliff:g example="100" id="maxMarkers">%1$d</xliff:g> marqueurs sera affiché sur la carte.</string>
+    <string name="settings_max_num_of_markers" formatted="false">Maximum of <xliff:g example="100" id="maxMarkers">%1$d</xliff:g> markers will be displayed on map.</string>
     <!-- ==============  Community Codex  ============== -->
     <!-- https://mundraub.org/mundraeuber-regeln -->
     <!-- Community Codex: Activity title -->
-    <string name="title_codex">Codex Communautaire</string>
+    <string name="title_codex">Mundräuberregeln</string>
     <!-- Community Codex: rule 1 -->
-    <string name="mundraub_rule_1">Veuillez vous assurer avant de créer une entrée ou de faire une récolte qu\'il n\'y a aucun problème de propriété.</string>
+    <string name="mundraub_rule_1">Stelle vor dem Eintragen und/oder Ernten sicher, dass keine Eigentumsrechte verletzt werden.</string>
     <!-- Community Codex: rule 2 -->
-    <string name="mundraub_rule_2">Attention aux arbres, à la nature et aux animaux qui y vivent ! Cueillir pour vos propres besoins est autorisé mais pas plus, et pas dans un but commercial. Vous auriez besoin d\'un permis pour cela.</string>
+    <string name="mundraub_rule_2">Gehe behutsam mit den Bäumen, der umgebenden Natur und den dort lebenden Tieren um. Für den Eigenbedarf pflücken ist erlaubt, aber nicht in großem Stil gewerbsmäßig, dazu braucht es eine behördliche Genehmigung.</string>
     <!-- Community Codex: rule 3 -->
-    <string name="mundraub_rule_3">Partagez le fruit de votre découverte et donnez quelque chose en retour.</string>
+    <string name="mundraub_rule_3">Teile die Früchte deiner Entdeckungen und gib etwas zurück.</string>
     <!-- Community Codex: rule 4 -->
-    <string name="mundraub_rule_4">Impliquez-vous dans les soins et la plantation d\'arbres fruitiers.</string>
+    <string name="mundraub_rule_4">Engagiere dich bei der Pflege und Nachpflanzung von Obstbäumen.</string>
     <!-- Community Codex: button text to open the url -->
-    <string name="mundraub_rules_long_version">Montrez-moi la version longue !</string>
+    <string name="mundraub_rules_long_version">Zeige mir die lange Version!</string>
     <!-- Community Codex: Accept the rules -->
-    <string name="mundraub_rules_i_understand">Cela me semble raisonnable, j\'accepte !</string>
+    <string name="mundraub_rules_i_understand">Klingt gut, Ich verstehe es!</string>
     <!-- Community Codex: url to open the community rules in a given language. This may change from as different platforms have different rules. -->
     <string name="rules_url">https://mundraub.org/mundraeuber-regeln</string>
 
     <!-- ==============  Fruit Radar Notifications  ============== -->
     <!-- Fruit Radar Notifications: Activity title for the test at the bottom of the settings -->
-    <string name="title_fruit_radar_test">Test radar de fruits</string>
+    <string name="title_fruit_radar_test">Frucht-Radar-Test</string>
     <!-- Fruit Radar Notifications: channel name of the notifications -->
-    <string name="channel_name">Plantes à proximité</string>
+    <string name="channel_name">Pflanzen in der Nähe</string>
     <!-- Fruit Radar Notifications: Short text to be displayed in a notification. %1$d is the distance in meters i.e. "10" and %2$s is the direction i.e. "north of you". You can order these as you like in your language. You can shorten meters to "m" to avoid plural problems. -->
-    <string name="notification_text_with_distance" formatted="false"><xliff:g example="10" id="distance">%1$d</xliff:g>mètres<xliff:g example="north of you" id="direction">%2$s</xliff:g></string>
+    <string name="notification_text_with_distance" formatted="false"><xliff:g example="10" id="distance">%1$d</xliff:g> meter <xliff:g example="north of you" id="direction">%2$s</xliff:g></string>
     <!-- Fruit Radar Notifications: Part of the notification message -->
-    <string name="direction_north">au nord de toi</string>
+    <string name="direction_north">nördlich von Dir</string>
     <!-- Fruit Radar Notifications: Part of the notification message -->
-    <string name="direction_north_east">au nord est de toi</string>
+    <string name="direction_north_east">nordöstlich von Dir</string>
     <!-- Fruit Radar Notifications: Part of the notification message -->
-    <string name="direction_east">à l\'est de toi</string>
+    <string name="direction_east">östlich von Dir</string>
     <!-- Fruit Radar Notifications: Part of the notification message -->
-    <string name="direction_south_east">au sud est de toi</string>
+    <string name="direction_south_east">südöstlich von Dir</string>
     <!-- Fruit Radar Notifications: Part of the notification message -->
-    <string name="direction_south">au sud de toi</string>
+    <string name="direction_south">südlich von Dir</string>
     <!-- Fruit Radar Notifications: Part of the notification message -->
-    <string name="direction_south_west">au sud ouest de toi</string>
+    <string name="direction_south_west">südwestlich von Dir</string>
     <!-- Fruit Radar Notifications: Part of the notification message -->
-    <string name="direction_west">à l\'ouest de vous</string>
+    <string name="direction_west">westlich von Dir</string>
     <!-- Fruit Radar Notifications: Part of the notification message -->
-    <string name="direction_north_west">au nord ouest de toi</string>
+    <string name="direction_north_west">nordwestlich von Dir</string>
     <!-- Fruit Radar Notifications: Part of the notification message. When the plant is too close to really tell the direction e.g. because GPS is too imprecise. -->
-    <string name="direction_too_close">loin de vous</string>
+    <string name="direction_too_close">entfernt von Dir</string>
 
     <!-- ==============  Startup  ============== -->
     <!-- Startup: Activity title. This will be displayed during loading -->
-    <string name="title_startup">Fruit Radar à partir de ...</string>
+    <string name="title_startup">Frucht Radar startet ...</string>
     <!-- Startup: loading plants takes some time if there are many -->
-    <string name="startup_loading_plants">Chargement de toutes les plantes ...</string>
+    <string name="startup_loading_plants">Lade alle Pflanzen ...</string>
     <!-- Startup: When the privacy policy could possibly be of interest to the user: Tell them what its purpose is. -->
-    <string name="reason_open_privacy_policy">Ensuite, vous verrez la carte. Les données seront envoyées aux serveurs sur Internet. Vous pouvez d’abord consulter la politique de confidentialité afin de savoir ce qui se passe ensuite.</string>
+    <string name="reason_open_privacy_policy">Gleich wirst Du die Karte sehen. Dazu werden Daten an Server im Internet gesendet. Du kannst gern die Datenschutzerklärung vorher einsehen, um sicher zu gehen, dass Du verstehst, was passiert.</string>
     <!-- Startup: When the privacy policy could possibly be of interest to the user: Ask the users if they would like to view it. -->
-    <string name="question_open_privacy_policy">Souhaitez-vous ouvrir la politique de confidentialité au lieu de la carte des fruits?</string>
+    <string name="question_open_privacy_policy">Möchtest Du die Datenschutzerklärung öffnen?</string>
 
 
     <!-- ==============  Choose Offline Areas  ============== -->
     <!-- Choose Offline Areas: Activity title. This is displayed when choosing offline areas. -->
-    <string name="title_select_offline_areas">Choisir des zones de carte hors connexion</string>
+    <string name="title_select_offline_areas">Offline-Kartengebiete auswählen</string>
 
     <!-- ==============  Privacy Policy  ============== -->
     <!-- Privacy Policy: Activity title. This is displayed when viewing the Privacy Policy. -->
-    <string name="title_privacy_policy">Politique de confidentialité</string>
+    <string name="title_privacy_policy">Datenschutz</string>
 
     </resources>
