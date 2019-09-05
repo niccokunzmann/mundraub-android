@@ -28,7 +28,7 @@ public class TilesCache {
     }
 
     public static void initializeCachesOnDirectory(File directory) {
-        SATELLITE = new TilesCache(new File(directory, "sat"), "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}/", ContentType.JPG);
+        SATELLITE = new TilesCache(new File(directory, "sat"), "http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}/", ContentType.JPG);
         OSM = new TilesCache(new File(directory, "osm"), "http://a.tile.openstreetmap.org/${z}/${x}/${y}.png", ContentType.PNG);
     }
 
