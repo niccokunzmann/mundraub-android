@@ -95,7 +95,7 @@ function getAppTranslations(onSuccess) {
 var OWN_PLANTS_URL = API_HOST + "/cluster/plants.json";
 var OWN_PLANTS = null;
 function loadOwnPlants() {
-    sendRequest(OWN_PLANTS_URL, function(ownPlants) {
+    sendRequest(OWN_PLANTS_URL + "?date=" + new Date().toISOString(), function(ownPlants) {
         OWN_PLANTS = ownPlants; // debug
         log.log("ownPlants: " + ownPlants.length);
         loadOwnPlantsFrom(ownPlants);
