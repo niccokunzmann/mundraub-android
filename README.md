@@ -55,32 +55,31 @@ Software Material List
 ----------------------
 
 App components:
-
-- For publishing the found plants and markers on the map:
-    - [Mundraub.org] (German)
-    - [Na-Ovoce.cz] (Czech)
-    - [FruitMap.org] (Slovakian, English and Czech) (download only)
-    - www.quelltext.eu in case the insecure connections for old Androids are enabled.
 - [OpenLayers] for refining te position
-- [openstreetmap] for rendering OpenStreetMap
-- [World Imagery] for rendering a satellite map
-- [staticmap] for fetching the map preview
 - [okhttp] for making requests
 - [commons-lang3] for useful functions everywhere
 - [nanohttpd] for providing an API to the map
 
-Services:
+APIs:
+- For publishing the found plants and markers on the map:
+    - [Mundraub.org] (German)
+    - [Na-Ovoce.cz] (Czech)
+    - [FruitMap.org] (Slovakian, English and Czech) (download only)
+    - [www.quelltext.eu][proxies] in case the insecure connections for old Androids are enabled.
+- [openstreetmap] for rendering OpenStreetMap
+- [World Imagery] for rendering a satellite map
+- [staticmap] for fetching the map preview
+- OpenStreetMap's [Nominatim] to search for places on the map
 
+Services:
 - [Travis][travis] to build the app and test the code
 - [GitHub] for publising and contributing to the code
 - [Transifex][tx] for managing translations
     - [Microsoft Translate] with a free account for suggesting translations. 
 - [F-Droid][fdroid] for publishing the app
 - [Google Play][google-play] for publishing the app
-- OpenStreetMap's [Nominatim] to search for places on the map
 
 Languages:
-
 - Java for the app, Android 2.3 [GINGERBREAD]
 - HTML/CSS/JavaScript for the [map]
 
@@ -112,4 +111,4 @@ Languages:
 [documentation]: docs#readme
 [Nominatim]: https://nominatim.openstreetmap.org/
 [google-play]: https://play.google.com/store/apps/details?id=eu.quelltext.mundraub
-
+[proxies]: docs/proxies.md
