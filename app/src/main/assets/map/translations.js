@@ -27,21 +27,21 @@ function getUserCountry() {
 }
 
 var language = getUserLanguage();
-console.log("The browser language is " + language);
+log.log("The browser language is " + language);
 var defaultLanguage = "en";
 
 var define = function (newTranslations) {
-    console.log("loaded translations for " + defaultLanguage);
+    log.log("loaded translations for " + defaultLanguage);
     translationBase = newTranslations;
-    //console.log("base translations", newTranslations);
+    //log.log("base translations", newTranslations);
     if (defaultLanguage == language) {
         localizedTranslations = translationBase;
         _notifyThatTheTranslationsAreLoaded();
     } else {
         define = function(newTranslations) {
             localizedTranslations = newTranslations;
-            //console.log(language + " translations", newTranslations);
-            console.log("loaded translations for " + language);
+            //log.log(language + " translations", newTranslations);
+            log.log("loaded translations for " + language);
             _notifyThatTheTranslationsAreLoaded();
         }
         loadTranslationLanguage(language);
@@ -64,14 +64,14 @@ function translate(key) {
         }
         var errorMessage = lookupChain[i][1];
         if (errorMessage) {
-            console.log(errorMessage);
+            log.log(errorMessage);
         }
     }
     return key;
 }
 
 function _notifyThatTheTranslationsAreLoaded0() {
-    console.log("All translations are loaded.");
+    log.log("All translations are loaded.");
     clearTimeout(translationsLoadingTimeout); // see https://stackoverflow.com/a/2578642
     translationsLoadingTimeout = null; // so we can check in the console
 }
@@ -96,7 +96,7 @@ function onNotifyThatTheTranslationsAreLoaded(callback) {
 // notify about translations even if they do not exist.
 var translationsLoadingTimeout = setTimeout(function() {
         _notifyThatTheTranslationsAreLoaded();
-        console.log("Loading translations timed out.");
+        log.log("Loading translations timed out.");
     }, 1000);
 
 function loadJSONTranslations() {

@@ -1,6 +1,6 @@
 
 function printError(error) {
-    console.log(error.name + ": in " + error.fileName + " in line " + error.lineNumber + ": " + error.message + "\n" + error.stack);
+    log.log(error.name + ": in " + error.fileName + " in line " + error.lineNumber + ": " + error.message + "\n" + error.stack);
 }
 
 OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
@@ -58,7 +58,7 @@ function getMarkerPosition() {
 }
 
 function setPositionInURL(lonlat) {
-    console.log("setPositionInURL", lonlat);
+    log.log("setPositionInURL", lonlat);
     center.lon = lonlat.lon;
     center.lat = lonlat.lat;
     setConfigurationInURL();
@@ -77,7 +77,7 @@ function setPosition(doNotPrint) {
         map.setCenter(lonLatToMarkerPosition(center), zoom);
     } catch (error) {
         if (doNotPrint) {
-            console.log("Retry setting the center of the map.")
+            log.log("Retry setting the center of the map.")
         } else {
             printError(error);
         }
@@ -101,7 +101,7 @@ var map;
 var mapLayersById = {};
 
 function onload() {
-    console.log("Loading map ...");
+    log.log("Loading map ...");
     try{
         var click = new OpenLayers.Control.Click();
 
@@ -144,7 +144,7 @@ function onload() {
         var VISIBLE_LAYER = "visibleLayer";
         function showRememberedLayer() {
             var visibleLayerName = getCookie(VISIBLE_LAYER);
-            console.log("visibleLayerName: " + visibleLayerName);
+            log.log("visibleLayerName: " + visibleLayerName);
             unsortedMapLayers.forEach(function (layer, index) {
                 if (layer.persistentId == visibleLayerName) {
                     layers.unshift(layer);
@@ -158,7 +158,7 @@ function onload() {
                 var layer = e.layer;
                 // from https://gis.stackexchange.com/q/110114
                 if (layer.visibility && unsortedMapLayers.includes(layer)) {
-                    console.log("Change to layer: " + layer.persistentId);
+                    log.log("Change to layer: " + layer.persistentId);
                     setCookie(VISIBLE_LAYER, layer.persistentId);
                 }
             });
@@ -223,7 +223,7 @@ function onload() {
         printError(error)
         throw error;
     }
-    console.log("Done loading map.");
+    log.log("Done loading map.");
 }
 
 window.addEventListener("load", function() {

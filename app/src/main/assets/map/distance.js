@@ -15,7 +15,7 @@ function deg2rad(degrees) {
 }
 
 function distanceKM(lonlat1, lonlat2) {
-    console.log("distanceKM", lonlat1, lonlat2);
+    log.log("distanceKM", lonlat1, lonlat2);
     // convert from degree to radial
     var phi1 = deg2rad(lonlat1.lat);
     var phi2 = deg2rad(lonlat2.lat);

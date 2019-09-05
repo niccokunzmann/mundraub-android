@@ -1,8 +1,8 @@
 
 function stopPropagation(e) {
-    //console.log("stopPropagation(" + e + ")");
+    //log.log("stopPropagation(" + e + ")");
     var event = e || window.event;
-    //console.log(event + "stopPropagation()");
+    //log.log(event + "stopPropagation()");
     event.stopPropagation();
 }
 
@@ -29,7 +29,7 @@ function blockClickThrough(element) {
 
 function controlsBlockMapClick() {
     var elements = document.getElementsByClassName("olControlNoSelect");
-    //console.log("elements" + elements.length);
+    //log.log("elements" + elements.length);
     for (var i = 0; i < elements.length; i++) {
         var element = elements[i];
         blockClickThrough(element);

@@ -19,7 +19,7 @@ function getGPSButton() {
     
     function setViewToGPSPosition(position) {
         var pos = {lon:position.coords.longitude, lat:position.coords.latitude};
-        console.log("GPS position:", pos);
+        log.log("GPS position:", pos);
         var newCenter = lonLatToMarkerPosition(pos);
         map.setCenter(newCenter);
         setMarkerToPosition(pos);
