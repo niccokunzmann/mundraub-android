@@ -14,6 +14,7 @@ import java.util.Locale;
 public class WebViewBaseActivity extends MundraubBaseActivity {
 
     protected WebView webView = null;
+    protected final String WEB_VIEW_LOG_TAG = "webView";
 
     protected void initializeWebView(int webViewId) {
         webView = (WebView) findViewById(webViewId);
@@ -74,6 +75,7 @@ public class WebViewBaseActivity extends MundraubBaseActivity {
         // adding a builtin cookie manager
         // see https://stackoverflow.com/a/18445563/1320237
         webView.addJavascriptInterface(new LocalCookieManager(), "localCookieManager");
+        webView.addJavascriptInterface(new WebLogger(), "webViewLogger");
     }
 
     /* Handle the app opening an app internal url starting with app://
@@ -113,5 +115,12 @@ public class WebViewBaseActivity extends MundraubBaseActivity {
             return getSharedPreferences("Cookies", 0);
         }
 
+    }
+
+    private class WebLogger {
+        @android.webkit.JavascriptInterface
+        public void log(String message) {
+            log.i(WEB_VIEW_LOG_TAG, message);
+        }
     }
 }

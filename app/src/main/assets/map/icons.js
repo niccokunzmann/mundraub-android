@@ -67,7 +67,7 @@ var tidToCategoryId = {
     "15": "walnut",
     "17": "other nut"
 };
-var DEFAULT_PLANT_CATEGORY_NAME = "unnamed plant"
+var DEFAULT_PLANT_CATEGORY_NAME = "null";
 var BASE_ICON_PATH = "../img/markers";
 var ICON_FOR_A_GROUP_OF_PLANTS = iconFromFilename("group");
 

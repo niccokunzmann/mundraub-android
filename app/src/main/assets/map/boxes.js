@@ -59,7 +59,7 @@ function notifyBoxesAboutClick(lonlat2) {
 }
 
 function addBoundingBox(bbox) {
-    console.log("add bbox", bbox);
+    log.log("add bbox", bbox);
     if (boundingBoxes.indexOf(bbox) == -1) {
         boundingBoxes.push(bbox);
     }
