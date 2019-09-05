@@ -73,6 +73,11 @@ public class MundraubMapAPIForApp extends MundraubMapAPI {
                 log.printStackTrace(e);
             }
         }
+        try {
+            json.put(PlantCategory.NULL.getId(), resources.getString(PlantCategory.NULL.getResourceId()));
+        } catch (JSONException e) {
+            log.printStackTrace(e);
+        }
         return json.toString().getBytes("UTF-8");
     }
 

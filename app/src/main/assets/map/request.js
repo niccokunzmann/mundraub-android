@@ -81,12 +81,16 @@ function updatePlants() {
     });
 }
 
+function updateQuery() {
+    return "?date=" + new Date().toISOString();
+}
+
 /*
  * Get translations from the app so we do not have to translate twice.
  */
 var APP_TRANSLATIONS_URL = API_HOST + "/translations/app.js"
 function getAppTranslations(onSuccess) {
-    sendRequest(APP_TRANSLATIONS_URL, onSuccess);
+    sendRequest(APP_TRANSLATIONS_URL + updateQuery(), onSuccess);
 }
 
 /*
@@ -95,7 +99,7 @@ function getAppTranslations(onSuccess) {
 var OWN_PLANTS_URL = API_HOST + "/cluster/plants.json";
 var OWN_PLANTS = null;
 function loadOwnPlants() {
-    sendRequest(OWN_PLANTS_URL + "?date=" + new Date().toISOString(), function(ownPlants) {
+    sendRequest(OWN_PLANTS_URL + updateQuery(), function(ownPlants) {
         OWN_PLANTS = ownPlants; // debug
         log.log("ownPlants: " + ownPlants.length);
         loadOwnPlantsFrom(ownPlants);
