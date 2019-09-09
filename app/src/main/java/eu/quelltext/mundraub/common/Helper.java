@@ -86,7 +86,7 @@ public final class Helper extends ErrorAware {
     public static boolean saveUrlToFile(String url, File file) throws IOException {
         OkHttpClient client = Settings.getOkHttpClient();
         Request request = new Request.Builder().url(url)
-                .addHeader("Referer", "http://app.mundraub.quelltext.eu/")
+                .addHeader("Referer", "https://staticmap.openstreetmap.de/")
                 .build();
         Response response = client.newCall(request).execute();
         BufferedSink sink = Okio.buffer(Okio.sink(file));

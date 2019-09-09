@@ -491,7 +491,7 @@ public class Plant extends ErrorAware implements Comparable<Plant> {
             String lon = Helper.doubleTo15DigitString(getLongitude());
             String lat = Helper.doubleTo15DigitString(getLatitude());
             // github.com/dfacts/staticmaplite
-            return "http://staticmap.openstreetmap.de/staticmap.php?markers=" + lat + "," + lon + ",lightblue1&center=" + lat + "," + lon + "&zoom=18&size=200x200&maptype=outdoors";
+            return "https://staticmap.openstreetmap.de/staticmap.php?markers=" + lat + "," + lon + ",lightblue1&center=" + lat + "," + lon + "&zoom=18&size=200x200&maptype=outdoors";
         }
 
         public String getOpenStreetMapAddressUrl() {
