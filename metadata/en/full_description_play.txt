@@ -5,4 +5,6 @@ Report bugs and discuss features:
 https://github.com/niccokunzmann/mundraub-android/issues/
 View and improve the source code:
 https://github.com/niccokunzmann/mundraub-android/
+View the latest changes:
+https://niccokunzmann.github.io/mundraub-android/docs/changelog/
 License: GNU General Public License version 3
