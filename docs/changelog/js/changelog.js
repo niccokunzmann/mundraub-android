@@ -6,8 +6,8 @@ var CHANGELOG_GITHUB_URL = "https://raw.githubusercontent.com/" + REPO + "/maste
 var CHANGELOG_URL = CHANGELOG_GITHUB_URL;
 
 var requestsSent = 0;
-function trackRequest(url, onSuccess, onFailure) {
-    if (typeof(Storage) !== "undefined") {
+function trackRequest(url, onSuccess, onFailure, cache) {
+    if (typeof(Storage) !== "undefined" && cache != false) {
         // Code for localStorage/sessionStorage.
         // see https://www.w3schools.com/html/html5_webstorage.asp
         var key = "url-" + url;
@@ -179,7 +179,7 @@ function onLoad() {
         textLoading.innerText = "";
     }, function(event) {
         textLoading.innerText = "Error!";
-    });
+    }, false);
 }
 
 window.addEventListener("load", onLoad);
