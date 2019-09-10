@@ -27,3 +27,19 @@ Array.prototype.indexOf || (Array.prototype.indexOf = function(d, e) {
     }
     return -1
 });
+
+// matchAll from http://cwestblog.com/2013/02/26/javascript-string-prototype-matchall/
+String.prototype.matchAll || (String.prototype.matchAll = function(regexp) {
+  var matches = [];
+  this.replace(regexp, function() {
+    var arr = ([]).slice.call(arguments, 0);
+    var extras = arr.splice(-2);
+    arr.index = extras[0];
+    arr.input = extras[1];
+    matches.push(arr);
+  });
+  for (var i = 0; i < matches.length; i++) {
+    yield matches[i];
+  }
+});
+
