@@ -1,0 +1,8 @@
+Diese App ist quelloffen! Wir schätzen Deine Beiträge - sieh sie als Deine App.
+Übersetze die App in Deine Sprache:
+https://www.transifex.com/mundraub-android/mundraub-android-app/
+Melde Fehler und bespreche Features:
+https://github.com/niccokunzmann/mundraub-android/issues/
+Sieh den Quelltext an und verbessere die App:
+https://github.com/niccokunzmann/mundraub-android/
+Lizenz: GNU General Public License Version 3 
