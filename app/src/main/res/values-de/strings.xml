@@ -369,7 +369,7 @@
 
     <!-- ==============  Crash reporting  ============== -->
     <!-- Crash reporting: error message & explanation when an error report is present -->
-    <string name="error_app_crashed">Die App hatte einen unerwarteten Fehler und ist abgestürzt. Wenn Du helfen magst, das Problem zu beheben, bitte geh' auf die F-Droid-Seite der App, öffne die Fehlerverfolgung und erstelle einen Bericht mit der Datei %s.</string>
+    <string name="error_app_crashed">Die App hatte einen unerwarteten Fehler und ist abgestürzt. Wenn Du helfen magst, das Problem zu beheben, bitte gehe auf die F-Droid-Seite der App, öffne die Fehlerverfolgung und erstelle einen Bericht mit der Datei %s.</string>
     <!-- Crash reporting: error message & explanation when an error report is present -->
     <string name="ask_error_report_is_needed">Möchtest Du den Fehlerbericht noch benutzen?</string>
 
