@@ -8,13 +8,13 @@
 
     <!-- ==============  Edit and add a plant  ============== -->
     <!-- Edit and add a plant: Activity title -->
-    <string name="title_edit_plant">Pflanze Bearbeiten</string>
+    <string name="title_edit_plant">Pflanze bearbeiten</string>
     <!-- Edit and add a plant: When there are form fields still unfilled or with invalid information, this is displayed. -->
-    <string name="plant_has_unfilled_form_fields">Bitte fülle alle Felder für die Pflanze aus ...</string>
+    <string name="plant_has_unfilled_form_fields">Bitte fülle alle Felder aus ...</string>
     <!-- Edit and add a plant: all fields are filled and the plant can be uploaded to a platform -->
-    <string name="all_plant_fields_are_filled">Alle benötigten Felder für die Pflanze sind gefüllt.</string>
+    <string name="all_plant_fields_are_filled">Alle benötigten Felder für die Pflanze sind ausgefüllt.</string>
     <!-- Edit and add a plant: The type of plant is not chosen. This opens the Activity for choosing the plant type. -->
-    <string name="choose_plant_type">Wähle einen Pflanzentypen!</string>
+    <string name="choose_plant_type">Wähle eine Pflanzenart!</string>
     <!-- Edit and add a plant: Number of plants of the cosen type in this entry -->
     <string name="count">Anzahl:</string>
     <!-- Edit and add a plant: Description of the plant and place where to find it -->
@@ -32,7 +32,7 @@
 
     <!-- ==============  plant categories  ============== -->
     <!-- plant categories: Activity title -->
-    <string name="title_activity_choose_plant_type">Art der Pflanze</string>
+    <string name="title_activity_choose_plant_type">Pflanzenart</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
     <string name="apple">Apfel</string>
     <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
@@ -179,9 +179,9 @@
     <!-- Login: Error message -->
     <string name="error_field_required">Dieses Feld bitte füllen</string>
     <!-- Login: Error message -->
-    <string name="error_invalid_email">Bitte fülle eine valide E-Mail-Adresse hier ein.</string>
+    <string name="error_invalid_email">Bitte trage eine gültige E-Mail-Adresse ein.</string>
     <!-- Login: Shown as dialog information  -->
-    <string name="signup_successful_see_email">Der Anmeldeprozess war erfolgreich</string>
+    <string name="signup_successful_see_email">Die Anmeldung war erfolgreich</string>
     <!-- Login: API name for mundraub -->
     <string name="login_api_name_mundraub">Mundraub.org</string>
     <!-- Login: API name for na ovoce -->
@@ -210,11 +210,11 @@
     <!-- view plant details: plant description -->
     <string name="latitude">Geografische Breite:</string>
     <!-- view plant details: this is asked when the position of the plant should better be chosen from the map -->
-    <string name="ask_open_the_map">Möchtest Du die Karte öffnen, um die Pflanze genauer zu plazieren?</string>
+    <string name="ask_open_the_map">Möchtest Du die Karte öffnen, um die Pflanze genauer zu platzieren?</string>
     <!-- view plant details: this is asked when the position of the plant should better be chosen from the map -->
     <string name="reason_reposition_unknown_position">Die erhaltene Position der Pflanze ist vielleicht zu weit weg vom Fundort. Bitte überprüfe das.</string>
     <!-- view plant details: this is asked when the position of the plant should better be chosen from the map -->
-    <string name="reason_reposition_gps_position">Die GPS-Position ist wahrscheinlich zu weit vom STandort entfernt. Schau bitte auf die Karte, um das zu überprüfen.</string>
+    <string name="reason_reposition_gps_position">Die GPS-Position ist zu weit vom Standort entfernt. Schau bitte auf die Karte, um das zu überprüfen.</string>
     <!-- view plant details: Dialog information -->
     <string name="delete_plant_information">Wenn Du die Pflanze online löschst, sind die Kommentare anderer sowie die anderen Onlineinformationen verloren.</string>
     <!-- view plant details: Dialog information -->
@@ -228,7 +228,7 @@
     <!-- view plant details: displayed after "Longitude:" and "Latitude:" if the plant has no position -->
     <string name="position_not_set">unbekannt</string>
     <!-- view plant details: reason for asking to check the other plants nearby -->
-    <string name="reason_plant_has_other_plant_nearby">Es gibt eine Pflanze vergleichbaren Types neben dieser Pflanze. Wenn Du die Pflanze hochlädst, ist das vielleicht eine Dopplung.</string>
+    <string name="reason_plant_has_other_plant_nearby">Es gibt eine Pflanze gleichen Types neben dieser Pflanze. Wenn Du die Pflanze hochlädst, ist das vielleicht eine Dopplung.</string>
     <!-- view plant details: Question whether to open the map when there is an equal plant nearby -->
     <string name="ask_open_map_before_upload">Möchtest Du die Karte öffnen statt hochzuladen?</string>
 
@@ -275,25 +275,25 @@
     <!-- API errors and results:  -->
     <string name="error_no_plant_id">Der Server hat nicht mit einer Pflanzen-ID geantwortet. Schau besser selbst online, was los ist.</string>
     <!-- API errors and results: Probably no internet connection. -->
-    <string name="error_unknown_hostname">Der Name des Servers konnte nicht aufgelöst werden. Deswegen konnte ich mich nicht verbinden.</string>
+    <string name="error_unknown_hostname">Der Name des Servers konnte nicht aufgelöst werden. Konnte deswegen mich nicht verbinden.</string>
     <!-- API errors and results: Mundraub also posts the address. This could also be shown on the map if we have an address search there. -->
-    <string name="error_could_not_parse_open_street_map_data">Ich konnte keine Adresse für die Pflanze von OpenStreetMap.org erhalten.</string>
+    <string name="error_could_not_parse_open_street_map_data">Konnte keine Adresse für die Pflanze von OpenStreetMap.org erhalten.</string>
     <!-- API errors and results: IOException in the connection when we try to see if the plant exists on Mundraub.org. -->
-    <string name="error_count_not_check_plant">Ich konnte den Server nicht fragen, ob die Pflanze existiert.</string>
+    <string name="error_count_not_check_plant">Konnte den Server nicht fragen, ob die Pflanze existiert.</string>
     <!-- API errors and results: Super broad. This is the error message shown if we do not know what has happened with the connection once it was established.. -->
     <string name="error_connection">Es gab einen Fehler bei der Verbindung zum Server.</string>
     <!-- API errors and results: Mundraub.org: Looks like we are unable to do that. -->
     <string name="error_could_not_delete_plant">Die Pflanze konnte online nicht gelöscht werden. Es gab irgendeinen Fehler. Schau bitte selbst online nach.</string>
     <!-- API errors and results: Certificates can not be verified on older platforms. This error message should direct the user to the settings to allow unsafe connections. -->
-    <string name="error_could_not_validate_host">Der Identität des Servers wird nicht vertraut. Das ist ein bekanntes Problem älterer Android-Pattformen. Momentan kannst Du vertraute Verbindungen in den Einstellungen ausschalten, um den Fehler zu umgehen. Du darfst gerne eine Lösung beisteuern.</string>
+    <string name="error_could_not_validate_host">Der Identität des Servers wird nicht vertraut. Das ist ein bekanntes Problem älterer Android-Plattformen. Momentan kannst Du vertraute Verbindungen in den Einstellungen ausschalten, um den Fehler zu umgehen. Du darfst gerne eine Lösung beisteuern.</string>
     <!-- API errors and results: When there is a JSON error for the markers retrieved from any API. -->
-    <string name="error_invalid_json_for_markers">Die Marker, die von der Plattform geliefert wurden, sind in einem unerwarteten Format. Vielleicht haben die die API geändert? Bitte melde uns dieses Problem. Wie steht auf der Seite über die App.</string>
+    <string name="error_invalid_json_for_markers">Die Marker, die von der Plattform geliefert wurden, sind in einem unerwarteten Format. Vielleicht wurde die API geändert? Bitte melde uns dieses Problem. Wie, steht auf der Seite über die App.</string>
     <!-- API errors and results:  -->
-    <string name="error_could_not_sign_up_mundraub">Ich konnte Dich nicht bei Mundraub.org anmelden.</string>
+    <string name="error_could_not_sign_up_mundraub">Anmeldung bei Mundraub.org fehlgeschlagen.</string>
     <!-- API errors and results: Should not happen. Internal URL construction. -->
-    <string name="error_malformed_url">Die gegebene URL war nicht benutzbar.</string>
+    <string name="error_malformed_url">Die angegebene URL war nicht benutzbar.</string>
     <!-- API errors and results:  -->
-    <string name="error_invalid_protocol">Es gab einen Fehler in der Benutzung des Protokolls.</string>
+    <string name="error_invalid_protocol">Es gab einen Fehler bei der Benutzung des Protokolls.</string>
     <!-- API errors and results: Cannot use SSL or TLS -->
     <string name="error_no_such_algorithm">Der Algorithmus für die Verschlüsselung ist nicht da.</string>
     <!-- API errors and results: also used for API connections -->
@@ -301,23 +301,23 @@
     <!-- API errors and results: Timeout Error -->
     <string name="error_timeout">Die Verbindung zum Server hat zu lange nicht geklappt.</string>
     <!-- API errors and results: in the login form -->
-    <string name="error_could_not_sign_up_na_ovoce">Du konntest nicht bei Na-Ovoce.cz angemeldet werden. Der Server hat keine Nutzer-ID geliefert.</string>
+    <string name="error_could_not_sign_up_na_ovoce">Anmeldung bei Na-Ovoce.cz fehlgeschlagen. Der Server hat keine Nutzer-ID geliefert.</string>
     <!-- API errors and results: in the login form -->
-    <string name="error_could_not_log_in_na_ovoce">Du konntest nicht bei Na-Ovoce.cz angemeldet werden. Der Server hat keinen Authentifizierungsschlüssel gesendet. Bitte überprüfe den Nutzernamen und das Passwort und versuche es erneut.</string>
+    <string name="error_could_not_log_in_na_ovoce">Anmeldung bei Na-Ovoce.cz fehlgeschlagen. Der Server hat keinen Authentifizierungsschlüssel gesendet. Bitte überprüfe den Nutzernamen und das Passwort und versuche es erneut.</string>
     <!-- API errors and results: should be circumvent by the UI. If not, the user should change the API endpoint or the category of the plant or if this is an error, change categories.json -->
-    <string name="error_invalid_category_for_api">Diese Kategorie Pflanze gibt es nicht auf dieser Plattform. Bitte wähle eine andere Kategorie oder lade die Pflanze woanders hoch.</string>
+    <string name="error_invalid_category_for_api">Diese Pflanzenkategorie gibt es nicht auf dieser Plattform. Bitte wähle eine andere Kategorie oder lade die Pflanze woanders hoch.</string>
     <!-- API errors and results: error message when uploading/changing plant online -->
     <string name="error_plant_position_is_invalid">Die Position der Pflanze ist nicht gesetzt. Deswegen kann die Pflanze nicht veröffentlicht werden.</string>
     <!-- API errors and results:  -->
     <string name="error_plant_category_is_not_set">Bitte wähle eine Kategorie für die Pflanze, um sie hochzuladen.</string>
     <!-- API errors and results: SSLProtocolException -->
-    <string name="error_could_not_establish_a_secure_connection">Es gab einen Fehler während eine sichere Verbindung zum Server hergestellt wurde.</string>
+    <string name="error_could_not_establish_a_secure_connection">Es gab einen Fehler, während eine sichere Verbindung zum Server hergestellt wurde.</string>
 
     <!-- ==============  map to choose plant position  ============== -->
     <!-- map to choose plant position: Activity title -->
     <string name="title_choose_map_position">Pflanzen-Position Wählen</string>
     <!-- map to choose plant position: info dialog when the plant has no position -->
-    <string name="info_plant_position_is_chosen_from_best_guess">Diese Pflanze hat keine Position gesetzt. Der Marker ist bei der nächsten Pflanze. Bitte finde selbst die richtige Position.</string>
+    <string name="info_plant_position_is_chosen_from_best_guess">Bei dieser Pflanze ist keine Position gesetzt. Der Marker ist bei der nächsten Pflanze. Bitte finde selbst die richtige Position.</string>
 
     <!-- ==============  Map of all plants  ============== -->
     <!-- Map of all plants: Activity title -->
@@ -339,7 +339,7 @@
     <!-- Menu: entry to open the Changelog -->
     <string name="menu_changelog">Updateverlauf</string>
     <!-- Menu: entry to open the Address Search -->
-    <string name="menu_search_address">Orte Finden</string>
+    <string name="menu_search_address">Ortssuche</string>
 
     <!-- ==============  About the app  ============== -->
     <!-- About the app: Activity title -->
@@ -351,7 +351,7 @@
     <!-- About the app: button text -->
     <string name="about_view_source_at_version" formatted="false">Schau den Quelltext zur Version <xliff:g example="1.0" id="version">%1$s</xliff:g>  und dem Commit <xliff:g example="5849748" id="commit">%2$s</xliff:g> an.</string>
     <!-- About the app: text -->
-    <string name="about_four_freedoms">Du hast die Freiheit, diese App auszuführen, sie zu studieren, verteilen und verbessern.</string>
+    <string name="about_four_freedoms">Du hast die Freiheit, diese App auszuführen, zu untersuchen, zu verteilen und zu verbessern.</string>
     <!-- About the app: button -->
     <string name="about_view_four_freedoms">Mehr über unsere vier Freiheiten</string>
     <!-- About the app: button url. you can translate this to your language -->
@@ -369,9 +369,9 @@
 
     <!-- ==============  Crash reporting  ============== -->
     <!-- Crash reporting: error message & explanation when an error report is present -->
-    <string name="error_app_crashed">Die App hatte einen unerwarteten Fehler und ist abgestürzt. Wenn Du helfen magst, das Problem zu beheben, bitte geh auf die F-Droid-Seite der App, öffne die Fehlerverfolgung und erstelle einen Bericht mit der Datei %s.</string>
+    <string name="error_app_crashed">Die App hatte einen unerwarteten Fehler und ist abgestürzt. Wenn Du helfen magst, das Problem zu beheben, bitte gehe auf die F-Droid-Seite der App, öffne die Fehlerverfolgung und erstelle einen Bericht mit der Datei %s.</string>
     <!-- Crash reporting: error message & explanation when an error report is present -->
-    <string name="ask_error_report_is_needed">Möchtest Du den Fehlerbereicht noch benutzen?</string>
+    <string name="ask_error_report_is_needed">Möchtest Du den Fehlerbericht noch benutzen?</string>
 
     <!-- ==============  Requesting permissions  ============== -->
     <!-- Requesting permissions: General question to give a permission -->
@@ -389,21 +389,21 @@
     <!-- Requesting permissions: General permission denied message -->
     <string name="permission_denied_consequences">Die Erlaubnis wurde der App nicht erteilt. Damit ist diese Funktion nicht verfügbar.</string>
     <!-- Requesting permissions: VIBRATE reason -->
-    <string name="permission_purpose_vibrate">Wenn eine Pflanze in Reichweite ist, kann das Gerät vibrieren, um Dich zu benachrichtigen. Selbst wenn Du dieser App die Berechtigung zu Vibireren erteilst, kannst Du das hier wieder an und ausschalten.</string>
+    <string name="permission_purpose_vibrate">Wenn eine Pflanze in Reichweite ist, kann das Gerät vibrieren, um Dich zu benachrichtigen. Selbst wenn Du dieser App die Berechtigung zu Vibrieren erteilst, kannst Du das hier wieder an und ausschalten.</string>
 
     <!-- ==============  settings  ============== -->
     <!-- settings: Activity title -->
     <string name="title_settings">App-Einstellungen</string>
     <!-- settings: API choice -->
-    <string name="settings_use_mundraub_api">Wenn das eingeschaltet ist, publiziert die App die Pflanzen auf Mundraub.org.</string>
+    <string name="settings_use_mundraub_api">Publiziere auf Mundraub.org.</string>
     <!-- settings: API choice  -->
-    <string name="settings_use_na_ovoce">Wenn das eingeschaltet ist, publiziert die App die Pflanzen auf Na-Ovoce.cz.</string>
+    <string name="settings_use_na_ovoce">Publiziere auf Na-Ovoce.cz.</string>
     <!-- settings: API choice  -->
-    <string name="settings_use_fruitmap">Wenn das eingeschaltet ist, publiziert die App die Pflanzen auf FruitMap.org.</string>
+    <string name="settings_use_fruitmap">Publiziere auf FruitMap.org.</string>
     <!-- settings: API choice  -->
-    <string name="settings_use_dummy">Wenn das eingeschaltet ist, publiziert die App keine Pflanzen sondern nutzt eine lokale API zum Testen.</string>
+    <string name="settings_use_dummy">Publiziere nicht, sondern nutze eine lokale API zum Testen.</string>
     <!-- settings: used on old platforms -->
-    <string name="setting_use_secure_connection">Wenn das eingeschaltet ist, wird den Verbindungen zu Mundraub.org und anderen Servern von den Zertifikatsautoritäten vertraut. Das kann Probleme auf älteren Androids geben, die nicht in der Lage sind, die neueren Zertifikate zu verwenden.</string>
+    <string name="setting_use_secure_connection">Vertraue den Verbindungen zu Mundraub.org und anderen Servern von den Zertifikatsautoritäten. Das kann Probleme auf älteren Androids geben, die nicht in der Lage sind, die neueren Zertifikate zu verwenden.</string>
     <!-- settings:  -->
     <string name="settings_use_cache">Wenn das eingeschaltet ist, verwendet die App das Cacheverzeichnis für die Pflanzen. Du kannst sie löschen, wenn nötig. Wenn das aus ist, nutzt die App den externen Speicher, sodass Du die Pflanzen synchronisieren und kopieren kannst.</string>
     <!-- settings: Error message when the plant location can not be changed. -->
@@ -415,7 +415,7 @@
     <!-- settings: section title -->
     <string name="settings_offline_map">Offline-Karten-Einstellungen</string>
     <!-- settings: section title -->
-    <string name="settings_debug">Einstellungen zum Entwickeln</string>
+    <string name="settings_debug">Einstellungen für Entwickler</string>
     <!-- settings: section title -->
     <string name="settings_permissions">Einstellungen für Zugriffsrechte</string>
     <!-- settings: column title: Switch permissions on and off -->
@@ -427,19 +427,19 @@
     <!-- settings: permission name -->
     <string name="settings_permission_camera_title">KAMERA</string>
     <!-- settings: permission explanation -->
-    <string name="settings_permission_camera_text">Kann die App Bilder von Pflanzen machen?</string>
+    <string name="settings_permission_camera_text">Darf die App die Kamera benutzen?</string>
     <!-- settings: permission name -->
     <string name="settings_permission_storage_title">EXTERNER SPEICHER</string>
     <!-- settings: permission explanation -->
-    <string name="settings_permission_storage_text">Kann die App Pflanzen auf dem externen Speicher ablegen?</string>
+    <string name="settings_permission_storage_text">Darf die App Pflanzendaten auf dem externen Speicher ablegen?</string>
     <!-- settings: permission name -->
     <string name="settings_permission_location_title">ORTUNG</string>
     <!-- settings: permission explanation -->
-    <string name="settings_permission_location_text">Kann die App die Position mit GPS ermitteln?</string>
+    <string name="settings_permission_location_text">Darf die App den Standort per GPS ermitteln?</string>
     <!-- settings: permission name -->
     <string name="settings_permission_internet_title">INTERNET</string>
     <!-- settings: permission explanation -->
-    <string name="settings_permission_internet_text">Kann die App sich zu Mundraub und Kartendiensten verbinden?</string>
+    <string name="settings_permission_internet_text">Darf die App sich mit Mundraub und anderen Kartendiensten verbinden?</string>
     <!-- settings: permission name -->
     <string name="settings_permission_vibration_title">VIBRATION</string>
     <!-- settings: permission explanation -->
@@ -449,13 +449,13 @@
     <!-- settings: Pressing the left button for the permission turn off -->
     <string name="error_can_not_edit_permissions_api_too_old">Diese Version von Android ist zu alt, um die Zugriffsrechte für die App zurückzunehmen. Sorry.</string>
     <!-- settings:  -->
-    <string name="settings_ask_for_error_report">Wenn die App startet, nachdem sie gecrasht ist: Wenn das eingeschaltet ist, fragt die App ob Du den Fehlerbericht benutzen möchtest.</string>
+    <string name="settings_ask_for_error_report">Wenn die App nach einem Crash startet und das eingeschaltet ist, fragt die App ob Du den Fehlerbericht benutzen möchtest.</string>
     <!-- settings: section title -->
     <string name="settings_offline">Offline-Einstellungen</string>
     <!-- settings:  -->
-    <string name="settings_use_offline_mode">Wenn das eingeschaltet ist, wird die Karte mit den heruntergeladenen Pflanzenmarkierungen bestückt. Wenn das ausgeschaltet ist, dann wird eine aktuelle Version von Mundraub.org verwendet.</string>
+    <string name="settings_use_offline_mode">Karte mit den heruntergeladenen Pflanzenmarkierungen bestücken. (Sonst Daten von Mundraub.org anzeigen).</string>
     <!-- settings: dialog reason: download offline data -->
-    <string name="reason_offline_data_needs_to_be_downloaded">Um etwas offline zu machen, müssen wir Daten runtergeladen haben. Du kannst auch das verwenden, was schon runtergeladen wurde.</string>
+    <string name="reason_offline_data_needs_to_be_downloaded">Um offline zu arbeiten, müssen Daten runtergeladen worden sein. Du kannst auch das verwenden, was schon runtergeladen wurde.</string>
     <!-- settings: dialog question: download offline data -->
     <string name="ask_download_offline_data">Möchtest du die Offline-Daten jetzt aktualisieren?</string>
     <!-- settings: dialog success: download offline data -->
@@ -463,7 +463,7 @@
     <!-- settings: dialog error: download offline data -->
     <string name="error_debug_api_can_not_download_offline_data">Die Debug-API kann keine Daten runterladen. Bitte benutze die Mundraub-API unten in den Einstellungen zu diesem Zweck.</string>
     <!-- settings:  -->
-    <string name="settings_create_public_api_for_debug">Wenn das eingeschaltet ist, stellt die App die Mundraub-API im lokalen Netzwerk frei. Das ist nicht schlimm, da die API nur Lesen erlaubt und kein Verändern.</string>
+    <string name="settings_create_public_api_for_debug">Wenn das eingeschaltet ist, gibt die App die Mundraub-API im lokalen Netzwerk frei. Das ist nicht schlimm, da die API nur Lesezugriff, aber keine Veränderungen erlaubt.</string>
     <!-- settings: section title -->
     <string name="settings_markers">Wähle Deine Pflanzenkategorien</string>
     <!-- settings:  -->
@@ -501,9 +501,9 @@
     <!-- settings: Checkbutton to choose which sources to download map tiles from -->
     <string name="settings_offline_satellite">Lade Satellitenbilder herunter.</string>
     <!-- settings: -->
-    <string name="settings_offline_map_explanation">Die Karte offline zu bringen, braucht weniger Internetvolumen und Du kannst die Karte ansehen, wenn Du keine Internet-Verbindung hast. Das hilft, die Pflanzen zu finden.</string>
+    <string name="settings_offline_map_explanation">Die Karte offline zu bringen, braucht weniger Internetvolumen als sie ständig nachzuladen. Außerdem kannst Du die Karte auch ansehen, wenn Du keine Internet-Verbindung hast. Das hilft, die Pflanzen zu finden.</string>
     <!-- settings: -->
-    <string name="settings_offline_markers_explanation">Diese App funktioniert am Besten im Offline-Modus, wenn die Pflanzen aus verschiedenen Plattformen heruntergeladen wurden. Im Online-Modus kannst Du nur Mundraub.org benutzen, weil die erlauben, die Pflanzen im Kartenausschnitt herunterzuladen.</string>
+    <string name="settings_offline_markers_explanation">Diese App funktioniert am besten im Offline-Modus, wenn die Pflanzen aus verschiedenen Plattformen heruntergeladen wurden. Im Online-Modus kannst Du nur Mundraub.org benutzen, weil die erlauben, die Pflanzen im Kartenausschnitt herunterzuladen.</string>
     <!-- settings: offline map statistics -->
     <string name="settings_offline_map_statistics" formatted="false">Du möchtest <xliff:g example="3" id="areas">%1$d</xliff:g> Gebiete offline haben. Das sollten so <xliff:g example="30mb" id="estimated">%2$s</xliff:g> an Kartenteilen sein. Momentan benutzt Du <xliff:g example="40mb" id="used">%3$s</xliff:g> für die Offline-Karte.</string>
     <!-- settings: button text -->
@@ -511,11 +511,11 @@
     <!-- settings: button text -->
     <string name="settings_download_tiles">Karte runterladen</string>
     <!-- settings: dialog when you delete all offline areas -->
-    <string name="settings_reason_delete_offline_tiles">Du löschst die eingezeichneten Offline-Gebiete aber die Gebiete sind immernoch heruntergeladen.</string>
+    <string name="settings_reason_delete_offline_tiles">Du löschst die eingezeichneten Offline-Gebiete, aber die Gebiete sind immer noch heruntergeladen.</string>
     <!-- settings: dialog when you delete all offline areas -->
-    <string name="settings_ask_delete_downloaded_tiles">Möchtest Du auch die Kartenstücken löschen, die schon auf dem Telefon sind?</string>
+    <string name="settings_ask_delete_downloaded_tiles">Möchtest Du auch die Kartenteile löschen, die schon auf dem Telefon sind?</string>
     <!-- settings: checkbox to configure download of map tiles -->
-    <string name="settings_download_all_zoom_levels">Ich möchte im Offline-Modus herauszoomen können. Das downloaded auch dieKartenteile um rauszuzoomen und braucht ca. ein Drittel mehr Speicher. </string>
+    <string name="settings_download_all_zoom_levels">Ich möchte im Offline-Modus herauszoomen können. (Das lädt auch die Kartenteile runter um rauszoomen zu können und braucht ca. ein Drittel mehr Speicher.) </string>
     <!-- settings: dialog message when all the map tiles are downloaded with success -->
     <string name="settings_success_download_map">Alle ausgewählten Gebiete der Karte wurden heruntergeladen und sind nun auch offline verfügbar.</string>
     <!-- settings: max number of displayed markers on map : text -->
@@ -528,7 +528,7 @@
     <!-- Community Codex: rule 1 -->
     <string name="mundraub_rule_1">Stelle vor dem Eintragen und/oder Ernten sicher, dass keine Eigentumsrechte verletzt werden.</string>
     <!-- Community Codex: rule 2 -->
-    <string name="mundraub_rule_2">Gehe behutsam mit den Bäumen, der umgebenden Natur und den dort lebenden Tieren um. Für den Eigenbedarf pflücken ist erlaubt, aber nicht in großem Stil gewerbsmäßig, dazu braucht es eine behördliche Genehmigung.</string>
+    <string name="mundraub_rule_2">Gehe behutsam mit den Bäumen, der umgebenden Natur und den dort lebenden Tieren um. Für den Eigenbedarf pflücken ist erlaubt, aber nicht in großem Stil gewerbsmäßig, dazu bedarf es einer behördliche Genehmigung.</string>
     <!-- Community Codex: rule 3 -->
     <string name="mundraub_rule_3">Teile die Früchte deiner Entdeckungen und gib etwas zurück.</string>
     <!-- Community Codex: rule 4 -->
