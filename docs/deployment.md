@@ -5,22 +5,22 @@ The process runs as follows:
 
 1. A commit is made to the master branch.
 2. The tests run on [Travis].
-  - this includes a test which merges the [`google-play` branch][google-play-branch].
+    - this includes a test which merges the [`google-play` branch][google-play-branch].
 3. If the tests run, a tag is created and pushed to the repository. It includes
-  - updated translations from [Transifex][translations].
-  - a changelog generated from the [scripts]
+    - updated translations from [Transifex][translations].
+    - a changelog generated from the [scripts]
 4. The tag is tested on [Travis].
 5. The APKs are built
-  - APKs for Android 2.3 and higher are deployed to
-    - [F-Droid] - F-Droid will pull the tags from time to time and create a
-      build on their side and serve the own APK file.
-    - Github [Releases]
-  - APKs for Android 4 and higher are deployed to
-    - [Google Play]
-      - If there is a new change in this tag which has not been there before,
-        then the change is deployed to the production branch of [Google Play].
-      - Else (if there is no change in the changelog which this tag owns), 
-        the file is pushed to the [Beta branch of Google Play][Google-Play-Beta].
+    - APKs for Android 2.3 and higher are deployed to
+        - [F-Droid] - F-Droid will pull the tags from time to time and create a
+           build on their side and serve the own APK file.
+        - Github [Releases]
+    - APKs for Android 4 and higher are deployed to
+        - [Google Play]
+            - If there is a new change in this tag which has not been there before,
+                then the change is deployed to the production branch of [Google Play].
+            - Else (if there is no change in the changelog which this tag owns), 
+                the file is pushed to the [Beta branch of Google Play][Google-Play-Beta].
 
 ## Changelog
 
