@@ -7,7 +7,7 @@ check your builds.
 
 If you create a pull request, your build will be checked.
 This repository can then integrate the changes into the master branch.
-From there, releases will be issued.
+From there, releases will be issued, see [deployment].
 
 ## Configure Travis for your Build
 
@@ -52,4 +52,5 @@ These changes need to be made:
        https://stackoverflow.com/questions/3997748/how-can-i-create-a-keystore
 
 [Travis-CI]: https://travis-ci.org/niccokunzmann/mundraub-android/
+[deployment]: deployment.md#readme
 

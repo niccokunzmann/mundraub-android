@@ -10,6 +10,11 @@ If you think something should be documented and is not, open an issue.
     This app categorizes plants into different categories.
     Different platforms use different categories.
     This explains where the categories come from and how to add new ones.
+- **[Deployment]**  
+    This describes the build and deployment process of the app.
+- **[Fork]**  
+    This document guides you in how to fork the project or setup the project's
+    Travis-CI to run on your fork and test the build.
 - **[Setup]**  
     If you like to start developing the app, this explains how to set it up.
 - **[Sources]**  
@@ -29,6 +34,8 @@ If you think something should be documented and is not, open an issue.
 
 [API]: api.md#readme
 [Categories]: categories.md#readme
+[Deployment]: deployment.md#readme
+[Fork]: fork.md#readme
 [Setup]: setup.md#readme
 [Sources]: sources.md#readme
 [Proxies]: proxies.md#readme
