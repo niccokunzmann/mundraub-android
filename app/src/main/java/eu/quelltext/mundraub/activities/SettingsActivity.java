@@ -408,7 +408,10 @@ public class SettingsActivity extends MundraubBaseActivity {
 
     @Override
     protected void onPause() {
-        getCurrentFocus().clearFocus(); // commit the text fields if focused
+        View current = getCurrentFocus();
+        if (current != null) {
+            current.clearFocus(); // commit the text fields if focused
+        }
         super.onPause();
         plantProgressAutoUpdate.stop();
         mapProgressAutoUpdate.stop();
