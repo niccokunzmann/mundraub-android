@@ -23,7 +23,7 @@ git commit -m"$version: set gradle version"
 
 echo "create current changelog"
 if ./create-changlog-since "$version"; then
-  git add ../metadata
+  git add ../metadata ../app/src/main/assets
   git commit -m"$version: create changelog files"
 fi
 
