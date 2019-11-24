@@ -30,6 +30,10 @@ fi
 echo "#### create metadata folder $METADATA_OUTPUT ####"
 "$HERE/create-google-play-metadata" "$METADATA_OUTPUT"
 
+echo "#### fastlane env ####"
+# for debugging and error reporting
+fastlane env
+
 echo "#### deploy ####"
 fastlane supply \
     --track "$TRACK" \
