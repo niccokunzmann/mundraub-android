@@ -1,0 +1,6 @@
+Najděte rostliny a sdílejte je online! 
+Telefon máte neustále s sebou. Když najdete jedlou rostlinu, kterou chcete sdílet s ostatními, můžete zaznamenat umístění, typ a fotografii. Později, až budete připojeni k internetu, můžete jej nahrát na otevřenou mapu rostlin k jídlu: Mundraub.org. 
+Vlastnosti: 
+<ul> <li>Shromáždit všechna data rostlin offline</li> Integrovaná mapa k nalezení rostlin <li>Oznámení, když jsou rostliny poblíž</li> <li>Rostliny a mapa v offline režimu</li> <li>Zdroje rostlin: FruitMap.org, Mundraub.org, Na-Ovoce.cz</li> <li>Zveřejněte rostliny na stránkách Mundraub.org a Na-Ovoce.cz</li> </ul> 
+Oprávnění: 
+<ul> <li>FOTOAPARÁT pro vyfocení rostliny</li> <li>GPS pro automatické vyplnění místa</li> <li>INTERNET pro nahrání rostliny a zobrazení mapy</li> <li>ÚLOŽIŠTĚ (volitelné) k uložte rostliny jako JSON v exportovatelném formátu a uložte protokol aplikace, abyste nám mohli pomoci při selhání aplikace     </li> <li>VIBROVÁNÍ (volitelné) bude informovat o rostlinách v okolí</li> </ul>
