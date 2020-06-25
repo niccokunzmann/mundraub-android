@@ -186,6 +186,8 @@
     <string name="login_api_name_mundraub">Mundraub.org</string>
     <!-- Login: API name for na ovoce -->
     <string name="login_api_name_na_ovoce">Na-Ovoce.cz</string>
+    <!-- Login: API name for a na-ovoce server running under an own domain -->
+    <string name="login_api_name_my_na_ovoce">Serveur Na-Ovoce personalisé</string>
     <!-- Login: API name for the local test API for development -->
     <string name="login_api_name_dummy">Lokale Test-API</string>
     <!-- Login: API name for fruit map -->
@@ -260,6 +262,8 @@
     <string name="operation_not_permitted">Action non autorisée.</string>
     <!-- API errors and results:  -->
     <string name="error_unexpected_return_code">Le serveur a retourné un code inattendu.</string>
+    <!-- API errors and results: The user tries to log in but the email needs to be verified before. -->
+    <string name="error_email_needs_to_be_validated_before_login">SVP validez votre adresse mail en premier lieu.</string>
     <!-- API errors and results: Let's invite people to contribute when they see this error which we do not know about. -->
     <string name="error_not_specified">Une erreur est survenue et si les développeurs y mettaient plus de temps, vous en sauriez plus sur ce qui se passe... Il est temps de s\'y mettre !</string>
     <!-- API errors and results: Used when an API is not 100% implemented. -->
@@ -304,6 +308,8 @@
     <string name="error_could_not_sign_up_na_ovoce">Impossible de créer un compte sur Na-Ovoce.cz. Le serveur n\'a pas retourné d\'ID utilisateur. </string>
     <!-- API errors and results: in the login form -->
     <string name="error_could_not_log_in_na_ovoce">Impossible de se connecter à Na-Ovoce.cz. Le serveur n\'a pas retourné de token d\'autorisation. Veuillez vérifier votre nom d\'utilisateur et votre mot de passe avant de réessayer.</string>
+    <!-- API errors and results: When the server only supports https -->
+    <string name="error_redirect_no_api_found">Le serveur vous a redirigé. Peut-être que l\'API est disponible sous une autre url.</string>
     <!-- API errors and results: should be circumvent by the UI. If not, the user should change the API endpoint or the category of the plant or if this is an error, change categories.json -->
     <string name="error_invalid_category_for_api">La catégorie de cette plante n\'est pas disponible sur cette plateforme. Je ne peux pas publier cette plante. Veuillez choisir une autre catégorie ou la télécharger ailleurs.</string>
     <!-- API errors and results: error message when uploading/changing plant online -->
@@ -336,6 +342,11 @@
     <string name="menu_rules">Codex Communautaire</string>
     <!-- Menu: entry to open the Privacy Policy -->
     <string name="menu_privacy">Politique de confidentialité</string>
+    <!-- Menu: entry to open the Changelog -->
+    <string name="menu_changelog">Changelog</string>
+    <!-- Menu: entry to open the Address Search -->
+    <string name="menu_search_address">Trouver un endroit</string>
+
     <!-- ==============  About the app  ============== -->
     <!-- About the app: Activity title -->
     <string name="title_about">A propos</string>
@@ -393,6 +404,8 @@
     <string name="settings_use_mundraub_api">Si cette option est activée, l\'appli publiera les plantes sur Mundraub.org.</string>
     <!-- settings: API choice  -->
     <string name="settings_use_na_ovoce">Si cette option est activée, l\'appli publiera les plantes sur Na-Ovoce.cz.</string>
+    <!-- settings: API choice  -->
+    <string name="settings_use_my_na_ovoce">Si ceci est activé, l\'appli publiera les plantes sur un serveur Na-Ovoce auto-hébergé.</string>
     <!-- settings: API choice  -->
     <string name="settings_use_fruitmap">Si cela est activé, cette application publie les plantes sur FruitMap.org.</string>
     <!-- settings: API choice  -->
@@ -486,6 +499,10 @@
     <!-- settings: Checkbutton to choose which sources to download markers from -->
     <string name="settings_download_mundraub_markers">Si cette option est activée, l\'application télécharge tous les marqueurs d\'installation de Mundraub.org.</string>
     <!-- settings: Checkbutton to choose which sources to download markers from -->
+    <string name="settings_download_custom_na_ovoce_markers">Si activé, l\'appli téléchargera tous les marqueurs de plante depuis une liste de serveurs Na-Ovoce, séparé par des virgules.</string>
+    <!-- settings: If you choose to download markers from additional na-ovoce sources, you can specify this list of hosts, including http or https, domain and maye port. -->
+    <string name="settings_hint_my_na_ovoce_server">http://my.domain, https://other.server:8080</string>
+    <!-- settings: Checkbutton to choose which sources to download markers from -->
     <string name="settings_download_na_ovoce_markers">Si cette option est activée, l\'application télécharge tous les marqueurs d\'installation de Na-Ovoce.cz.</string>
     <!-- settings: Checkbutton to choose which sources to download markers from -->
     <string name="settings_download_fruitmap_markers">Si cette option est activée, l\'application télécharge tous les marqueurs de plante à partir de FruitMap.org.</string>
@@ -515,6 +532,8 @@
     <string name="settings_success_download_map">Toutes les parties sélectionnées de la carte ont été téléchargées et sont maintenant disponibles hors connexion.</string>
     <!-- settings: max number of displayed markers on map : text -->
     <string name="settings_max_num_of_markers" formatted="false">Un maximum de <xliff:g example="100" id="maxMarkers">%1$d</xliff:g> marqueurs sera affiché sur la carte.</string>
+    <!-- settings: when you choose a custom na-ovoce server as a target for upload, you can click this button to reach the source code of na-ovoce.cz -->
+    <string name="settings_setup_na_ovoce">Paramètres</string>
 
     <!-- ==============  Community Codex  ============== -->
     <!-- https://mundraub.org/mundraeuber-regeln -->
@@ -580,4 +599,29 @@
     <!-- Privacy Policy: Activity title. This is displayed when viewing the Privacy Policy. -->
     <string name="title_privacy_policy">Politique de confidentialité</string>
 
-    </resources>
+    <!-- ==============  Changelog  ============== -->
+    <!-- Changelog: Activity title. This is displayed when viewing the Changelog. -->
+    <string name="title_changelog">Changements dans Fruit Radar</string>
+
+    <!-- ==============  Address Search  ============== -->
+    <!-- Address Address Search: Activity title. This is displayed when viewing the Address Search. -->
+    <string name="title_address_search">Trouver un endroit sur la carte</string>
+    <!-- Address Search: Text of the addressSearch button. -->
+    <string name="search_button">Chercher</string>
+    <!-- Address Search: Text displayed at the bottom containing the license of the searched data. -->
+    <string name="search_license">Data © OpenStreetMap contributors, ODbL 1.0.</string>
+    <!-- Address Search: Text displayed when the search contains no entries. -->
+    <string name="search_no_result">Endroit introuvable.</string>
+    <!-- Address Search: Text displayed when the search contains no entries. -->
+    <string name="search_no_local_result">Aucun endroit de ce nom n\'a été enregistré sur cet appareil.</string>
+
+    <!-- ==============  Notifications  ============== -->
+    <!-- Notifications: The download is in progress. -->
+    <string name="notification_download_in_progress">Téléchargement en cours.</string>
+    <!-- Notifications: The download is complete. -->
+    <string name="notification_download_completed">Téléchargement complété.</string>
+    <!-- Notifications: This is the title of the nofication which tracks the download of offline map tiles. -->
+    <string name="notification_title_download_map">Téléchargement de la carte hors-ligne</string>
+    <!-- Notifications: This is the title of the nofication which tracks the download of offline plant markers. -->
+    <string name="notification_title_download_markers">Téléchargement des marqueurs de plantes</string>
+</resources>

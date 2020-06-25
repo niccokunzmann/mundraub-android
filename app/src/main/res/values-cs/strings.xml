@@ -1,4 +1,544 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- NOTE: Translations are not done here but instead online on Transifex!
+         Open this link to translate the app to your language:
+         https://www.transifex.com/mundraub-android/mundraub-android-app/
+      -->
+    <!-- Universal app name. If you translate it, also translate it in the title.txt file. -->
+    <string name="app_name">Fruit Radar</string>
+
+    <!-- ==============  Edit and add a plant  ============== -->
+    <!-- Edit and add a plant: Activity title -->
+    <string name="title_edit_plant">Upravit rostlinu</string>
+    <!-- Edit and add a plant: When there are form fields still unfilled or with invalid information, this is displayed. -->
+    <string name="plant_has_unfilled_form_fields">Prosím, přidejte více informací o vaší rostlině ...</string>
+    <!-- Edit and add a plant: all fields are filled and the plant can be uploaded to a platform -->
+    <string name="all_plant_fields_are_filled">Všechna povinná pole rostliny jsou vyplněna.</string>
+    <!-- Edit and add a plant: The type of plant is not chosen. This opens the Activity for choosing the plant type. -->
+    <string name="choose_plant_type">Vyberte typ rostliny</string>
+    <!-- Edit and add a plant: Number of plants of the cosen type in this entry -->
+    <string name="count">Počet:</string>
+    <!-- Edit and add a plant: Description of the plant and place where to find it -->
+    <string name="description">Popis</string>
+    <!-- Edit and add a plant: Position if the plant -->
+    <string name="position">Pozice:</string>
+    <!-- Edit and add a plant: Remove the own plant from the list of own plants. -->
+    <string name="delete">Smazat</string>
+    <!-- Edit and add a plant: GPS button to get the current position -->
+    <string name="GPS">GPS</string>
+    <!-- Edit and add a plant: License for the map in case a static map image of the plant location is given. -->
+    <string name="osm_license">© OpenStreetMap přispěvatelé</string>
+    <!-- Edit and add a plant: Button to choose the position of the plant from the map. -->
+    <string name="map">Mapa</string>
+
+    <!-- ==============  plant categories  ============== -->
+    <!-- plant categories: Activity title -->
+    <string name="title_activity_choose_plant_type">Kategorie rostlin</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="apple">Jabloň</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="apricot">Meruňka</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="pear">Hruška</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="cherry">Třešeň</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="mirabelle">Mirabelka</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="mulberry">Moruše</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="plum">Švestka</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="quince">Kdoule</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="other_fruit_trees">Ostatní ovocné stromy</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="blackberry">Ostružina</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="blueberry">Borůvka</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="bilberry">Borůvka</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="raspberry">Malina</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="elder">Starší</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="rose_hip">Šípek</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="juneberry">Muchovník</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="currant">Rybíz</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="cornel_cherry">Dřín</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="seaberry">Mořské plody</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="haw">Hloh</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="sloe">Trnka</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="other_fruit_shrub">Ostatní ovocný keř</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="ramsons">Medvědí česnek</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="mint">Máta</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="rosemary">Rozmarýn</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="thyme">Tymián</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="other_herbs">Ostatní byliny</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="juniper">Jalovec</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="woodruff">Mařinka vonná</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="hazel">Líska</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="chestnut">Kaštan</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="wild_strawberry">Lesní jahoda</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="walnut">Vlašský ořech</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="other_nut">Jiné ořechy</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="unnamed_plant">Neznámá rostlina</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="sour_cherry">Planá třešeň</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="lemon_balm">Meduňka lékařská</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="chokeberry">Aronie</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="medlar">Mišpule obecná</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="service_tree">Jeřáb oskeruše</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="rowan">Jeřáb</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="almond">Mandle</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="gooseberry">Srstka angrešt</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="peach">Broskev</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="silverberry">Hlošina</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="tangerine">Mandarinka</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="grapefruit">Grapefruit</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="red_ribes">Rybíz červený</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="black_ribes">Černý rybíz</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="strawberry">Jahodník </string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="jostaberry">Josta</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="greengage">Slivoň bluma</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="grape">Hrozny</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="orange">Pomerančovník</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="dogwood">Dřín</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="lemon">Citronovník</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="briar">Vřesovec stromovitý</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="fig">Fíkovník</string>
+    <!-- plant categories: If you are unsure how to translate this, please view this document and improve it: https://github.com/niccokunzmann/mundraub-android/blob/master/docs/categories.md -->
+    <string name="horse_chestnut">Kaštan</string>
+    <!-- plant categories: This is an error name for a category when we forgot to add a translation for it. -->
+    <string name="fruit_resource_id_not_found">Chyba: Přidejte kategorii rostlin do souboru strings.xml.</string>
+
+
+    <!-- ==============  Login  ============== -->
+    <!-- Login: Activity title -->
+    <string name="title_activity_login">Přihlásit se</string>
+    <!-- Login: Hint in the username field -->
+    <string name="prompt_username">Uživatelské jméno</string>
+    <!-- Login: hint in the email field when you sign in -->
+    <string name="prompt_email">E-Mail</string>
+    <!-- Login: hint in the password field -->
+    <string name="prompt_password">Heslo</string>
+    <!-- Login: Text on the sign in button -->
+    <string name="action_sign_in">Přihlásit se (vyžadován účet)</string>
+    <!-- Login: action label of the password field -->
+    <string name="action_sign_in_short">Přihlásit se</string>
+    <!-- Login: Text on the register button -->
+    <string name="action_register">Zaregistrovat nový účet</string>
+    <!-- Login: Error message -->
+    <string name="error_invalid_username">Toto uživatelské jméno je neplatné</string>
+    <!-- Login: Error message -->
+    <string name="error_invalid_password">Toto heslo je příliš krátké</string>
+    <!-- Login: Error message -->
+    <string name="invalid_credentials">Uživatel neexistuje nebo je heslo nesprávné.</string>
+    <!-- Login: Error message -->
+    <string name="error_field_required">Vyplňte prosím toto pole</string>
+    <!-- Login: Error message -->
+    <string name="error_invalid_email">Vyplňte prosím platnou e-mailovou adresu.</string>
+    <!-- Login: Shown as dialog information  -->
+    <string name="signup_successful_see_email">Proces registrace byl úspěšný. Brzy byste měli obdržet e-mail.</string>
+    <!-- Login: API name for mundraub -->
+    <string name="login_api_name_mundraub">Mundraub.org</string>
+    <!-- Login: API name for na ovoce -->
+    <string name="login_api_name_na_ovoce">Na-Ovoce.cz</string>
+    <!-- Login: API name for a na-ovoce server running under an own domain -->
+    <string name="login_api_name_my_na_ovoce">Vlastní server Na-Ovoce</string>
+    <!-- Login: API name for the local test API for development -->
+    <string name="login_api_name_dummy">Local Dummy API</string>
+    <!-- Login: API name for fruit map -->
+    <string name="login_api_name_fruitmap">FruitMap.org</string>
+
+
+    <!-- ==============  view plant details  ============== -->
+    <!-- view plant details: Activity title -->
+    <string name="title_plant_detail">Detail rostliny</string>
+    <!-- view plant details: Button text when login was successful -->
+    <string name="upload_plant_online">Sdílet tuto rostlinu online</string>
+    <!-- view plant details: Button text when changes to the plant can be uploaded -->
+    <string name="edit_plant_online">Nahrát změny</string>
+    <!-- view plant details: Button text to remove the plant -->
+    <string name="delete_plant_online">Odstranit rostlinu z platformy</string>
+    <!-- view plant details: Button text to open the browser window to the platform -->
+    <string name="view_plant_online">Zobrazit rostlinu online</string>
+    <!-- view plant details: Text heading for the online platform action buttons -->
+    <string name="plant_online_description">Změnit rostlinu online:</string>
+    <!-- view plant details: plant description -->
+    <string name="longitude">Zeměpisná délka:</string>
+    <!-- view plant details: plant description -->
+    <string name="latitude">Zeměpisná šířka:</string>
+    <!-- view plant details: this is asked when the position of the plant should better be chosen from the map -->
+    <string name="ask_open_the_map">Chcete otevřít mapu a umístit první rostlinu?</string>
+    <!-- view plant details: this is asked when the position of the plant should better be chosen from the map -->
+    <string name="reason_reposition_unknown_position">Zaznamenaná poloha rostliny může být příliš daleko. Prosím zkontrolujte to.</string>
+    <!-- view plant details: this is asked when the position of the plant should better be chosen from the map -->
+    <string name="reason_reposition_gps_position">Poloha GPS je pravděpodobně příliš daleko od reality. Zkontrolujte prosím na mapě, zda je v pořádku.</string>
+    <!-- view plant details: Dialog information -->
+    <string name="delete_plant_information">Pokud rostlinu odstraníte online, rostlina ztratí všechny komentáře a všechny další informace o této rostlině</string>
+    <!-- view plant details: Dialog information -->
+    <string name="ask_delete_plant">Chcete rostlinu odstranit z online platformy?</string>
+    <!-- view plant details: Button text shown when the wide screen view is activated where you can see the list and the plant at the same time. -->
+    <string name="edit">Upravit</string>
+    <!-- view plant details: Asked when the category of the plant can be mapped to a broader category on the platform. -->
+    <string name="ask_upload_ok">Chcete tuto rostlinu nahrát?</string>
+    <!-- view plant details: Asked when the category of the plant can be mapped to a broader category on the platform. -->
+    <string name="reason_category_changes">Do „<xliff:g example="Mundraub.org" id="platform">%1$s</xliff:g>“ lze kategorii „<xliff:g example="Tangerine" id="source_category">%2$s</xliff:g>“ nahrát pouze jako „<xliff:g example="Other Fruit Tree" id="mapped_category">%3$s</xliff:g>“.</string>
+    <!-- view plant details: displayed after "Longitude:" and "Latitude:" if the plant has no position -->
+    <string name="position_not_set">neznámá</string>
+    <!-- view plant details: reason for asking to check the other plants nearby -->
+    <string name="reason_plant_has_other_plant_nearby">V blízkosti této rostliny je další rostlina podobného typu. Pokud rostlinu nahrajete, může to být duplikát.</string>
+    <!-- view plant details: Question whether to open the map when there is an equal plant nearby -->
+    <string name="ask_open_map_before_upload">Chcete zkontrolovat mapu a zrušit nahrávání?</string>
+
+    <!-- ==============  Dialogs  ============== -->
+    <!-- Dialogs: Dialog title -->
+    <string name="error">Chyba</string>
+    <!-- Dialogs: Dialog title -->
+    <string name="success">Úspěch!</string>
+    <!-- Dialogs: Dialog title -->
+    <string name="attention">Pozor!</string>
+    <!-- Dialogs: Dialog message -->
+    <string name="delete_question">Jste si jistí, že to chcete smazat?</string>
+    <!-- Dialogs: Reason why we ask if the plant should be deleted. -->
+    <string name="delete_plant_reason">Pokud rostlinu odstraníte, ztratí se všechny obrázky a data rostliny v telefonu. Pokud jste rostlinu nahráli, platforma stále obsahuje data.</string>
+    <!-- Dialogs: Dialog button -->
+    <string name="no">ne</string>
+    <!-- Dialogs: Dialog button -->
+    <string name="yes">ano</string>
+
+    <!-- ==============  List of my plants  ============== -->
+    <!-- List of my plants: Activity title -->
+    <string name="title_my_plants">Moje rostliny</string>
+    <!-- List of my plants: This is shown between my plants of different date. You probably just want to re-order the letters and change the characters in between. For the date format see https://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html -->
+    <string name="plant_list_date_format">MM/dd/rrrr</string>
+
+    <!-- API errors and results: Never saw that but the AsyncTask has this operation -->
+    <string name="task_was_cancelled">Operace byla zrušena.</string>
+    <!-- API errors and results: When you try to upload/change the plant online but the API does not allow this. -->
+    <string name="operation_not_permitted">Operace není povolena.</string>
+    <!-- API errors and results:  -->
+    <string name="error_unexpected_return_code">Server odpověděl neočekávaným návratovým kódem.</string>
+    <!-- API errors and results: The user tries to log in but the email needs to be verified before. -->
+    <string name="error_email_needs_to_be_validated_before_login">Předtím prosím ověřte svou e-mailovou adresu.</string>
+    <!-- API errors and results: Let's invite people to contribute when they see this error which we do not know about. -->
+    <string name="error_not_specified">Došlo k chybě a pokud jí vývojáři věnují více času, měli byste se dozvědět více o tom, co se děje. Je čas začít vyvíjet aplikaci!</string>
+    <!-- API errors and results: Used when an API is not 100% implemented. -->
+    <string name="error_not_implemented">Tato operace ještě není implementována.</string>
+    <!-- API errors and results:  -->
+    <string name="success_plant_uploaded">Rostlina byla nahrána na online platformu.</string>
+    <!-- API errors and results:  -->
+    <string name="success_plant_updated">Rostlina byla úspěšně aktualizována.</string>
+    <!-- API errors and results:  -->
+    <string name="success_plant_deleted">Rostlina byla odstraněna z online platformy.</string>
+    <!-- API errors and results: The server answered and we do not know what has happened. Computer says no. -->
+    <string name="error_could_not_post_plant">Rostlinu nebylo možné zveřejnit online, protože server data odmítl.</string>
+    <!-- API errors and results:  -->
+    <string name="error_no_plant_id">Server neodpověděl pomocí identifikačního čísla rostliny. Podívejte se online, co se stalo.</string>
+    <!-- API errors and results: Probably no internet connection. -->
+    <string name="error_unknown_hostname">Název hostitele se nepodařilo vyřešit, a proto se nemohl připojit k serveru. Zkontrolujte připojení k internetu.</string>
+    <!-- API errors and results: Mundraub also posts the address. This could also be shown on the map if we have an address search there. -->
+    <string name="error_could_not_parse_open_street_map_data">Nelze získat adresu z OpenStreetMap.</string>
+    <!-- API errors and results: IOException in the connection when we try to see if the plant exists on Mundraub.org. -->
+    <string name="error_count_not_check_plant">Nelze se zeptat serveru, zda rostlina existuje.</string>
+    <!-- API errors and results: Super broad. This is the error message shown if we do not know what has happened with the connection once it was established.. -->
+    <string name="error_connection">Při připojení k serveru došlo k chybě.</string>
+    <!-- API errors and results: Mundraub.org: Looks like we are unable to do that. -->
+    <string name="error_could_not_delete_plant">Rostlinu nelze odstranit online. Došlo k nějaké chybě. Přejděte prosím na online a smažte ji sami.</string>
+    <!-- API errors and results: Certificates can not be verified on older platforms. This error message should direct the user to the settings to allow unsafe connections. -->
+    <string name="error_could_not_validate_host">Identita serveru není důvěryhodná. Toto je známý problém na starších platformách. Aktuálně můžete v nastavení zakázat důvěryhodná připojení, abyste tuto chybu obešli. Nebojte se přispět řešením.</string>
+    <!-- API errors and results: When there is a JSON error for the markers retrieved from any API. -->
+    <string name="error_invalid_json_for_markers">Značky vrácené platformou jsou v neočekávaném formátu. Možná změnili API? Nahlaste tento problém, na straně O nás v nabídce.</string>
+    <!-- API errors and results:  -->
+    <string name="error_could_not_sign_up_mundraub">Nepodařilo se zaregistrovat na Mundraub.org.</string>
+    <!-- API errors and results: Should not happen. Internal URL construction. -->
+    <string name="error_malformed_url">Zadaná adresa URL byla poškozena.</string>
+    <!-- API errors and results:  -->
+    <string name="error_invalid_protocol">S použitým protokolem došlo k chybě.</string>
+    <!-- API errors and results: Cannot use SSL or TLS -->
+    <string name="error_no_such_algorithm">Algoritmus pro šifrování není k dispozici.</string>
+    <!-- API errors and results: also used for API connections -->
+    <string name="error_key_management">Nelze inicializovat správu klíčů.</string>
+    <!-- API errors and results: Timeout Error -->
+    <string name="error_timeout">Vypršel časový limit připojení k serveru.</string>
+    <!-- API errors and results: in the login form -->
+    <string name="error_could_not_sign_up_na_ovoce">Nelze se zaregistrovat na Na-Ovoce.cz. Server nevrátil uživatelské jméno.</string>
+    <!-- API errors and results: in the login form -->
+    <string name="error_could_not_log_in_na_ovoce">Nelze se přihlásit na Na-Ovoce.cz. Server nevrátil autorizační token. Zkontrolujte prosím své uživatelské jméno a heslo a zkuste to znovu.</string>
+    <!-- API errors and results: When the server only supports https -->
+    <string name="error_redirect_no_api_found">Server přesměrován. Možná je API dostupné pod jinou URL.</string>
+    <!-- API errors and results: should be circumvent by the UI. If not, the user should change the API endpoint or the category of the plant or if this is an error, change categories.json -->
+    <string name="error_invalid_category_for_api">Kategorie této rostliny není na této platformě k dispozici. Nemohu publikovat tuto rostlinu. Vyberte jinou kategorii nebo ji nahrajte jinam.</string>
+    <!-- API errors and results: error message when uploading/changing plant online -->
+    <string name="error_plant_position_is_invalid">Rostlina nemá platnou polohu. Nelze ji zveřejnit.</string>
+    <!-- API errors and results:  -->
+    <string name="error_plant_category_is_not_set">Vyberte kategorii rostlin, do které chcete rostlinu nahrát.</string>
+    <!-- API errors and results: SSLProtocolException -->
+    <string name="error_could_not_establish_a_secure_connection">Při pokusu o navázání zabezpečeného připojení k serveru došlo k chybě.</string>
+
+    <!-- ==============  map to choose plant position  ============== -->
+    <!-- map to choose plant position: Activity title -->
+    <string name="title_choose_map_position">Zvolte pozici rostliny</string>
+    <!-- map to choose plant position: info dialog when the plant has no position -->
+    <string name="info_plant_position_is_chosen_from_best_guess">Rostlina nemá zaznamenanou polohu. Značka je na místě, kde byla umístěna poslední rostlina. Najděte správnou polohu.</string>
+
+    <!-- ==============  Map of all plants  ============== -->
+    <!-- Map of all plants: Activity title -->
+    <string name="title_activity_show_plants">Mapa rostlin</string>
+
+    <!-- ==============  Menu  ============== -->
+    <!-- Menu: entry to open the app menu -->
+    <string name="menu_about">O nás</string>
+    <!-- Menu: entry to open the settings -->
+    <string name="menu_settings">Nastavení</string>
+    <!-- Menu: entry to open the map -->
+    <string name="menu_map">Mapa</string>
+    <!-- Menu: entry to open the own collected plants -->
+    <string name="menu_my_plants">Moje rostliny</string>
+    <!-- Menu: entry to open the community codex -->
+    <string name="menu_rules">Kodex komunity</string>
+    <!-- Menu: entry to open the Privacy Policy -->
+    <string name="menu_privacy">Zásady soukromí</string>
+    <!-- Menu: entry to open the Changelog -->
+    <string name="menu_changelog">protokol změn</string>
+    <!-- Menu: entry to open the Address Search -->
+    <string name="menu_search_address">Hledat místa</string>
+
+    <!-- ==============  About the app  ============== -->
+    <!-- About the app: Activity title -->
+    <string name="title_about">O Aplikaci</string>
+    <!-- About the app: text -->
+    <string name="about_app">Toto je neoficiální aplikace pro Mundraub.org. Zdrojový kód je otevřený. Jste zváni k vylepšení aplikace.</string>
+    <!-- About the app: button -->
+    <string name="about_view_source">Zobrazit zdrojový kód</string>
+    <!-- About the app: button text -->
+    <string name="about_view_source_at_version" formatted="false">Zobrazit zdrojový kód verze <xliff:g example="1.0" id="version">%1$s</xliff:g> v commitu <xliff:g example="5849748" id="commit">%2$s</xliff:g>.</string>
+    <!-- About the app: text -->
+    <string name="about_four_freedoms">Máte možnost provozovat, studovat, distribuovat a vylepšovat software.</string>
+    <!-- About the app: button -->
+    <string name="about_view_four_freedoms">Více o našich čtyřech svobodách</string>
+    <!-- About the app: button url. you can translate this to your language -->
+    <string name="about_view_four_freedoms_url">https://en.wikipedia.org/wiki/Free_software#Definition_and_the_Four_Freedoms</string>
+    <!-- About the app: text -->
+    <string name="about_issues">Pokud máte s aplikací nějaký problém a chcete ho nahlásit, můžete otevřít nové hlášení problému.</string>
+    <!-- About the app: button -->
+    <string name="about_view_issues">Zobrazit problémy nebo otevřít jeden</string>
+    <!-- About the app: text -->
+    <string name="about_licenses">Tato aplikace má duální licenční model: GPL verze 3 pro aplikaci a navíc licenci MIT pro mapu.</string>
+    <!-- About the app: button -->
+    <string name="about_gpl">Zobrazit GPLv3</string>
+    <!-- About the app: button -->
+    <string name="about_mit">Zobrazit MIT</string>
+
+    <!-- ==============  Crash reporting  ============== -->
+    <!-- Crash reporting: error message & explanation when an error report is present -->
+    <string name="error_app_crashed">V aplikaci došlo k neočekávané chybě a havarovala. Pokud chcete pomoci vyřešit tento problém, přejděte na F-Droid, otevřete nástroj Sledování problémů a nahláste selhání u souboru %s.</string>
+    <!-- Crash reporting: error message & explanation when an error report is present -->
+    <string name="ask_error_report_is_needed">Chcete použít chybovou zprávu?</string>
+
+    <!-- ==============  Requesting permissions  ============== -->
+    <!-- Requesting permissions: General question to give a permission -->
+    <string name="permission_request">Would you like to give the permission now, so the app can use this functionality?</string>
+    <!-- Requesting permissions: Error message on old devices. -->
+    <string name="permission_error_no_api">Nemohu otevřít dialogové okno oprávnění, protože verze API tohoto zařízení je příliš nízká. Zkuste udělit povolení sami!</string>
+    <!-- Requesting permissions: ACCESS_FINE_LOCATION reason -->
+    <string name="permission_purpose_access_fine_location">Aplikace potřebuje povolení k přístupu k lokaci zařízení, aby mohla automaticky vyplnit polohu zařízení.</string>
+    <!-- Requesting permissions: CAMERA_REASON -->
+    <string name="permission_purpose_camera">Aby bylo možné fotografovat rostliny, aplikace potřebuje povolení k přístupu k fotoaparátu.</string>
+    <!-- Requesting permissions: EXTERNAL_STORAGE reason -->
+    <string name="permission_purpose_external_storage">Aplikace potřebuje oprávnění k zápisu nalezených rostlin do úložiště zařízení, aby je bylo možné zobrazit, když se aplikace uzavře a znovu otevře.</string>
+    <!-- Requesting permissions: INTERNET reason. probably useless since given any way -->
+    <string name="permission_purpose_internet">Aby bylo možné nahrávat rostliny na Internet, aplikace potřebuje oprávnění k přístupu na internet.</string>
+    <!-- Requesting permissions: General permission denied message -->
+    <string name="permission_denied_consequences">Toto oprávnění není uděleno, takže aplikace to nemůže udělat.</string>
+    <!-- Requesting permissions: VIBRATE reason -->
+    <string name="permission_purpose_vibrate">Pokud je v dosahu rostlina, může telefon na chvilku vibrovat, aby vás upozornil. I když udělíte povolení, můžete vibrace v nastavení zapínat a vypínat.</string>
+
+    <!-- ==============  settings  ============== -->
+    <!-- settings: Activity title -->
+    <string name="title_settings">Nastavení aplikace</string>
+    <!-- settings: API choice -->
+    <string name="settings_use_mundraub_api">Pokud je toto povoleno, tato aplikace publikuje rostliny na Mundraub.org.</string>
+    <!-- settings: API choice  -->
+    <string name="settings_use_na_ovoce">Pokud je toto povoleno, aplikace zveřejní rostliny na Na-Ovoce.cz.</string>
+    <!-- settings: API choice  -->
+    <string name="settings_use_my_na_ovoce">Pokud je tato možnost povolena, tato aplikace publikuje rostliny na vlastním serveru Na-Ovoce.</string>
+    <!-- settings: API choice  -->
+    <string name="settings_use_fruitmap">Pokud je to povoleno, tato aplikace publikuje rostliny na FruitMap.org.</string>
+    <!-- settings: API choice  -->
+    <string name="settings_use_dummy">Pokud je toto povoleno, tato aplikace nezveřejňuje rostliny, ale místo toho simuluje místní API pro testování.</string>
+    <!-- settings: used on old platforms -->
+    <string name="setting_use_secure_connection">Pokud je toto povoleno, certifikační autority důvěřují tomuto připojení aplikace k serveru Mundraub.org a dalším serverům. To může způsobit problém na starších platformách, které nemohou ověřit certifikát.</string>
+    <!-- settings:  -->
+    <string name="settings_use_cache">Pokud je toto povoleno, aplikace použije adresář mezipaměti pro rostliny. V případě potřeby je můžete odstranit. Pokud je to zakázáno, aplikace používá externí úložiště, takže můžete synchronizovat a přenášet rostliny.</string>
+    <!-- settings: Error message when the plant location can not be changed. -->
+    <string name="error_could_not_move_plants">Rostliny nelze přesunout do požadovaného adresáře.</string>
+    <!-- settings: section title -->
+    <string name="settings_connection">Nastavení připojení</string>
+    <!-- settings: section title -->
+    <string name="settings_storage">Nastavení úložiště</string>
+    <!-- settings: section title -->
+    <string name="settings_offline_map">Nastavení mapy offline</string>
+    <!-- settings: section title -->
+    <string name="settings_debug">Nastavení odstranění chyb</string>
+    <!-- settings: section title -->
+    <string name="settings_permissions">Nastavení oprávnění</string>
+    <!-- settings: column title: Switch permissions on and off -->
+    <string name="settings_permission_activate">Zap / Vyp</string>
+    <!-- settings: column title: should a dialog be shown if a permission is not given but required? -->
+    <string name="settings_permission_ask">Vyžádat?</string>
+    <!-- settings: column title -->
+    <string name="settings_permission_name">Oprávnění</string>
+    <!-- settings: permission name -->
+    <string name="settings_permission_camera_title">FOTOAPARÁT</string>
+    <!-- settings: permission explanation -->
+    <string name="settings_permission_camera_text">Může aplikace fotit rostliny?</string>
+    <!-- settings: permission name -->
+    <string name="settings_permission_storage_title">EXTERNÍ ÚLOŽIŠTĚ</string>
+    <!-- settings: permission explanation -->
+    <string name="settings_permission_storage_text">Může aplikace ukládat rostliny na externí úložiště?</string>
+    <!-- settings: permission name -->
+    <string name="settings_permission_location_title">LOKACE</string>
+    <!-- settings: permission explanation -->
+    <string name="settings_permission_location_text">Může aplikace vyplnit polohu rostliny z GPS?</string>
+    <!-- settings: permission name -->
+    <string name="settings_permission_internet_title">INTERNET</string>
+    <!-- settings: permission explanation -->
+    <string name="settings_permission_internet_text">Může se aplikace připojit k mapovým službám a Mundraub?</string>
+    <!-- settings: permission name -->
+    <string name="settings_permission_vibration_title">VIBROVÁNÍ</string>
+    <!-- settings: permission explanation -->
+    <string name="settings_permission_vibration_text">Může aplikace vibrovat, pokud fruit radar detekuje ovoce?</string>
+    <!-- settings: Error message on old APIs when the permission dialog window can not be opened -->
+    <string name="error_can_edit_permissions_only_externally">Oprávnění aplikace lze upravovat pouze externě. Chcete-li je změnit, otevřete nastavení aplikace pro Android.</string>
+    <!-- settings: Pressing the left button for the permission turn off -->
+    <string name="error_can_not_edit_permissions_api_too_old">Tato verze systému Android je příliš stará na to, aby zrušila oprávnění aplikace. Promiňte.</string>
+    <!-- settings:  -->
+    <string name="settings_ask_for_error_report">Když se aplikace spustí po jejím zhroucení: Pokud je tato možnost povolena, budete dotázáni, zda chcete použít hlášení o chybě.</string>
+    <!-- settings: section title -->
+    <string name="settings_offline">Nastavení Offline</string>
+    <!-- settings:  -->
+    <string name="settings_use_offline_mode">Pokud je tato možnost povolena, je mapa vyplněna staženými značkami rostlin. Pokud je zakázána, používá se aktuální verze z Mundraub.org.</string>
+    <!-- settings: dialog reason: download offline data -->
+    <string name="reason_offline_data_needs_to_be_downloaded">Abychom měli něco off-line, musíme data stáhnout. Můžete také použít to, co je již v telefonu.</string>
+    <!-- settings: dialog question: download offline data -->
+    <string name="ask_download_offline_data">Chcete nyní aktualizovat offline data?</string>
+    <!-- settings: dialog success: download offline data -->
+    <string name="success_plant_offline_data_was_downloaded">Všechny vybrané značky rostlin jsou staženy.</string>
+    <!-- settings: dialog error: download offline data -->
+    <string name="error_debug_api_can_not_download_offline_data">Ladicí API nemůže stahovat offline data. Použijte rozhraní Mundraub API ve spodní části nastavení.</string>
+    <!-- settings:  -->
+    <string name="settings_create_public_api_for_debug">Pokud je toto povoleno, aplikace poskytuje rozhraní Mundraub map API do místní sítě. Nemůže dojít k žádnému poškození, protože toto API je pouze pro čtení.</string>
+    <!-- settings: section title -->
+    <string name="settings_markers">Vyberte své kategorie rostlin</string>
+    <!-- settings:  -->
+    <string name="settings_use_markers_mundraub">Pokud je toto zaškrtnuto, můžete si vybrat kategorii vaší rostliny z Mundraub.org.</string>
+    <!-- settings:  -->
+    <string name="settings_use_markers_na_ovoce">Pokud je toto zaškrtnuto, můžete si vybrat kategorii vaší rostliny z Na-Ovoce.cz.</string>
+    <!-- settings:  -->
+    <string name="settings_use_markers_fruitmap">Pokud je toto zaškrtnuto, můžete si vybrat kategorii rostlin z webu FruitMap.org.</string>
+    <!-- settings:  -->
+    <string name="settings_use_markers_community">Když je toto zaškrtnuto, můžete vybrat kategorie rostlin, které jsou k dispozici pouze v aplikaci a jsou přispívané komunitou.</string>
+    <!-- settings: fruit radar: section title -->
+    <string name="settings_fruit_radar">Fruit Radar</string>
+    <!-- settings: fruit radar:  -->
+    <string name="settings_enable_fruit_radar">Pokud je toto povoleno, aplikace vás upozorní na jedlé rostliny v okolí.</string>
+    <!-- settings: fruit radar: text -->
+    <string name="settings_distance_in_meters" formatted="false">Když je rostlina vzdálená <xliff:g example="10" id="distance">%1$d</xliff:g> metrů, obdržíte oznámení.</string>
+    <!-- settings: fruit radar: development test at the bottom of the app -->
+    <string name="settings_test_fruit_radar">vyzkoušejte radarová oznámení na mapě</string>
+    <!-- settings: Dialog: switch on offline mode? -->
+    <string name="reason_radar_only_works_in_offline_mode">Fruit radar funguje pouze v režimu offline, protože potřebuje stažené značky.</string>
+    <!-- settings: Dialog: switch on offline mode? -->
+    <string name="ask_switch_on_offline_mode">Chcete nyní přejít do režimu offline?</string>
+    <!-- settings:  -->
+    <string name="settings_enable_fruit_radar_vibration">Pokud je to povoleno a na ovocném radaru se objeví rostlina, telefon začne vibrovat.</string>
+    <!-- settings: Checkbutton to choose which sources to download markers from -->
+    <string name="settings_download_mundraub_markers">Pokud je toto povoleno, aplikace stáhne všechny značky rostlin z Mundraub.org.</string>
+    <!-- settings: Checkbutton to choose which sources to download markers from -->
+    <string name="settings_download_custom_na_ovoce_markers">Pokud je toto povoleno, aplikace stáhne všechny značky rostlin ze seznamu serverů Na-ovoce, oddělených čárkou.</string>
+    <!-- settings: If you choose to download markers from additional na-ovoce sources, you can specify this list of hosts, including http or https, domain and maye port. -->
+    <string name="settings_hint_my_na_ovoce_server">http://my.domain, https://other.server:8080</string>
+    <!-- settings: Checkbutton to choose which sources to download markers from -->
+    <string name="settings_download_na_ovoce_markers">Pokud je toto povoleno, aplikace stáhne všechny značky rostlin z Na-Ovoce.cz.</string>
+    <!-- settings: Checkbutton to choose which sources to download markers from -->
+    <string name="settings_download_fruitmap_markers">Pokud je toto povoleno, aplikace stáhne všechny značky rostlin z webu FruitMap.org.</string>
+    <!-- settings: Button text to open the map an choose areas to take offline -->
+    <string name="settings_create_offline_areas">Vyberte, které oblasti mapy se mají načíst offline.</string>
+    <!-- settings: Checkbutton to choose which sources to download map tiles from -->
+    <string name="settings_offline_mapnik">Stáhnout dlaždice OpenStreetMap.</string>
+    <!-- settings: Checkbutton to choose which sources to download map tiles from -->
+    <string name="settings_offline_satellite">Stáhnout dlaždice fotomapy.</string>
+    <!-- settings: -->
+    <string name="settings_offline_map_explanation">Přepnutí do režimu offline snižuje internetovou komunikaci a umožňuje zobrazit mapu, když nemáte připojení k internetu, které pomáhá najít rostliny.</string>
+    <!-- settings: -->
+    <string name="settings_offline_markers_explanation">Tato aplikace funguje nejlépe v režimu offline, když jsou staženy všechny rostliny z různých platforem. V online režimu můžete používat pouze server Mundraub.org, protože umožňují získat rostliny v určitém rozsahu.</string>
+    <!-- settings: offline map statistics -->
+    <string name="settings_offline_map_statistics" formatted="false">Chcete mít <xliff:g example="3" id="areas">%1$d</xliff:g> oblasti offline. Asi by měla být velikost všech <xliff:g example="30mb" id="estimated">%2$s</xliff:g> obrázků dlaždic mapy v telefonu. V současné době se používají <xliff:g example="40mb" id="used">%3$s</xliff:g>.</string>
+    <!-- settings: button text -->
+    <string name="settings_remove_offline_map_areas">Odstranit všechny offline oblasti</string>
+    <!-- settings: button text -->
+    <string name="settings_download_tiles">Stáhnout mapu</string>
+    <!-- settings: dialog when you delete all offline areas -->
+    <string name="settings_reason_delete_offline_tiles">Odstranili jste všechny offline oblasti, ale stažené části stále zabírají místo.</string>
+    <!-- settings: dialog when you delete all offline areas -->
+    <string name="settings_ask_delete_downloaded_tiles">Chcete odstranit všechny offline dlaždice?</string>
+    <!-- settings: checkbox to configure download of map tiles -->
+    <string name="settings_download_all_zoom_levels">Chtěl bych být schopen oddálit mapu v režimu offline. To také stáhne dlaždice mapy pro oddálení a vyžaduje asi jednu třetinu dalšího místa.</string>
+    <!-- settings: dialog message when all the map tiles are downloaded with success -->
+    <string name="settings_success_download_map">Všechny vybrané části mapy byly staženy a jsou nyní k dispozici offline.</string>
+    <!-- settings: max number of displayed markers on map : text -->
+    <string name="settings_max_num_of_markers" formatted="false">Na mapě se zobrazí maximálně <xliff:g example="100" id="maxMarkers">%1$d</xliff:g> značek.</string>
+    <!-- settings: when you choose a custom na-ovoce server as a target for upload, you can click this button to reach the source code of na-ovoce.cz -->
+    <string name="settings_setup_na_ovoce">Nastavení</string>
+
+    <!-- ==============  Community Codex  ============== -->
+    <!-- https://mundraub.org/mundraeuber-regeln -->
+    <!-- Community Codex: Activity title -->
+    <string name="title_codex">Kodex komunity</string>
     <!-- Community Codex: rule 1 -->
     <string name="mundraub_rule_1">Primárně zjišťujeme, zda sběrem plodů neporušujeme žádná vlastnická práva.</string>
     <!-- Community Codex: rule 2 -->
@@ -7,4 +547,81 @@
     <string name="mundraub_rule_3">O své objevy se dělíme s ostatními uživateli.</string>
     <!-- Community Codex: rule 4 -->
     <string name="mundraub_rule_4"> Zapojujeme se do údržby a výsadby nových ovocných stromů.</string>
-    </resources>
+    <!-- Community Codex: button text to open the url -->
+    <string name="mundraub_rules_long_version">Ukažte mi dlouhou verzi!</string>
+    <!-- Community Codex: Accept the rules -->
+    <string name="mundraub_rules_i_understand">Zní to rozumně, rozumím!</string>
+    <!-- Community Codex: url to open the community rules in a given language. This may change from as different platforms have different rules. -->
+    <string name="rules_url">https://mundraub.org/mundraeuber-regeln</string>
+
+    <!-- ==============  Fruit Radar Notifications  ============== -->
+    <!-- Fruit Radar Notifications: Activity title for the test at the bottom of the settings -->
+    <string name="title_fruit_radar_test">Test Fruit Radaru</string>
+    <!-- Fruit Radar Notifications: channel name of the notifications -->
+    <string name="channel_name">Rostliny v okolí</string>
+    <!-- Fruit Radar Notifications: Short text to be displayed in a notification. %1$d is the distance in meters i.e. "10" and %2$s is the direction i.e. "north of you". You can order these as you like in your language. You can shorten meters to "m" to avoid plural problems. -->
+    <string name="notification_text_with_distance" formatted="false"><xliff:g example="10" id="distance">%1$d</xliff:g> metrů <xliff:g example="north of you" id="direction">%2$s</xliff:g></string>
+    <!-- Fruit Radar Notifications: Part of the notification message -->
+    <string name="direction_north">severně od vás</string>
+    <!-- Fruit Radar Notifications: Part of the notification message -->
+    <string name="direction_north_east">severovýchodně od vás</string>
+    <!-- Fruit Radar Notifications: Part of the notification message -->
+    <string name="direction_east">východně od vás</string>
+    <!-- Fruit Radar Notifications: Part of the notification message -->
+    <string name="direction_south_east">jihovýchodně od vás</string>
+    <!-- Fruit Radar Notifications: Part of the notification message -->
+    <string name="direction_south">jižně od vás</string>
+    <!-- Fruit Radar Notifications: Part of the notification message -->
+    <string name="direction_south_west">jihozápadně od vás</string>
+    <!-- Fruit Radar Notifications: Part of the notification message -->
+    <string name="direction_west">západně od vás</string>
+    <!-- Fruit Radar Notifications: Part of the notification message -->
+    <string name="direction_north_west">severozápadně od vás</string>
+    <!-- Fruit Radar Notifications: Part of the notification message. When the plant is too close to really tell the direction e.g. because GPS is too imprecise. -->
+    <string name="direction_too_close">daleko od vás</string>
+
+    <!-- ==============  Startup  ============== -->
+    <!-- Startup: Activity title. This will be displayed during loading -->
+    <string name="title_startup">Fruit Radar se spouští ...</string>
+    <!-- Startup: loading plants takes some time if there are many -->
+    <string name="startup_loading_plants">Načítání všech rostlin ...</string>
+    <!-- Startup: When the privacy policy could possibly be of interest to the user: Tell them what its purpose is. -->
+    <string name="reason_open_privacy_policy">Dále uvidíte mapu. Data budou odeslána na servery na internetu. Nejprve si můžete prohlédnout zásady ochrany osobních údajů, abyste se ujistili, že víte, co se potom stane.</string>
+    <!-- Startup: When the privacy policy could possibly be of interest to the user: Ask the users if they would like to view it. -->
+    <string name="question_open_privacy_policy">Chcete místo mapy ovoce otevřít Zásady ochrany osobních údajů?</string>
+
+
+    <!-- ==============  Choose Offline Areas  ============== -->
+    <!-- Choose Offline Areas: Activity title. This is displayed when choosing offline areas. -->
+    <string name="title_select_offline_areas">Zvolte offline oblasti mapy</string>
+
+    <!-- ==============  Privacy Policy  ============== -->
+    <!-- Privacy Policy: Activity title. This is displayed when viewing the Privacy Policy. -->
+    <string name="title_privacy_policy">Zásady ochrany osobních údajů</string>
+
+    <!-- ==============  Changelog  ============== -->
+    <!-- Changelog: Activity title. This is displayed when viewing the Changelog. -->
+    <string name="title_changelog">Změny ve Fruit Radaru</string>
+
+    <!-- ==============  Address Search  ============== -->
+    <!-- Address Address Search: Activity title. This is displayed when viewing the Address Search. -->
+    <string name="title_address_search">Hledat místo na mapě</string>
+    <!-- Address Search: Text of the addressSearch button. -->
+    <string name="search_button">Hledat</string>
+    <!-- Address Search: Text displayed at the bottom containing the license of the searched data. -->
+    <string name="search_license">Data © OpenStreetMap přispěvatelé, ODbL 1.0.</string>
+    <!-- Address Search: Text displayed when the search contains no entries. -->
+    <string name="search_no_result">Pro toto nebylo nalezeno žádné místo.</string>
+    <!-- Address Search: Text displayed when the search contains no entries. -->
+    <string name="search_no_local_result">Na zařízení nejsou žádná taková místa zaznamenána.</string>
+
+    <!-- ==============  Notifications  ============== -->
+    <!-- Notifications: The download is in progress. -->
+    <string name="notification_download_in_progress">Probíhá stahování.</string>
+    <!-- Notifications: The download is complete. -->
+    <string name="notification_download_completed">Stahování dokončeno.</string>
+    <!-- Notifications: This is the title of the nofication which tracks the download of offline map tiles. -->
+    <string name="notification_title_download_map">Stáhnout offline mapu</string>
+    <!-- Notifications: This is the title of the nofication which tracks the download of offline plant markers. -->
+    <string name="notification_title_download_markers">Stáhnout značky rostlin</string>
+</resources>
