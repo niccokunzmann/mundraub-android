@@ -83,6 +83,13 @@ Languages:
 - Java for the app, Android 2.3 [GINGERBREAD]
 - HTML/CSS/JavaScript for the [map]
 
+Related Work
+------------
+
+- [Kotlin App for Mundraub](https://github.com/xjcl/mundraub-unofficial)
+- [na-ovoce](https://github.com/jsmesami/naovoce)
+- [official Mundraub App](https://mundraub.org/blog/mundraub-app)
+
 [Mundraub.org]: https://mundraub.org
 [OpenLayers]: https://dev.openlayers.org
 [staticmap]: http://staticmap.openstreetmap.de
