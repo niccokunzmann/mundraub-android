@@ -1,0 +1,6 @@
+Aurkitu landareak eta partekatu online ! 
+Zure telefonoa zurekin daramazu beti. Landare jangarri bat aurkitzen duzunean aurkikuntza besteekin partekatzea gustatzen zaizu, kokalekua, mota eta argazkia gorde ditzakezu. Beranduago, Internet daukazunean, landare jangarrien mapa librera igo dezakezu: Mundraub.org. 
+Ezaugarriak: 
+<ul>     <li>Bildu landareen datu guztiak lineaz kanpo</li>     <li>Mapa integratua landareak aurkitzeko</li>     <li>Jakinarazpenak landareak gertu daudenean</li>     <li>Landareak eta mapa lineaz kanpoko moduan</li>     <li>Landareen iturriak: FruitMap.org, Mundraub.org, Na-Ovoce.cz</li>     <li>Argitaratu landareak Mundraub.org-en eta Na-Ovoce.cz-en</li> </ul> 
+Baimenak: 
+<ul>     <li>KAMERA landarearen argazkia ateratzeko</li>     <li>GPS kokalekua automatikoki betetzeko</li>     <li>INTERNET landarea igotzeko eta mapa bat bistaratzeko</li> <li>MEMORIA (hautazkoa) zertarako: landareak JSON formatuan esportatzeko app-aren logak gordetzeko eta kraskatzen duenean guri laguntzeko     </li>     <li>BIBRAZIOA (hautazkoa) landareak gertu dituzunean abisatzeko</li> </ul>
