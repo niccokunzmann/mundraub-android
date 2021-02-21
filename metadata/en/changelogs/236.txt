@@ -1,0 +1,1 @@
+Add translations in Brazilian Portuguese, Issue 321.
