@@ -4,6 +4,8 @@ Old Android phones are not able to use the new SSL certificates and are therefor
 to retrieve up-to-date data from Na-Ovoce and other servers.
 
 This is why proxy servers serve HTTP content.
+To setup your own proxy for your phone, you can head over to the
+[fruit-radar-old-devices-proxy](https://github.com/niccokunzmann/fruit-radar-old-devices-proxy#readme).
 
 ## Na-Ovoce.cz
 
