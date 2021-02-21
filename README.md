@@ -1,6 +1,8 @@
 Mundraub-Android
 ================
 
+**Barely maintained: I do not actively develop this app any more. If you like to contribute feel free, I can merge your pull requests and also hand development over.**
+
 [![Build Status](https://travis-ci.org/niccokunzmann/mundraub-android.svg?branch=master)][travis]
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/niccokunzmann/mundraub-android.svg)](http://isitmaintained.com/project/niccokunzmann/mundraub-android "Percentage of issues still open")
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/niccokunzmann/mundraub-android.svg)](http://isitmaintained.com/project/niccokunzmann/mundraub-android "Average time to resolve an issue")
