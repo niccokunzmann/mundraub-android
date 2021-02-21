@@ -1,0 +1,10 @@
+Este aplicativo é open-source! Nós damos valor às suas contribuições - entenda como seu aplicativo.
+Traduza o aplicativo para o seu idioma:
+https://www.transifex.com/mundraub-android/mundraub-android-app/
+Reportar bugs e discutir funcionalidades:
+https://github.com/niccokunzmann/mundraub-android/issues/
+Ver e melhorar o código fonte:
+https://github.com/niccokunzmann/mundraub-android/
+Visualizar as últimas alterações:
+https://niccokunzmann.github.io/mundraub-android/docs/changelog/
+Licença: GNU General Public License versão 3
