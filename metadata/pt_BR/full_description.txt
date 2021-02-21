@@ -1,0 +1,6 @@
+Encontre plantas alimentícias e as compartilhe online! 
+Você está com seu telefone o tempo todo. Ao encontrar uma planta alimentícia, você pode compartilhar com outros, registrar a localização, tipo e fotografias. Mais tarde, quando estiver conectado, você pode subir a marcação para o mapa de plantas alimentícias em: Mundraub.org.  
+Funcionalidades: 
+<ul>     <li>Coletar todos os dados de plantas offline</li>     <li>Mapa integrado para encontrar plantas</li>     <li>Notificações quando plantas estiverem próximas</li>     <li>Plantas e mapas no modo offline</li>     <li>Fontes de plantas: FruitMap.org, Mundraub.org, Na-Ovoce.cz</li>     <li>Publicar plantas em Mundraub.org e Na-Ovoce.cz</li> </ul> 
+Permissões: 
+<ul>     <li>CAMERA para fotografar a planta</li>     <li>GPS para preenchimento automático da localização</li>     <li>INTERNET para subir a planta e exibi-la no mapa</li>     <li>ARMAZENAMENTO (opcional) para salvar as plantas em formato exportável JSON e salvar o log do aplicativo para nos ajudar quando o aplicativo falhar     </li>     <li>VIBRAR (opcional) para ser notificado sobre plantas próximas</li> </ul>

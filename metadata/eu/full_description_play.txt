@@ -1,0 +1,10 @@
+App hau software librea da! Zure ekarpenak aintzat hartzen ditugu - ikus ezazu zure app-a bezala.
+Itzuli app-a zure hizkuntzara:
+https://www.transifex.com/mundraub-android/mundraub-android-app/
+Akatsen berri eman eta ezaugarriak eztabaidatu:
+https://github.com/niccokunzmann/mundraub-android/issues/
+Ikusi eta hobetu iturburu-kodea:
+https://github.com/niccokunzmann/mundraub-android/
+Ikusi azken aldaketak:
+https://niccokunzmann.github.io/mundraub-android/docs/changelog/
+Lizentzia: GNU General Public License, 3. bertsioa
