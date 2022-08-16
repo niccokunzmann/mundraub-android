@@ -106,6 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_register"
+                android:textColor="#5C5D5D"
                 android:textStyle="bold" />
 
         </LinearLayout>
